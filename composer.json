@@ -30,6 +30,6 @@
         "automattic/wordbless": "^0.3.1"
     },
     "scripts": {
-        "post-update-cmd": "php -r \"copy('vendor/automattic/wordbless/src/dbless-wpdb.php', 'wordpress/wp-content/db.php');\""
+        "post-autoload-dump": "php -r \"copy('vendor/automattic/wordbless/src/dbless-wpdb.php', 'wordpress/wp-content/db.php');\""
     }
 }

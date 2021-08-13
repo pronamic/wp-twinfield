@@ -1,5 +1,11 @@
 <?php
 
+$autoload_file = __DIR__ . '/../vendor/autoload.php';
+
+if ( ! is_readable( $autoload_file ) ) {
+	die( 'Run `composer install`.' );
+}
+
 require __DIR__ . '/../vendor/autoload.php';
 
 // WorDBless.
