@@ -118,6 +118,50 @@ $offices = $organisation_service->get_offices();
 *	https://en.wikipedia.org/wiki/Interpreter_pattern
 
 
+## Architecture
+
+### REST API
+
+/wp-json/pronamic-twinfield/v1/user
+/wp-json/pronamic-twinfield/v1/organisation
+/wp-json/pronamic-twinfield/v1/authentications/1/organisations
+/wp-json/pronamic-twinfield/v1/authentications/1/user
+/wp-json/pronamic-twinfield/v1/authentications/1/organisation
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/dimension-types
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/declarations
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/periods
+
+### Web
+
+/twinfield/user
+/twinfield/organisation
+/twinfield/organisations
+/twinfield/organisations/vandermeeracc
+/twinfield/organisations/vandermeeracc/offices
+/twinfield/organisations/vandermeeracc/offices/66470_A
+/twinfield/organisations/vandermeeracc/offices/66470_A/dimension-types
+/twinfield/organisations/vandermeeracc/offices/66470_A/declarations
+/twinfield/organisations/vandermeeracc/offices/66470_A/periods
+
+/twinfield/... » /wp-json/pronamic-twinfield/v1/...
+
+### CLI
+
+wp twinfield user
+wp twinfield organisation
+wp twinfield ... » /wp-json/pronamic-twinfield/v1/...
+
+### Config
+
+```php
+define( 'PRONAMIC_TWINFIELD_CLIENT_ID', , '' );
+define( 'PRONAMIC_TWINFIELD_CLIENT_SECRET', '' );
+define( 'PRONAMIC_TWINFIELD_REDIRECT_URI', '' );
+```
+
 ## Other
 
 *	http://www.accountingcoach.com/blog/accounts-payable-accounts-receivable
