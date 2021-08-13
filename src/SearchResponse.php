@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
 /**
  * Search response
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield;
  * This class represents an Twinfield search response.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SearchResponse {

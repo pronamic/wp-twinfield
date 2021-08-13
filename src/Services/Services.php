@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Services;
+namespace Pronamic\WordPress\Twinfield\Services;
 
 /**
  * Services
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield\Services;
  * This class contains constants for different Twinfield services.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  * @see        https://accounting.twinfield.com/webservices/documentation/#/GettingStarted/WebServicesOverview
  */

@@ -4,15 +4,15 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Offices;
+namespace Pronamic\WordPress\Twinfield\Offices;
 
-use Pronamic\WP\Twinfield\CodeName;
-use Pronamic\WP\Twinfield\Organisation\Organisation;
-use Pronamic\WP\Twinfield\Accounting\TransactionType;
-use Pronamic\WP\Twinfield\Accounting\DimensionType;
+use Pronamic\WordPress\Twinfield\CodeName;
+use Pronamic\WordPress\Twinfield\Organisation\Organisation;
+use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
+use Pronamic\WordPress\Twinfield\Accounting\DimensionType;
 
 /**
  * Office
@@ -20,7 +20,7 @@ use Pronamic\WP\Twinfield\Accounting\DimensionType;
  * This class represents an Twinfield office
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Office extends CodeName {

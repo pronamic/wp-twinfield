@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Customers;
+namespace Pronamic\WordPress\Twinfield\Customers;
 
-use Pronamic\WP\Twinfield\Contacts\Contact;
+use Pronamic\WordPress\Twinfield\Contacts\Contact;
 
 /**
  * Customer finder result
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\Contacts\Contact;
  * This class represents an Twinfield customer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerFinderResult {

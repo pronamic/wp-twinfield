@@ -4,16 +4,16 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Hierarchies;
+namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 /**
  * Hierarchy Node
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class HierarchyNode implements \IteratorAggregate {

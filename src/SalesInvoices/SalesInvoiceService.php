@@ -4,16 +4,16 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/SalesInvoices
+ * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WP\Twinfield\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
-use Pronamic\WP\Twinfield\ProcessXmlString;
-use Pronamic\WP\Twinfield\XMLProcessor;
-use Pronamic\WP\Twinfield\XML\SalesInvoices\SalesInvoiceReadRequestSerializer;
-use Pronamic\WP\Twinfield\XML\SalesInvoices\SalesInvoiceSerializer;
-use Pronamic\WP\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
+use Pronamic\WordPress\Twinfield\ProcessXmlString;
+use Pronamic\WordPress\Twinfield\XMLProcessor;
+use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceReadRequestSerializer;
+use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceSerializer;
+use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
 
 /**
  * Sales Invoice Service
@@ -21,7 +21,7 @@ use Pronamic\WP\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
  * This class represents an Twinfield sales invoice service.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceService {

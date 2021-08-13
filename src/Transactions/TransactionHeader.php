@@ -4,15 +4,15 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Transactions
+ * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WP\Twinfield\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
-use Pronamic\WP\Twinfield\Currency;
-use Pronamic\WP\Twinfield\Offices\Office;
-use Pronamic\WP\Twinfield\Relations\Relation;
-use Pronamic\WP\Twinfield\Users\User;
+use Pronamic\WordPress\Twinfield\Currency;
+use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Relations\Relation;
+use Pronamic\WordPress\Twinfield\Users\User;
 
 /**
  * Transaction Header
@@ -25,7 +25,7 @@ use Pronamic\WP\Twinfield\Users\User;
  * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/PurchaseTransactions
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionHeader {

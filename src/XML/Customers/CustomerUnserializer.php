@@ -5,24 +5,24 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML/Articles
+ * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WP\Twinfield\XML\Customers;
+namespace Pronamic\WordPress\Twinfield\XML\Customers;
 
-use Pronamic\WP\Twinfield\Country;
-use Pronamic\WP\Twinfield\DimensionTypes;
-use Pronamic\WP\Twinfield\EmailList;
-use Pronamic\WP\Twinfield\XML\Security;
-use Pronamic\WP\Twinfield\XML\Unserializer;
-use Pronamic\WP\Twinfield\Customers\Customer;
-use Pronamic\WP\Twinfield\Customers\CustomerResponse;
+use Pronamic\WordPress\Twinfield\Country;
+use Pronamic\WordPress\Twinfield\DimensionTypes;
+use Pronamic\WordPress\Twinfield\EmailList;
+use Pronamic\WordPress\Twinfield\XML\Security;
+use Pronamic\WordPress\Twinfield\XML\Unserializer;
+use Pronamic\WordPress\Twinfield\Customers\Customer;
+use Pronamic\WordPress\Twinfield\Customers\CustomerResponse;
 
 /**
  * Sales invoices unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerUnserializer extends Unserializer {

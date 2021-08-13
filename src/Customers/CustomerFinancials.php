@@ -4,13 +4,13 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Customers;
+namespace Pronamic\WordPress\Twinfield\Customers;
 
 use InvalidArgumentException;
-use Pronamic\WP\Twinfield\EmailList;
+use Pronamic\WordPress\Twinfield\EmailList;
 
 /**
  * Customer financials
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\EmailList;
  * This class represents Twinfield customer financials.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerFinancials {

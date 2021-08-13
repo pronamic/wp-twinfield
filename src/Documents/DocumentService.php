@@ -4,13 +4,13 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Documents;
+namespace Pronamic\WordPress\Twinfield\Documents;
 
-use Pronamic\WP\Twinfield\AbstractService;
-use Pronamic\WP\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\AbstractService;
+use Pronamic\WordPress\Twinfield\Client;
 
 /**
  * Finder
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Client;
  * This class connects to the Twinfield finder Webservices to search for Twinfield masters.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DocumentService extends AbstractService {

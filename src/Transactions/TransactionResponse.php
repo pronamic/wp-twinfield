@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Transactions
+ * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WP\Twinfield\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
-use Pronamic\WP\Twinfield\Response;
+use Pronamic\WordPress\Twinfield\Response;
 
 /**
  * Transaction response
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Response;
  * additional information.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionResponse extends Response {

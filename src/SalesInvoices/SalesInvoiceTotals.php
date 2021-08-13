@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/SalesInvoices
+ * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WP\Twinfield\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
-use Pronamic\WP\Twinfield\VatCode;
+use Pronamic\WordPress\Twinfield\VatCode;
 
 /**
  * Sales Invoice totals
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\VatCode;
  * This class represents an Twinfield sales invoice totals.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceTotals {

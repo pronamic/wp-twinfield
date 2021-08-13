@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
 /**
  * Array of message of error codes
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield;
  * This class represents the 'ArrayOfMessageOfErrorCodes' Twinfield class.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class ArrayOfMessageOfErrorCodes implements \IteratorAggregate {

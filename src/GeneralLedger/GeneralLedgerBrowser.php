@@ -4,7 +4,7 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/GeneralLedger
+ * @package    Pronamic/WordPress/Twinfield/GeneralLedger
  */
 
-namespace Pronamic\WP\Twinfield\GeneralLedger;
+namespace Pronamic\WordPress\Twinfield\GeneralLedger;

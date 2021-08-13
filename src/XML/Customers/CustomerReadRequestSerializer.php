@@ -5,19 +5,19 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\XML\Customers;
+namespace Pronamic\WordPress\Twinfield\XML\Customers;
 
-use Pronamic\WP\Twinfield\XML\ReadRequestSerializer;
-use Pronamic\WP\Twinfield\Customers\CustomerReadRequest;
+use Pronamic\WordPress\Twinfield\XML\ReadRequestSerializer;
+use Pronamic\WordPress\Twinfield\Customers\CustomerReadRequest;
 
 /**
  * Customer read request XML
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerReadRequestSerializer extends ReadRequestSerializer {

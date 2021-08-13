@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Transactions
+ * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WP\Twinfield\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
 /**
  * Transaction Line Key
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield\Transactions;
  * This class represents a Twinfield transaction line key.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionLineKey {

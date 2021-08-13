@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Articles;
+namespace Pronamic\WordPress\Twinfield\Articles;
 
 /**
  * Article line
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield\Articles;
  * This class represents an Twinfield article line.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class ArticleLine {

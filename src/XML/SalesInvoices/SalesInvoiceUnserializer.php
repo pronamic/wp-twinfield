@@ -5,25 +5,25 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML/Articles
+ * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WP\Twinfield\XML\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\XML\SalesInvoices;
 
-use Pronamic\WP\Twinfield\XML\Security;
-use Pronamic\WP\Twinfield\XML\Unserializer;
-use Pronamic\WP\Twinfield\XML\DateUnserializer;
-use Pronamic\WP\Twinfield\SalesInvoices\SalesInvoice;
-use Pronamic\WP\Twinfield\SalesInvoices\SalesInvoiceHeader;
-use Pronamic\WP\Twinfield\SalesInvoices\SalesInvoiceLine;
-use Pronamic\WP\Twinfield\SalesInvoices\SalesInvoiceResponse;
-use Pronamic\WP\Twinfield\VatCode;
+use Pronamic\WordPress\Twinfield\XML\Security;
+use Pronamic\WordPress\Twinfield\XML\Unserializer;
+use Pronamic\WordPress\Twinfield\XML\DateUnserializer;
+use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoice;
+use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceHeader;
+use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceLine;
+use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceResponse;
+use Pronamic\WordPress\Twinfield\VatCode;
 
 /**
  * Sales invoices unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceUnserializer extends Unserializer {

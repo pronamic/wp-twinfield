@@ -4,21 +4,21 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Customers
+ * @package    Pronamic/WordPress/Twinfield/Customers
  */
 
-namespace Pronamic\WP\Twinfield\Customers;
+namespace Pronamic\WordPress\Twinfield\Customers;
 
-use Pronamic\WP\Twinfield\Finder;
-use Pronamic\WP\Twinfield\FinderTypes;
-use Pronamic\WP\Twinfield\Search;
-use Pronamic\WP\Twinfield\SearchFields;
+use Pronamic\WordPress\Twinfield\Finder;
+use Pronamic\WordPress\Twinfield\FinderTypes;
+use Pronamic\WordPress\Twinfield\Search;
+use Pronamic\WordPress\Twinfield\SearchFields;
 
 /**
  * Customer Finder
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerFinder {

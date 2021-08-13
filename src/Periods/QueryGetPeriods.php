@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Periods;
+namespace Pronamic\WordPress\Twinfield\Periods;
 
-use Pronamic\WP\Twinfield\Query;
+use Pronamic\WordPress\Twinfield\Query;
 
 /**
  * Query get years.
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\Query;
  * This class connects to the Twinfield deleted transactions webservices.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class QueryGetPeriods extends Query {

@@ -4,21 +4,21 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Offices
+ * @package    Pronamic/WordPress/Twinfield/Offices
  */
 
-namespace Pronamic\WP\Twinfield\Offices;
+namespace Pronamic\WordPress\Twinfield\Offices;
 
-use Pronamic\WP\Twinfield\Finder;
-use Pronamic\WP\Twinfield\FinderTypes;
-use Pronamic\WP\Twinfield\Search;
-use Pronamic\WP\Twinfield\SearchFields;
+use Pronamic\WordPress\Twinfield\Finder;
+use Pronamic\WordPress\Twinfield\FinderTypes;
+use Pronamic\WordPress\Twinfield\Search;
+use Pronamic\WordPress\Twinfield\SearchFields;
 
 /**
  * Office Finder
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class OfficeFinder {

@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
-use Pronamic\WP\Twinfield\ReadRequest;
+use Pronamic\WordPress\Twinfield\ReadRequest;
 
 /**
  * Sales invoice read request
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\ReadRequest;
  * This class represents an Twinfield sales invoice read request.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceReadRequest extends ReadRequest {

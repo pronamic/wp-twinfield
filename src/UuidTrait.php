@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
 /**
  * UUID Trait
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield;
  * This class represents a Twinfield code and name.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 trait UuidTrait {

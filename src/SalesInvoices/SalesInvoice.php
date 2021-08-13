@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/SalesInvoices
+ * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WP\Twinfield\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 /**
  * Sales Invoice
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield\SalesInvoices;
  * This class represents an Twinfield sales invoice.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoice {

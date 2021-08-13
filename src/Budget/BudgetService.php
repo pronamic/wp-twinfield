@@ -6,10 +6,10 @@
  * @package Pronamic/WP/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Budget;
+namespace Pronamic\WordPress\Twinfield\Budget;
 
-use Pronamic\WP\Twinfield\AbstractService;
-use Pronamic\WP\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\AbstractService;
+use Pronamic\WordPress\Twinfield\Client;
 
 /**
  * Budget service

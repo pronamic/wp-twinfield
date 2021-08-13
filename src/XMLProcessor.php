@@ -4,13 +4,13 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
-use Pronamic\WP\Twinfield\AbstractService;
-use Pronamic\WP\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\AbstractService;
+use Pronamic\WordPress\Twinfield\Client;
 
 /**
  * XML Processor
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Client;
  * This class connects to the Twinfield XML processor Webservices to process XML messages.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class XMLProcessor extends AbstractService {

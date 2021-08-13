@@ -6,9 +6,9 @@
  * @package Pronamic/WP/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Budget;
+namespace Pronamic\WordPress\Twinfield\Budget;
 
-use Pronamic\WP\Twinfield\Query;
+use Pronamic\WordPress\Twinfield\Query;
 
 /**
  * Get budget by profit and loss.

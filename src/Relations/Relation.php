@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Relations;
+namespace Pronamic\WordPress\Twinfield\Relations;
 
-use Pronamic\WP\Twinfield\CodeName;
+use Pronamic\WordPress\Twinfield\CodeName;
 
 /**
  * Relation
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\CodeName;
  * This class represents a Twinfield relation
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Relation extends CodeName {

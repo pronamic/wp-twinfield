@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Browse;
+namespace Pronamic\WordPress\Twinfield\Browse;
 
 /**
  * Browse definition
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield\Browse;
  * This class represents a Twinfield browse definition.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class BrowseDefinition {

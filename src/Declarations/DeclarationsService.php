@@ -4,15 +4,15 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Declarations;
+namespace Pronamic\WordPress\Twinfield\Declarations;
 
-use Pronamic\WP\Twinfield\Authentication\AuthenticationInfo;
-use Pronamic\WP\Twinfield\AbstractService;
-use Pronamic\WP\Twinfield\Client;
-use Pronamic\WP\Twinfield\Session;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
+use Pronamic\WordPress\Twinfield\AbstractService;
+use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Session;
 
 /**
  * Declarations service
@@ -20,7 +20,7 @@ use Pronamic\WP\Twinfield\Session;
  * This class connects to the Twinfield declarations Webservices.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DeclarationsService extends AbstractService {

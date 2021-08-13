@@ -4,18 +4,18 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
-use Pronamic\WP\Twinfield\Authentication\AccessTokenValidation;
-use Pronamic\WP\Twinfield\Authentication\AuthenticationInfo;
-use Pronamic\WP\Twinfield\Authentication\AuthenticationTokens;
-use Pronamic\WP\Twinfield\Authentication\OpenIdConnectClient;
-use Pronamic\WP\Twinfield\Authentication\InvalidTokenException;
-use Pronamic\WP\Twinfield\Offices\OfficeService;
-use Pronamic\WP\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
+use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
+use Pronamic\WordPress\Twinfield\Authentication\InvalidTokenException;
+use Pronamic\WordPress\Twinfield\Offices\OfficeService;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Client
@@ -23,7 +23,7 @@ use Pronamic\WP\Twinfield\Offices\Office;
  * This class connects to the Twinfield Webservices.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Client {
@@ -191,7 +191,7 @@ class Client {
 		$finder = $this->get_finder();
 
 		// Request.
-		$search = new \Pronamic\WP\Twinfield\Search(
+		$search = new Search(
 			'TRS',
 			'*',
 			0,

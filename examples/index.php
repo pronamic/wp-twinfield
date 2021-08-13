@@ -1,5 +1,7 @@
 <?php
 
+namespace Pronamic\WordPress\Twinfield;
+
 $autoload_file = __DIR__ . '/../vendor/autoload.php';
 
 if ( ! is_readable( $autoload_file ) ) {
@@ -23,13 +25,13 @@ if ( ! is_readable( $file ) ) {
 	die( 'Create `client-secret.json` file.' );
 }
 
-$openid_connect_client = \Pronamic\WP\Twinfield\Authentication\OpenIdConnectClient::from_json_file( $file );
+$openid_connect_client = Authentication\OpenIdConnectClient::from_json_file( $file );
 
 // Authentication
 $authentication_file = __DIR__ . '/authentication-secret.json';
 
 if ( \is_readable( $authentication_file ) ) {
-	$authentication = \Pronamic\WP\Twinfield\Authentication\AuthenticationInfo::from_object( \json_decode( \file_get_contents( $authentication_file, true ) ) );
+	$authentication = Authentication\AuthenticationInfo::from_object( \json_decode( \file_get_contents( $authentication_file, true ) ) );
 }
 
 /**
@@ -39,13 +41,13 @@ if ( \is_readable( $authentication_file ) ) {
 if ( \array_key_exists( 'code', $_GET ) ) {
 	$response = $openid_connect_client->get_access_token( $_GET['code'] );
 
-	$tokens = \Pronamic\WP\Twinfield\Authentication\AuthenticationTokens::from_object( $response );
+	$tokens = Authentication\AuthenticationTokens::from_object( $response );
 
 	$response = $openid_connect_client->get_access_token_validation( $tokens->get_access_token() );
 
-	$validation = \Pronamic\WP\Twinfield\Authentication\AccessTokenValidation::from_object( $response );
+	$validation = Authentication\AccessTokenValidation::from_object( $response );
 
-	$authentication = new \Pronamic\WP\Twinfield\Authentication\AuthenticationInfo( $tokens, $validation );
+	$authentication = new Authentication\AuthenticationInfo( $tokens, $validation );
 
 	\file_put_contents( $authentication_file, \wp_json_encode( $authentication, \JSON_PRETTY_PRINT ) );
 
@@ -57,7 +59,7 @@ if ( \array_key_exists( 'code', $_GET ) ) {
 }
 
 if ( isset( $authentication ) ) {
-	$client = new Pronamic\WP\Twinfield\Client( $openid_connect_client, $authentication );
+	$client = new Client( $openid_connect_client, $authentication );
 
 	$client->set_authentication_refresh_handler( function( $client ) use ( $authentication_file ) {
 		\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
@@ -86,11 +88,11 @@ if ( isset( $authentication ) ) {
 
 			<h2>Organisation</h2>
 
-			<?php var_dump( $client->get_organisation() ); ?>
+			<?php \var_dump( $client->get_organisation() ); ?>
 
 			<h2>User</h2>
 
-			<?php var_dump( $client->get_user() ); ?>
+			<?php \var_dump( $client->get_user() ); ?>
 
 			<h2>Offices</h2>
 
@@ -142,7 +144,7 @@ if ( isset( $authentication ) ) {
 				?>
 				<h2>Office</h2>
 
-				<?php var_dump( $office ); ?>
+				<?php \var_dump( $office ); ?>
 				
 				<h2>Transaction Types</h2>
 
@@ -246,9 +248,9 @@ if ( isset( $authentication ) ) {
 
 			$url = $openid_connect_client->get_authorize_url( $state );
 
-			printf(
+			\printf(
 				'<a href="%s">Connect with Twinfield</a>',
-				\htmlspecialchars( $url )
+				\esc_url( $url )
 			);
 
 			?>

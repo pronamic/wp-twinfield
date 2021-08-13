@@ -4,29 +4,29 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/SalesInvoices
+ * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WP\Twinfield\Customers;
+namespace Pronamic\WordPress\Twinfield\Customers;
 
-use Pronamic\WP\Twinfield\ProcessXmlString;
-use Pronamic\WP\Twinfield\XMLProcessor;
+use Pronamic\WordPress\Twinfield\ProcessXmlString;
+use Pronamic\WordPress\Twinfield\XMLProcessor;
 
-use Pronamic\WP\Twinfield\Browse\Browser;
-use Pronamic\WP\Twinfield\Browse\BrowseCodes;
-use Pronamic\WP\Twinfield\Browse\BrowseReadRequest;
+use Pronamic\WordPress\Twinfield\Browse\Browser;
+use Pronamic\WordPress\Twinfield\Browse\BrowseCodes;
+use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
 
-use Pronamic\WP\Twinfield\XML\Customers\CustomerReadRequestSerializer;
-use Pronamic\WP\Twinfield\XML\Customers\CustomerSerializer;
-use Pronamic\WP\Twinfield\XML\Customers\CustomerUnserializer;
+use Pronamic\WordPress\Twinfield\XML\Customers\CustomerReadRequestSerializer;
+use Pronamic\WordPress\Twinfield\XML\Customers\CustomerSerializer;
+use Pronamic\WordPress\Twinfield\XML\Customers\CustomerUnserializer;
 
-use Pronamic\WP\Twinfield\XML\Dimensions\DimensionUnserializer;
+use Pronamic\WordPress\Twinfield\XML\Dimensions\DimensionUnserializer;
 
 /**
  * Customer Service
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerService {

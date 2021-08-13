@@ -4,22 +4,22 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/SalesInvoices
+ * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WP\Twinfield\Offices;
+namespace Pronamic\WordPress\Twinfield\Offices;
 
-use Pronamic\WP\Twinfield\Client;
-use Pronamic\WP\Twinfield\ProcessXmlString;
-use Pronamic\WP\Twinfield\XMLProcessor;
-use Pronamic\WP\Twinfield\XML\Security;
-use Pronamic\WP\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\ProcessXmlString;
+use Pronamic\WordPress\Twinfield\XMLProcessor;
+use Pronamic\WordPress\Twinfield\XML\Security;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Office Service
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class OfficeService {

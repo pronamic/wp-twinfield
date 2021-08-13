@@ -4,13 +4,13 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
-use Pronamic\WP\Twinfield\Authentication\AuthenticationInfo;
-use Pronamic\WP\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 use SoapClient;
 use SoapHeader;
 
@@ -20,7 +20,7 @@ use SoapHeader;
  * This class connects to the Twinfield Webservices.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 abstract class AbstractService {

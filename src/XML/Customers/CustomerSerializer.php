@@ -5,20 +5,20 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\XML\Customers;
+namespace Pronamic\WordPress\Twinfield\XML\Customers;
 
-use Pronamic\WP\Twinfield\DimensionTypes;
-use Pronamic\WP\Twinfield\XML\Serializer;
-use Pronamic\WP\Twinfield\Customers\Customer;
+use Pronamic\WordPress\Twinfield\DimensionTypes;
+use Pronamic\WordPress\Twinfield\XML\Serializer;
+use Pronamic\WordPress\Twinfield\Customers\Customer;
 
 /**
  * Sales invoice serializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class CustomerSerializer extends Serializer {

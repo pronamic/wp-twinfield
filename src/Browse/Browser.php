@@ -4,14 +4,14 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Browse
+ * @package    Pronamic/WordPress/Twinfield/Browse
  */
 
-namespace Pronamic\WP\Twinfield\Browse;
+namespace Pronamic\WordPress\Twinfield\Browse;
 
-use Pronamic\WP\Twinfield\XMLProcessor;
-use Pronamic\WP\Twinfield\ProcessXmlString;
-use Pronamic\WP\Twinfield\XML\Browse\BrowseReadRequestSerializer;
+use Pronamic\WordPress\Twinfield\XMLProcessor;
+use Pronamic\WordPress\Twinfield\ProcessXmlString;
+use Pronamic\WordPress\Twinfield\XML\Browse\BrowseReadRequestSerializer;
 
 /**
  * Browser
@@ -19,7 +19,7 @@ use Pronamic\WP\Twinfield\XML\Browse\BrowseReadRequestSerializer;
  * This class utilizes Twinfield browse features.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Browser {

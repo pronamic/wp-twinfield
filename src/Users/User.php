@@ -4,13 +4,13 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Users;
+namespace Pronamic\WordPress\Twinfield\Users;
 
-use Pronamic\WP\Twinfield\CodeName;
-use Pronamic\WP\Twinfield\Organisation\Organisation;
+use Pronamic\WordPress\Twinfield\CodeName;
+use Pronamic\WordPress\Twinfield\Organisation\Organisation;
 
 /**
  * User
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Organisation\Organisation;
  * This class represents a Twinfield user
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class User extends CodeName {

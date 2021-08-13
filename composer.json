@@ -9,7 +9,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Pronamic\\WP\\Twinfield\\": "src/"}
+        "psr-4": {"Pronamic\\WordPress\\Twinfield\\": "src/"}
     },
     "config": {
         "platform": {

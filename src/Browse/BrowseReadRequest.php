@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Browse;
+namespace Pronamic\WordPress\Twinfield\Browse;
 
-use Pronamic\WP\Twinfield\ReadRequest;
+use Pronamic\WordPress\Twinfield\ReadRequest;
 
 /**
  * Browse read request
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\ReadRequest;
  * This class represents a Twinfield browse read request.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class BrowseReadRequest extends ReadRequest {

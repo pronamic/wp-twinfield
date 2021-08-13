@@ -4,26 +4,26 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/SalesInvoices
+ * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WP\Twinfield\GeneralLedger;
+namespace Pronamic\WordPress\Twinfield\GeneralLedger;
 
-use Pronamic\WP\Twinfield\Browse\Browser;
-use Pronamic\WP\Twinfield\Browse\BrowseCodes;
-use Pronamic\WP\Twinfield\Browse\BrowseReadRequest;
+use Pronamic\WordPress\Twinfield\Browse\Browser;
+use Pronamic\WordPress\Twinfield\Browse\BrowseCodes;
+use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
 
-use Pronamic\WP\Twinfield\Transactions\TransactionLine;
-use Pronamic\WP\Twinfield\Transactions\TransactionLineKey;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionLine;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionLineKey;
 
-use Pronamic\WP\Twinfield\XML\DateUnserializer;
-use Pronamic\WP\Twinfield\XML\DateTimeUnserializer;
+use Pronamic\WordPress\Twinfield\XML\DateUnserializer;
+use Pronamic\WordPress\Twinfield\XML\DateTimeUnserializer;
 
 /**
  * Office Service
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class GeneralLedgerService {

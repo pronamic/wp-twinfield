@@ -4,13 +4,13 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Hierarchies;
+namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
-use Pronamic\WP\Twinfield\AbstractService;
-use Pronamic\WP\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\AbstractService;
+use Pronamic\WordPress\Twinfield\Client;
 
 /**
  * Hierarchy
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Client;
  * This class connects to the Twinfield hierarchy Webservices.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class HierarchiesService extends AbstractService {

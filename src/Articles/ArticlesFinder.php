@@ -4,22 +4,22 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @subpackage Pronamic/WP/Twinfield/Articles
  */
 
-namespace Pronamic\WP\Twinfield\Articles;
+namespace Pronamic\WordPress\Twinfield\Articles;
 
-use Pronamic\WP\Twinfield\Finder;
-use Pronamic\WP\Twinfield\FinderTypes;
-use Pronamic\WP\Twinfield\Search;
-use Pronamic\WP\Twinfield\SearchFields;
+use Pronamic\WordPress\Twinfield\Finder;
+use Pronamic\WordPress\Twinfield\FinderTypes;
+use Pronamic\WordPress\Twinfield\Search;
+use Pronamic\WordPress\Twinfield\SearchFields;
 
 /**
  * Articles Finder
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class ArticlesFinder {

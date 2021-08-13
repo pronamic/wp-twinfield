@@ -3,14 +3,14 @@
  * Transaction Type
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Accounting;
+namespace Pronamic\WordPress\Twinfield\Accounting;
 
-use Pronamic\WP\Twinfield\CodeName;
-use Pronamic\WP\Twinfield\Accounting\Transaction;
-use Pronamic\WP\Twinfield\Accounting\TransactionType;
+use Pronamic\WordPress\Twinfield\CodeName;
+use Pronamic\WordPress\Twinfield\Accounting\Transaction;
+use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
 
 /**
  * Transaction Type
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Accounting\TransactionType;
  * This class represents a Twinfield transaction type
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionType extends CodeName {

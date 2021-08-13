@@ -4,16 +4,16 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Hierarchies;
+namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 /**
  * Hierarchy Node Account Iterator
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  * @link       https://github.com/scotteh/php-dom-wrapper/blob/1.2.0/src/Collections/NodeCollection.php
  */

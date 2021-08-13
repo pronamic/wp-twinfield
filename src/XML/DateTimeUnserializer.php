@@ -5,16 +5,16 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML
+ * @package    Pronamic/WordPress/Twinfield/XML
  */
 
-namespace Pronamic\WP\Twinfield\XML;
+namespace Pronamic\WordPress\Twinfield\XML;
 
 /**
  * Date/time unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DateTimeUnserializer extends Unserializer {

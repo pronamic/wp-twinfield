@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 /**
  * Sales invoice status
@@ -15,7 +15,7 @@ namespace Pronamic\WP\Twinfield\SalesInvoices;
  * This class contains constants for different Twinfield sales invoice statuses.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceStatus {

@@ -3,13 +3,13 @@
  * Journal
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield;
+namespace Pronamic\WordPress\Twinfield;
 
-use Pronamic\WP\Twinfield\Accounting\Transaction;
-use Pronamic\WP\Twinfield\Accounting\TransactionType;
+use Pronamic\WordPress\Twinfield\Accounting\Transaction;
+use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
 
 /**
  * Journal
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\Accounting\TransactionType;
  * This class represents a Twinfield journal
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Journal extends TransactionType {

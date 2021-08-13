@@ -5,20 +5,20 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML/Articles
+ * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WP\Twinfield\XML\Suppliers;
+namespace Pronamic\WordPress\Twinfield\XML\Suppliers;
 
-use Pronamic\WP\Twinfield\XML\Security;
-use Pronamic\WP\Twinfield\XML\Unserializer;
-use Pronamic\WP\Twinfield\Suppliers\Supplier;
+use Pronamic\WordPress\Twinfield\XML\Security;
+use Pronamic\WordPress\Twinfield\XML\Unserializer;
+use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
 
 /**
  * Sales invoices unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SupplierUnserializer extends Unserializer {

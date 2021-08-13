@@ -5,21 +5,21 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML/Articles
+ * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WP\Twinfield\XML\Articles;
+namespace Pronamic\WordPress\Twinfield\XML\Articles;
 
-use Pronamic\WP\Twinfield\XML\Unserializer;
-use Pronamic\WP\Twinfield\Articles\Article;
-use Pronamic\WP\Twinfield\Articles\ArticleHeader;
-use Pronamic\WP\Twinfield\Articles\ArticleLine;
+use Pronamic\WordPress\Twinfield\XML\Unserializer;
+use Pronamic\WordPress\Twinfield\Articles\Article;
+use Pronamic\WordPress\Twinfield\Articles\ArticleHeader;
+use Pronamic\WordPress\Twinfield\Articles\ArticleLine;
 
 /**
  * Article unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class ArticleUnserializer extends Unserializer {

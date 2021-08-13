@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Dimensions;
+namespace Pronamic\WordPress\Twinfield\Dimensions;
 
-use Pronamic\WP\Twinfield\CodeName;
+use Pronamic\WordPress\Twinfield\CodeName;
 
 /**
  * Dimension
@@ -17,7 +17,7 @@ use Pronamic\WP\Twinfield\CodeName;
  * This class represents an Twinfield dimension
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Dimension extends CodeName {

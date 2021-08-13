@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Transactions
+ * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WP\Twinfield\Accounting;
+namespace Pronamic\WordPress\Twinfield\Accounting;
 
 use Pornamic\WP\Twinfield\Offices\Office;
 use DOMDocument;
@@ -18,7 +18,7 @@ use DOMDocument;
  * This class represents a Twinfield dimension.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Dimension {

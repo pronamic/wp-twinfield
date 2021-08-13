@@ -4,18 +4,18 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Contacts
+ * @package    Pronamic/WordPress/Twinfield/Contacts
  */
 
-namespace Pronamic\WP\Twinfield\Contacts;
+namespace Pronamic\WordPress\Twinfield\Contacts;
 
-use Pronamic\WP\Twinfield\Address;
+use Pronamic\WordPress\Twinfield\Address;
 
 /**
  * Contact
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield/Contacts
+ * @package    Pronamic/WordPress/Twinfield/Contacts
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Contact {

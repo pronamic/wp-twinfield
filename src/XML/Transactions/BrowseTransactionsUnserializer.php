@@ -5,33 +5,33 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML/Articles
+ * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WP\Twinfield\XML\Transactions;
+namespace Pronamic\WordPress\Twinfield\XML\Transactions;
 
-use Pronamic\WP\Twinfield\Currency;
-use Pronamic\WP\Twinfield\VatCode;
-use Pronamic\WP\Twinfield\Browse\Row;
-use Pronamic\WP\Twinfield\Offices\Office;
-use Pronamic\WP\Twinfield\Relations\Relation;
-use Pronamic\WP\Twinfield\Transactions\Transaction;
-use Pronamic\WP\Twinfield\Transactions\TransactionHeader;
-use Pronamic\WP\Twinfield\Transactions\TransactionTypeCode;
-use Pronamic\WP\Twinfield\Transactions\TransactionLine;
-use Pronamic\WP\Twinfield\Transactions\TransactionLineDimension;
-use Pronamic\WP\Twinfield\Transactions\TransactionLineKey;
-use Pronamic\WP\Twinfield\Transactions\TransactionResponse;
-use Pronamic\WP\Twinfield\XML\Security;
-use Pronamic\WP\Twinfield\XML\Unserializer;
-use Pronamic\WP\Twinfield\XML\DateUnserializer;
-use Pronamic\WP\Twinfield\XML\DateTimeUnserializer;
+use Pronamic\WordPress\Twinfield\Currency;
+use Pronamic\WordPress\Twinfield\VatCode;
+use Pronamic\WordPress\Twinfield\Browse\Row;
+use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Relations\Relation;
+use Pronamic\WordPress\Twinfield\Transactions\Transaction;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionHeader;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionTypeCode;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionLine;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionLineDimension;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionLineKey;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionResponse;
+use Pronamic\WordPress\Twinfield\XML\Security;
+use Pronamic\WordPress\Twinfield\XML\Unserializer;
+use Pronamic\WordPress\Twinfield\XML\DateUnserializer;
+use Pronamic\WordPress\Twinfield\XML\DateTimeUnserializer;
 
 /**
  * Browse transactions unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class BrowseTransactionsUnserializer extends Unserializer {

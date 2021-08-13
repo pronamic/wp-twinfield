@@ -4,12 +4,12 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
-use Pronamic\WP\Twinfield\Response;
+use Pronamic\WordPress\Twinfield\Response;
 
 /**
  * Sales invoice response
@@ -18,7 +18,7 @@ use Pronamic\WP\Twinfield\Response;
  * additional information.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceResponse extends Response {

@@ -4,16 +4,16 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML
+ * @package    Pronamic/WordPress/Twinfield/XML
  */
 
-namespace Pronamic\WP\Twinfield\XML;
+namespace Pronamic\WordPress\Twinfield\XML;
 
 /**
  * Security
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield/XML
+ * @package    Pronamic/WordPress/Twinfield/XML
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Security {

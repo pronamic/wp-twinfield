@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Authentication;
+namespace Pronamic\WordPress\Twinfield\Authentication;
 
 use JsonSerializable;
 
@@ -15,7 +15,7 @@ use JsonSerializable;
  * Authentication info.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class AuthenticationInfo implements JsonSerializable {

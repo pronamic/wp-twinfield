@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Transactions
+ * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WP\Twinfield\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
 /**
  * Match set line
@@ -17,7 +17,7 @@ namespace Pronamic\WP\Twinfield\Transactions;
  * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Transactions/JournalTransactions
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class MatchSetLine {

@@ -4,16 +4,16 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Organisations;
+namespace Pronamic\WordPress\Twinfield\Organisations;
 
-use Pronamic\WP\Twinfield\CodeName;
-use Pronamic\WP\Twinfield\UuidTrait;
-use Pronamic\WP\Twinfield\Twinfield;
-use Pronamic\WP\Twinfield\Users\User;
-use Pronamic\WP\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\CodeName;
+use Pronamic\WordPress\Twinfield\UuidTrait;
+use Pronamic\WordPress\Twinfield\Twinfield;
+use Pronamic\WordPress\Twinfield\Users\User;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Organisation
@@ -21,7 +21,7 @@ use Pronamic\WP\Twinfield\Offices\Office;
  * This class represents a Twinfield organisation
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Organisation extends CodeName {

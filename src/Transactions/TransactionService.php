@@ -4,20 +4,20 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/Transactions
+ * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WP\Twinfield\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
-use Pronamic\WP\Twinfield\ProcessXmlString;
-use Pronamic\WP\Twinfield\XMLProcessor;
-use Pronamic\WP\Twinfield\Browse\Browser;
-use Pronamic\WP\Twinfield\Browse\BrowseReadRequest;
-use Pronamic\WP\Twinfield\Offices\Office;
-use Pronamic\WP\Twinfield\Relations\Relation;
-use Pronamic\WP\Twinfield\XML\Transactions\TransactionReadRequestSerializer;
-use Pronamic\WP\Twinfield\XML\Transactions\TransactionUnserializer;
-use Pronamic\WP\Twinfield\XML\Transactions\BrowseTransactionsUnserializer;
+use Pronamic\WordPress\Twinfield\ProcessXmlString;
+use Pronamic\WordPress\Twinfield\XMLProcessor;
+use Pronamic\WordPress\Twinfield\Browse\Browser;
+use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
+use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Relations\Relation;
+use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionReadRequestSerializer;
+use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer;
+use Pronamic\WordPress\Twinfield\XML\Transactions\BrowseTransactionsUnserializer;
 
 /**
  * Transaction Service
@@ -25,7 +25,7 @@ use Pronamic\WP\Twinfield\XML\Transactions\BrowseTransactionsUnserializer;
  * This class represents an Twinfield transactions service.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionService {

@@ -4,22 +4,22 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Authentication;
+namespace Pronamic\WordPress\Twinfield\Authentication;
 
 use DateTimeInterface;
 use DateTimeImmutable;
 use JsonSerializable;
-use Pronamic\WP\Twinfield\Organisations\Organisation;
-use Pronamic\WP\Twinfield\Users\User;
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
+use Pronamic\WordPress\Twinfield\Users\User;
 
 /**
  * Access Token Validation.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class AccessTokenValidation implements JsonSerializable {

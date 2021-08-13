@@ -4,10 +4,10 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Authentication;
+namespace Pronamic\WordPress\Twinfield\Authentication;
 
 use DateTimeInterface;
 use DateTimeImmutable;
@@ -17,7 +17,7 @@ use JsonSerializable;
  * Authentication Tokens.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class AuthenticationTokens implements JsonSerializable {

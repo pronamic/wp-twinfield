@@ -7,7 +7,7 @@
  * @package Pronamic/WP/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Declarations;
+namespace Pronamic\WordPress\Twinfield\Declarations;
 
 /**
  * Document codes

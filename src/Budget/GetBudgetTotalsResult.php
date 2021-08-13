@@ -7,11 +7,11 @@
  * @package	Pronamic/WP/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Budget;
+namespace Pronamic\WordPress\Twinfield\Budget;
 
-use Pronamic\WP\Twinfield\Query;
-use Pronamic\WP\Twinfield\Hierarchies\HierarchyNode;
-use Pronamic\WP\Twinfield\Hierarchies\HierarchyNodeAccountIterator;
+use Pronamic\WordPress\Twinfield\Query;
+use Pronamic\WordPress\Twinfield\Hierarchies\HierarchyNode;
+use Pronamic\WordPress\Twinfield\Hierarchies\HierarchyNodeAccountIterator;
 
 /**
  * Get budget totals result.

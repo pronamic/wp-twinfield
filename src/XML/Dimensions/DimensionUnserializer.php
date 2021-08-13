@@ -5,22 +5,22 @@
  * @link       http://pear.php.net/package/XML_Serializer/docs
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield/XML/Articles
+ * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WP\Twinfield\XML\Dimensions;
+namespace Pronamic\WordPress\Twinfield\XML\Dimensions;
 
-use Pronamic\WP\Twinfield\DimensionTypes;
-use Pronamic\WP\Twinfield\XML\Unserializer;
-use Pronamic\WP\Twinfield\XML\Security;
-use Pronamic\WP\Twinfield\XML\Customers\CustomerUnserializer;
-use Pronamic\WP\Twinfield\XML\Suppliers\SupplierUnserializer;
+use Pronamic\WordPress\Twinfield\DimensionTypes;
+use Pronamic\WordPress\Twinfield\XML\Unserializer;
+use Pronamic\WordPress\Twinfield\XML\Security;
+use Pronamic\WordPress\Twinfield\XML\Customers\CustomerUnserializer;
+use Pronamic\WordPress\Twinfield\XML\Suppliers\SupplierUnserializer;
 
 /**
  * Dimension unserializer
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DimensionUnserializer extends Unserializer {

@@ -4,15 +4,15 @@
  *
  * @since      1.0.0
  *
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WP\Twinfield\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
-use Pronamic\WP\Twinfield\Authentication\AuthenticationInfo;
-use Pronamic\WP\Twinfield\AbstractService;
-use Pronamic\WP\Twinfield\Client;
-use Pronamic\WP\Twinfield\Session;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
+use Pronamic\WordPress\Twinfield\AbstractService;
+use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Session;
 
 /**
  * Deleted transactions service
@@ -20,7 +20,7 @@ use Pronamic\WP\Twinfield\Session;
  * This class connects to the Twinfield deleted transactions webservices.
  *
  * @since      1.0.0
- * @package    Pronamic/WP/Twinfield
+ * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DeletedTransactionsService extends AbstractService {
