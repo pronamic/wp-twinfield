@@ -39,6 +39,13 @@ abstract class AbstractService {
 	private $soap_client;
 
 	/**
+	 * SOAP Header Authenication Name.
+	 * 
+	 * @var string
+	 */
+	protected $soap_header_authenication_name;
+
+	/**
 	 * Office.
 	 * 
 	 * @var Office|null
@@ -56,6 +63,8 @@ abstract class AbstractService {
 
 		$this->client = $client;
 
+		$this->soap_header_authenication_name = 'Header';
+
 		$this->soap_client = $client->new_soap_client( $wsdl_file );
 	}
 
@@ -71,27 +80,44 @@ abstract class AbstractService {
 	/**
 	 * Get SOAP client.
 	 *
+	 * @param Office|null $office Office.
 	 * @return SoapClient
 	 */
-	public function get_soap_client() {
+	public function get_soap_client( Office $office = null ) {
 		$authentication = $this->client->authenticate();
 
 		$data = array(
 			'AccessToken' => $authentication->get_tokens()->get_access_token(),
 		);
 
-		if ( null !== $this->office ) {
-			$data['CompanyCode'] = $this->office->get_code();
+		$office = ( null === $office ) ? $this->office : $office;
+
+		if ( null !== $office ) {
+			$data['CompanyCode'] = $office->get_code();
 		}
 
-		$this->soap_header = new SoapHeader(
+		$soap_header = new SoapHeader(
 			'http://www.twinfield.com/',
-			'Header',
+			$this->soap_header_authenication_name,
 			$data
 		);
 
-		$this->soap_client->__setSoapHeaders( $this->soap_header );
+		$this->soap_client->__setSoapHeaders( $soap_header );
 
 		return $this->soap_client;
+	}
+
+	/**
+	 * Force array.
+	 * 
+	 * @param mixed $value Value.
+	 * @return array
+	 */
+	protected function force_array( $value ) {
+		if ( \is_array( $value ) ) {
+			return $value;
+		}
+
+		return array( $value );
 	}
 }

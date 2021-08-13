@@ -22,3 +22,7 @@
  */
 
 require __DIR__ . '/vendor/autoload.php';
+
+$pronamic_twinfield_plugin = new Pronamic\WordPress\Twinfield\Plugin\Plugin( __FILE__ );
+
+$pronamic_twinfield_plugin->setup();

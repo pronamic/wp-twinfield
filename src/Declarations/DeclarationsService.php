@@ -57,7 +57,40 @@ class DeclarationsService extends AbstractService {
 
 		$soap_client = $this->get_soap_client();
 
-		return $soap_client->GetAllSummaries( $parameters );
+		$result = $soap_client->GetAllSummaries( $parameters );
+
+		if ( ! is_object( $result ) ) {
+			throw new \Exception(
+				\sprintf(
+					'Unknow response from declarations webservice: %s',
+					\print_r( $result, true )
+				)
+			);
+		}
+
+		if ( ! isset( $result->GetAllSummariesResult ) ) {
+			throw new \Exception(
+				\sprintf(
+					'No summaries result from declarations webservice: %s',
+					\print_r( $result, true )
+				)
+			);
+		}
+
+		if ( ! isset( $result->vatReturn, $result->vatReturn->DeclarationSummary ) ) {
+			return array();
+		}
+
+		$organisation = $office->organisation;
+
+		$summaries = \array_map(
+			function( $item ) use ( $organisation ) {
+				return DeclarationSummary::from_twinfield_object( $organisation, $item );
+			},
+			$this->force_array( $result->vatReturn->DeclarationSummary )
+		);
+
+		return $summaries;
 	}
 
 	/**

@@ -88,11 +88,32 @@ if ( isset( $authentication ) ) {
 
 			<h2>Organisation</h2>
 
-			<?php \var_dump( $client->get_organisation() ); ?>
+			<?php
+
+			$organisation = $client->get_organisation();
+
+			?>
+
+			<dl>
+				<dt>Code</dt>
+				<dd><code><?php echo \esc_html( $organisation->get_code() ); ?></code></dd>
+
+				<dt>UUID</dt>
+				<dd><code><?php echo \esc_html( (string) $organisation->get_uuid() ); ?></code></dd>
+			</dl>
 
 			<h2>User</h2>
 
-			<?php \var_dump( $client->get_user() ); ?>
+			<?php
+
+			$user = $client->get_user();
+
+			?>
+
+			<dl>
+				<dt>Code</dt>
+				<dd><code><?php echo \esc_html( $user->get_code() ); ?></code></dd>
+			</dl>
 
 			<h2>Offices</h2>
 
@@ -144,7 +165,16 @@ if ( isset( $authentication ) ) {
 				?>
 				<h2>Office</h2>
 
-				<?php \var_dump( $office ); ?>
+				<dl>
+					<dt>Code</dt>
+					<dd><code><?php echo \esc_html( $office->get_code() ); ?></code></dd>
+
+					<dt>Name</dt>
+					<dd><?php echo \esc_html( (string) $office->get_name() ); ?></dd>
+
+					<dt>Shortname</dt>
+					<dd><?php echo \esc_html( (string) $office->get_shortname() ); ?></dd>
+				</dl>
 				
 				<h2>Transaction Types</h2>
 
@@ -232,10 +262,132 @@ if ( isset( $authentication ) ) {
 
 				$summaries = $declarations_service->get_all_summaries( $office );
 
-				var_dump( $summaries->GetAllSummariesResult );
-				var_dump( $summaries->vatReturn );
+				\usort( $summaries, function( $a, $b ) {
+					return -\strnatcmp( $a->get_id(), $b->get_id() );
+				} );
 
 				?>
+
+				<table>
+					<thead>
+						<tr>
+							<th scope="col" rowspan="2">ID</th>
+							<th scope="col" rowspan="2">Document Code</th>
+							<th scope="col" rowspan="2">Name</th>
+							<th scope="col" colspan="2">Document Time Frame</th>
+							<th scope="col" colspan="3">Status</th>
+							<th scope="col" colspan="2">Assignee</th>
+							<th scope="col" colspan="2">Company</th>
+						</tr>
+						<tr>
+							<th scope="col">Year</th>
+							<th scope="col">Period</th>
+
+							<th scope="col">Description</th>
+							<th scope="col">StepIndex</th>
+							<th scope="col">Extra Information</th>
+
+							<th scope="col">Code</th>
+							<th scope="col">Name</th>
+
+							<th scope="col">Code</th>
+							<th scope="col">Name</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						
+						<?php foreach ( $summaries as $summary ) : ?>
+
+							<tr>
+								<td><code><?php echo \esc_html( $summary->get_id() ); ?></code></td>
+								<td><code><?php echo \esc_html( $summary->get_document_code() ); ?></code></td>
+								<td><?php echo \esc_html( $summary->get_name() ); ?></td>
+
+								<td><?php echo \esc_html( $summary->get_document_time_frame()->get_year() ); ?></td>
+								<td><?php echo \esc_html( $summary->get_document_time_frame()->get_period() ); ?></td>
+
+								<td><?php echo \esc_html( $summary->get_status()->get_description() ); ?></td>
+								<td><?php echo \esc_html( $summary->get_status()->get_step_index() ); ?></td>
+								<td><?php echo \esc_html( $summary->get_status()->get_extra_information() ); ?></td>
+
+								<td><code><?php echo \esc_html( $summary->get_assignee()->get_code() ); ?></code></td>
+								<td><?php echo \esc_html( (string) $summary->get_assignee()->get_name() ); ?></td>
+
+								<td><code><?php echo \esc_html( $summary->get_company()->get_code() ); ?></code></td>
+								<td><?php echo \esc_html( (string) $summary->get_company()->get_name() ); ?></td>
+							</tr>
+
+						<?php endforeach; ?>
+
+					</tbody>
+				</table>
+
+				<h2>Years</h2>
+
+				<?php
+
+				$periods_service = $client->get_service( 'periods' );
+
+				$years = $periods_service->get_years( $office );
+
+				$years = \array_reverse( $years );
+
+				?>
+				<ul>
+
+					<?php foreach ( $years as $year ) : ?>
+
+						<li>
+							<?php echo \esc_html( $year ); ?>
+						</li>
+
+					<?php endforeach; ?>
+
+				</ul>
+
+				<?php
+
+				$year = \date( 'Y' );
+
+				$periods = $periods_service->get_periods( $office, $year );
+
+				?>
+				<h2><?php \printf( 'Periods Year: %s', $year ); ?></h2>
+
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Number</th>
+							<th scope="col">Name</th>
+							<th scope="col">Is Open</th>
+							<th scope="col">End Date</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						
+						<?php foreach ( $periods as $period ) : ?>
+
+							<tr>
+								<td><?php echo \esc_html( (string) $period->get_number() ); ?></td>
+								<td><?php echo \esc_html( $period->get_name() ); ?></td>
+								<td><?php echo \esc_html( $period->is_open() ? 'Open' : 'Closed' ); ?></td>
+								<td>
+									<?php
+
+									$end_date = $period->get_end_date();
+
+									echo esc_html( null === $end_date ? '' : $end_date->format( 'd-m-Y' ) );
+
+									?>
+								</td>
+							</tr>
+
+						<?php endforeach; ?>
+
+					</tbody>
+				</table>
 			
 			<?php endif; ?>
 

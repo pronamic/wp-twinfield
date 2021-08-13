@@ -50,22 +50,26 @@ class Organisation extends CodeName {
     }
 
     public function new_user( $code ) {
-        $user = new User( $code );
+        if ( ! \array_key_exists( $code, $this->users ) ) {
+            $user = new User( $code );
 
-        $user->organisation = $this;
+            $user->organisation = $this;
 
-        $this->users[ $code ] = $user;
+            $this->users[ $code ] = $user;
+        }
 
-        return $user;
+        return $this->users[ $code ];
     }
 
     public function new_office( $code ) {
-        $office = new Office( $code );
+        if ( ! \array_key_exists( $code, $this->offices ) ) {
+            $office = new Office( $code );
 
-        $office->organisation = $this;
+            $office->organisation = $this;
 
-        $this->offices[ $code ] = $office;
+            $this->offices[ $code ] = $office;
+        }
 
-        return $office;
+        return $this->offices[ $code ];
     }
 }

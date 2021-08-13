@@ -39,6 +39,8 @@ class PeriodsService extends AbstractService {
 	 */
 	public function __construct( Client $client ) {
 		parent::__construct( self::WSDL_FILE, $client );
+
+		$this->soap_header_authenication_name = 'Authentication';
 	}
 
 	/**
@@ -47,23 +49,12 @@ class PeriodsService extends AbstractService {
 	 * @link   https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Miscellaneous/Period#Queries
 	 * @return array
 	 */
-	public function get_years( $office_code ) {
-		$authentication = array(
-			'AccessToken' => $this->client->access_token,
-			'CompanyCode' => $office_code,
-		);
-
-		$soap_header = new \SoapHeader(
-			'http://www.twinfield.com/',
-			'Authentication',
-			$authentication
-		);
-
-		$this->soap_client->__setSoapHeaders( $soap_header );
+	public function get_years( $office ) {
+		$soap_client = $this->get_soap_client( $office );
 
 		$query = new QueryGetYears();
 
-		$result = $this->soap_client->Query( $query );
+		$result = $soap_client->Query( $query );
 
 		if ( ! is_object( $result ) ) {
 			throw new \Exception( 'Could not get years from Twinfield period service.' );
@@ -94,24 +85,13 @@ class PeriodsService extends AbstractService {
 	 * @link   https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Miscellaneous/Period#Queries
 	 * @return array
 	 */
-	public function get_periods( $office_code, $year ) {
-		$authentication = array(
-			'AccessToken' => $this->client->access_token,
-			'CompanyCode' => $office_code,
-		);
-
-		$soap_header = new \SoapHeader(
-			'http://www.twinfield.com/',
-			'Authentication',
-			$authentication
-		);
-
-		$this->soap_client->__setSoapHeaders( $soap_header );
+	public function get_periods( $office, $year ) {
+		$soap_client = $this->get_soap_client( $office );
 
 		$query = new QueryGetPeriods();
 		$query->Year = $year;
 
-		$result = $this->soap_client->Query( $query );
+		$result = $soap_client->Query( $query );
 
 		if ( ! is_object( $result ) ) {
 			throw new \Exception( 'Could not get periods from Twinfield period service.' );
@@ -133,6 +113,13 @@ class PeriodsService extends AbstractService {
 			throw new \Exception( 'Could not get periods from Twinfield period service.' );
 		}
 
-		return $period_array;
+		$periods = \array_map(
+			function( $item ) use ( $year ){
+				return Period::from_twinfield_object( $year, $item );
+			},
+			$period_array
+		);
+
+		return $periods;
 	}
 }
