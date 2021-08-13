@@ -68,7 +68,7 @@ echo "REQUEST:\n" . $this->soap_client->__getLastRequest() . "\n";
 ## Plugin
 
 ```
-ln -s ~/Project/wp-twinfield-new  ~/Local\ Sites/twinfield/app/public/wp-content/plugins/pronamic-twinfield
+ln -s ~/Projects/wp-twinfield-new  ~/Local\ Sites/twinfield/app/public/wp-content/plugins/pronamic-twinfield
 ```
 
 ## To-do
