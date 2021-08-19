@@ -53,9 +53,7 @@ class DeclarationsService extends AbstractService {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
 		$parameters->companyCode = $office->get_code();
 
-		$this->set_office( $office );
-
-		$soap_client = $this->get_soap_client();
+		$soap_client = $this->get_soap_client( $office );
 
 		$result = $soap_client->GetAllSummaries( $parameters );
 
@@ -163,6 +161,8 @@ class DeclarationsService extends AbstractService {
 	 * @return string
 	 */
 	public function get_xbrl( $document_id, $document_code = null ) {
+		$soap_client = $this->get_soap_client();
+
 		$function = 'GetVatReturnAsXbrl';
 
 		switch ( $document_code ) {
@@ -187,13 +187,19 @@ class DeclarationsService extends AbstractService {
 		$parameters->documentId          = $document_id;
 		$parameters->isMessageIdRequired = true;
 
-		$response = $this->soap_client->__soapCall( $function, array( $parameters ) );
+		$response = $soap_client->__soapCall( $function, array( $parameters ) );
 
 		if ( isset( $response->vatReturn, $response->vatReturn->any ) ) {
 			return $response->vatReturn->any;
 		}
 
 		// phpcs:enable
+	}
+
+	public function get_xbrl_by_summary( $summary ) {
+		$this->set_office( $summary->company );
+
+		return $this->get_xbrl( $summary->id, $summary->document_code );
 	}
 
 	public function get_xml( $document_id, $document_code = null ) {

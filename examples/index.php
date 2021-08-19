@@ -323,6 +323,24 @@ if ( isset( $authentication ) ) {
 					</tbody>
 				</table>
 
+				<?php
+
+				$summary = \reset( $summaries );
+
+				$xbrl = null;
+
+				if ( false !== $summary ) {
+					$xbrl = $declarations_service->get_xbrl_by_summary( $summary );
+				}
+
+				if ( null !== $xbrl ) : ?>
+
+					<h2>Declaration XBRL</h2>
+
+					<?php var_dump( $xbrl ); ?>
+
+				<?php endif; ?>
+
 				<h2>Years</h2>
 
 				<?php
