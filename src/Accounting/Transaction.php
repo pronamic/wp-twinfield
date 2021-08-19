@@ -44,7 +44,7 @@ class Transaction {
         return $line;		
 	}
 
-	public function to_xml() {
+	public function to_dom_document() {
 		$document = new DOMDocument();
 
 		$document->preserveWhiteSpace = false;
@@ -110,6 +110,12 @@ class Transaction {
 				$e_line->appendChild( $document->createElement( 'description', $description ) );
 			}
 		}
+
+		return $document;
+	}
+
+	public function to_xml() {
+		$document = $this->to_dom_document();
 
 		return $document->saveXML();
 	}

@@ -64,6 +64,26 @@ if ( isset( $authentication ) ) {
 	$client->set_authentication_refresh_handler( function( $client ) use ( $authentication_file ) {
 		\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
 	} );
+
+	$organisation = $client->get_organisation();
+
+	if ( \array_key_exists( 'pronamic_twinfield_process_xml', $_POST ) ) {
+		$office_code = \wp_unslash( $_POST['pronamic_twinfield_office_code'] );
+
+		$office = $organisation->new_office( $office_code );
+
+		$xml = \wp_unslash( $_POST['pronamic_twinfield_xml'] );
+
+		$process_xml_string = new ProcessXmlString( $xml );
+
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$result = $xml_processor->process_xml_string( $process_xml_string );
+
+		var_dump( $result );
+	}
 }
 
 ?>
@@ -252,7 +272,30 @@ if ( isset( $authentication ) ) {
 				$line_2->set_description( 'Invoice paid' );
 
 				?>
-				<textarea id="test"><?php echo \esc_textarea( $transaction->to_xml() ); ?></textarea>
+				<textarea name="pronamic_twinfield_xml" class="code-mirror-xml"><?php echo \esc_textarea( $transaction->to_xml() ); ?></textarea>
+				
+				<h2>Transaction Request</h2>
+
+				<?php
+
+				$transaction_request = new Accounting\TransactionRequest( $transaction, 'temporary' );
+
+				?>
+
+				<form method="post" action="">
+					<div>
+						<label>
+							XML
+							<textarea name="pronamic_twinfield_xml" class="code-mirror-xml"><?php echo \esc_textarea( $transaction_request->to_xml() ); ?></textarea>
+						</label>
+					</div>
+
+					<div>
+						<input type="hidden" name="pronamic_twinfield_office_code" value="<?php echo \esc_attr( $office->get_code() ); ?>" />
+
+						<button type="submit" name="pronamic_twinfield_process_xml">Submit</button>
+					</div>
+				</form>
 
 				<h2>Declarations</h2>
 
@@ -430,11 +473,13 @@ if ( isset( $authentication ) ) {
 		<script src="https://unpkg.com/codemirror@5.62.2/mode/xml/xml.js"></script>
 
 		<script type="text/javascript">
-			var textarea = document.getElementById( 'test' );
+			var elements = document.getElementsByClassName( 'code-mirror-xml' );
 
-			editor = CodeMirror.fromTextArea( textarea, {
-				lineNumbers: true,
-				mode: 'application/xml'
+			Array.from( elements ).forEach( ( element ) => {
+				editor = CodeMirror.fromTextArea( element, {
+					lineNumbers: true,
+					mode: 'application/xml'
+				} );
 			} );
 		</script>
 	</body>
