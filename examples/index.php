@@ -80,9 +80,11 @@ if ( isset( $authentication ) ) {
 
 		$xml_processor->set_office( $office );
 
-		$result = $xml_processor->process_xml_string( $process_xml_string );
+		$xml_response = $xml_processor->process_xml_string( $process_xml_string );
 
-		var_dump( $result );
+		$transaction_response = Accounting\TransactionResponse::from_xml( $xml_response->get_result() );
+
+		var_dump( $transaction_response );
 	}
 }
 
