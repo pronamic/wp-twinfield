@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Accounting;
 
+use DateTimeInterface;
 use DOMDocument;
 
 /**
@@ -36,6 +37,14 @@ class Transaction {
 		$this->lines = array();
 	}
 
+	public function set_currency( $currency ) {
+		$this->currency = $currency;
+	}
+
+	public function set_date( DateTimeInterface $date ) {
+		$this->date = $date;
+	}
+
 	public function new_line() {
         $line = new TransactionLine( $this );
 
@@ -56,6 +65,14 @@ class Transaction {
 
 		$e_header->appendChild( $document->createElement( 'office', $this->transaction_type->get_office()->get_code() ) );
 		$e_header->appendChild( $document->createElement( 'code', $this->transaction_type->get_code() ) );
+
+		if ( null !== $this->currency ) {
+			$e_header->appendChild( $document->createElement( 'currency', $this->currency->get_code() ) );
+		}
+
+		if ( null !== $this->date ) {
+			$e_header->appendChild( $document->createElement( 'date', $this->date->format( 'Ymd' ) ) );
+		}
 
 		$e_lines = $e_transaction->appendChild( $document->createElement( 'lines' ) );
 
