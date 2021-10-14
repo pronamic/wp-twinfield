@@ -136,6 +136,8 @@ $offices = $organisation_service->get_offices();
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/dimension-types
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/dimensions/DEB/
+/wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/dimensions/DEB/1002
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/declarations
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/periods
 
