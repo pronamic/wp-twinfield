@@ -127,6 +127,7 @@ $offices = $organisation_service->get_offices();
 
 ### REST API
 
+```
 /wp-json/pronamic-twinfield/v1/user
 /wp-json/pronamic-twinfield/v1/organisation
 /wp-json/pronamic-twinfield/v1/authentications/1/organisations
@@ -140,9 +141,11 @@ $offices = $organisation_service->get_offices();
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/dimensions/DEB/1002
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/declarations
 /wp-json/pronamic-twinfield/v1/organisations/vandermeeracc/offices/66470_A/periods
+```
 
 ### Web
 
+```
 /twinfield/user
 /twinfield/organisation
 /twinfield/organisations
@@ -154,12 +157,15 @@ $offices = $organisation_service->get_offices();
 /twinfield/organisations/vandermeeracc/offices/66470_A/periods
 
 /twinfield/... » /wp-json/pronamic-twinfield/v1/...
+```
 
 ### CLI
 
+```
 wp twinfield user
 wp twinfield organisation
 wp twinfield ... » /wp-json/pronamic-twinfield/v1/...
+```
 
 ### Config
 
