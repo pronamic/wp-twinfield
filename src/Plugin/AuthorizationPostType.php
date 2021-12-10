@@ -61,26 +61,30 @@ class AuthorizationPostType {
         /**
          * Authentication/
          */
-        $authentication = AuthenticationInfo::from_object( \json_decode( $post->post_content ) );
+        $object = \json_decode( $post->post_content );
 
-        if ( $authentication ) {
-            \add_meta_box(
-                'pronamic_twinfield_authentication',
-                \__( 'Authentication', 'twinfield' ),
-                array( $this, 'meta_box_authentication' ),
-                $post_type,
-                'normal',
-                'high'
-            );
+        if ( ! empty( $object ) ) {
+            $authentication = AuthenticationInfo::from_object( $object );
 
-            \add_meta_box(
-                'pronamic_twinfield_offices',
-                \__( 'Offices', 'twinfield' ),
-                array( $this, 'meta_box_offices' ),
-                $post_type,
-                'normal',
-                'high'
-            );
+            if ( $authentication ) {
+                \add_meta_box(
+                    'pronamic_twinfield_authentication',
+                    \__( 'Authentication', 'twinfield' ),
+                    array( $this, 'meta_box_authentication' ),
+                    $post_type,
+                    'normal',
+                    'high'
+                );
+
+                \add_meta_box(
+                    'pronamic_twinfield_offices',
+                    \__( 'Offices', 'twinfield' ),
+                    array( $this, 'meta_box_offices' ),
+                    $post_type,
+                    'normal',
+                    'high'
+                );
+            }
         }
 
         \add_meta_box(
