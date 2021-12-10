@@ -183,3 +183,5 @@ define( 'PRONAMIC_TWINFIELD_REDIRECT_URI', '' );
 *	http://www.servicedesignpatterns.com/requestandresponsemanagement/datatransferobject
 *	http://stackoverflow.com/questions/29592216/how-should-i-store-metadata-in-an-object
 *	https://secure.php.net/soundex
+
+[![Pronamic - Work with us](https://github.com/pronamic/brand-resources/blob/main/banners/pronamic-work-with-us-leaderboard-728x90%404x.png)](https://www.pronamic.eu/contact/)
