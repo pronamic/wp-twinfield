@@ -3,6 +3,10 @@
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use WP_REST_Request;
+use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
+use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
+use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 
 class RestApi {
 	/**
@@ -24,6 +28,30 @@ class RestApi {
 	 */
 	public function rest_api_init() {
 		$namespace = 'pronamic-twinfield/v1';
+
+		register_rest_route(
+			$namespace,
+			'/authorize/(?P<post_id>\d+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_authorize' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id' => array(
+						'description' => \__( 'Post ID.', 'pronamic-twinfield' ),
+						'type'        => 'string',
+						'required'    => true,
+					),
+					'code'    => array(
+						'description' => \__( 'Code.', 'pronamic-twinfield' ),
+						'type'        => 'string',
+						'required'    => true,
+					),
+				),
+			)
+		);
 
 		register_rest_route(
 			$namespace,
@@ -122,6 +150,40 @@ class RestApi {
 				),
 			)
 		);
+	}
+
+	public function rest_api_authorize( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+		$code    = $request->get_param( 'code' );
+
+        $openid_connect_client = $this->plugin->get_openid_connect_client(); 
+
+		$response = $openid_connect_client->get_access_token( $code );
+
+		$tokens = AuthenticationTokens::from_object( $response );
+
+		$response = $openid_connect_client->get_access_token_validation( $tokens->get_access_token() );
+
+		$validation = AccessTokenValidation::from_object( $response );
+
+		$authentication = new AuthenticationInfo( $tokens, $validation );
+
+		$result = $this->plugin->save_authentication( \get_post( $post_id ), $authentication );
+
+		/**
+		 * 303 See Other.
+		 *
+		 * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303
+		 */
+		$url = \add_query_arg(
+			array(
+				'post' => $post_id,
+				'action' => 'edit',
+			),
+			admin_url( 'post.php' )
+		);
+
+		return new \WP_REST_Response( null, 303, array( 'Location' => $url ) );
 	}
 
 	public function rest_api_browse_fields( WP_REST_Request $request ) {

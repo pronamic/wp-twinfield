@@ -30,6 +30,9 @@ abstract class Serializer {
 	 */
 	public function __construct() {
 		$this->document = new \DOMDocument();
+
+		$this->document->preserveWhiteSpace = false;
+		$this->document->formatOutput       = true;
 	}
 
 	/**

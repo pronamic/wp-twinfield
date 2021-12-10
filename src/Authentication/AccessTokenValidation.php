@@ -44,6 +44,15 @@ class AccessTokenValidation implements JsonSerializable {
 	}
 
 	/**
+	 * Get expiration date/time.
+	 * 
+	 * @return DateTimeImmutable
+	 */
+	public function get_expiration_datetime() {
+		return new \DateTimeImmutable( '@' . $this->expiration );
+	}
+
+	/**
 	 * Check if the access token is expired.
 	 * 
 	 * @return bool True if expired, false otherwise.

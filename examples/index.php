@@ -451,7 +451,94 @@ if ( isset( $authentication ) ) {
 
 					</tbody>
 				</table>
-			
+
+				<h2>Browse Data <code>010</code></h2>
+
+				<?php
+
+				$xml_processor = $client->get_xml_processor();
+
+				$xml_processor->set_office( $office );
+
+				$browser = new Browse\Browser( $xml_processor );
+
+				/**
+				 * 2. Read the browse definition.
+				 * 
+				 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Read-the-browse-definition
+				 */
+				$browse_read_request = new Browse\BrowseReadRequest( $office->get_code(), '010' );
+
+				$browse_read_response = $xml_processor->process_xml_string( new ProcessXmlString( $browse_read_request->to_xml() ) );
+
+				/**
+				 * 3. Fill in the selection criteria.
+				 * 
+				 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Fill-in-the-selection-criteria
+				 */
+				$browse_definition = new Browse\BrowseDefinition( \simplexml_load_string( $browse_read_response->get_result() ) );
+
+				$browse_definition->get_column( 'fin.trs.head.yearperiod' )->between( '198501', '202201' );
+
+				/**
+				 * Compose the browse request and send it.
+				 * 
+				 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Compose-the-browse-request-and-send-it
+				 */
+				$xml_columns = $browse_definition->get_xml_columns();
+
+				$xml_columns['optimize'] = 'true';
+
+				$xml_columns_string = $xml_columns->asXML();
+
+				$xml_columns_string = '<columns code="010" optimize="true"> <column>
+    <field>fin.trs.line.matchstatus</field>
+    <operator>equal</operator>
+    <from>available</from>
+  </column> </columns>';
+
+				$browse_request_document = new \DOMDocument();
+
+				$browse_request_document->preserveWhiteSpace = false;
+				$browse_request_document->formatOutput       = true;
+
+				$browse_request_document->loadXML( $xml_columns_string );
+
+				$browse_response = $xml_processor->process_xml_string( new ProcessXmlString( $xml_columns_string ) );
+
+				$browse_response_document = new \DOMDocument();
+
+				$browse_response_document->preserveWhiteSpace = false;
+				$browse_response_document->formatOutput       = true;
+
+				$browse_response_document->loadXML( $browse_response->get_result() );
+
+				?>
+
+				<h3>2. Read the browse definition</h3>
+
+				<p>
+					<a href="https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Read-the-browse-definition">https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Read-the-browse-definition</a>
+				</p>
+
+				<h4>Request</h4>
+
+				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_read_request->to_xml() ); ?></textarea>
+
+				<h4>Response</h4>
+
+				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_read_response->get_result() ); ?></textarea>
+
+				<h3>4. Compose and send the (browse) query to Twinfield</h3>
+
+				<h4>Request</h4>
+
+				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_request_document->saveXML() ); ?></textarea>
+ 
+				<h4>Response</h4>
+
+				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_response_document->saveXML() ); ?></textarea>
+
 			<?php endif; ?>
 
 		<?php endif; ?>

@@ -48,4 +48,10 @@ class BrowseReadRequest extends ReadRequest {
 	public function get_code() {
 		return $this->code;
 	}
+
+	public function to_xml() {
+		$serializer = new \Pronamic\WordPress\Twinfield\XML\Browse\BrowseReadRequestSerializer( $this );
+
+		return (string) $serializer;
+	}
 }

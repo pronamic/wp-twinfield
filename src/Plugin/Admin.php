@@ -34,33 +34,45 @@ class Admin {
 	 * Admin menu.
 	 */
 	public function admin_menu() {
-		add_menu_page(
-			__( 'Twinfield', 'twinfield' ),
-			__( 'Twinfield', 'twinfield' ),
+		\add_menu_page(
+			\__( 'Twinfield', 'pronamic-twinfield' ),
+			\__( 'Twinfield', 'pronamic-twinfield' ),
 			'manage_options',
 			'pronamic-twinfield',
 			array( $this, 'page_dashboard' ),
 			'dashicons-admin-site-alt3'
 		);
 
-		add_submenu_page(
+		\add_submenu_page(
 			'pronamic-twinfield',
-			_x( 'Twinfield Offices', 'twinfield.com', 'twinfield' ),
-			_x( 'Offices', 'twinfield.com', 'twinfield' ),
+			\__( 'Twinfield Authorizations', 'pronamic-twinfield' ),
+			\__( 'Authorizations', 'pronamic-twinfield' ),
 			'manage_options',
-			'twinfield_offices',
-			array( $this, 'page_offices' )
+			\add_query_arg( 'post_type', 'twinfield_auth', 'edit.php' ),
+			'',
+			10
+		);
+
+		\add_submenu_page(
+			'pronamic-twinfield',
+			\__( 'Twinfield Offices', 'pronamic-twinfield' ),
+			\__( 'Offices', 'pronamic-twinfield' ),
+			'manage_options',
+			'pronamic-twinfield-offices',
+			array( $this, 'page_offices' ),
+			20
 		);
 
 		add_submenu_page(
 			'pronamic-twinfield',
-			__( 'Twinfield Settings', 'twinfield' ),
-			__( 'Settings', 'twinfield' ),
+			\__( 'Twinfield Settings', 'twinfield' ),
+			\__( 'Settings', 'twinfield' ),
 			'manage_options',
-			'pronamic_twinfield_settings',
+			'pronamic-twinfield-settings',
 			function() {
 				include __DIR__ . '/../../admin/page-settings.php';
-			}
+			},
+			30
 		);
 	}
 }
