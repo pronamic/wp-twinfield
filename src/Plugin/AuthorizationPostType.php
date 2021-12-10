@@ -41,7 +41,7 @@ class AuthorizationPostType {
                 'public'        => true,
                 'show_in_menu'  => false,
                 'supports'      => array(
-                    '',
+                    'slug',
                 ),
             )
         );

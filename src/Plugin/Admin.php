@@ -53,16 +53,6 @@ class Admin {
 			10
 		);
 
-		\add_submenu_page(
-			'pronamic-twinfield',
-			\__( 'Twinfield Offices', 'pronamic-twinfield' ),
-			\__( 'Offices', 'pronamic-twinfield' ),
-			'manage_options',
-			'pronamic-twinfield-offices',
-			array( $this, 'page_offices' ),
-			20
-		);
-
 		add_submenu_page(
 			'pronamic-twinfield',
 			\__( 'Twinfield Settings', 'twinfield' ),
@@ -72,7 +62,7 @@ class Admin {
 			function() {
 				include __DIR__ . '/../../admin/page-settings.php';
 			},
-			30
+			20
 		);
 	}
 }

@@ -44,6 +44,67 @@ class Plugin {
         }
 
         $this->authorization_post_type->setup();
+
+        \add_action( 'init', array( $this, 'init' ) );
+        \add_filter( 'query_vars', array( $this, 'query_vars' ) );
+        \add_filter( 'template_include', array( $this, 'template_include' ) );
+    }
+
+    /**
+     * Initialize.
+     *
+     * @return void
+     */
+    public function init() {
+        \load_plugin_textdomain( 'pronamic-twinfield', false, dirname( plugin_basename( $this->file ) ) . '/languages' );
+
+        // Rewrites.
+        \add_rewrite_rule(
+            '^pronamic-twinfield/?$',
+            array(
+                'pronamic_twinfield_route' => '/',
+            ),
+            'top'
+        );
+
+        \add_rewrite_rule(
+            '^pronamic-twinfield/(.*)?',
+            array(
+                'pronamic_twinfield_route' => '/$matches[1]',
+            ),
+            'top'
+        );
+    }
+
+    /**
+     * Query vars.
+     *
+     * @param string[] $query_vars Query vars.
+     * @return string[]
+     */
+    public function query_vars( $query_vars ) {
+        $query_vars[] = 'pronamic_twinfield_route';
+
+        return $query_vars;
+    }
+
+    /**
+     * Template include.
+     *
+     * @link https://github.com/WordPress/WordPress/blob/5.5/wp-includes/template-loader.php#L97-L113
+     * @param string $template Template.
+     * @return string|false
+     */
+    public function template_include( $template ) {
+        $route = \get_query_var( 'pronamic_twinfield_route', null );
+
+        if ( null === $route ) {
+            return $template;
+        }
+
+        include __DIR__ . '/../../templates/index.php';
+
+        return false;
     }
 
     public function get_openid_connect_client() {
