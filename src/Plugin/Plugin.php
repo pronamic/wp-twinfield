@@ -102,7 +102,26 @@ class Plugin {
             return $template;
         }
 
-        include __DIR__ . '/../../templates/index.php';
+        $request = new \WP_REST_Request( 'GET', '/pronamic-twinfield/v1' . $route );
+
+        $response = \rest_do_request( $request );
+
+        if ( $response->is_error() ) {
+            \wp_die( $response->get_error_message() );
+        }
+
+        switch ( $route ) {
+            case '/offices':
+                $offices = $response->get_data();
+
+                include __DIR__ . '/../../templates/offices.php';
+                
+                break;
+            default:        
+                include __DIR__ . '/../../templates/index.php';
+                
+                break;
+        }
 
         return false;
     }

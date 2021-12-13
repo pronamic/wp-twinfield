@@ -48,7 +48,7 @@ class Admin {
 			\__( 'Twinfield Authorizations', 'pronamic-twinfield' ),
 			\__( 'Authorizations', 'pronamic-twinfield' ),
 			'manage_options',
-			\add_query_arg( 'post_type', 'twinfield_auth', 'edit.php' ),
+			\add_query_arg( 'post_type', 'pronamic_twf_auth', 'edit.php' ),
 			'',
 			10
 		);

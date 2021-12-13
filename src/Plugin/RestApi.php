@@ -194,33 +194,11 @@ class RestApi {
 	}
 
 	public function rest_api_offices( WP_REST_Request $request ) {
-		$client = $this->plugin->get_client();
+		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
 
-		$xml_processor = $client->get_xml_processor();
+		$client = $this->plugin->get_client( $post );
 
-		$office_service = new \Pronamic\WP\Twinfield\Offices\OfficeService( $xml_processor );
-
-		$offices = $office_service->get_offices();
-
-		if ( ! is_array( $offices ) ) {
-			return array();
-		}
-
-		if ( empty( $offices ) ) {
-			return array();
-		}
-
-		$options = array();
-
-		foreach ( $offices as $office ) {
-			$option       = new \stdClass();
-			$option->code = $office->get_code();
-			$option->name = $office->get_name();
-
-			$options[] = $option;
-		}
-
-		return $options;
+		return $client->get_offices();
 	}
 
 	public function rest_api_customers_list( WP_REST_Request $request ) {

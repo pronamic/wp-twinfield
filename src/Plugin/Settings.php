@@ -79,46 +79,52 @@ class Settings {
 			)
 		);
 
-		// Connect Link.
-		if ( $this->plugin->openid_connect_client ) {
-			add_settings_field(
-				'pronamic_twinfield_openid_connect_link',
-				__( 'Connection', 'twinfield' ),
-				array( $this, 'field_connect_link' ),
-				'pronamic_twinfield',
-				'pronamic_twinfield_openid_connect_authentication'
-			);
-		}
+		add_settings_section(
+			'pronamic_twinfield_general',
+			__( 'General', 'twinfield' ),
+			function() { },
+			'pronamic_twinfield'
+		);
+
+		// Default Config.
+		register_setting( 'pronamic_twinfield', 'pronamic_twinfield_authorization_post_id' );
+
+		add_settings_field(
+			'pronamic_twinfield_authorization_post_id',
+			__( 'Default Authorization', 'pronamic-twinfield' ),
+			array( $this, 'input_page' ),
+			'pronamic_twinfield',
+			'pronamic_twinfield_general',
+			array(
+				'post_type'        => 'pronamic_twf_auth',
+				'show_option_none' => __( '— Select Authorization —', 'pronamic-twinfield' ),
+				'label_for'        => 'pronamic_twinfield_authorization_post_id',
+			)
+		);
 	}
 
 	/**
-	 * Section.
+	 * Input page.
+	 *
+	 * @param array $args Arguments.
+	 * @return void
 	 */
-	public function field_connect_link() {
-		if ( empty( $this->plugin->openid_connect_client ) ) {
-			return;
+	public function input_page( $args ) {
+		$name = $args['label_for'];
+
+		$selected = get_option( $name, '' );
+
+		if ( false === $selected ) {
+			$selected = '';
 		}
 
-		$openid_connect_client = $this->plugin->openid_connect_client;
-
-		$access_token = $this->plugin->get_access_token();
-
-		$label = __( 'Connect with Twinfield', 'twinfield' );
-
-		if ( $access_token ) {
-			$label = __( 'Reconnect with Twinfield', 'twinfield' );
-		}
-
-		$state               = new \stdClass();
-		$state->redirect_uri = add_query_arg( 'page', 'twinfield_settings', admin_url( 'admin.php' ) );
-
-		$url = $openid_connect_client->get_authorize_url( $state );
-
-		printf(
-			'<a href="%s">%s</a>',
-			esc_url( $url ),
-			esc_html( $label )
-		);
+		wp_dropdown_pages( array(
+			'name'             => esc_attr( $name ),
+			'post_type'        => esc_attr( isset( $args['post_type'] ) ? $args['post_type'] : 'page' ),
+			'selected'         => esc_attr( $selected ),
+			'show_option_none' => esc_attr( isset( $args['show_option_none'] ) ? $args['show_option_none'] : __( '— Select a page —', 'pronamic-twinfield' ) ),
+			'class'            => 'regular-text',
+		) );
 	}
 
 	/**

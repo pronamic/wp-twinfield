@@ -23,7 +23,7 @@ use Pronamic\WordPress\Twinfield\Accounting\DimensionType;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Office extends CodeName {
+class Office extends CodeName implements \JsonSerializable {
 	/**
 	 * Organisation.
 	 *
@@ -77,5 +77,13 @@ class Office extends CodeName {
         $user = $office->organisation->new_user( \strval( $simplexml->user ) );
 
         return $office;
+    }
+
+    public function jsonSerialize() {
+        return (object) array(
+            'code'      => $this->get_code(),
+            'name'      => $this->get_name(),
+            'shortname' => $this->get_shortname(),
+        );
     }
 }
