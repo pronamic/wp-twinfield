@@ -356,12 +356,18 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
 
-		return (object) array(
+		$data = (object) array(
 			'_embedded' => (object) array(
 				'request'  => $request->to_xml(),
 				'response' => (string) $response,
 			),
 		);
+
+		$response = new \WP_REST_Response( $data );
+
+		//$response->add_link( 'organisation', rest_url( 'pronamic-twinfield/v1/authorizations/x/organisation' ) );
+
+		return $response;
 	}
 
 	public function rest_api_customers_list( WP_REST_Request $request ) {
