@@ -67,10 +67,87 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
-			'/offices',
+			'/organisation',
+			array(
+				'methods'             => 'GET',
+				'callback'            => function( WP_REST_Request $request ) {
+					return $this->redirect_authorization( 'organisation' );
+				},
+				'permission_callback' => function () {
+					return true;
+				},
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/organisation',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_organisation' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'rest_api_offices' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_office' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'office_code'     => array(
+						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/offices',
+			array(
+				'methods'             => 'GET',
+				'callback'            => function( WP_REST_Request $request ) {
+					return $this->redirect_authorization( 'offices' );
+				},
 				'permission_callback' => function () {
 					return true;
 				},
@@ -152,6 +229,19 @@ class RestApi {
 		);
 	}
 
+	public function redirect_authorization( $route ) {
+		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
+
+		/**
+		 * 303 See Other.
+		 *
+		 * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303
+		 */
+		$url = \rest_url( 'pronamic-twinfield/v1/authorizations/' . $post->ID . '/' . $route );
+
+		return new \WP_REST_Response( null, 303, array( 'Location' => $url ) );
+	}
+
 	public function rest_api_authorize( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 		$code    = $request->get_param( 'code' );
@@ -193,12 +283,35 @@ class RestApi {
 		
 	}
 
+	public function rest_api_organisation( WP_REST_Request $request ) {
+		$post = get_post( $request->get_param( 'post_id' ) );
+
+		$client = $this->plugin->get_client( $post );
+
+		return $client->get_organisation();
+	}
+
 	public function rest_api_offices( WP_REST_Request $request ) {
-		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
+		$post = get_post( $request->get_param( 'post_id' ) );
 
 		$client = $this->plugin->get_client( $post );
 
 		return $client->get_offices();
+	}
+
+
+	public function rest_api_office( WP_REST_Request $request ) {
+		$post = get_post( $request->get_param( 'post_id' ) );
+
+		$client = $this->plugin->get_client( $post );
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$organisation = $client->get_organisation();
+
+		$office = $organisation->new_office( $office_code );
+
+		return $client->get_office( $office );
 	}
 
 	public function rest_api_customers_list( WP_REST_Request $request ) {

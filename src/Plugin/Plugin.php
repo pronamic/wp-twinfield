@@ -111,6 +111,12 @@ class Plugin {
         }
 
         switch ( $route ) {
+            case '/organisation':
+                $organisation = $response->get_data();
+
+                include __DIR__ . '/../../templates/organisation.php';
+                
+                break;
             case '/offices':
                 $offices = $response->get_data();
 

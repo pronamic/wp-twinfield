@@ -24,7 +24,7 @@ use Pronamic\WordPress\Twinfield\Offices\Office;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Organisation extends CodeName {
+class Organisation extends CodeName implements \JsonSerializable {
     /**
      * Twinfield.
      * 
@@ -71,5 +71,13 @@ class Organisation extends CodeName {
         }
 
         return $this->offices[ $code ];
+    }
+
+    public function jsonSerialize() {
+        return (object) array(
+            'code'      => $this->get_code(),
+            'name'      => $this->get_name(),
+            'shortname' => $this->get_shortname(),
+        );
     }
 }
