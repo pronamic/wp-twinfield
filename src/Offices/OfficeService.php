@@ -91,29 +91,13 @@ class OfficeService {
 	 * @return Office
 	 */
 	public function get_office( $office ) {
-		$document = new \DOMDocument();
-
-		$read_element = $document->createElement( 'read' );
-
-		$document->appendChild( $read_element );
-
-		$type_element = $document->createElement( 'type' );
-		$type_element->appendChild( new \DOMText( 'office' ) );
-
-		$read_element->appendChild( $type_element );
-
-		$code_element = $document->createElement( 'code' );
-		$code_element->appendChild( new \DOMText( $office->get_code() ) );
-
-		$read_element->appendChild( $code_element );
-
-		$xml_string = $document->saveXML();
+		$office_read_request = new OfficeReadRequest( $office->get_code() );
 
 		$xml_processor = $this->client->get_xml_processor();
 
 		$xml_processor->set_office( $office );
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml_string ) );
+		$response = $xml_processor->process_xml_string( new ProcessXmlString( $office_read_request->to_xml() ) );
 
 		return Office::from_xml( \strval( $response ), $office );
 	}

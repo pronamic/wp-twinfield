@@ -7,6 +7,10 @@ use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
+use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
+use Pronamic\WordPress\Twinfield\Offices\OfficesList;
+use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
+use Pronamic\WordPress\Twinfield\ProcessXmlString;
 
 class RestApi {
 	/**
@@ -113,6 +117,10 @@ class RestApi {
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 					),
+					'embed'       => array(
+						'description'       => 'Embed.',
+						'type'              => 'string',
+					),
 				),
 			)
 		);
@@ -134,6 +142,15 @@ class RestApi {
 					),
 					'office_code'     => array(
 						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+					/**
+					 * Embed?
+					 * 
+					 * @link https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
+					 */
+					'embed'       => array(
+						'description'       => 'Embed.',
 						'type'              => 'string',
 					),
 				),
@@ -296,22 +313,55 @@ class RestApi {
 
 		$client = $this->plugin->get_client( $post );
 
-		return $client->get_offices();
-	}
+		$xml_processor = $client->get_xml_processor();
 
+		$request = new OfficesListRequest();
+
+		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+
+		$offices = OfficesList::from_xml( (string) $response, $client->get_organisation() );
+
+		/**
+		 * Envelope.
+		 * 
+		 * @link https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_envelope
+		 */
+		return (object) array(
+			'offices'   => $offices,
+			'count'     => \iterator_count( $offices ),
+			'_embedded' => (object) array(
+				'offices'  => $offices,
+				'request'  => $request->to_xml(),
+				'response' => (string) $response,
+			),
+		);
+	}
 
 	public function rest_api_office( WP_REST_Request $request ) {
 		$post = get_post( $request->get_param( 'post_id' ) );
 
 		$client = $this->plugin->get_client( $post );
 
-		$office_code = $request->get_param( 'office_code' );
-
 		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
 
 		$office = $organisation->new_office( $office_code );
 
-		return $client->get_office( $office );
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$request = new OfficeReadRequest( $office_code );
+
+		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+
+		return (object) array(
+			'_embedded' => (object) array(
+				'request'  => $request->to_xml(),
+				'response' => (string) $response,
+			),
+		);
 	}
 
 	public function rest_api_customers_list( WP_REST_Request $request ) {
