@@ -35,6 +35,8 @@ class Office extends CodeName implements \JsonSerializable {
 
     private $dimension_types = array();
 
+    private $sales_invoice_types = array();
+
     public function new_transaction_type( $code ) {
         $transaction_type = new TransactionType( $this, $code );
 
@@ -49,6 +51,14 @@ class Office extends CodeName implements \JsonSerializable {
         $this->dimension_types[] = $dimension_type;
 
         return $dimension_type;
+    }
+
+    public function sales_invoice_type( $code ) {
+        $sales_invoice_type = new \Pronamic\WordPress\Twinfield\Accounting\SalesInvoiceType( $this, $code );
+
+        $this->sales_invoice_types[] = $sales_invoice_type;
+
+        return $sales_invoice_type;
     }
 
     /**

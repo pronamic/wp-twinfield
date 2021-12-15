@@ -61,6 +61,10 @@ class Organisation extends CodeName implements \JsonSerializable {
         return $this->users[ $code ];
     }
 
+    public function office( $code ) {
+        return $this->new_office( $code );
+    }
+
     public function new_office( $code ) {
         if ( ! \array_key_exists( $code, $this->offices ) ) {
             $office = new Office( $code );

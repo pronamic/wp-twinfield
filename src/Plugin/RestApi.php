@@ -159,6 +159,68 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
+			'/authorizations/(?P<post_id>\d+)/transactions/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<transaction_type_code>[a-zA-Z0-9_-]+)/(?P<transaction_number>[a-zA-Z0-9_-]+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_transaction' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'office_code'     => array(
+						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+					'transaction_type_code' => array(
+						'description'       => 'Twinfield transaction type code.',
+						'type'              => 'string',
+					),
+					'transaction_number' => array(
+						'description'       => 'Twinfield transaction number.',
+						'type'              => 'string',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/sales-invoices/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<invoice_type_code>[a-zA-Z0-9_-]+)/(?P<invoice_number>[a-zA-Z0-9_-]+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_sales_invoice' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'office_code'     => array(
+						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+					'invoice_type_code' => array(
+						'description'       => 'Twinfield invoice type code.',
+						'type'              => 'string',
+					),
+					'invoice_number' => array(
+						'description'       => 'Twinfield invoice number.',
+						'type'              => 'string',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
 			'/offices',
 			array(
 				'methods'             => 'GET',
@@ -373,6 +435,157 @@ class RestApi {
 					'pronamic-twinfield/v1/authorizations/:id/organisation',
 					array(
 						':id' => $post_id,
+					)
+				)
+			),
+			array(
+				'type' => 'application/hal+json',
+			)
+		);
+
+		return $response;
+	}
+
+	public function rest_api_transaction( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$xml_processor = $client->get_xml_processor();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$request = new \Pronamic\WordPress\Twinfield\Accounting\TransactionReadRequest(
+			$request->get_param( 'office_code' ),
+			$request->get_param( 'transaction_type_code' ),
+			$request->get_param( 'transaction_number' )
+		);
+
+		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+
+		$data = array(
+			'_embedded' => (object) array(
+				'request'  => $request->to_xml(),
+				'response' => (string) $response,
+			),
+		);
+
+		$response = new \WP_REST_Response( $data );
+
+		$response->add_link(
+			'organisation',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/organisation',
+					array(
+						':id' => $post_id,
+					)
+				)
+			),
+			array(
+				'type' => 'application/hal+json',
+			)
+		);
+
+		return $response;
+	}
+
+	public function rest_api_sales_invoice( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$xml_processor = $client->get_xml_processor();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$read_request = new \Pronamic\WordPress\Twinfield\Accounting\SalesInvoiceReadRequest(
+			$request->get_param( 'office_code' ),
+			$request->get_param( 'invoice_type_code' ),
+			$request->get_param( 'invoice_number' )
+		);
+
+		$read_response = $xml_processor->process_xml_string( new ProcessXmlString( $read_request->to_xml() ) );
+
+		$sales_invoice = \Pronamic\WordPress\Twinfield\Accounting\SalesInvoice::from_xml( (string) $read_response, $organisation );
+
+		$data = array(
+			'office'         => $request->get_param( 'office_code' ),
+			'code'           => $request->get_param( 'invoice_type_code' ),
+			'invoice_number' => $request->get_param( 'invoice_number' ),
+			'resource'       => 'sales_invoice',
+		);
+
+		$data['_embedded'] = (object) array(
+			'sales_invoice' => $sales_invoice,
+			'request_xml'   => $read_request->to_xml(),
+			'response_xml'  => (string) $read_response,
+		);
+
+		$response = new \WP_REST_Response( $data );
+
+		$response->header( 'X-PronamicTwinfield-ContentType', 'sales-invoice' );
+
+		$response->add_link(
+			'organisation',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/organisation',
+					array(
+						':id' => $post_id,
+					)
+				)
+			),
+			array(
+				'type' => 'application/hal+json',
+			)
+		);
+
+		$response->add_link(
+			'office',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/offices/:code',
+					array(
+						':id'   => $post_id,
+						':code' => $request->get_param( 'office_code' ),
+					)
+				)
+			),
+			array(
+				'type' => 'application/hal+json',
+			)
+		);
+
+		$response->add_link(
+			'invoice_type',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/offices/:code/invoice-types/:type',
+					array(
+						':id'   => $post_id,
+						':code' => $request->get_param( 'office_code' ),
+						':type' => $request->get_param( 'invoice_type_code' ),
 					)
 				)
 			),

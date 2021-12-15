@@ -110,7 +110,7 @@ class Plugin {
             \wp_die( $response->get_error_message() );
         }
 
-        switch ( $route ) {
+        switch ( $type ) {
             case '/organisation':
                 $organisation = $response->get_data();
 
@@ -123,7 +123,20 @@ class Plugin {
                 include __DIR__ . '/../../templates/offices.php';
                 
                 break;
-            default:        
+            default:  
+                $data = (object) $response->get_data();
+
+                if ( \is_object( $data ) && \property_exists( $data, 'resource' ) ) {
+                    switch ( $data->resource ) {
+                        case 'sales_invoice':
+                            $sales_invoice = $data->_embedded->sales_invoice;
+
+                            include __DIR__ . '/../../templates/sales-invoice.php';
+                
+                            break 2;
+                    }
+                }
+
                 include __DIR__ . '/../../templates/index.php';
                 
                 break;
