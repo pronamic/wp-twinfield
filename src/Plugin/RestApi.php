@@ -327,7 +327,6 @@ class RestApi {
 		 * @link https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_envelope
 		 */
 		return (object) array(
-			'offices'   => $offices,
 			'count'     => \iterator_count( $offices ),
 			'_embedded' => (object) array(
 				'offices'  => $offices,
@@ -338,7 +337,9 @@ class RestApi {
 	}
 
 	public function rest_api_office( WP_REST_Request $request ) {
-		$post = get_post( $request->get_param( 'post_id' ) );
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
 
 		$client = $this->plugin->get_client( $post );
 
@@ -356,7 +357,7 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
 
-		$data = (object) array(
+		$data = array(
 			'_embedded' => (object) array(
 				'request'  => $request->to_xml(),
 				'response' => (string) $response,
@@ -365,7 +366,20 @@ class RestApi {
 
 		$response = new \WP_REST_Response( $data );
 
-		//$response->add_link( 'organisation', rest_url( 'pronamic-twinfield/v1/authorizations/x/organisation' ) );
+		$response->add_link(
+			'organisation',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/organisation',
+					array(
+						':id' => $post_id,
+					)
+				)
+			),
+			array(
+				'type' => 'application/hal+json',
+			)
+		);
 
 		return $response;
 	}
