@@ -135,7 +135,7 @@ class Settings {
 			'Go to the %s in order to register your OpenID Connect / OAuht 2.0 client and get your Client Id (and optional client secret).',
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://www.twinfield.nl/openid-connect-request/' ),
+				esc_url( 'https://developers.twinfield.com/clients/new' ),
 				esc_html__( 'Twinfield web site', 'twinfield' )
 			)
 		);
