@@ -145,6 +145,7 @@ class Plugin {
      */
     public function template_include( $template ) {
         $route = \get_query_var( 'pronamic_twinfield_route', null );
+	    $type  = \get_query_var( 'pronamic_twinfield_type', 'html' );
 
         if ( null === $route ) {
             return $template;
@@ -159,29 +160,67 @@ class Plugin {
         }
 
         switch ( $type ) {
-            case '/organisation':
-                $organisation = $response->get_data();
-
-                include __DIR__ . '/../../templates/organisation.php';
-                
-                break;
-            case '/offices':
-                $offices = $response->get_data();
-
-                include __DIR__ . '/../../templates/offices.php';
-                
-                break;
-            default:  
+             default:
                 $data = (object) $response->get_data();
 
-                if ( \is_object( $data ) && \property_exists( $data, 'resource' ) ) {
-                    switch ( $data->resource ) {
-                        case 'sales_invoice':
-                            $sales_invoice = $data->_embedded->sales_invoice;
+                if ( \property_exists( $data, 'type' ) ) {
+                    switch ( $data->type ) {
+	                    case 'organisation':
+		                    $organisation = $data->data;
 
-                            include __DIR__ . '/../../templates/sales-invoice.php';
-                
-                            break 2;
+		                    include __DIR__ . '/../../templates/organisation.php';
+
+		                    return false;
+	                    case 'offices':
+		                    $offices = $data->data;
+
+		                    include __DIR__ . '/../../templates/offices.php';
+
+		                    return false;
+                        case 'sales_invoice':
+                            $sales_invoice = $data->data;
+
+	                        switch ( $type ) {
+		                        case 'pdf':
+			                        \ob_start();
+
+			                        include __DIR__ . '/../../templates/sales-invoice-pdf-html.php';
+
+			                        $html = \ob_get_clean();
+
+			                        $mpdf = new \Mpdf\Mpdf();
+			                        $mpdf->WriteHTML( $html );
+			                        $mpdf->Output(
+				                        \sprintf(
+					                        'Pronamic factuur %s.pdf',
+					                        $twinfield_sales_invoice->get_header()->get_number()
+				                        ),
+				                        \Mpdf\Output\Destination::INLINE
+			                        );
+
+			                        exit;
+		                        case 'html-pdf':
+			                        include __DIR__ . '/../../templates/sales-invoice-pdf-html.php';
+
+			                        break;
+		                        case 'xml':
+			                        /**
+			                         * Difference between text/xml and application/xml.
+			                         *
+			                         * @link https://stackoverflow.com/questions/3272534/what-content-type-value-should-i-send-for-my-xml-sitemap
+			                         * @link http://www.grauw.nl/blog/entry/489/
+			                         */
+			                        header( 'Content-Type: application/xml' );
+
+			                        echo $data->_embedded->response_xml;
+
+			                        exit;
+		                        case 'html':
+		                        default:
+		                            include __DIR__ . '/../../templates/sales-invoice.php';
+
+			                        return false;
+	                        }
                     }
                 }
 

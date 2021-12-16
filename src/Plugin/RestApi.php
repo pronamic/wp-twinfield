@@ -374,7 +374,12 @@ class RestApi {
 
 		$client = $this->plugin->get_client( $post );
 
-		return $client->get_organisation();
+		$organisation = $client->get_organisation();
+
+		return (object) array(
+			'type' => 'organisation',
+			'data' => $organisation,
+		);
 	}
 
 	public function rest_api_offices( WP_REST_Request $request ) {
@@ -384,25 +389,42 @@ class RestApi {
 
 		$xml_processor = $client->get_xml_processor();
 
-		$request = new OfficesListRequest();
+		$offices_list_request = new OfficesListRequest();
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+		$offices_list_response = $xml_processor->process_xml_string( new ProcessXmlString( $offices_list_request->to_xml() ) );
 
-		$offices = OfficesList::from_xml( (string) $response, $client->get_organisation() );
+		$offices = OfficesList::from_xml( (string) $offices_list_response, $client->get_organisation() );
+
+		$data = array();
+
+		foreach ( $offices as $office ) {
+			$rest_response = new \WP_REST_Response();
+
+			$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
+
+			$object = $office->jsonSerialize();
+
+			$object->_links = \rest_get_server()::get_compact_response_links( $rest_response );
+
+			$data[] = $object;
+		}
 
 		/**
 		 * Envelope.
 		 * 
 		 * @link https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_envelope
+		 * @link https://jsonapi.org/format/#document-top-level
 		 */
-		return (object) array(
-			'count'     => \iterator_count( $offices ),
+		$rest_response = new \WP_REST_Response( array(
+			'type'      => 'offices',
+			'data'      => $data,
 			'_embedded' => (object) array(
-				'offices'  => $offices,
-				'request'  => $request->to_xml(),
-				'response' => (string) $response,
+				'request'  => (string) $offices_list_request,
+				'response' => (string) $offices_list_response,
 			),
-		);
+		) );
+
+		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
 	}
 
 	public function rest_api_office( WP_REST_Request $request ) {
@@ -446,7 +468,8 @@ class RestApi {
 				)
 			),
 			array(
-				'type' => 'application/hal+json',
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
 			)
 		);
 
@@ -500,7 +523,8 @@ class RestApi {
 				)
 			),
 			array(
-				'type' => 'application/hal+json',
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
 			)
 		);
 
@@ -540,11 +564,11 @@ class RestApi {
 			'office'         => $request->get_param( 'office_code' ),
 			'code'           => $request->get_param( 'invoice_type_code' ),
 			'invoice_number' => $request->get_param( 'invoice_number' ),
-			'resource'       => 'sales_invoice',
+			'type'           => 'sales_invoice',
+			'data'           => $sales_invoice,
 		);
 
 		$data['_embedded'] = (object) array(
-			'sales_invoice' => $sales_invoice,
 			'request_xml'   => $read_request->to_xml(),
 			'response_xml'  => (string) $read_response,
 		);
@@ -552,6 +576,30 @@ class RestApi {
 		$response = new \WP_REST_Response( $data );
 
 		$response->header( 'X-PronamicTwinfield-ContentType', 'sales-invoice' );
+
+		$response->add_link(
+			'self',
+			\rest_url( $request->get_route() ),
+			array(
+				'type' => 'application/hal+json',
+			)
+		);
+
+		$response->add_link(
+			'pdf',
+			\home_url( $request->get_route() . '.pdf' ),
+			array(
+				'type' => 'application/pdf',
+			)
+		);
+
+		$response->add_link(
+			'xml',
+			\home_url( $request->get_route() . '.xml' ),
+			array(
+				'type' => 'application/xml',
+			)
+		);
 
 		$response->add_link(
 			'organisation',
@@ -564,7 +612,8 @@ class RestApi {
 				)
 			),
 			array(
-				'type' => 'application/hal+json',
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
 			)
 		);
 
@@ -580,7 +629,8 @@ class RestApi {
 				)
 			),
 			array(
-				'type' => 'application/hal+json',
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
 			)
 		);
 
@@ -597,7 +647,8 @@ class RestApi {
 				)
 			),
 			array(
-				'type' => 'application/hal+json',
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
 			)
 		);
 

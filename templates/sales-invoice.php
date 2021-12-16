@@ -26,13 +26,17 @@ get_header();
 			?>
 
 			<div class="btn-group" role="group" aria-label="Basic example">
-				<a class="btn btn-secondary" href="<?php echo esc_url( home_url( '/twinfield/facturen/' . $data->invoice_number . '/pdf/' ) ); ?>" target="_blank">
+				<a class="btn btn-secondary" href="<?php echo esc_url( untrailingslashit( add_query_arg() ) . '.pdf'); ?>" target="_blank">
 					<i class="fas fa-file-pdf"></i> PDF
 				</a>
 
-				<a class="btn btn-secondary" href="<?php echo esc_url( home_url( '/twinfield/facturen/' . $data->invoice_number . '/xml/' ) ); ?>" target="_blank">
+				<a class="btn btn-secondary" href="<?php echo esc_url( untrailingslashit( add_query_arg() ) . '.xml' ); ?>" target="_blank">
 					<i class="fas fa-file-code"></i> XML
 				</a>
+
+                <a class="btn btn-secondary" href="<?php echo esc_url( rest_url( $request->get_route() ) ); ?>" target="_blank">
+                    <i class="fas fa-file-code"></i> JSON
+                </a>
 			</div>
 		</div>
 
@@ -213,23 +217,21 @@ get_header();
 					?>
 				</header>
 
-				<div class="content">
-					<?php
+                <?php
 
-					$document = new DOMDocument();
+                $document = new DOMDocument();
 
-					$document->preserveWhiteSpace = false;
-					$document->formatOutput       = true;
+                $document->preserveWhiteSpace = false;
+                $document->formatOutput       = true;
 
-					$document->loadXML( $section->xml );
+                $document->loadXML( $section->xml );
 
-					printf(
-						'<textarea class="pronamic-twinfield-xml-textarea">%s</textarea>',
-						esc_html( $document->saveXML( $document->documentElement ) )
-					);
+                printf(
+                    '<textarea class="pronamic-twinfield-xml-textarea">%s</textarea>',
+                    esc_html( $document->saveXML( $document->documentElement ) )
+                );
 
-					?>
-				</div>
+                ?>
 			</div>
 
 		<?php endforeach; ?>
