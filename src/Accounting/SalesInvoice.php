@@ -42,6 +42,8 @@ class SalesInvoice {
 			'invoice_address_number' => (string) $simplexml->header->invoiceaddressnumber,
 			'deliver_address_number' => (string) $simplexml->header->deliveraddressnumber,
 			'customer'               => (string) $simplexml->header->customer,
+			'period'                 => (string) $simplexml->header->period,
+			'status'                 => (string) $simplexml->header->status,
 		);
 
 		$object->lines = array();
@@ -54,6 +56,7 @@ class SalesInvoice {
 				'quantity'    => (string) $element_line->quantity,
 				'units'       => (string) $element_line->units,
 				'description' => (string) $element_line->description,
+				'value_excl'  => (string) $element_line->valueexcl,
 				'free_text_1' => (string) $element_line->freetext1,
 				'free_text_2' => (string) $element_line->freetext2,
 				'free_text_3' => (string) $element_line->freetext3,

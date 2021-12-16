@@ -12,25 +12,53 @@ printf(
 	)
 );
 
+$items = array(
+	(object) array(
+		'label' => __( 'Office', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->office->get_code(),
+	),
+	(object) array(
+		'label' => __( 'Type', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->invoice_type->code,
+	),
+	(object) array(
+		'label' => __( 'Number', 'pronamic-twinfield' ),
+		'value' => $data->invoice_number,
+	),
+	(object) array(
+		'label' => __( 'Invoice Date', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->invoice_date->format( 'd-m-Y' ),
+	),
+	(object) array(
+		'label' => __( 'Due Date', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->due_date->format( 'd-m-Y' ),
+	),
+	(object) array(
+		'label' => __( 'Customer', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->customer,
+	),
+	(object) array(
+		'label' => __( 'Period', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->period,
+	),
+	(object) array(
+		'label' => __( 'Status', 'pronamic-twinfield' ),
+		'value' => $sales_invoice->header->status,
+	),
+);
+
 ?>
 
 <h2><?php esc_html_e( 'Header', 'pronamic-twinfield' ); ?></h2>
 
 <dl>
-	<dt><?php esc_html_e( 'Office', 'pronamic-twinfield' ); ?></dt>
-	<dd>
-		<?php echo esc_html( $sales_invoice->header->office->get_code() ); ?>
-	</dd>
+	<?php foreach ( $items as $item ) : ?>
 
-	<dt><?php esc_html_e( 'Type', 'pronamic-twinfield' ); ?></dt>
-	<dd>
-		<?php echo esc_html( $sales_invoice->header->invoice_type->code ); ?>
-	</dd>
+		<dt><?php echo esc_html( $item->label ); ?></dt>
+		<dd><?php echo esc_html( $item->value ); ?></dd>
 
-	<dt><?php esc_html_e( 'Number', 'pronamic-twinfield' ); ?></dt>
-	<dd>
-		<?php echo esc_html( $data->invoice_number ); ?>
-	</dd>
+	<?php endforeach; ?>
+
 </dl>
 
 <h2><?php esc_html_e( 'Lines', 'pronamic-twinfield' ); ?></h2>
@@ -42,6 +70,8 @@ printf(
 			<th scope="col"><?php esc_html_e( 'Article', 'pronamic-twinfield' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Sub Article', 'pronamic-twinfield' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Quantity', 'pronamic-twinfield' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Description', 'pronamic-twinfield' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Value excl', 'pronamic-twinfield' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Free Text 1', 'pronamic-twinfield' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Free Text 2', 'pronamic-twinfield' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Free Text 3', 'pronamic-twinfield' ); ?></th>
@@ -64,6 +94,12 @@ printf(
 				</td>
 				<td>
 					<?php echo esc_html( $line->quantity ); ?>
+				</td>
+				<td>
+					<?php echo esc_html( $line->description ); ?>
+				</td>
+				<td>
+					<?php echo esc_html( $line->value_excl ); ?>
 				</td>
 				<td>
 					<?php echo esc_html( $line->free_text_1 ); ?>
