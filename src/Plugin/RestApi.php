@@ -14,6 +14,13 @@ use Pronamic\WordPress\Twinfield\ProcessXmlString;
 
 class RestApi {
 	/**
+	 * Plugin.
+	 *
+	 * @var Plugin
+	 */
+	private $plugin;
+
+	/**
 	 * Constructs and initialize Twinfield REST API object.
 	 */
 	public function __construct( $plugin ) {

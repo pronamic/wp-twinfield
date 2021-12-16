@@ -64,21 +64,7 @@ class Settings {
 			)
 		);
 
-		// Redirect URI.
-		register_setting( 'pronamic_twinfield', 'pronamic_twinfield_openid_connect_redirect_uri' );
-
-		add_settings_field(
-			'pronamic_twinfield_openid_connect_redirect_uri',
-			__( 'Redirect URI', 'twinfield' ),
-			__NAMESPACE__ . '\SettingFields::render_text',
-			'pronamic_twinfield',
-			'pronamic_twinfield_openid_connect_authentication',
-			array(
-				'label_for' => 'pronamic_twinfield_openid_connect_redirect_uri',
-				'type'      => 'url',
-			)
-		);
-
+		// Section - General.
 		add_settings_section(
 			'pronamic_twinfield_general',
 			__( 'General', 'twinfield' ),

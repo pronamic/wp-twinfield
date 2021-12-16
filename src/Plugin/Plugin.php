@@ -45,9 +45,23 @@ class Plugin {
 
         $this->authorization_post_type->setup();
 
-        \add_action( 'init', array( $this, 'init' ) );
+        \add_action( 'init', array( $this, 'init' ), 9 );
         \add_filter( 'query_vars', array( $this, 'query_vars' ) );
         \add_filter( 'template_include', array( $this, 'template_include' ) );
+
+		\add_filter( 'pronamic_twinfield_client', function() {
+			return $this->get_client( \get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) ) );
+		} );
+
+		\add_filter( 'redirect_canonical', function( $redirect_url, $requested_url ) {
+			$type = \get_query_var( 'pronamic_twinfield_type', null );
+
+			if ( null === $type ) {
+				return $redirect_url;
+			}
+
+			return $requested_url;
+		}, 10, 2 );
     }
 
     /**
@@ -68,13 +82,46 @@ class Plugin {
         );
 
         \add_rewrite_rule(
-            '^pronamic-twinfield/(.*)?',
+            '^pronamic-twinfield/(.*)?\.(.*)?$',
             array(
                 'pronamic_twinfield_route' => '/$matches[1]',
+                'pronamic_twinfield_type'  => '$matches[2]',
             ),
             'top'
         );
+
+	    \add_rewrite_rule(
+		    '^pronamic-twinfield/(.*)?',
+		    array(
+			    'pronamic_twinfield_route' => '/$matches[1]',
+		    ),
+		    'top'
+	    );
+
+		// Authorize.
+	    $this->maybe_handle_authorize( $_GET );
     }
+
+	public function maybe_handle_authorize( $data ) {
+		if ( ! \array_key_exists( 'code', $data ) )  {
+			return;
+		}
+
+		if ( ! \array_key_exists( 'state', $data ) )  {
+			return;
+		}
+
+		$url = \add_query_arg(
+			array(
+				'code' => $data['code'],
+			),
+			\rest_url( 'pronamic-twinfield/v1/authorize/' . $data['state'] )
+		);
+
+		\wp_safe_redirect( $url );
+
+		exit;
+	}
 
     /**
      * Query vars.
@@ -84,6 +131,7 @@ class Plugin {
      */
     public function query_vars( $query_vars ) {
         $query_vars[] = 'pronamic_twinfield_route';
+	    $query_vars[] = 'pronamic_twinfield_type';
 
         return $query_vars;
     }
@@ -148,9 +196,8 @@ class Plugin {
     public function get_openid_connect_client() {
         $client_id     = \get_option( 'pronamic_twinfield_openid_connect_client_id' );
         $client_secret = \get_option( 'pronamic_twinfield_openid_connect_client_secret' );
-        $redirect_uri  = \get_option( 'pronamic_twinfield_openid_connect_redirect_uri' );
 
-        $openid_connect_client = new OpenIdConnectClient( $client_id, $client_secret, $redirect_uri );
+        $openid_connect_client = new OpenIdConnectClient( $client_id, $client_secret, \home_url( '/' ) );
 
         return $openid_connect_client;
     }

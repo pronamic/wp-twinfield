@@ -61,6 +61,7 @@ class OpenIdConnectClient {
 		$this->redirect_uri  = $redirect_uri;
 	}
 
+
 	/**
 	 * Get authorization header.
 	 *
@@ -84,35 +85,50 @@ class OpenIdConnectClient {
 	}
 
 	/**
+	 * Set state.
+	 *
+	 * @param string $state State.
+	 * @return void
+	 */
+	public function set_state( $state ) {
+		$this->state = $state;
+	}
+
+	/**
 	 * Get authorize URL.
 	 *
-	 * @param mixed $state State.
 	 * @return string
 	 */
-	public function get_authorize_url( $state ) {
+	public function get_authorize_url() {
 		$url = self::URL_AUTHORIZE;
 
-		$url = add_query_arg(
-			array(
-				'client_id'     => $this->client_id,
-				'response_type' => 'code',
-				'scope'         => implode(
-					'+',
-					array(
-						'openid',
-						'twf.user',
-						'twf.organisation',
-						'twf.organisationUser',
-						'offline_access',
-					)
-				),
-				'redirect_uri'  => $this->redirect_uri,
-				// @see https://auth0.com/docs/protocols/oauth2/oauth-state
-				'state'         => base64_encode( wp_json_encode( $state ) ),
-				'nonce'         => wp_create_nonce( 'twinfield-auth' ),
+		$args = array(
+			'client_id'     => $this->client_id,
+			'response_type' => 'code',
+			'scope'         => implode(
+				'+',
+				array(
+					'openid',
+					'twf.user',
+					'twf.organisation',
+					'twf.organisationUser',
+					'offline_access',
+				)
 			),
-			$url
+			'redirect_uri'  => $this->redirect_uri,
+			'nonce'         => wp_create_nonce( 'twinfield-auth' ),
 		);
+
+		/**
+		 * State.
+		 *
+		 * @link https://auth0.com/docs/protocols/oauth2/oauth-state
+		 */
+		if ( null !== $this->state ) {
+			$args['state'] = $this->state;
+		}
+
+		$url = add_query_arg( $args, $url );
 
 		return $url;
 	}
@@ -137,7 +153,14 @@ class OpenIdConnectClient {
 				),
 			)
 		);
-
+var_dump( array(
+	'headers' => $this->get_headers(),
+				'body'    => array(
+			'grant_type'   => 'authorization_code',
+			'code'         => $code,
+			'redirect_uri' => $this->redirect_uri,
+		),
+			) );var_dump( $result );
 		$data = $result->json();
 
 		if ( ! \is_object( $data ) ) {
@@ -265,7 +288,11 @@ class OpenIdConnectClient {
 	public static function from_json_file( $file ) {
 		$data = \json_decode( \file_get_contents( $file, true ) );
 
-		$client = new self( $data->client_id, $data->client_secret, $data->redirect_uri );
+		$client = new self( $data->client_id, $data->client_secret );
+
+		if ( \property_exists( $data, 'redirect_uri' ) ) {
+			$client->set_redirect_uri( $data->redirect_uri );
+		}
 
 		return $client;
 	}

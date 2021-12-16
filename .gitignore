@@ -24,3 +24,6 @@
 
 # WordPress
 /wordpress/
+
+# PHPStorm
+/.idea
