@@ -177,6 +177,12 @@ class Plugin {
 		                    include __DIR__ . '/../../templates/offices.php';
 
 		                    return false;
+                        case 'office':
+                            $office = $data->data;
+
+                            include __DIR__ . '/../../templates/office.php';
+
+                            return false;
                         case 'sales_invoice':
                             $sales_invoice = $data->data;
 

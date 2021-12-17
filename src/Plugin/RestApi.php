@@ -395,20 +395,6 @@ class RestApi {
 
 		$offices = OfficesList::from_xml( (string) $offices_list_response, $client->get_organisation() );
 
-		$data = array();
-
-		foreach ( $offices as $office ) {
-			$rest_response = new \WP_REST_Response();
-
-			$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
-
-			$object = $office->jsonSerialize();
-
-			$object->_links = \rest_get_server()::get_compact_response_links( $rest_response );
-
-			$data[] = $object;
-		}
-
 		/**
 		 * Envelope.
 		 * 
@@ -417,7 +403,7 @@ class RestApi {
 		 */
 		$rest_response = new \WP_REST_Response( array(
 			'type'      => 'offices',
-			'data'      => $data,
+			'data'      => $offices,
 			'_embedded' => (object) array(
 				'request'  => (string) $offices_list_request,
 				'response' => (string) $offices_list_response,
@@ -425,6 +411,24 @@ class RestApi {
 		) );
 
 		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
+
+		$rest_response->add_link(
+			'organisation',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/organisation',
+					array(
+						':id' => $post_id,
+					)
+				)
+			),
+			array(
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			)
+		);
+
+		return $rest_response;
 	}
 
 	public function rest_api_office( WP_REST_Request $request ) {
@@ -449,6 +453,8 @@ class RestApi {
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
 
 		$data = array(
+			'type'      => 'office',
+			'data'      => \Pronamic\WordPress\Twinfield\Offices\Office::from_xml( (string) $response, $office ),
 			'_embedded' => (object) array(
 				'request'  => $request->to_xml(),
 				'response' => (string) $response,
