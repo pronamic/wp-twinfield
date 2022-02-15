@@ -66,13 +66,55 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
-			'/browse/fields',
+			'/authorizations/(?P<post_id>\d+)/browse/fields/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<browse_code>[a-zA-Z0-9_-]+)',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'rest_api_browse_fields' ),
 				'permission_callback' => function () {
 					return true;
 				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'office_code' => array(
+						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+					'browse_code' => array(
+						'description'       => 'Twinfield browse code.',
+						'type'              => 'string',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/browse/query/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<browse_code>[a-zA-Z0-9_-]+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_browse_query' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'office_code' => array(
+						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+					'browse_code' => array(
+						'description'       => 'Twinfield browse code.',
+						'type'              => 'string',
+					),
+				),
 			)
 		);
 
@@ -360,13 +402,6 @@ class RestApi {
 		);
 
 		return new \WP_REST_Response( null, 303, array( 'Location' => $url ) );
-	}
-
-	public function rest_api_browse_fields( WP_REST_Request $request ) {
-		$client = $this->plugin->get_client();
-
-		$xml_processor = $client->get_xml_processor();
-		
 	}
 
 	public function rest_api_organisation( WP_REST_Request $request ) {
@@ -753,5 +788,166 @@ class RestApi {
 		}
 
 		return $options;
+	}
+
+	public function rest_api_browse_fields( WP_REST_Request $request ) {
+		$post = get_post( $request->get_param( 'post_id' ) );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$document = new \DOMDocument();
+
+		$browse_code = $request->get_param( 'browse_code' );
+
+		$read_element = $document->appendChild( $document->createElement( 'read' ) );
+
+		$read_element->appendChild( $document->createElement( 'type', 'browse' ) );
+		$read_element->appendChild( $document->createElement( 'office', $office_code ) );
+		$read_element->appendChild( $document->createElement( 'code', $browse_code ) );
+
+		$xml = $document->saveXML( $document->documentElement );
+
+		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+
+		$rest_response = new \WP_REST_Response( array(
+			'type'      => 'browse',
+			'data'      => $offices,
+			'_embedded' => (object) array(
+				'request'  => (string) $xml,
+				'response' => (string) $response,
+			),
+		) );
+
+		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
+
+		return $rest_response;		
+	}
+
+	public function rest_api_browse_query( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$document = new \DOMDocument();
+
+		$browse_code = $request->get_param( 'browse_code' );
+
+		$columns_element = $document->appendChild( $document->createElement( 'columns' ) );
+		$columns_element->setAttribute( 'code', $browse_code );
+
+		$optimize = $request->get_param( 'optimize' );
+
+		if ( $optimize ) {
+			$columns_element->setAttribute( 'optimize', 'true' );
+		}
+
+		$values   = $request->get_param( 'values' );
+		$visibles = $request->get_param( 'visibles' );
+
+		foreach ( $values as $field => $value ) {
+			$operator = 'equal';
+			$from     = $value;
+			$to       = null;
+
+			/**
+			 * @link https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-values-between-a-range
+			 */
+			$between_position = \mb_strpos( $value, '..' );
+
+			if ( false !== $between_position ) {
+				$operator = 'between';
+				$from     = \mb_substr( $value, 0, $between_position );
+				$to       = \mb_substr( $value, $between_position + 2 );
+			}
+
+			$from_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $from );
+
+			if ( false !== $from_date ) {
+				$from = $from_date->format( 'Ymd' );
+			}
+
+			$to_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $to );
+
+			if ( false !== $to_date ) {
+				$to = $to_date->format( 'Ymd' );
+			}
+
+			$column_element = $columns_element->appendChild( $document->createElement( 'column' ) );
+
+			$column_element->appendChild( $document->createElement( 'field', $field ) );
+			$column_element->appendChild( $document->createElement( 'operator', $operator ) );
+			$column_element->appendChild( $document->createElement( 'from', $from ) );
+
+			if ( ! empty( $to ) ) {
+				$column_element->appendChild( $document->createElement( 'to', $to ) );
+			}
+
+			$visible = false;
+
+			if ( array_key_exists( $field, $visibles ) ) {
+				$visible = (bool) $visibles[ $field ];
+			}
+
+			if ( true === $visible ) {
+				$column_element->appendChild( $document->createElement( 'visible', 'true' ) );
+			}
+		}
+
+		$xml = $document->saveXML( $document->documentElement );
+
+		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+
+		$rest_response = new \WP_REST_Response( array(
+			'type'      => 'columns',
+			'data'      => $offices,
+			'_embedded' => (object) array(
+				'request'  => (string) $xml,
+				'response' => (string) $response,
+			),
+		) );
+
+		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
+
+		$rest_response->add_link(
+			'fields',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/browse/fields/:office_code/:browse_code/',
+					array(
+						':id'          => $post_id,
+						':office_code' => $office_code,
+						':browse_code' => $browse_code,
+					)
+				)
+			),
+			array(
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			)
+		);
+
+		return $rest_response;
 	}
 }
