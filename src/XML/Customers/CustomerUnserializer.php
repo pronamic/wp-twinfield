@@ -89,12 +89,7 @@ class CustomerUnserializer extends Unserializer {
 				}
 			}
 
-			// Response.
-			$result = Security::filter( $element['result'] );
-
-			$response = new CustomerResponse( $customer, $result, $element );
-
-			return $response;
+			return $customer;
 		}
 	}
 }

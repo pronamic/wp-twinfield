@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
+use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
+
 /**
  * Sales Invoice
  *
@@ -183,5 +185,13 @@ class SalesInvoice {
 				$this->get_lines()
 			)
 		);
+	}
+
+	public function from_xml( $xml, $organisation ) {
+		$unserializer = new SalesInvoiceUnserializer();
+        
+        $simplexml = \simplexml_load_string( $xml );
+
+		return $unserializer->unserialize( $simplexml );
 	}
 }

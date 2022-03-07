@@ -3,6 +3,7 @@
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use WP_REST_Request;
+use Pronamic\WordPress\Twinfield\Accounting\Dimension;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
@@ -262,6 +263,37 @@ class RestApi {
 					),
 					'invoice_number' => array(
 						'description'       => 'Twinfield invoice number.',
+						'type'              => 'string',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/dimensions/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<dimension_type_code>[a-zA-Z0-9_-]+)/(?P<dimension_code>[a-zA-Z0-9_-]+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_dimension' ),
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => array(
+					'post_id'     => array(
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'office_code'     => array(
+						'description'       => 'Twinfield office code.',
+						'type'              => 'string',
+					),
+					'dimension_type_code' => array(
+						'description'       => 'Twinfield dimension type code.',
+						'type'              => 'string',
+					),
+					'dimension_code' => array(
+						'description'       => 'Twinfield dimension code.',
 						'type'              => 'string',
 					),
 				),
@@ -599,7 +631,7 @@ class RestApi {
 
 		$read_response = $xml_processor->process_xml_string( new ProcessXmlString( $read_request->to_xml() ) );
 
-		$sales_invoice = \Pronamic\WordPress\Twinfield\Accounting\SalesInvoice::from_xml( (string) $read_response, $organisation );
+		$sales_invoice = \Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoice::from_xml( (string) $read_response, $organisation );
 
 		$data = array(
 			'office'         => $request->get_param( 'office_code' ),
@@ -693,7 +725,123 @@ class RestApi {
 			)
 		);
 
+		$response->add_link(
+			'customer',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/dimensions/:office_code/:dimension_type_code/:dimension_code',
+					array(
+						':id'                  => $post_id,
+						':office_code'         => $request->get_param( 'office_code' ),
+						':dimension_type_code' => 'DEB',
+						':dimension_code'      => $sales_invoice->get_header()->get_customer(),
+					)
+				)
+			),
+			array(
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			)
+		);
+
 		return $response;
+	}
+
+	/**
+	 * /authorizations/(?P<post_id>\d+)/dimensions/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<dimension_type_code>[a-zA-Z0-9_-]+)/(?P<dimension_code>[a-zA-Z0-9_-]+)
+	 */
+	public function rest_api_dimension( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$xml_processor = $client->get_xml_processor();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$xml_processor = $client->get_xml_processor();
+
+		$xml_processor->set_office( $office );
+
+		$dimension_read_request = new \Pronamic\WordPress\Twinfield\Accounting\DimensionReadRequest(
+			$request->get_param( 'office_code' ),
+			$request->get_param( 'dimension_type_code' ),
+			$request->get_param( 'dimension_code' )
+		);
+
+		$dimension_read_response = $xml_processor->process_xml_string( new ProcessXmlString( $dimension_read_request->to_xml() ) );
+
+		$dimension = Dimension::from_xml( (string) $dimension_read_response, $office );
+
+		$data = array(
+			'type'      => 'dimension',
+			'data'      => $dimension,
+			'_embedded' => (object) array(
+				'request'  => $dimension_read_request->to_xml(),
+				'response' => (string) $dimension_read_response,
+			),
+		);
+
+		$rest_response = new \WP_REST_Response( $data );
+
+		$rest_response->add_link(
+			'organisation',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/organisation',
+					array(
+						':id' => $post_id,
+					)
+				)
+			),
+			array(
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			)
+		);
+
+		$rest_response->add_link(
+			'office',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/offices/:code',
+					array(
+						':id'   => $post_id,
+						':code' => $request->get_param( 'office_code' ),
+					)
+				)
+			),
+			array(
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			)
+		);
+
+		$rest_response->add_link(
+			'dimension_type',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/offices/:code/dimension-types/:type',
+					array(
+						':id'   => $post_id,
+						':code' => $request->get_param( 'office_code' ),
+						':type' => $request->get_param( 'dimension_type_code' ),
+					)
+				)
+			),
+			array(
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			)
+		);
+
+		return $rest_response;
 	}
 
 	public function rest_api_customers_list( WP_REST_Request $request ) {

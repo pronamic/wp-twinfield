@@ -6,14 +6,11 @@
  * @link https://mpdf.github.io/css-stylesheets/supported-css.html
  */
 
-global $twinfield_sales_invoice;
-global $twinfield_customer;
+$header = $sales_invoice->get_header();
 
-$header = $twinfield_sales_invoice->get_header();
+$lines = $sales_invoice->get_lines();
 
-$lines = $twinfield_sales_invoice->get_lines();
-
-$address = $twinfield_customer->get_address_by_number( $header->get_invoice_address_number() );
+$address = $customer->get_address_by_number( $header->get_invoice_address_number() );
 
 $rows = array();
 
@@ -199,11 +196,11 @@ $rows = array_filter( $rows );
 			<strong>Totaal (excl. btw)</strong>
 		</th>
 		<td align="right" valign="top">
-			<?php echo esc_html( twinfield_price( $twinfield_sales_invoice->get_totals()->get_value_excl() ) ); ?>
+			<?php echo esc_html( twinfield_price( $sales_invoice->get_totals()->get_value_excl() ) ); ?>
 		</td>
 	</tr>
 
-	<?php foreach ( $twinfield_sales_invoice->get_vat_lines() as $vat_line ) : ?>
+	<?php foreach ( $sales_invoice->get_vat_lines() as $vat_line ) : ?>
 
 		<tr>
 			<th align="right" valign="top" colspan="2" scope="row">
@@ -235,7 +232,7 @@ $rows = array_filter( $rows );
 			<strong>Totaal (incl. btw)</strong>
 		</th>
 		<td align="right" valign="top">
-			<?php echo esc_html( twinfield_price( $twinfield_sales_invoice->get_totals()->get_value_inc() ) ); ?>
+			<?php echo esc_html( twinfield_price( $sales_invoice->get_totals()->get_value_inc() ) ); ?>
 		</td>
 	</tr>
 	</tfoot>
@@ -294,7 +291,7 @@ $rows = array_filter( $rows );
 			<strong>Bedrag:</strong>
 		</th>
 		<td>
-			<span style="font-family: Courier New;"><?php echo esc_html( twinfield_price( $twinfield_sales_invoice->get_totals()->get_value_inc() ) ); ?></span>
+			<span style="font-family: Courier New;"><?php echo esc_html( twinfield_price( $sales_invoice->get_totals()->get_value_inc() ) ); ?></span>
 		</td>
 	</tr>
 	<tr>
@@ -341,7 +338,7 @@ $rows = array_filter( $rows );
 			$url = add_query_arg(
 				array(
 					'referentie' => $header->get_number(),
-					'bedrag'     => $twinfield_sales_invoice->get_value_inc(),
+					'bedrag'     => $sales_invoice->get_value_inc(),
 				),
 				$url
 			);
@@ -367,7 +364,7 @@ $rows = array_filter( $rows );
 			$url = add_query_arg(
 				array(
 					'reference' => $header->get_number(),
-					'amount'    => $twinfield_sales_invoice->get_value_inc(),
+					'amount'    => $sales_invoice->get_value_inc(),
 				),
 				$url
 			);

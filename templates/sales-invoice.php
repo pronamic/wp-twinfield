@@ -17,9 +17,9 @@ get_header();
 				'<h1>%s</h1>',
 				sprintf(
 					'Sales Invoice %s - %s - %s',
-					$sales_invoice->header->office->get_code(),
-					$sales_invoice->header->invoice_type->code,
-					$data->invoice_number,
+					$sales_invoice->get_header()->get_office(),
+					$sales_invoice->get_header()->get_type(),
+					$sales_invoice->get_header()->get_number()
 				)
 			);
 
@@ -45,35 +45,31 @@ get_header();
 		$items = array(
 			(object) array(
 				'label' => __( 'Office', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->office->get_code(),
+				'value' => $sales_invoice->get_header()->get_office(),
 			),
 			(object) array(
 				'label' => __( 'Type', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->invoice_type->code,
+				'value' => $sales_invoice->get_header()->get_type(),
 			),
 			(object) array(
 				'label' => __( 'Number', 'pronamic-twinfield' ),
-				'value' => $data->invoice_number,
+				'value' => $sales_invoice->get_header()->get_number(),
 			),
 			(object) array(
 				'label' => __( 'Invoice Date', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->invoice_date->format( 'd-m-Y' ),
+				'value' => $sales_invoice->get_header()->get_date()->format( 'd-m-Y' ),
 			),
 			(object) array(
 				'label' => __( 'Due Date', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->due_date->format( 'd-m-Y' ),
+				'value' => $sales_invoice->get_header()->get_due_date()->format( 'd-m-Y' ),
 			),
 			(object) array(
 				'label' => __( 'Customer', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->customer,
-			),
-			(object) array(
-				'label' => __( 'Period', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->period,
+				'value' => $sales_invoice->get_header()->get_customer(),
 			),
 			(object) array(
 				'label' => __( 'Status', 'pronamic-twinfield' ),
-				'value' => $sales_invoice->header->status,
+				'value' => $sales_invoice->get_header()->get_status(),
 			),
 		);
 
@@ -121,41 +117,41 @@ get_header();
 
 				<tbody>
 
-					<?php foreach ( $sales_invoice->lines as $line ) : ?>
+					<?php foreach ( $sales_invoice->get_lines() as $line ) : ?>
 
 						<tr>
 							<td>
-								<?php echo esc_html( $line->id ); ?>
+								<?php echo esc_html( $line->get_id() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->article ); ?>
+								<?php echo esc_html( $line->get_article() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->subarticle ); ?>
+								<?php echo esc_html( $line->get_subarticle() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->quantity ); ?>
+								<?php echo esc_html( $line->get_quantity() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->description ); ?>
+								<?php echo esc_html( $line->get_description() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->value_excl ); ?>
+								<?php echo esc_html( $line->get_value_excl() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->vat_value ); ?>
+								<?php echo esc_html( $line->get_vat_value() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->value_incl ); ?>
+								<?php echo esc_html( $line->get_value_inc() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->free_text_1 ); ?>
+								<?php echo esc_html( $line->get_free_text_1() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->free_text_2 ); ?>
+								<?php echo esc_html( $line->get_free_text_2() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->free_text_3 ); ?>
+								<?php echo esc_html( $line->get_free_text_3() ); ?>
 							</td>
 						</tr>
 
@@ -172,14 +168,14 @@ get_header();
 
 			<div class="content">
 				<dl class="dl-horizontal">
-					<dt><?php esc_html_e( 'Value Excl', 'pronamic-twinfield' ); ?></dt>
-					<dd></dd>
+					<dt><?php esc_html_e( 'Value Excl', 'twinfield' ); ?></dt>
+					<dd><?php echo esc_html( twinfield_price( $sales_invoice->get_value_excl() ) ); ?></dd>
 
-					<dt><?php esc_html_e( 'Vat Value', 'pronamic-twinfield' ); ?></dt>
-					<dd></dd>
+					<dt><?php esc_html_e( 'Vat Value', 'twinfield' ); ?></dt>
+					<dd><?php echo esc_html( twinfield_price( $sales_invoice->get_vat_value() ) ); ?></dd>
 
-					<dt><?php esc_html_e( 'Value Inc', 'pronamic-twinfield' ); ?></dt>
-					<dd></dd>
+					<dt><?php esc_html_e( 'Value Inc', 'twinfield' ); ?></dt>
+					<dd><?php echo esc_html( twinfield_price( $sales_invoice->get_value_inc() ) ); ?></dd>
 				</dl>
 			</div>
 		</div>

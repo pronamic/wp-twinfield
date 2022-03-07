@@ -140,11 +140,7 @@ class SalesInvoiceUnserializer extends Unserializer {
 			}
 
 			// Response.
-			$result = Security::filter( $element['result'] );
-
-			$response = new SalesInvoiceResponse( $sales_invoice, $result, $element );
-
-			return $response;
+			return $sales_invoice;
 		}
 	}
 }

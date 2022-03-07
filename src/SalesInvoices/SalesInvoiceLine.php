@@ -453,4 +453,23 @@ class SalesInvoiceLine {
 	public function set_performance_date( \DateTimeInterface $performance_date = null ) {
 		$this->performance_date = $performance_date;
 	}
+
+	public function from_simplexml_element( $element ) {
+		$object = new self();
+
+		$object->set_id( (string) $element['id'] );
+		$object->set_article( (string) $element->article );
+		$object->set_subarticle( (string) $element->subarticle );
+		$object->set_quantity( (string) $element->quantity );
+		$object->set_units( (string) $element->units );
+		$object->set_description( (string) $element->description );
+		$object->set_value_excl( (string) $element->value_excl );
+		$object->set_vat_value( (string) $element->vatvalue );
+		$object->set_value_incl( (string) $element->valueinc );
+		$object->set_free_text_1( (string) $element->free_text_1 );
+		$object->set_free_text_2( (string) $element->free_text_2 );
+		$object->set_free_text_3( (string) $element->free_text_3 );
+
+		return $object;
+	}
 }

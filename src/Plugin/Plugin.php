@@ -186,6 +186,20 @@ class Plugin {
                         case 'sales_invoice':
                             $sales_invoice = $data->data;
 
+                            $customer = null;
+
+                            $links = $response->get_links();
+
+                            $rest_request = \WP_REST_Request::from_url( $links['customer'][0]['href'] );
+
+                            $rest_response = \rest_do_request( $rest_request );
+
+                            if ( ! $rest_response->is_error() ) {
+                                $customer_data = $rest_response->get_data();
+
+                                $customer = $customer_data['data'];
+                            }
+
 	                        switch ( $type ) {
 		                        case 'pdf':
 			                        \ob_start();
@@ -199,7 +213,7 @@ class Plugin {
 			                        $mpdf->Output(
 				                        \sprintf(
 					                        'Pronamic factuur %s.pdf',
-					                        $twinfield_sales_invoice->get_header()->get_number()
+					                        $sales_invoice->get_header()->get_number()
 				                        ),
 				                        \Mpdf\Output\Destination::INLINE
 			                        );

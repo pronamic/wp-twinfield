@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\Accounting;
 
+use JsonSerializable;
+
 /**
  * Dimension Type
  *
@@ -18,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield\Accounting;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class DimensionType {
+class DimensionType implements JsonSerializable {
     private $office;
 
 	private $code;
@@ -29,6 +31,13 @@ class DimensionType {
         $this->office = $office;
 		$this->code   = $code;
 	}
+
+    public function jsonSerialize() {
+        return [
+            'office' => $this->office,
+            'code'   => $this->code,
+        ];
+    }
 
     public function new_dimension( $code ) {
         $dimension = new Dimension( $this, $code );
