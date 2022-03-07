@@ -437,16 +437,38 @@ class RestApi {
 	}
 
 	public function rest_api_organisation( WP_REST_Request $request ) {
-		$post = get_post( $request->get_param( 'post_id' ) );
+		$post_id = $request->get_param( 'post_id' );
+		
+		$post = \get_post( $post_id );
 
 		$client = $this->plugin->get_client( $post );
 
 		$organisation = $client->get_organisation();
 
-		return (object) [
-			'type' => 'organisation',
-			'data' => $organisation,
-		];
+		$rest_response = new \WP_REST_Response(
+			[
+				'type' => 'organisation',
+				'data' => $organisation,
+			]
+		);
+
+		$rest_response->add_link(
+			'offices',
+			rest_url(
+				strtr(
+					'pronamic-twinfield/v1/authorizations/:id/offices',
+					[
+						':id' => $post_id,
+					]
+				)
+			),
+			[
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			]
+		);
+
+		return $rest_response;
 	}
 
 	public function rest_api_offices( WP_REST_Request $request ) {
