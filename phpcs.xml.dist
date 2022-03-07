@@ -4,6 +4,6 @@
 	<file>.</file>
 
 	<rule ref="PronamicWP">
-
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 	</rule>
 </ruleset>
