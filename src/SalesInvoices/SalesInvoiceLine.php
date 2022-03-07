@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 use DateTime;
+use JsonSerializable;
 
 /**
  * Sales Invoice Line
@@ -20,7 +21,7 @@ use DateTime;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class SalesInvoiceLine {
+class SalesInvoiceLine implements JsonSerializable {
 	/**
 	 * The unique ID of this sales invoice line.
 	 *
@@ -471,5 +472,27 @@ class SalesInvoiceLine {
 		$object->set_free_text_3( (string) $element->free_text_3 );
 
 		return $object;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return array(
+			'id'          => $this->id,
+			'article'     => $this->article,
+			'subarticle'  => $this->subarticle,
+			'quantity'    => $this->quantity,
+			'units'       => $this->units,
+			'description' => $this->description,
+			'value_excl'  => $this->value_excl,
+			'vat_value'   => $this->vat_value,
+			'value_inc'   => $this->value_inc,
+			'free_text_1' => $this->free_text_1,
+			'free_text_2' => $this->free_text_2,
+			'free_text_3' => $this->free_text_3,
+		);
 	}
 }

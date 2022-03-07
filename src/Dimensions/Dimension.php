@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use Pronamic\WordPress\Twinfield\CodeName;
+use JsonSerializable;
 
 /**
  * Dimension
@@ -20,7 +21,7 @@ use Pronamic\WordPress\Twinfield\CodeName;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Dimension extends CodeName {
+class Dimension extends CodeName implements JsonSerializable {
 	/**
 	 * Type.
 	 *
@@ -119,5 +120,19 @@ class Dimension extends CodeName {
 	 */
 	public function set_modified_at( \DateTimeImmutable $modified_at = null ) {
 		$this->modified_at = $modified_at;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return array(
+			'type'      => $this->type,
+			'code'      => $this->get_code(),
+			'name'      => $this->get_name(),
+			'shortname' => $this->get_shortname(),
+		);
 	}
 }

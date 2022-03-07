@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
+use JsonSerializable;
+
 /**
  * Sales Invoice Header
  *
@@ -18,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield\SalesInvoices;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class SalesInvoiceHeader {
+class SalesInvoiceHeader implements JsonSerializable {
 	/**
 	 * Office.
 	 *
@@ -342,5 +344,22 @@ class SalesInvoiceHeader {
 	 */
 	public function set_deliver_address_number( $number ) {
 		$this->deliver_address_number = $number;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return array(
+			'office'                 => $this->office,
+			'invoice_type'           => $this->type,
+			'invoice_number'         => $this->number,
+			'invoice_date'           => $this->date->format( \DATE_ATOM ),
+			'due_date'               => $this->date->format( \DATE_ATOM ),
+			'invoice_address_number' => $this->invoice_address_number,
+			'deliver_address_number' => $this->deliver_address_number,
+		);
 	}
 }

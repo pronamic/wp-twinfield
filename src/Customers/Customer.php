@@ -22,20 +22,6 @@ use Pronamic\WordPress\Twinfield\Contacts\Contact;
  */
 class Customer extends Contact {
 	/**
-	 * Code.
-	 *
-	 * @var string
-	 */
-	private $code;
-
-	/**
-	 * Shortname.
-	 *
-	 * @var string
-	 */
-	private $shortname;
-
-	/**
 	 * Financials.
 	 *
 	 * @var CustomerFinancials
@@ -52,47 +38,11 @@ class Customer extends Contact {
 	/**
 	 * Constructs and initializes an customer/
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $code ) {
+		parent::__construct( 'DEB', $code );
 
 		$this->financials        = new CustomerFinancials();
 		$this->credit_management = new CustomerCreditManagement();
-	}
-
-	/**
-	 * Get code.
-	 *
-	 * @return string
-	 */
-	public function get_code() {
-		return $this->code;
-	}
-
-	/**
-	 * Set code.
-	 *
-	 * @param string $code The code.
-	 */
-	public function set_code( $code ) {
-		$this->code = $code;
-	}
-
-	/**
-	 * Get shortname.
-	 *
-	 * @return string
-	 */
-	public function get_shortname() {
-		return $this->shortname;
-	}
-
-	/**
-	 * Set shortname.
-	 *
-	 * @param string $shortname The shortname.
-	 */
-	public function set_shortname( $shortname ) {
-		$this->shortname = $shortname;
 	}
 
 	/**

@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
+use JsonSerializable;
 
 /**
  * Sales Invoice
@@ -20,7 +21,7 @@ use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class SalesInvoice {
+class SalesInvoice implements JsonSerializable {
 	/**
 	 * Header.
 	 *
@@ -184,6 +185,21 @@ class SalesInvoice {
 				},
 				$this->get_lines()
 			)
+		);
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return array(
+			'header'     => $this->header,
+			'financials' => (object) array(),
+			'lines'      => $this->lines,
+			'vat_lines'  => $this->vat_lines,
+			'totals'     => $this->totals,
 		);
 	}
 

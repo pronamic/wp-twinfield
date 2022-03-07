@@ -33,10 +33,9 @@ class CustomerUnserializer extends Unserializer {
 	 */
 	public function unserialize( \SimpleXMLElement $element ) {
 		if ( 'dimension' === $element->getName() && DimensionTypes::DEB === Security::filter( $element->type ) ) {
-			$customer = new Customer();
+			$customer = new Customer( (string) $element->code );
 
 			$customer->set_office( Security::filter( $element->office ) );
-			$customer->set_code( Security::filter( $element->code ) );
 			$customer->set_name( Security::filter( $element->name ) );
 			$customer->set_shortname( Security::filter( $element->shortname ) );
 

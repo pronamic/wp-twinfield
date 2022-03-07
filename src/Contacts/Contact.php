@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Contacts;
 
 use Pronamic\WordPress\Twinfield\Address;
+use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 
 /**
  * Contact
@@ -18,7 +19,7 @@ use Pronamic\WordPress\Twinfield\Address;
  * @package    Pronamic/WordPress/Twinfield/Contacts
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Contact {
+class Contact extends Dimension {
 	/**
 	 * Office.
 	 *
@@ -57,7 +58,9 @@ class Contact {
 	/**
 	 * Constructs and initialize an contact.
 	 */
-	public function __construct() {
+	public function __construct( $type, $code ) {
+		parent::__construct( $type, $code );
+
 		$this->addresses = array();
 	}
 
