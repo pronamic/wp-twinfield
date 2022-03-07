@@ -771,7 +771,7 @@ class RestApi {
 
 		$xml_processor->set_office( $office );
 
-		$dimension_read_request = new \Pronamic\WordPress\Twinfield\Accounting\DimensionReadRequest(
+		$dimension_read_request = new \Pronamic\WordPress\Twinfield\Dimensions\DimensionReadRequest(
 			$request->get_param( 'office_code' ),
 			$request->get_param( 'dimension_type_code' ),
 			$request->get_param( 'dimension_code' )
