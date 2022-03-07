@@ -50,7 +50,7 @@ class BrowseTransactionsUnserializer extends Unserializer {
 		$this->datetime_unserializer = new DateTimeUnserializer();
 		$this->browse_definition     = $browse_definition;
 
-		$this->transactions = array();
+		$this->transactions = [];
 	}
 
 	/**
@@ -72,9 +72,9 @@ class BrowseTransactionsUnserializer extends Unserializer {
 			return;
 		}
 
-		$this->transactions = array();
+		$this->transactions = [];
 
-		$lines = array();
+		$lines = [];
 
 		if ( $element->tr ) {
 			foreach ( $element->tr as $tr ) {
@@ -84,11 +84,11 @@ class BrowseTransactionsUnserializer extends Unserializer {
 
 				$transaction_key = implode(
 					'-',
-					array(
+					[
 						(string) $xml_key->office,
 						(string) $xml_key->code,
 						(string) $xml_key->number,
-					)
+					]
 				);
 
 				if ( ! isset( $this->transactions[ $transaction_key ] ) ) {

@@ -34,7 +34,7 @@ class Transaction {
 	public function __construct( $transaction_type ) {
 		$this->transaction_type = $transaction_type;
 
-		$this->lines = array();
+		$this->lines = [];
 	}
 
 	public function set_currency( $currency ) {
@@ -91,11 +91,11 @@ class Transaction {
 				$e_line->setAttribute( 'id', $id );
 			}
 
-			$dimensions = array(
+			$dimensions = [
 				'dim1' => $line->get_dimension_1(),
 				'dim2' => $line->get_dimension_2(),
 				'dim3' => $line->get_dimension_3(),
-			);
+			];
 
 			foreach ( $dimensions as $name => $dimension ) {
 				if ( null !== $dimension ) {

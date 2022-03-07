@@ -68,7 +68,7 @@ class Transaction {
 	 */
 	public function __construct() {
 		$this->header = new TransactionHeader();
-		$this->lines  = array();
+		$this->lines  = [];
 	}
 
 	/**

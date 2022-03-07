@@ -33,12 +33,12 @@ class SalesInvoiceReadRequestSerializer extends ReadRequestSerializer {
 
 		$this->document->appendChild( $root );
 
-		$elements = array(
+		$elements = [
 			'type'          => $request->get_type(),
 			'office'        => $request->get_office(),
 			'code'          => $request->get_code(),
 			'invoicenumber' => $request->get_invoice_number(),
-		);
+		];
 
 		foreach ( $elements as $name => $value ) {
 			$element = $this->document->createElement( $name );

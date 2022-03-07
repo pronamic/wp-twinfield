@@ -27,7 +27,7 @@ class Finder extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/finder.asmx?wsdl';
+	public const WSDL_FILE = '/webservices/finder.asmx?wsdl';
 
 	/**
 	 * Constructs and initializes an finder object.

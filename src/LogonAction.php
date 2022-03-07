@@ -24,19 +24,19 @@ class LogonAction {
 	 *
 	 * @var string
 	 */
-	const NONE = 'None';
+	public const NONE = 'None';
 
 	/**
 	 * The next required action is SMS authentication.
 	 *
 	 * @var string
 	 */
-	const SMS_LOGON = 'SMSLogon';
+	public const SMS_LOGON = 'SMSLogon';
 
 	/**
 	 * The next required action is change of password.
 	 *
 	 * @var string
 	 */
-	const CHANGE_PASSWORD = 'ChangePassword';
+	public const CHANGE_PASSWORD = 'ChangePassword';
 }

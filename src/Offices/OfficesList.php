@@ -23,7 +23,7 @@ use JsonSerializable;
 class OfficesList implements IteratorAggregate, JsonSerializable {
 	private $organisation;
 
-	private $offices = array();
+	private $offices = [];
 
 	public function getIterator() {
 		return new ArrayIterator( $this->offices );

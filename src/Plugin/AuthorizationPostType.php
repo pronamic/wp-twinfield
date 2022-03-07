@@ -20,30 +20,30 @@ use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class AuthorizationPostType {
-	const KEY = 'pronamic_twf_auth';
+	public const KEY = 'pronamic_twf_auth';
 
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
 	}
 
 	public function setup() {
-		\add_action( 'init', array( $this, 'init' ) );
+		\add_action( 'init', [ $this, 'init' ] );
 
-		\add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
+		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 
-		\add_action( 'save_post_' . self::KEY, array( $this, 'maybe_set_default_authorization' ) );
+		\add_action( 'save_post_' . self::KEY, [ $this, 'maybe_set_default_authorization' ] );
 
-		\add_action( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
+		\add_action( 'display_post_states', [ $this, 'display_post_states' ], 10, 2 );
 	}
 
 	public function init() {
 		\register_post_type(
 			self::KEY,
-			array(
+			[
 				'label'        => __( 'Twinfield Authorizations', 'pronamic-twinfield' ),
-				'labels'       => array(
+				'labels'       => [
 					'menu_name' => __( 'Authorizations', 'pronamic-twinfield' ),
-				),
+				],
 				'public'       => true,
 				/**
 				 * Hierarchical is required for usage in `wp_dropdown_pages`.
@@ -53,10 +53,10 @@ class AuthorizationPostType {
 				 */
 				'hierarchical' => true,
 				'show_in_menu' => false,
-				'supports'     => array(
+				'supports'     => [
 					'slug',
-				),
-			)
+				],
+			]
 		);
 	}
 
@@ -83,7 +83,7 @@ class AuthorizationPostType {
 				\add_meta_box(
 					'pronamic_twinfield_authentication',
 					\__( 'Authentication', 'twinfield' ),
-					array( $this, 'meta_box_authentication' ),
+					[ $this, 'meta_box_authentication' ],
 					$post_type,
 					'normal',
 					'high'
@@ -92,7 +92,7 @@ class AuthorizationPostType {
 				\add_meta_box(
 					'pronamic_twinfield_offices',
 					\__( 'Offices', 'twinfield' ),
-					array( $this, 'meta_box_offices' ),
+					[ $this, 'meta_box_offices' ],
 					$post_type,
 					'normal',
 					'high'
@@ -103,7 +103,7 @@ class AuthorizationPostType {
 		\add_meta_box(
 			'pronamic_twinfield_authorize',
 			\__( 'Authorize', 'twinfield' ),
-			array( $this, 'meta_box_authorize' ),
+			[ $this, 'meta_box_authorize' ],
 			$post_type,
 			'normal',
 			'high'

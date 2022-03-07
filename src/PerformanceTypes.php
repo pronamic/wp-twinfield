@@ -24,12 +24,12 @@ class PerformanceTypes {
 	 *
 	 * @var string
 	 */
-	const SERVICES = 'services';
+	public const SERVICES = 'services';
 
 	/**
 	 * Goods.
 	 *
 	 * @var string
 	 */
-	const GOODS = 'goods';
+	public const GOODS = 'goods';
 }

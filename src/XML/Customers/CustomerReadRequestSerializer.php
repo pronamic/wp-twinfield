@@ -33,12 +33,12 @@ class CustomerReadRequestSerializer extends ReadRequestSerializer {
 
 		$this->document->appendChild( $root );
 
-		$elements = array(
+		$elements = [
 			'type'    => $request->get_type(),
 			'office'  => $request->get_office(),
 			'dimtype' => 'DEB',
 			'code'    => $request->get_code(),
-		);
+		];
 
 		foreach ( $elements as $name => $value ) {
 			$element = $this->document->createElement( $name );

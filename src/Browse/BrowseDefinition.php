@@ -40,7 +40,7 @@ class BrowseDefinition {
 	 */
 	public function __construct( \SimpleXMLElement $xml_definition ) {
 		$this->xml_definition = $xml_definition;
-		$this->columns        = array();
+		$this->columns        = [];
 
 		foreach ( $this->get_xml_columns()->column as $column ) {
 			$field = (string) $column->field;

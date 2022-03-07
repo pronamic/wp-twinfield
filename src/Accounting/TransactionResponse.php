@@ -78,14 +78,14 @@ class TransactionResponse {
 		 */
 		$problem_tags = $xpath->query( '//*[@result="0"]' );
 
-		$errors = array();
+		$errors = [];
 
 		foreach ( $problem_tags as $problem_tag ) {
-			$errors[] = (object) array(
+			$errors[] = (object) [
 				'message' => $problem_tag->getAttribute( 'msg' ),
 				'type'    => $problem_tag->getAttribute( 'msgtype' ),
 				'element' => $problem_tag,
-			);
+			];
 		}
 
 		$transaction_response = new self( $transaction, $destiny, $errors );

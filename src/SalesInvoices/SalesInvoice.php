@@ -55,8 +55,8 @@ class SalesInvoice implements JsonSerializable {
 	 */
 	public function __construct() {
 		$this->header    = new SalesInvoiceHeader();
-		$this->lines     = array();
-		$this->vat_lines = array();
+		$this->lines     = [];
+		$this->vat_lines = [];
 		$this->totals    = new SalesInvoiceTotals();
 	}
 
@@ -194,13 +194,13 @@ class SalesInvoice implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return array(
+		return [
 			'header'     => $this->header,
-			'financials' => (object) array(),
+			'financials' => (object) [],
 			'lines'      => $this->lines,
 			'vat_lines'  => $this->vat_lines,
 			'totals'     => $this->totals,
-		);
+		];
 	}
 
 	public function from_xml( $xml, $organisation ) {

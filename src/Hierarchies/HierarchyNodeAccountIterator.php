@@ -24,7 +24,7 @@ class HierarchyNodeAccountIterator extends \ArrayIterator implements \RecursiveI
 	 * @return HierarchyNodeIterator
 	 */
 	public function getChildren() {
-		$items = array();
+		$items = [];
 
 		if ( $this->valid() ) {
 			$items = array_merge( $items, $this->current()->get_accounts() );

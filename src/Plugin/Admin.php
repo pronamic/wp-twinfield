@@ -25,7 +25,7 @@ class Admin {
 	 * Setup.
 	 */
 	public function setup() {
-		\add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		\add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
 		$this->settings->setup();
 	}
@@ -39,7 +39,7 @@ class Admin {
 			\__( 'Twinfield', 'pronamic-twinfield' ),
 			'manage_options',
 			'pronamic-twinfield',
-			array( $this, 'page_dashboard' ),
+			[ $this, 'page_dashboard' ],
 			'dashicons-admin-site-alt3'
 		);
 

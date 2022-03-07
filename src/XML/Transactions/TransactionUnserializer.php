@@ -139,7 +139,7 @@ class TransactionUnserializer extends Unserializer {
 							Security::filter( $element->header->user ),
 							Security::filter( $element->header->user['name'] ),
 							Security::filter( $element->header->user['shortname'] )
-						) 
+						)
 					);
 				}
 
@@ -199,7 +199,7 @@ class TransactionUnserializer extends Unserializer {
 								Security::filter( $dimensions_element->dim1 ),
 								Security::filter( $dimensions_element->dim1['name'] ),
 								Security::filter( $dimensions_element->dim1['shortname'] )
-							) 
+							)
 						);
 					}
 
@@ -210,7 +210,7 @@ class TransactionUnserializer extends Unserializer {
 								Security::filter( $dimensions_element->dim2 ),
 								Security::filter( $dimensions_element->dim2['name'] ),
 								Security::filter( $dimensions_element->dim2['shortname'] )
-							) 
+							)
 						);
 					}
 
@@ -221,7 +221,7 @@ class TransactionUnserializer extends Unserializer {
 								Security::filter( $dimensions_element->dim3 ),
 								Security::filter( $dimensions_element->dim3['name'] ),
 								Security::filter( $dimensions_element->dim3['shortname'] )
-							) 
+							)
 						);
 					}
 
@@ -273,7 +273,7 @@ class TransactionUnserializer extends Unserializer {
 					}
 
 					if ( $element_line->matches ) {
-						$line->matches = array();
+						$line->matches = [];
 
 						foreach ( $element_line->matches->set as $element_set ) {
 							$match_set = new \Pronamic\WP\Twinfield\Transactions\MatchSet();
@@ -321,7 +321,7 @@ class TransactionUnserializer extends Unserializer {
 								Security::filter( $element_line->vatcode['name'] ),
 								Security::filter( $element_line->vatcode['shortname'] ),
 								Security::filter( $element_line->vatcode['type'] )
-							) 
+							)
 						);
 					}
 

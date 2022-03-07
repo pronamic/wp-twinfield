@@ -352,7 +352,7 @@ class SalesInvoiceHeader implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return array(
+		return [
 			'office'                 => $this->office,
 			'invoice_type'           => $this->type,
 			'invoice_number'         => $this->number,
@@ -360,6 +360,6 @@ class SalesInvoiceHeader implements JsonSerializable {
 			'due_date'               => $this->date->format( \DATE_ATOM ),
 			'invoice_address_number' => $this->invoice_address_number,
 			'deliver_address_number' => $this->deliver_address_number,
-		);
+		];
 	}
 }

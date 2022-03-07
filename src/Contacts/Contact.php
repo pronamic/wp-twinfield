@@ -61,7 +61,7 @@ class Contact extends Dimension {
 	public function __construct( $type, $code ) {
 		parent::__construct( $type, $code );
 
-		$this->addresses = array();
+		$this->addresses = [];
 	}
 
 	/**

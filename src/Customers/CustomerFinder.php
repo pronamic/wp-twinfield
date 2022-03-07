@@ -48,8 +48,8 @@ class CustomerFinder {
 	 * @param array  $options   The options.
 	 * @return array
 	 */
-	public function get_customers( $pattern, $field, $first_row, $max_rows, $options = array() ) {
-		$customers = array();
+	public function get_customers( $pattern, $field, $first_row, $max_rows, $options = [] ) {
+		$customers = [];
 
 		// Options.
 		$options['dimtype'] = 'DEB';

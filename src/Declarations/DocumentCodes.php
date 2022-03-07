@@ -24,19 +24,19 @@ class DocumentCodes {
 	 *
 	 * @var string
 	 */
-	const VATTURNOVER = 'VATTURNOVER';
+	public const VATTURNOVER = 'VATTURNOVER';
 
 	/**
 	 * VAT ICT
 	 *
 	 * @var string
 	 */
-	const VATICT = 'VATICT';
+	public const VATICT = 'VATICT';
 
 	/**
 	 * Tax group.
 	 *
 	 * @var string
 	 */
-	const TAXGROUP = 'TAXGROUP';
+	public const TAXGROUP = 'TAXGROUP';
 }

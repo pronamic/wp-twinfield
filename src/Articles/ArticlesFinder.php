@@ -49,8 +49,8 @@ class ArticlesFinder {
 	 * @param array  $options   The options.
 	 * @return array
 	 */
-	public function get_articles( $pattern, $field, $first_row, $max_rows, $options = array() ) {
-		$articles = array();
+	public function get_articles( $pattern, $field, $first_row, $max_rows, $options = [] ) {
+		$articles = [];
 
 		// Request.
 		$search = new Search(

@@ -30,7 +30,7 @@ class TransactionType extends CodeName {
 		parent::__construct( $code );
 
 		$this->office       = $office;
-		$this->transactions = array();
+		$this->transactions = [];
 	}
 
 	public function get_office() {

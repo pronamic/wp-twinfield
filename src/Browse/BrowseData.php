@@ -40,7 +40,7 @@ class BrowseData {
 	 */
 	public function __construct( \SimpleXMLElement $xml_definition ) {
 		$this->xml_definition = $xml_definition;
-		$this->rows           = array();
+		$this->rows           = [];
 
 		$this->parse_rows();
 	}
@@ -49,7 +49,7 @@ class BrowseData {
 	 * Parse rows.
 	 */
 	private function parse_rows() {
-		$this->rows = array();
+		$this->rows = [];
 
 		foreach ( $this->xml_definition->tr as $tr ) {
 			$this->rows[] = new Row( $tr );

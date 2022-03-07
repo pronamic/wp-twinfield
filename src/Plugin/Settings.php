@@ -20,7 +20,7 @@ class Settings {
 	}
 
 	public function setup() {
-		\add_action( 'admin_init', array( $this, 'admin_init' ) );
+		\add_action( 'admin_init', [ $this, 'admin_init' ] );
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Settings {
 		add_settings_section(
 			'pronamic_twinfield_openid_connect_authentication',
 			__( 'OpenID Connect Authentication', 'twinfield' ),
-			array( $this, 'section_openid_connect_authentication' ),
+			[ $this, 'section_openid_connect_authentication' ],
 			'pronamic_twinfield'
 		);
 
@@ -44,9 +44,9 @@ class Settings {
 			__NAMESPACE__ . '\SettingFields::render_text',
 			'pronamic_twinfield',
 			'pronamic_twinfield_openid_connect_authentication',
-			array(
+			[
 				'label_for' => 'pronamic_twinfield_openid_connect_client_id',
-			)
+			]
 		);
 
 		// Client Secret.
@@ -58,10 +58,10 @@ class Settings {
 			__NAMESPACE__ . '\SettingFields::render_text',
 			'pronamic_twinfield',
 			'pronamic_twinfield_openid_connect_authentication',
-			array(
+			[
 				'label_for' => 'pronamic_twinfield_openid_connect_client_secret',
 				'type'      => 'password',
-			)
+			]
 		);
 
 		// Section - General.
@@ -78,14 +78,14 @@ class Settings {
 		add_settings_field(
 			'pronamic_twinfield_authorization_post_id',
 			__( 'Default Authorization', 'pronamic-twinfield' ),
-			array( $this, 'input_page' ),
+			[ $this, 'input_page' ],
 			'pronamic_twinfield',
 			'pronamic_twinfield_general',
-			array(
+			[
 				'post_type'        => 'pronamic_twf_auth',
 				'show_option_none' => __( '— Select Authorization —', 'pronamic-twinfield' ),
 				'label_for'        => 'pronamic_twinfield_authorization_post_id',
-			)
+			]
 		);
 	}
 
@@ -105,13 +105,13 @@ class Settings {
 		}
 
 		wp_dropdown_pages(
-			array(
+			[
 				'name'             => esc_attr( $name ),
-				'post_type'        => esc_attr( isset( $args['post_type'] ) ? $args['post_type'] : 'page' ),
+				'post_type'        => esc_attr( $args['post_type'] ?? 'page' ),
 				'selected'         => esc_attr( $selected ),
-				'show_option_none' => esc_attr( isset( $args['show_option_none'] ) ? $args['show_option_none'] : __( '— Select a page —', 'pronamic-twinfield' ) ),
+				'show_option_none' => esc_attr( $args['show_option_none'] ?? __( '— Select a page —', 'pronamic-twinfield' ) ),
 				'class'            => 'regular-text',
-			) 
+			]
 		);
 	}
 

@@ -54,7 +54,7 @@ class CustomerService {
 	 * @return array
 	 */
 	public function get_customers( $office ) {
-		$customers = array();
+		$customers = [];
 
 		$xml = '<?xml version="1.0"?>
 		<list>

@@ -53,6 +53,6 @@ class MatchSet {
 	 * Construct match set.
 	 */
 	public function __construct() {
-		$this->lines = array();
+		$this->lines = [];
 	}
 }

@@ -53,7 +53,7 @@ class SalesInvoiceUnserializer extends Unserializer {
 			function( $node ) {
 				return $node->ownerDocument->saveXML( $node );
 			},
-			$child_nodes_array 
+			$child_nodes_array
 		);
 
 		$inner_xml = implode( $child_nodes_xml );

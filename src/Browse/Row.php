@@ -40,7 +40,7 @@ class Row {
 	 */
 	public function __construct( \SimpleXMLElement $xml_definition ) {
 		$this->xml_definition = $xml_definition;
-		$this->data           = array();
+		$this->data           = [];
 
 		$this->parse_data();
 	}
@@ -49,7 +49,7 @@ class Row {
 	 * Parse rows.
 	 */
 	private function parse_data() {
-		$this->data = array();
+		$this->data = [];
 
 		foreach ( $this->xml_definition->td as $td ) {
 			$field = (string) $td['field'];

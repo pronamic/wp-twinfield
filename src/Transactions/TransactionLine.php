@@ -40,12 +40,12 @@ class TransactionLine {
 	/**
 	 * Debit.
 	 */
-	const DEBIT = 'debit';
+	public const DEBIT = 'debit';
 
 	/**
 	 * Credit.
 	 */
-	const CREDIT = 'credit';
+	public const CREDIT = 'credit';
 
 	/**
 	 * The transaction this line is part of.

@@ -47,7 +47,7 @@ class OfficeFinder {
 	 * @param int    $max_rows  The max rows.
 	 */
 	public function get_offices( $pattern, $field, $first_row, $max_rows ) {
-		$offices = array();
+		$offices = [];
 
 		// Request.
 		$search = new Search(

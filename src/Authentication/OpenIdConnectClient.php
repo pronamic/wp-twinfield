@@ -25,28 +25,28 @@ class OpenIdConnectClient {
 	 *
 	 * @var string
 	 */
-	const URL_AUTHORIZE = 'https://login.twinfield.com/auth/authentication/connect/authorize';
+	public const URL_AUTHORIZE = 'https://login.twinfield.com/auth/authentication/connect/authorize';
 
 	/**
 	 * Token URL.
 	 *
 	 * @var string
 	 */
-	const URL_TOKEN = 'https://login.twinfield.com/auth/authentication/connect/token';
+	public const URL_TOKEN = 'https://login.twinfield.com/auth/authentication/connect/token';
 
 	/**
 	 * Access token validation URL.
 	 *
 	 * @var string
 	 */
-	const URL_ACCESS_TOKEN_VALIDATION = 'https://login.twinfield.com/auth/authentication/connect/accesstokenvalidation';
+	public const URL_ACCESS_TOKEN_VALIDATION = 'https://login.twinfield.com/auth/authentication/connect/accesstokenvalidation';
 
 	/**
 	 * User info URL.
 	 *
 	 * @var string
 	 */
-	const URL_USER_INFO = 'https://login.twinfield.com/auth/authentication/connect/userinfo';
+	public const URL_USER_INFO = 'https://login.twinfield.com/auth/authentication/connect/userinfo';
 
 	/**
 	 * Construct.
@@ -79,9 +79,9 @@ class OpenIdConnectClient {
 	 * @return array
 	 */
 	private function get_headers() {
-		return array(
+		return [
 			'Authorization' => $this->get_authorization_header(),
-		);
+		];
 	}
 
 	/**
@@ -102,22 +102,22 @@ class OpenIdConnectClient {
 	public function get_authorize_url() {
 		$url = self::URL_AUTHORIZE;
 
-		$args = array(
+		$args = [
 			'client_id'     => $this->client_id,
 			'response_type' => 'code',
 			'scope'         => implode(
 				'+',
-				array(
+				[
 					'openid',
 					'twf.user',
 					'twf.organisation',
 					'twf.organisationUser',
 					'offline_access',
-				)
+				]
 			),
 			'redirect_uri'  => $this->redirect_uri,
 			'nonce'         => wp_create_nonce( 'twinfield-auth' ),
-		);
+		];
 
 		/**
 		 * State.
@@ -144,24 +144,24 @@ class OpenIdConnectClient {
 
 		$result = Http::post(
 			$url,
-			array(
+			[
 				'headers' => $this->get_headers(),
-				'body'    => array(
+				'body'    => [
 					'grant_type'   => 'authorization_code',
 					'code'         => $code,
 					'redirect_uri' => $this->redirect_uri,
-				),
-			)
+				],
+			]
 		);
 		var_dump(
-			array(
+			[
 				'headers' => $this->get_headers(),
-				'body'    => array(
+				'body'    => [
 					'grant_type'   => 'authorization_code',
 					'code'         => $code,
 					'redirect_uri' => $this->redirect_uri,
-				),
-			) 
+				],
+			]
 		);
 		var_dump( $result );
 		$data = $result->json();
@@ -231,13 +231,13 @@ class OpenIdConnectClient {
 
 		$result = Http::post(
 			$url,
-			array(
+			[
 				'headers' => $this->get_headers(),
-				'body'    => array(
+				'body'    => [
 					'grant_type'    => 'refresh_token',
 					'refresh_token' => $refresh_token,
-				),
-			)
+				],
+			]
 		);
 
 		$data = $result->json();
@@ -270,11 +270,11 @@ class OpenIdConnectClient {
 
 		$result = Http::get(
 			$url,
-			array(
-				'headers' => array(
+			[
+				'headers' => [
 					'Authorization' => 'Bearer ' . $access_token,
-				),
-			)
+				],
+			]
 		);
 
 		$data = $result->json();

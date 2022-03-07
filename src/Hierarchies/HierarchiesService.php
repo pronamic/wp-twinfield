@@ -27,7 +27,7 @@ class HierarchiesService extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/hierarchies.asmx?wsdl';
+	public const WSDL_FILE = '/webservices/hierarchies.asmx?wsdl';
 
 	/**
 	 * Constructs and initializes an finder object.
@@ -45,9 +45,9 @@ class HierarchiesService extends AbstractService {
 	 */
 	public function get_hierarchy( $hierarchy_code ) {
 		$result = $this->soap_client->Load(
-			(object) array(
+			(object) [
 				'hierarchyCode' => $hierarchy_code,
-			) 
+			]
 		);
 
 		return LoadResponse::from_object( $result );

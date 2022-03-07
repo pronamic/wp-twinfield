@@ -28,10 +28,10 @@ class DimensionUnserializer extends Unserializer {
 	 * Constructs and initializes dimension unserialzier.
 	 */
 	public function __construct() {
-		$this->unserializers = array(
+		$this->unserializers = [
 			DimensionTypes::DEB => new CustomerUnserializer(),
 			DimensionTypes::CRD => new SupplierUnserializer(),
-		);
+		];
 	}
 
 	/**

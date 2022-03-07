@@ -35,10 +35,10 @@ class GetBudgetTotalsResult implements \Countable, \IteratorAggregate {
 				return $result;
 			}
 
-			return array( $result );
+			return [ $result ];
 		}
 
-		return array();
+		return [];
 	}
 
 	/**
@@ -54,7 +54,7 @@ class GetBudgetTotalsResult implements \Countable, \IteratorAggregate {
 			$budget_totals,
 			function( $budget_total ) use ( $node ) {
 				return $budget_total->is_party_of_hierarchy_node( $node );
-			} 
+			}
 		);
 
 		return $budget_totals;

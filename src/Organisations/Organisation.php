@@ -41,8 +41,8 @@ class Organisation extends CodeName implements \JsonSerializable {
 	public function __construct( $code ) {
 		parent::__construct( $code );
 
-		$this->users   = array();
-		$this->offices = array();
+		$this->users   = [];
+		$this->offices = [];
 	}
 
 	public function get_offices() {
@@ -78,10 +78,10 @@ class Organisation extends CodeName implements \JsonSerializable {
 	}
 
 	public function jsonSerialize() {
-		return (object) array(
+		return (object) [
 			'code'      => $this->get_code(),
 			'name'      => $this->get_name(),
 			'shortname' => $this->get_shortname(),
-		);
+		];
 	}
 }

@@ -69,7 +69,7 @@ class OfficeService {
 		$xml = simplexml_load_string( $response );
 
 		if ( false !== $xml ) {
-			$result = array();
+			$result = [];
 
 			foreach ( $xml->office as $element ) {
 				$office = $this->client->organisation->new_office( Security::filter( $element ) );

@@ -25,7 +25,7 @@ class DimensionType implements JsonSerializable {
 
 	private $code;
 
-	private $dimensions = array();
+	private $dimensions = [];
 
 	public function __construct( $office, $code ) {
 		$this->office = $office;
@@ -33,10 +33,10 @@ class DimensionType implements JsonSerializable {
 	}
 
 	public function jsonSerialize() {
-		return array(
+		return [
 			'office' => $this->office,
 			'code'   => $this->code,
-		);
+		];
 	}
 
 	public function new_dimension( $code ) {

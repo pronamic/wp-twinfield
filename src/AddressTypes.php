@@ -24,19 +24,19 @@ class AddressTypes {
 	 *
 	 * @var string
 	 */
-	const INVOICE = 'invoice';
+	public const INVOICE = 'invoice';
 
 	/**
 	 * Adress type postal.
 	 *
 	 * @var string
 	 */
-	const POSTAL = 'postal';
+	public const POSTAL = 'postal';
 
 	/**
 	 * Adress type contact.
 	 *
 	 * @var string
 	 */
-	const CONTACT = 'contact';
+	public const CONTACT = 'contact';
 }

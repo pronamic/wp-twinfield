@@ -27,7 +27,7 @@ class SessionClient extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/session.asmx?wsdl';
+	public const WSDL_FILE = '/webservices/session.asmx?wsdl';
 
 	/**
 	 * Constructs and initializes an session object.

@@ -60,11 +60,11 @@ class AuthenticationTokens implements JsonSerializable {
 	}
 
 	public function jsonSerialize() {
-		return (object) array(
+		return (object) [
 			'access_token'  => $this->access_token,
 			'token_type'    => $this->token_type,
 			'refresh_token' => $this->refresh_token,
-		);
+		];
 	}
 
 	/**

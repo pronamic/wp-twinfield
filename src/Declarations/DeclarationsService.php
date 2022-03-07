@@ -29,7 +29,7 @@ class DeclarationsService extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/declarations.asmx?wsdl';
+	public const WSDL_FILE = '/webservices/declarations.asmx?wsdl';
 
 	/**
 	 * Constructs and initializes a declarations service object.
@@ -76,7 +76,7 @@ class DeclarationsService extends AbstractService {
 		}
 
 		if ( ! isset( $result->vatReturn, $result->vatReturn->DeclarationSummary ) ) {
-			return array();
+			return [];
 		}
 
 		$organisation = $office->organisation;
@@ -119,7 +119,7 @@ class DeclarationsService extends AbstractService {
 
 		$parameters->documentId = $document_id;
 
-		$response = $this->soap_client->__soapCall( $function, array( $parameters ) );
+		$response = $this->soap_client->__soapCall( $function, [ $parameters ] );
 
 		if ( isset( $response->paymentReference ) ) {
 			return $response->paymentReference;
@@ -187,7 +187,7 @@ class DeclarationsService extends AbstractService {
 		$parameters->documentId          = $document_id;
 		$parameters->isMessageIdRequired = true;
 
-		$response = $soap_client->__soapCall( $function, array( $parameters ) );
+		$response = $soap_client->__soapCall( $function, [ $parameters ] );
 
 		if ( isset( $response->vatReturn, $response->vatReturn->any ) ) {
 			return $response->vatReturn->any;
@@ -224,7 +224,7 @@ class DeclarationsService extends AbstractService {
 
 		$parameters->documentId = $document_id;
 
-		$response = $this->soap_client->__soapCall( $function, array( $parameters ) );
+		$response = $this->soap_client->__soapCall( $function, [ $parameters ] );
 
 		if ( isset( $response->vatReturn, $response->vatReturn->any ) ) {
 			return $response->vatReturn->any;           

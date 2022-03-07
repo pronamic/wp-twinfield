@@ -85,13 +85,13 @@ class AccessTokenValidation implements JsonSerializable {
 	 * @return object
 	 */
 	public function jsonSerialize() {
-		return (object) array(
+		return (object) [
 			'exp'                      => $this->expiration,
 			'twf.organisationCode'     => $this->user->get_organisation()->get_code(),
 			'twf.organisationId'       => $this->user->get_organisation()->get_uuid(),
 			'twf.organisationUserCode' => $this->user->get_code(),
 			'twf.clusterUrl'           => $this->cluster_url,
-		);
+		];
 	}
 
 	/**

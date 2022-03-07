@@ -480,7 +480,7 @@ class SalesInvoiceLine implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return array(
+		return [
 			'id'          => $this->id,
 			'article'     => $this->article,
 			'subarticle'  => $this->subarticle,
@@ -493,6 +493,6 @@ class SalesInvoiceLine implements JsonSerializable {
 			'free_text_1' => $this->free_text_1,
 			'free_text_2' => $this->free_text_2,
 			'free_text_3' => $this->free_text_3,
-		);
+		];
 	}
 }

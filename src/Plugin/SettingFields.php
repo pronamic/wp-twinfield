@@ -29,13 +29,13 @@ class SettingFields {
 	public static function render_text( $attributes ) {
 		$attributes = wp_parse_args(
 			$attributes,
-			array(
+			[
 				'id'      => '',
 				'type'    => 'text',
 				'name'    => '',
 				'value'   => '',
-				'classes' => array( 'regular-text' ),
-			)
+				'classes' => [ 'regular-text' ],
+			]
 		);
 
 		if ( isset( $attributes['label_for'] ) ) {

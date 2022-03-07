@@ -24,19 +24,19 @@ class SalesInvoiceStatus {
 	 *
 	 * @var string
 	 */
-	const STATUS_DEFAULT = 'default';
+	public const STATUS_DEFAULT = 'default';
 
 	/**
 	 * Concept.
 	 *
 	 * @var string
 	 */
-	const STATUS_CONCEPT = 'concept';
+	public const STATUS_CONCEPT = 'concept';
 
 	/**
 	 * Final.
 	 *
 	 * @var string
 	 */
-	const STATUS_FINAL = 'final';
+	public const STATUS_FINAL = 'final';
 }

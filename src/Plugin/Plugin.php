@@ -45,15 +45,15 @@ class Plugin {
 
 		$this->authorization_post_type->setup();
 
-		\add_action( 'init', array( $this, 'init' ), 9 );
-		\add_filter( 'query_vars', array( $this, 'query_vars' ) );
-		\add_filter( 'template_include', array( $this, 'template_include' ) );
+		\add_action( 'init', [ $this, 'init' ], 9 );
+		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
+		\add_filter( 'template_include', [ $this, 'template_include' ] );
 
 		\add_filter(
 			'pronamic_twinfield_client',
 			function() {
 				return $this->get_client( \get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) ) );
-			} 
+			}
 		);
 
 		\add_filter(
@@ -68,7 +68,7 @@ class Plugin {
 				return $requested_url;
 			},
 			10,
-			2 
+			2
 		);
 	}
 
@@ -83,26 +83,26 @@ class Plugin {
 		// Rewrites.
 		\add_rewrite_rule(
 			'^pronamic-twinfield/?$',
-			array(
+			[
 				'pronamic_twinfield_route' => '/',
-			),
+			],
 			'top'
 		);
 
 		\add_rewrite_rule(
 			'^pronamic-twinfield/(.*)?\.(.*)?$',
-			array(
+			[
 				'pronamic_twinfield_route' => '/$matches[1]',
 				'pronamic_twinfield_type'  => '$matches[2]',
-			),
+			],
 			'top'
 		);
 
 		\add_rewrite_rule(
 			'^pronamic-twinfield/(.*)?',
-			array(
+			[
 				'pronamic_twinfield_route' => '/$matches[1]',
-			),
+			],
 			'top'
 		);
 
@@ -120,9 +120,9 @@ class Plugin {
 		}
 
 		$url = \add_query_arg(
-			array(
+			[
 				'code' => $data['code'],
-			),
+			],
 			\rest_url( 'pronamic-twinfield/v1/authorize/' . $data['state'] )
 		);
 
@@ -271,7 +271,7 @@ class Plugin {
 
 	public function save_authentication( $post, $authentication ) {
 		return \wp_update_post(
-			array(
+			[
 				'ID'             => $post->ID,
 				'post_status'    => 'publish',
 				'post_title'     => \sprintf(
@@ -281,7 +281,7 @@ class Plugin {
 				),
 				'post_content'   => \wp_json_encode( $authentication, \JSON_PRETTY_PRINT ),
 				'post_mime_type' => 'application/json',
-			)
+			]
 		);
 	}
 
@@ -295,7 +295,7 @@ class Plugin {
 		$client->set_authentication_refresh_handler(
 			function( $client ) use ( $post ) {
 				$this->save_authentication( $post, $client->get_authentication() );
-			} 
+			}
 		);
 
 		return $client;

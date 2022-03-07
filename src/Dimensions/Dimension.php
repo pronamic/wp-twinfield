@@ -129,12 +129,12 @@ class Dimension extends CodeName implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return array(
+		return [
 			'type'      => $this->type,
 			'code'      => $this->get_code(),
 			'name'      => $this->get_name(),
 			'shortname' => $this->get_shortname(),
-		);
+		];
 	}
 
 	public static function from_xml( $xml, $office ) {

@@ -24,7 +24,7 @@ class Address {
 	 *
 	 * @var array
 	 */
-	private $data = array(
+	private $data = [
 		'id'        => null,
 		'type'      => null,
 		'default'   => null,
@@ -42,7 +42,7 @@ class Address {
 		'field_4'   => null,
 		'field_5'   => null,
 		'field_6'   => null,
-	);
+	];
 
 	/**
 	 * Get property.
@@ -447,8 +447,8 @@ class Address {
 			$properties = array_keys( $this->data );
 		}
 
-		$matching_chars    = array();
-		$matching_percents = array();
+		$matching_chars    = [];
+		$matching_percents = [];
 
 		foreach ( $properties as $property ) {
 			$value1 = $address1->get_property( $property );

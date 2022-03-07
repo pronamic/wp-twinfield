@@ -24,14 +24,14 @@ class EmailList implements \IteratorAggregate {
 	 *
 	 * @var string
 	 */
-	const DELIMITER = ',';
+	public const DELIMITER = ',';
 
 	/**
 	 * Emails.
 	 *
 	 * @var array
 	 */
-	private $data = array();
+	private $data = [];
 
 	/**
 	 * Constructs and initializes an email list object.

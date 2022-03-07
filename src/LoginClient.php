@@ -24,7 +24,7 @@ class LoginClient {
 	 *
 	 * @var string
 	 */
-	const WSDL_URL_LOGIN = 'https://login.twinfield.com/webservices/session.asmx?wsdl';
+	public const WSDL_URL_LOGIN = 'https://login.twinfield.com/webservices/session.asmx?wsdl';
 
 	/**
 	 * Constructs and initializes an Twinfield client object.

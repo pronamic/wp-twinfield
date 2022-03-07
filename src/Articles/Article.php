@@ -39,7 +39,7 @@ class Article {
 	 * @param ArticleHeader $header    The article header object for this article.
 	 * @param array         $lines     The articles lines for this article.
 	 */
-	public function __construct( ArticleHeader $header, array $lines = array() ) {
+	public function __construct( ArticleHeader $header, array $lines = [] ) {
 		$this->header = $header;
 		$this->lines  = $lines;
 	}

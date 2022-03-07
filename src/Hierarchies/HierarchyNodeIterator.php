@@ -24,7 +24,7 @@ class HierarchyNodeIterator extends \ArrayIterator implements \RecursiveIterator
 	 * @return HierarchyNodeIterator
 	 */
 	public function getChildren() {
-		$nodes = array();
+		$nodes = [];
 
 		if ( $this->valid() ) {
 			$nodes = $this->current()->get_child_nodes();

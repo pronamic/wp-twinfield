@@ -70,7 +70,7 @@ class Search {
 	 * @param int    $max_rows  Maximum number of rows to return, usefull for paging.
 	 * @param array  $options   The options.
 	 */
-	public function __construct( $type, $pattern, $field, $first_row, $max_rows, $options = array() ) {
+	public function __construct( $type, $pattern, $field, $first_row, $max_rows, $options = [] ) {
 		$this->type     = $type;
 		$this->pattern  = $pattern;
 		$this->field    = $field;

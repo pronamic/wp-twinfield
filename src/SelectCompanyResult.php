@@ -24,12 +24,12 @@ class SelectCompanyResult {
 	 *
 	 * @var string
 	 */
-	const OK = 'Ok';
+	public const OK = 'Ok';
 
 	/**
 	 * Log-on is blocked, because of system maintenance.
 	 *
 	 * @var string
 	 */
-	const INVALID = 'Invalid';
+	public const INVALID = 'Invalid';
 }

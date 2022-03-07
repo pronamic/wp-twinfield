@@ -31,7 +31,7 @@ class ArrayOfArrayOfString implements \IteratorAggregate {
 	 */
 	public function __construct() {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
-		$this->ArrayOfString = array();
+		$this->ArrayOfString = [];
 	}
 
 	/**
@@ -41,7 +41,7 @@ class ArrayOfArrayOfString implements \IteratorAggregate {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
 		if ( is_object( $this->ArrayOfString ) ) {
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
-			$this->ArrayOfString = array( $this->ArrayOfString );
+			$this->ArrayOfString = [ $this->ArrayOfString ];
 		}
 	}
 

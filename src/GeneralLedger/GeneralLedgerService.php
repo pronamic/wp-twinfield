@@ -55,7 +55,7 @@ class GeneralLedgerService {
 	 * @return array
 	 */
 	public function get_transaction_lines( $office_code, $general_ledger, $year ) {
-		$lines = array();
+		$lines = [];
 
 		$browse_read_request = new BrowseReadRequest( $office_code, BrowseCodes::GENERAL_LEDGER_DETAILS_V2 );
 

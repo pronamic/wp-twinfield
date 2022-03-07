@@ -27,7 +27,7 @@ class DocumentService extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/DocumentService.svc?wsdl';
+	public const WSDL_FILE = '/webservices/DocumentService.svc?wsdl';
 
 	/**
 	 * Constructs and initializes an finder object.

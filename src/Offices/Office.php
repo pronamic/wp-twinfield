@@ -31,11 +31,11 @@ class Office extends CodeName implements \JsonSerializable {
 	 */
 	public $organisation;
 
-	private $transaction_types = array();
+	private $transaction_types = [];
 
-	private $dimension_types = array();
+	private $dimension_types = [];
 
-	private $sales_invoice_types = array();
+	private $sales_invoice_types = [];
 
 	public function new_transaction_type( $code ) {
 		$transaction_type = new TransactionType( $this, $code );
@@ -90,10 +90,10 @@ class Office extends CodeName implements \JsonSerializable {
 	}
 
 	public function jsonSerialize() {
-		return (object) array(
+		return (object) [
 			'code'      => $this->get_code(),
 			'name'      => $this->get_name(),
 			'shortname' => $this->get_shortname(),
-		);
+		];
 	}
 }

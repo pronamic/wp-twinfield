@@ -25,7 +25,7 @@ class FinderTypes {
 	 *
 	 * @var string
 	 */
-	const ART = 'ART';
+	public const ART = 'ART';
 
 	/**
 	 * Twinfield finder type constant for "Asset methods".
@@ -33,7 +33,7 @@ class FinderTypes {
 	 *
 	 * @var string
 	 */
-	const ASM = 'ASM';
+	public const ASM = 'ASM';
 
 	/**
 	 * Twinfield finder type constant for "Budgets".
@@ -41,7 +41,7 @@ class FinderTypes {
 	 *
 	 * @var string
 	 */
-	const BDS = 'BDS';
+	public const BDS = 'BDS';
 
 	/**
 	 * Twinfield finder type constant for "Dimensions".
@@ -49,7 +49,7 @@ class FinderTypes {
 	 *
 	 * @var string
 	 */
-	const DIM = 'DIM';
+	public const DIM = 'DIM';
 
 	/**
 	 * Twinfield finder type constant for "Offices".
@@ -57,5 +57,5 @@ class FinderTypes {
 	 *
 	 * @var string
 	 */
-	const OFF = 'OFF';
+	public const OFF = 'OFF';
 }

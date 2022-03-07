@@ -24,12 +24,12 @@ class Result {
 	 *
 	 * @var string
 	 */
-	const SUCCESSFUL = '1';
+	public const SUCCESSFUL = '1';
 
 	/**
 	 * Not successful.
 	 *
 	 * @var string
 	 */
-	const NOT_SUCCESSFUL = '0';
+	public const NOT_SUCCESSFUL = '0';
 }

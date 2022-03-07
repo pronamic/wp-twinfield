@@ -31,7 +31,7 @@ class ArrayOfMessageOfErrorCodes implements \IteratorAggregate {
 	 */
 	public function __construct() {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
-		$this->MessageOfErrorCodes = array();
+		$this->MessageOfErrorCodes = [];
 	}
 
 	/**
@@ -45,9 +45,9 @@ class ArrayOfMessageOfErrorCodes implements \IteratorAggregate {
 			return $this->MessageOfErrorCodes;
 		} else {
 			if ( $this->MessageOfErrorCodes instanceof MessageOfErrorCodes ) {
-				return array( $this->MessageOfErrorCodes );
+				return [ $this->MessageOfErrorCodes ];
 			} else {
-				return array();
+				return [];
 			}
 		}
 

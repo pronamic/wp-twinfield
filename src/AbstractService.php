@@ -86,9 +86,9 @@ abstract class AbstractService {
 	public function get_soap_client( Office $office = null ) {
 		$authentication = $this->client->authenticate();
 
-		$data = array(
+		$data = [
 			'AccessToken' => $authentication->get_tokens()->get_access_token(),
-		);
+		];
 
 		$office = ( null === $office ) ? $this->office : $office;
 
@@ -118,6 +118,6 @@ abstract class AbstractService {
 			return $value;
 		}
 
-		return array( $value );
+		return [ $value ];
 	}
 }

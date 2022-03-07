@@ -86,7 +86,7 @@ class TransactionService {
 	 * @return array
 	 */
 	public function get_transaction_lines( $browse_definition ) {
-		$lines = array();
+		$lines = [];
 
 		$string = $this->browser->get_xml_string( $browse_definition );
 

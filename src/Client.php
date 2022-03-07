@@ -45,7 +45,7 @@ class Client {
 
 		$this->set_authentication( $authentication );
 
-		$this->services = array();
+		$this->services = [];
 	}
 
 	public function get_authentication() {
@@ -197,9 +197,9 @@ class Client {
 			0,
 			1,
 			100,
-			array(
+			[
 				'hidden' => '1',
-			)
+			]
 		);
 
 		$finder->set_office( $office );
@@ -210,7 +210,7 @@ class Client {
 
 		$items = $data->get_items();
 
-		$transaction_types = array();
+		$transaction_types = [];
 
 		foreach ( $items as $item ) {
 			$transaction_type = $office->new_transaction_type( $item[0] );
@@ -237,7 +237,7 @@ class Client {
 	 * @return array
 	 */
 	private function get_soap_client_options() {
-		return array(
+		return [
 			'classmap'           => $this->get_class_map(),
 			'connection_timeout' => 30,
 			'trace'              => true,
@@ -246,7 +246,7 @@ class Client {
 			'cache_wsdl'         => \WSDL_CACHE_MEMORY,
 			// Disable HTTP Keep Alive to prevent 'error fetching HTTP headers'.
 			'keep_alive'         => false,
-		);
+		];
 	}
 
 	/**
@@ -255,7 +255,7 @@ class Client {
 	 * @return array
 	 */
 	private function get_class_map() {
-		return array(
+		return [
 			'ArrayOfArrayOfString'       => __NAMESPACE__ . '\ArrayOfArrayOfString',
 			'ArrayOfMessageOfErrorCodes' => __NAMESPACE__ . '\ArrayOfMessageOfErrorCodes',
 			'ArrayOfString'              => __NAMESPACE__ . '\ArrayOfString',
@@ -272,6 +272,6 @@ class Client {
 			'GetBudgetByProfitAndLoss'   => __NAMESPACE__ . '\Budget\GetBudgetByProfitAndLossQuery',
 			'GetBudgetTotalsResult'      => __NAMESPACE__ . '\Budget\GetBudgetTotalsResult',
 			'GetBudgetTotalResult'       => __NAMESPACE__ . '\Budget\GetBudgetTotalResult',
-		);
+		];
 	}
 }

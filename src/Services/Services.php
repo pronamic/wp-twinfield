@@ -25,124 +25,124 @@ class Services {
 	 *
 	 * @var string
 	 */
-	const SESSION = '/webservices/session.asmx?wsdl';
+	public const SESSION = '/webservices/session.asmx?wsdl';
 
 	/**
 	 * Bank books.
 	 *
 	 * @var string
 	 */
-	const BANK_BOOKS = '/webservices/bankbookservice.svc?wsdl';
+	public const BANK_BOOKS = '/webservices/bankbookservice.svc?wsdl';
 
 	/**
 	 * Bank statements.
 	 *
 	 * @var string
 	 */
-	const BANK_STATEMENTS = '/webservices/bankstatementservice.svc?wsdl';
+	public const BANK_STATEMENTS = '/webservices/bankstatementservice.svc?wsdl';
 
 	/**
 	 * Budgets.
 	 *
 	 * @var string
 	 */
-	const BUDGETS = '/webservices/budgetservice.svc?wsdl';
+	public const BUDGETS = '/webservices/budgetservice.svc?wsdl';
 
 	/**
 	 * Cash books.
 	 *
 	 * @var string
 	 */
-	const CASH_BOOKS = '/webservices/cashbookservice.svc?wsdl';
+	public const CASH_BOOKS = '/webservices/cashbookservice.svc?wsdl';
 
 	/**
 	 * Declarations.
 	 *
 	 * @var string
 	 */
-	const DECLARATIONS = '/webservices/declarations.asmx?wsdl';
+	public const DECLARATIONS = '/webservices/declarations.asmx?wsdl';
 
 	/**
 	 * Documents.
 	 *
 	 * @var string
 	 */
-	const DOCUMENTS = '/webservices/documentservice.svc?wsdl';
+	public const DOCUMENTS = '/webservices/documentservice.svc?wsdl';
 
 	/**
 	 * Finder.
 	 *
 	 * @var string
 	 */
-	const FINDER = '/webservices/finder.asmx?wsdl';
+	public const FINDER = '/webservices/finder.asmx?wsdl';
 
 	/**
 	 * Hierarchies.
 	 *
 	 * @var string
 	 */
-	const HIERARCHIES = '/webservices/hierarchies.asmx?wsdl';
+	public const HIERARCHIES = '/webservices/hierarchies.asmx?wsdl';
 
 	/**
 	 * Matching.
 	 *
 	 * @var string
 	 */
-	const MATCHING = '	/webservices/matching.asmx?wsdl';
+	public const MATCHING = '	/webservices/matching.asmx?wsdl';
 
 	/**
 	 * Pay and collect.
 	 *
 	 * @var string
 	 */
-	const PAY_AND_COLLECT = '/webservices/payandcollect.asmx?wsdl';
+	public const PAY_AND_COLLECT = '/webservices/payandcollect.asmx?wsdl';
 
 	/**
 	 * Pay type.
 	 *
 	 * @var string
 	 */
-	const PAY_TYPE = '/webservices/paytype.asmx?wsdl';
+	public const PAY_TYPE = '/webservices/paytype.asmx?wsdl';
 
 	/**
 	 * Periods
 	 *
 	 * @var string
 	 */
-	const PERIODS = '/webservices/periodservice.svc?wsdl';
+	public const PERIODS = '/webservices/periodservice.svc?wsdl';
 
 	/**
 	 * ProcessXml.
 	 *
 	 * @var string
 	 */
-	const PROCESS_XML = '/webservices/processxml.asmx?wsdl';
+	public const PROCESS_XML = '/webservices/processxml.asmx?wsdl';
 
 	/**
 	 * XBRL.
 	 *
 	 * @var string
 	 */
-	const XBRL = '/webservices/sbr.asmx?wsdl';
+	public const XBRL = '/webservices/sbr.asmx?wsdl';
 
 	/**
 	 * Versions.
 	 *
 	 * @var string
 	 */
-	const VERSIONS = '/webservices/versions.asmx?wsdl';
+	public const VERSIONS = '/webservices/versions.asmx?wsdl';
 
 	/**
 	 * Deleted transactions.
 	 *
 	 * @var string
 	 */
-	const DELETED_TRANSACTIONS = '/webservices/deletedtransactionsservice.svc?wsdl';
+	public const DELETED_TRANSACTIONS = '/webservices/deletedtransactionsservice.svc?wsdl';
 
 	/**
 	 * Blocked value.
 	 *
 	 * @var string
 	 */
-	const BLOCKED_VALUE = '/webservices/transactionblockedvalueservice.svc?wsdl';
+	public const BLOCKED_VALUE = '/webservices/transactionblockedvalueservice.svc?wsdl';
 }

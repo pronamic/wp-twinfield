@@ -24,33 +24,33 @@ class PaymentMethods {
 	 *
 	 * @var string
 	 */
-	const CASH = 'cash';
+	public const CASH = 'cash';
 
 	/**
 	 * Bank.
 	 *
 	 * @var string
 	 */
-	const BANK = 'bank';
+	public const BANK = 'bank';
 
 	/**
 	 * Cheque.
 	 *
 	 * @var string
 	 */
-	const CHEQUE = 'cheque';
+	public const CHEQUE = 'cheque';
 
 	/**
 	 * Cash on delivery.
 	 *
 	 * @var string
 	 */
-	const CASH_ON_DELIVERY = 'cashondelivery';
+	public const CASH_ON_DELIVERY = 'cashondelivery';
 
 	/**
 	 * DA.
 	 *
 	 * @var string
 	 */
-	const DA = 'da';
+	public const DA = 'da';
 }

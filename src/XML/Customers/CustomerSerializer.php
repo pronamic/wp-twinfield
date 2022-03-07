@@ -34,13 +34,13 @@ class CustomerSerializer extends Serializer {
 
 		$this->document->appendChild( $root );
 
-		$elements = array(
+		$elements = [
 			'office'    => $customer->get_office(),
 			'type'      => DimensionTypes::DEB,
 			'code'      => $customer->get_code(),
 			'name'      => $customer->get_name(),
 			'shortname' => $customer->get_shortname(),
-		);
+		];
 
 		foreach ( $elements as $name => $value ) {
 			if ( ! is_null( $value ) ) {
@@ -62,11 +62,11 @@ class CustomerSerializer extends Serializer {
 			$ebilling  = $financials->get_ebilling();
 			$ebillmail = $financials->get_ebillmail();
 
-			$elements = array(
+			$elements = [
 				'duedays'   => $financials->get_due_days(),
 				'ebilling'  => is_bool( $ebilling ) ? ( $ebilling ? 'true' : 'false' ) : $ebilling,
 				'ebillmail' => is_null( $ebillmail ) ? $ebillmail : (string) $ebillmail,
-			);
+			];
 
 			foreach ( $elements as $name => $value ) {
 				if ( ! is_null( $value ) ) {
@@ -88,10 +88,10 @@ class CustomerSerializer extends Serializer {
 
 			$send_reminder = $credit_management->get_send_reminder();
 
-			$elements = array(
+			$elements = [
 				'sendreminder'  => is_bool( $send_reminder ) ? ( $send_reminder ? 'true' : 'false' ) : $send_reminder,
 				'reminderemail' => $credit_management->get_reminder_email(),
-			);
+			];
 
 			foreach ( $elements as $name => $value ) {
 				if ( ! is_null( $value ) ) {
@@ -119,11 +119,11 @@ class CustomerSerializer extends Serializer {
 				// Attributes.
 				$is_default = $address->is_default();
 
-				$attributes = array(
+				$attributes = [
 					'id'      => $address->get_id(),
 					'type'    => $address->get_type(),
 					'default' => is_bool( $is_default ) ? ( $is_default ? 'true' : 'false' ) : $is_default,
-				);
+				];
 
 				foreach ( $attributes as $name => $value ) {
 					if ( null !== $value ) {
@@ -132,7 +132,7 @@ class CustomerSerializer extends Serializer {
 				}
 
 				// Elements.
-				$elements = array(
+				$elements = [
 					'name'      => $address->get_name(),
 					'country'   => $address->get_country(),
 					'city'      => $address->get_city(),
@@ -147,7 +147,7 @@ class CustomerSerializer extends Serializer {
 					'field4'    => $address->get_field_4(),
 					'field5'    => $address->get_field_5(),
 					'field6'    => $address->get_field_6(),
-				);
+				];
 
 				foreach ( $elements as $name => $value ) {
 					if ( null !== $value ) {

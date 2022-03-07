@@ -27,7 +27,7 @@ class ListEntities {
 	 * @see https://c3.twinfield.com/webservices/documentation/#/GettingStarted/WebServicesOverview#List-entities
 	 * @var string
 	 */
-	const OFFICES = 'offices';
+	public const OFFICES = 'offices';
 
 	/**
 	 * Dimensions.
@@ -37,7 +37,7 @@ class ListEntities {
 	 * @see https://c3.twinfield.com/webservices/documentation/#/GettingStarted/WebServicesOverview#List-entities
 	 * @var string
 	 */
-	const DIMENSIONS = 'dimensions';
+	public const DIMENSIONS = 'dimensions';
 
 	/**
 	 * Browse fields.
@@ -47,7 +47,7 @@ class ListEntities {
 	 * @see https://c3.twinfield.com/webservices/documentation/#/GettingStarted/WebServicesOverview#List-entities
 	 * @var string
 	 */
-	const BROWSE_FIELDS = 'browsefields';
+	public const BROWSE_FIELDS = 'browsefields';
 
 	/**
 	 * Budgets.
@@ -57,5 +57,5 @@ class ListEntities {
 	 * @see https://c3.twinfield.com/webservices/documentation/#/GettingStarted/WebServicesOverview#List-entities
 	 * @var string
 	 */
-	const BUDGETS = 'budgets';
+	public const BUDGETS = 'budgets';
 }

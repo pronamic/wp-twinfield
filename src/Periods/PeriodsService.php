@@ -30,7 +30,7 @@ class PeriodsService extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/PeriodService.svc?wsdl';
+	public const WSDL_FILE = '/webservices/PeriodService.svc?wsdl';
 
 	/**
 	 * Constructs and initializes a declarations service object.

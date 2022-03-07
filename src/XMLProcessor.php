@@ -27,7 +27,7 @@ class XMLProcessor extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/processxml.asmx?wsdl';
+	public const WSDL_FILE = '/webservices/processxml.asmx?wsdl';
 
 	/**
 	 * Constructs and initializes an XML processor object.

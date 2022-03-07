@@ -25,7 +25,7 @@ class SearchFields {
 	 *
 	 * @var int
 	 */
-	const CODE_AND_NAME = 0;
+	public const CODE_AND_NAME = 0;
 
 	/**
 	 * Searches only on the code field
@@ -33,7 +33,7 @@ class SearchFields {
 	 *
 	 * @var int
 	 */
-	const CODE = 1;
+	public const CODE = 1;
 
 	/**
 	 * Searches only on the name field
@@ -41,7 +41,7 @@ class SearchFields {
 	 *
 	 * @var int
 	 */
-	const NAME = 2;
+	public const NAME = 2;
 
 	/**
 	 * Bank account number
@@ -49,7 +49,7 @@ class SearchFields {
 	 *
 	 * @var int
 	 */
-	const BANK_ACCOUNT_NUMBER = 3;
+	public const BANK_ACCOUNT_NUMBER = 3;
 
 	/**
 	 * Address fields
@@ -57,5 +57,5 @@ class SearchFields {
 	 *
 	 * @var int
 	 */
-	const ADDRESS_FIELDS = 4;
+	public const ADDRESS_FIELDS = 4;
 }

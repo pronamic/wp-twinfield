@@ -30,7 +30,7 @@ class ArrayOfString implements \ArrayAccess, \IteratorAggregate {
 	 * Constructs and initializes an array of array of string object.
 	 */
 	public function __construct() {
-		$this->string = array();
+		$this->string = [];
 	}
 
 	/**

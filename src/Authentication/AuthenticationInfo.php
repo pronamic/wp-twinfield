@@ -68,10 +68,10 @@ class AuthenticationInfo implements JsonSerializable {
 	 * @return object
 	 */
 	public function jsonSerialize() {
-		return (object) array(
+		return (object) [
 			'tokens'     => $this->tokens->jsonSerialize(),
 			'validation' => $this->validation->jsonSerialize(),
-		);
+		];
 	}
 
 	/**

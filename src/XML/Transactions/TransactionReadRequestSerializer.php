@@ -33,12 +33,12 @@ class TransactionReadRequestSerializer extends ReadRequestSerializer {
 
 		$this->document->appendChild( $root );
 
-		$elements = array(
+		$elements = [
 			'type'   => $request->get_type(),
 			'office' => $request->get_office(),
 			'code'   => $request->get_code(),
 			'number' => $request->get_number(),
-		);
+		];
 
 		foreach ( $elements as $name => $value ) {
 			$element = $this->document->createElement( $name );

@@ -24,54 +24,54 @@ class DimensionTypes {
 	 *
 	 * @var string
 	 */
-	const BAS = 'BAS';
+	public const BAS = 'BAS';
 
 	/**
 	 * Profit and Loss
 	 *
 	 * @var string
 	 */
-	const PNL = 'PNL';
+	public const PNL = 'PNL';
 
 	/**
 	 * Accounts Payable
 	 *
 	 * @var string
 	 */
-	const CRD = 'CRD';
+	public const CRD = 'CRD';
 
 	/**
 	 * Accounts Receivable
 	 *
 	 * @var string
 	 */
-	const DEB = 'DEB';
+	public const DEB = 'DEB';
 
 	/**
 	 * Cost centers
 	 *
 	 * @var string
 	 */
-	const KPL = 'KPL';
+	public const KPL = 'KPL';
 
 	/**
 	 * Assets
 	 *
 	 * @var string
 	 */
-	const AST = 'AST';
+	public const AST = 'AST';
 
 	/**
 	 * Projects
 	 *
 	 * @var string
 	 */
-	const PRJ = 'PRJ';
+	public const PRJ = 'PRJ';
 
 	/**
 	 * Activities
 	 *
 	 * @var string
 	 */
-	const ACT = 'ACT';
+	public const ACT = 'ACT';
 }

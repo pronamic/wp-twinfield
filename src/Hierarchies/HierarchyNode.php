@@ -86,8 +86,8 @@ class HierarchyNode implements \IteratorAggregate {
 		$this->code        = $code;
 		$this->name        = $name;
 		$this->description = $description;
-		$this->accounts    = array();
-		$this->child_nodes = array();
+		$this->accounts    = [];
+		$this->child_nodes = [];
 		$this->touched     = 0;
 	}
 
@@ -250,7 +250,7 @@ class HierarchyNode implements \IteratorAggregate {
 	 * @return array<string, HierarchyNode>
 	 */
 	public function get_child_nodes_recursive() {
-		$nodes = array();
+		$nodes = [];
 
 		foreach ( $this->child_nodes as $node ) {
 			$nodes[ $node->get_code() ] = $node;
@@ -299,7 +299,7 @@ class HierarchyNode implements \IteratorAggregate {
 			$hierarchy_accounts = $object->Accounts->HierarchyAccount;
 
 			if ( \is_object( $hierarchy_accounts ) ) {
-				$hierarchy_accounts = array( $hierarchy_accounts );
+				$hierarchy_accounts = [ $hierarchy_accounts ];
 			}
 
 			foreach ( $hierarchy_accounts as $o ) {
@@ -314,7 +314,7 @@ class HierarchyNode implements \IteratorAggregate {
 			$child_nodes = $object->ChildNodes->HierarchyNode;
 
 			if ( \is_object( $child_nodes ) ) {
-				$child_nodes = array( $child_nodes );
+				$child_nodes = [ $child_nodes ];
 			}
 
 			foreach ( $child_nodes as $o ) {

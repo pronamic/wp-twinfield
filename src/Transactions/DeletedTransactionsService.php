@@ -29,7 +29,7 @@ class DeletedTransactionsService extends AbstractService {
 	 *
 	 * @var string
 	 */
-	const WSDL_FILE = '/webservices/DeletedTransactionsService.svc?wsdl';
+	public const WSDL_FILE = '/webservices/DeletedTransactionsService.svc?wsdl';
 
 	/**
 	 * Constructs and initializes a declarations service object.
@@ -46,10 +46,10 @@ class DeletedTransactionsService extends AbstractService {
 	 * @see https://c3.twinfield.com/webservices/documentation/#/ApiReference/Transactions/DeletedTransactions
 	 */
 	public function get_deleted_transactions( $office_code, \DateTimeInterface $date_from = null, \DateTimeInterface $date_to = null ) {
-		$authentication = array(
+		$authentication = [
 			'AccessToken' => $this->client->access_token,
 			'CompanyCode' => $office_code,
-		);
+		];
 
 		$soap_header = new \SoapHeader(
 			'http://www.twinfield.com/',
@@ -85,7 +85,7 @@ class DeletedTransactionsService extends AbstractService {
 		$data = $result->DeletedTransactions->DeletedTransaction;
 
 		if ( is_object( $data ) ) {
-			$transactions = array( $data );
+			$transactions = [ $data ];
 		}
 
 		if ( is_array( $data ) ) {

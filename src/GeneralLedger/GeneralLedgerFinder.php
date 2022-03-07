@@ -48,7 +48,7 @@ class GeneralLedgerFinder {
 	 * @return array
 	 */
 	public function get_general_ledger( $pattern, $field, $first_row, $max_rows ) {
-		$general_ledger = array();
+		$general_ledger = [];
 
 		// Request.
 		$search = new Search(
