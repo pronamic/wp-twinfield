@@ -13,6 +13,13 @@ use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Organisation\Organisation;
 use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
 use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
+use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
+use Pronamic\WordPress\Twinfield\Traits\NameTrait;
+use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
+use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
+use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
+use Pronamic\WordPress\Twinfield\Traits\CreatedTrait;
 
 /**
  * Office
@@ -23,19 +30,37 @@ use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Office extends CodeName implements \JsonSerializable {
+class Office implements JsonSerializable {
 	/**
 	 * Organisation.
 	 *
 	 * @var Organisation|null
 	 */
-	public $organisation;
+	private $organisation;
+
+	use CodeTrait;
+
+	use NameTrait;
+
+	use ShortnameTrait;
+
+	use StatusTrait;
+
+	use ModifiedTrait;
+
+	use CreatedTrait;
 
 	private $transaction_types = [];
 
 	private $dimension_types = [];
 
 	private $sales_invoice_types = [];
+
+	public function __construct( $organisation, $code ) {
+		$this->organisation = $organisation;
+
+		$this->set_code( $code );
+	}
 
 	public function new_transaction_type( $code ) {
 		$transaction_type = new TransactionType( $this, $code );
@@ -54,7 +79,7 @@ class Office extends CodeName implements \JsonSerializable {
 	}
 
 	public function sales_invoice_type( $code ) {
-		$sales_invoice_type = new \Pronamic\WordPress\Twinfield\Accounting\SalesInvoiceType( $this, $code );
+		$sales_invoice_type = new \Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceType( $this, $code );
 
 		$this->sales_invoice_types[] = $sales_invoice_type;
 
@@ -81,19 +106,25 @@ class Office extends CodeName implements \JsonSerializable {
 			throw new \Exception( \strval( $simplexml['msg'] ) );
 		}
 
-		$office->set_name( \strval( $simplexml->name ) );
-		$office->set_shortname( \strval( $simplexml->shortname ) );
+		$office->set_status( (string) $simplexml['status'] );
+		$office->set_name( (string) $simplexml->name );
+		$office->set_shortname( (string) $simplexml->shortname );
+		$office->set_modified_at( \DateTimeImmutable::createFromFormat( 'YmdHis', (string) $simplexml->modified, new \DateTimeZone( 'UTC' ) ) );
+		$office->set_created_at( \DateTimeImmutable::createFromFormat( 'YmdHis', (string) $simplexml->created, new \DateTimeZone( 'UTC' ) ) );
 
-		$user = $office->organisation->new_user( \strval( $simplexml->user ) );
+		$user = $office->organisation->new_user( (string) $simplexml->user );
 
 		return $office;
 	}
 
 	public function jsonSerialize() {
-		return (object) [
-			'code'      => $this->get_code(),
-			'name'      => $this->get_name(),
-			'shortname' => $this->get_shortname(),
+		return [
+			'status'      => $this->get_status(),
+			'code'        => $this->get_code(),
+			'name'        => $this->get_name(),
+			'shortname'   => $this->get_shortname(),
+			'modified_at' => null === $this->modified_at ? null : $this->modified_at->format( \DATE_ATOM ),
+			'created_at'  => null === $this->created_at ? null : $this->created_at->format( \DATE_ATOM ),
 		];
 	}
 }

@@ -7,7 +7,7 @@
  * @package    Pronamic/WordPress/Twinfield/SalesInvoices
  */
 
-namespace Pronamic\WordPress\Twinfield\Accounting;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 use Pronamic\WordPress\Twinfield\Client;
 use Pronamic\WordPress\Twinfield\ProcessXmlString;

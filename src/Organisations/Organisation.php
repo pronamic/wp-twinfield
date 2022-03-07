@@ -9,11 +9,15 @@
 
 namespace Pronamic\WordPress\Twinfield\Organisations;
 
+use JsonSerializable;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\UuidTrait;
 use Pronamic\WordPress\Twinfield\Twinfield;
 use Pronamic\WordPress\Twinfield\Users\User;
 use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
+use Pronamic\WordPress\Twinfield\Traits\NameTrait;
+use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
 
 /**
  * Organisation
@@ -24,7 +28,7 @@ use Pronamic\WordPress\Twinfield\Offices\Office;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Organisation extends CodeName implements \JsonSerializable {
+class Organisation implements JsonSerializable {
 	/**
 	 * Twinfield.
 	 * 
@@ -32,14 +36,20 @@ class Organisation extends CodeName implements \JsonSerializable {
 	 */
 	private $twinfield;
 
+	use CodeTrait;
+
+	use NameTrait;
+
+	use ShortnameTrait;
+
+	use UuidTrait;
+
 	private $users;
 
 	private $offices;
 
-	use UuidTrait;
-
 	public function __construct( $code ) {
-		parent::__construct( $code );
+		$this->set_code( $code );
 
 		$this->users   = [];
 		$this->offices = [];
@@ -67,11 +77,7 @@ class Organisation extends CodeName implements \JsonSerializable {
 
 	public function new_office( $code ) {
 		if ( ! \array_key_exists( $code, $this->offices ) ) {
-			$office = new Office( $code );
-
-			$office->organisation = $this;
-
-			$this->offices[ $code ] = $office;
+			$this->offices[ $code ] = new Office( $this, $code );
 		}
 
 		return $this->offices[ $code ];

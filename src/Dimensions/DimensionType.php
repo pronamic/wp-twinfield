@@ -25,6 +25,19 @@ class DimensionType implements JsonSerializable {
 
 	private $code;
 
+	/**
+	 * Level.
+	 *
+	 * The level of the dimension determines what data you can capture.
+	 * At level 1, the balance sheet and profit and loss accounts are
+	 * captured, at level 2 relations (accounts payable and accounts
+	 * receivable) and cost centres and at level 3 you can register
+	 * projects and assets.
+	 *
+	 * @var int|null
+	 */
+	private $level;
+
 	private $dimensions = [];
 
 	public function __construct( $office, $code ) {
@@ -45,5 +58,23 @@ class DimensionType implements JsonSerializable {
 		$this->dimensions[] = $dimension;
 
 		return $dimension;
+	}
+
+	/**
+	 * Get level.
+	 *
+	 * @return int|null
+	 */
+	public function get_level() {
+		return $this->level;
+	}
+
+	/**
+	 * Set level.
+	 *
+	 * @param int|null $level The level.
+	 */
+	public function set_level( $level ) {
+		$this->level = $level;
 	}
 }
