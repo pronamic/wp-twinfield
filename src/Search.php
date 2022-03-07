@@ -45,14 +45,14 @@ class Search {
 	 *
 	 * @var int
 	 */
-	private $firstRow; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase -- Twinfield vaiable name.
+	private $firstRow; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 
 	/**
 	 * Maximum number of rows to return, usefull for paging.
 	 *
 	 * @var int
 	 */
-	private $maxRows; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase -- Twinfield vaiable name.
+	private $maxRows; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 
 	/**
 	 * Options.
@@ -74,8 +74,8 @@ class Search {
 		$this->type     = $type;
 		$this->pattern  = $pattern;
 		$this->field    = $field;
-		$this->firstRow = $first_row; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
-		$this->maxRows  = $max_rows; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
+		$this->firstRow = $first_row; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
+		$this->maxRows  = $max_rows; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 		$this->options  = ArrayOfArrayOfString::parse_array( $options );
 	}
 }

@@ -286,7 +286,7 @@ class TransactionLine {
 	/**
 	 * Invert credit sign.
 	 *
-	 * @param string $value
+	 * @param string $value Value.
 	 * @return string|null
 	 */
 	private function invert_credit_sign( $value ) {
