@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f45bcc8873a7bf01ebf11558e313351",
+    "content-hash": "0e331d9de4fab4cd6d6d6312dec6cab9",
     "packages": [
         {
             "name": "mpdf/mpdf",
@@ -233,6 +233,126 @@
                 "source": "https://github.com/pronamic/wp-http/tree/1.1.1"
             },
             "time": "2021-06-18T14:31:41+00:00"
+        },
+        {
+            "name": "pronamic/wp-money",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pronamic/wp-money.git",
+                "reference": "7f9024f1a6fc7f738b9d3580f696a96d97dbc013"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pronamic/wp-money/zipball/7f9024f1a6fc7f738b9d3580f696a96d97dbc013",
+                "reference": "7f9024f1a6fc7f738b9d3580f696a96d97dbc013",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.20",
+                "pronamic/wp-number": "^1.1"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "koodimonni-language/de_de": "*",
+                "koodimonni-language/fr_fr": "*",
+                "koodimonni-language/nl_nl": "*",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpmd/phpmd": "^2.4",
+                "phpunit/phpunit": "^5.7 || ^6.0",
+                "pronamic/wp-coding-standards": "^1.0",
+                "roots/wordpress": "^5.8",
+                "vlucas/phpdotenv": "^2.0",
+                "wp-phpunit/wp-phpunit": "^5.8",
+                "yoast/phpunit-polyfills": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pronamic\\WordPress\\Money\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "WordPress Money library.",
+            "support": {
+                "issues": "https://github.com/pronamic/wp-money/issues",
+                "source": "https://github.com/pronamic/wp-money/tree/2.0.1"
+            },
+            "time": "2022-01-10T14:38:35+00:00"
+        },
+        {
+            "name": "pronamic/wp-number",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pronamic/wp-number.git",
+                "reference": "57783219fcf11706811178314ecc59363f760426"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pronamic/wp-number/zipball/57783219fcf11706811178314ecc59363f760426",
+                "reference": "57783219fcf11706811178314ecc59363f760426",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.20"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "koodimonni-language/de_de": "*",
+                "koodimonni-language/fr_fr": "*",
+                "koodimonni-language/nl_nl": "*",
+                "overtrue/phplint": "^3.0",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpmd/phpmd": "^2.9",
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+                "pronamic/wp-coding-standards": "^1.0",
+                "roots/wordpress": "^5.8",
+                "wp-phpunit/wp-phpunit": "^5.8",
+                "yoast/phpunit-polyfills": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pronamic\\WordPress\\Number\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Pronamic",
+                    "email": "info@pronamic.eu",
+                    "homepage": "https://www.pronamic.eu/",
+                    "role": "Company"
+                },
+                {
+                    "name": "Remco Tolsma",
+                    "email": "info@remcotolsma.nl",
+                    "homepage": "https://www.remcotolsma.nl/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "WordPress Number library.",
+            "keywords": [
+                "Double",
+                "calculator",
+                "float",
+                "i18n",
+                "int",
+                "number",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/pronamic/wp-number/issues",
+                "source": "https://github.com/pronamic/wp-number/tree/1.1.0"
+            },
+            "time": "2022-01-10T14:33:37+00:00"
         },
         {
             "name": "psr/log",
