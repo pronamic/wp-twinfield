@@ -88,7 +88,7 @@ class PeriodsService extends AbstractService {
 	public function get_periods( $office, $year ) {
 		$soap_client = $this->get_soap_client( $office );
 
-		$query = new QueryGetPeriods();
+		$query       = new QueryGetPeriods();
 		$query->Year = $year;
 
 		$result = $soap_client->Query( $query );
@@ -114,7 +114,7 @@ class PeriodsService extends AbstractService {
 		}
 
 		$periods = \array_map(
-			function( $item ) use ( $year ){
+			function( $item ) use ( $year ) {
 				return Period::from_twinfield_object( $year, $item );
 			},
 			$period_array

@@ -104,13 +104,15 @@ class Settings {
 			$selected = '';
 		}
 
-		wp_dropdown_pages( array(
-			'name'             => esc_attr( $name ),
-			'post_type'        => esc_attr( isset( $args['post_type'] ) ? $args['post_type'] : 'page' ),
-			'selected'         => esc_attr( $selected ),
-			'show_option_none' => esc_attr( isset( $args['show_option_none'] ) ? $args['show_option_none'] : __( '— Select a page —', 'pronamic-twinfield' ) ),
-			'class'            => 'regular-text',
-		) );
+		wp_dropdown_pages(
+			array(
+				'name'             => esc_attr( $name ),
+				'post_type'        => esc_attr( isset( $args['post_type'] ) ? $args['post_type'] : 'page' ),
+				'selected'         => esc_attr( $selected ),
+				'show_option_none' => esc_attr( isset( $args['show_option_none'] ) ? $args['show_option_none'] : __( '— Select a page —', 'pronamic-twinfield' ) ),
+				'class'            => 'regular-text',
+			) 
+		);
 	}
 
 	/**

@@ -44,9 +44,11 @@ class HierarchiesService extends AbstractService {
 	 * @return LoadResponse
 	 */
 	public function get_hierarchy( $hierarchy_code ) {
-		$result = $this->soap_client->Load( (object) array(
-			'hierarchyCode' => $hierarchy_code,
-		) );
+		$result = $this->soap_client->Load(
+			(object) array(
+				'hierarchyCode' => $hierarchy_code,
+			) 
+		);
 
 		return LoadResponse::from_object( $result );
 	}

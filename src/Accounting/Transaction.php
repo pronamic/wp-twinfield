@@ -46,11 +46,11 @@ class Transaction {
 	}
 
 	public function new_line() {
-        $line = new TransactionLine( $this );
+		$line = new TransactionLine( $this );
 
-        $this->lines[] = $line;
+		$this->lines[] = $line;
 
-        return $line;		
+		return $line;       
 	}
 
 	public function to_dom_document() {

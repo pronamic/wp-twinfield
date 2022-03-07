@@ -49,9 +49,12 @@ class SalesInvoiceUnserializer extends Unserializer {
 
 		$child_nodes_array = \iterator_to_array( $node->childNodes );
 
-		$child_nodes_xml = array_map( function( $node ) {
-			return $node->ownerDocument->saveXML( $node );
-		}, $child_nodes_array );
+		$child_nodes_xml = array_map(
+			function( $node ) {
+				return $node->ownerDocument->saveXML( $node );
+			},
+			$child_nodes_array 
+		);
 
 		$inner_xml = implode( $child_nodes_xml );
 
@@ -136,7 +139,7 @@ class SalesInvoiceUnserializer extends Unserializer {
 				$totals = $sales_invoice->get_totals();
 
 				$totals->set_value_excl( Security::filter( $element->totals->valueexcl, FILTER_VALIDATE_FLOAT ) );
-				$totals->set_value_inc( Security::filter( $element->totals->valueinc, FILTER_VALIDATE_FLOAT ));
+				$totals->set_value_inc( Security::filter( $element->totals->valueinc, FILTER_VALIDATE_FLOAT ) );
 			}
 
 			// Response.

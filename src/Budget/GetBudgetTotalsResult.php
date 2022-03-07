@@ -2,9 +2,9 @@
 /**
  * Get budget totals result.
  *
- * @since	  1.0.0
+ * @since     1.0.0
  *
- * @package	Pronamic/WP/Twinfield
+ * @package Pronamic/WP/Twinfield
  */
 
 namespace Pronamic\WordPress\Twinfield\Budget;
@@ -50,9 +50,12 @@ class GetBudgetTotalsResult implements \Countable, \IteratorAggregate {
 	public function get_budget_totals_by_hierarchy_node( HierarchyNode $node ) {
 		$budget_totals = $this->get_budget_totals();
 
-		$budget_totals = \array_filter( $budget_totals, function( $budget_total ) use( $node ) {
-			return $budget_total->is_party_of_hierarchy_node( $node );
-		} );
+		$budget_totals = \array_filter(
+			$budget_totals,
+			function( $budget_total ) use ( $node ) {
+				return $budget_total->is_party_of_hierarchy_node( $node );
+			} 
+		);
 
 		return $budget_totals;
 	}

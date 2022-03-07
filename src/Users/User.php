@@ -29,7 +29,7 @@ class User extends CodeName {
 	 */
 	public $organisation;
 
-    public function get_organisation() {
-        return $this->organisation;
-    }
+	public function get_organisation() {
+		return $this->organisation;
+	}
 }

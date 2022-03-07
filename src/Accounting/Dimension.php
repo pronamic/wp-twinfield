@@ -24,16 +24,16 @@ use JsonSerializable;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Dimension implements JsonSerializable {
-    private $office;
+	private $office;
 
 	private $type;
 
 	private $code;
 
-    private $uid;
+	private $uid;
 
 	public function __construct( $office, DimensionType $type, $code ) {
-        $this->office = $office;
+		$this->office = $office;
 		$this->type   = $type;
 		$this->code   = $code;
 	}
@@ -42,34 +42,34 @@ class Dimension implements JsonSerializable {
 		return $this->code;
 	}
 
-    public function set_uid( $uid ) {
-        $this->uid = $uid;
-    }
+	public function set_uid( $uid ) {
+		$this->uid = $uid;
+	}
 
-    public function set_name( $name ) {
-        $this->name = $name;
-    }
+	public function set_name( $name ) {
+		$this->name = $name;
+	}
 
-    public function set_shortname( $shortname ) {
-        $this->shortname = $shortname;
-    }
+	public function set_shortname( $shortname ) {
+		$this->shortname = $shortname;
+	}
 
-    public function jsonSerialize() {
-        return [
-            'office'    => $this->office,
-            'type'      => $this->type,
-            'code'      => $this->code,
-            'uid'       => $this->uid,
-            'name'      => $this->name,
-            'shortname' => $this->shortname,
-        ];
-    }
+	public function jsonSerialize() {
+		return array(
+			'office'    => $this->office,
+			'type'      => $this->type,
+			'code'      => $this->code,
+			'uid'       => $this->uid,
+			'name'      => $this->name,
+			'shortname' => $this->shortname,
+		);
+	}
 
-    public static function from_xml( $xml, $office ) {
-        $unserializer = new DimensionUnserializer();
-        
-        $simplexml = \simplexml_load_string( $xml );
+	public static function from_xml( $xml, $office ) {
+		$unserializer = new DimensionUnserializer();
+		
+		$simplexml = \simplexml_load_string( $xml );
 
-        return $unserializer->unserialize( $simplexml );
-    }
+		return $unserializer->unserialize( $simplexml );
+	}
 }

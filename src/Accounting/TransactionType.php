@@ -22,26 +22,26 @@ use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionType extends CodeName {
-    private $office;
+	private $office;
 
-    private $transactions;
+	private $transactions;
 
-    public function __construct( $office, $code ) {
-        parent::__construct( $code );
+	public function __construct( $office, $code ) {
+		parent::__construct( $code );
 
-        $this->office       = $office;
-        $this->transactions = array();
-    }
+		$this->office       = $office;
+		$this->transactions = array();
+	}
 
-    public function get_office() {
-        return $this->office;
-    }
+	public function get_office() {
+		return $this->office;
+	}
 
-    public function new_transaction() {
-        $transaction = new Transaction( $this );
+	public function new_transaction() {
+		$transaction = new Transaction( $this );
 
-        $this->transactions[] = $transaction;
+		$this->transactions[] = $transaction;
 
-        return $transaction;
-    }
+		return $transaction;
+	}
 }

@@ -25,13 +25,13 @@ class OfficesList implements IteratorAggregate, JsonSerializable {
 
 	private $offices = array();
 
-    public function getIterator() {
-        return new ArrayIterator( $this->offices );
-    }
+	public function getIterator() {
+		return new ArrayIterator( $this->offices );
+	}
 
- 	public function jsonSerialize() {
-        return $this->offices;
-    }
+	public function jsonSerialize() {
+		return $this->offices;
+	}
 
 	public static function from_xml( $xml, $organisation ) {
 		$simplexml = \simplexml_load_string( $xml );

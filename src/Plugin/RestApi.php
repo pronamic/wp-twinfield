@@ -81,12 +81,12 @@ class RestApi {
 						'sanitize_callback' => 'absint',
 					),
 					'office_code' => array(
-						'description'       => 'Twinfield office code.',
-						'type'              => 'string',
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
 					),
 					'browse_code' => array(
-						'description'       => 'Twinfield browse code.',
-						'type'              => 'string',
+						'description' => 'Twinfield browse code.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -108,12 +108,12 @@ class RestApi {
 						'sanitize_callback' => 'absint',
 					),
 					'office_code' => array(
-						'description'       => 'Twinfield office code.',
-						'type'              => 'string',
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
 					),
 					'browse_code' => array(
-						'description'       => 'Twinfield browse code.',
-						'type'              => 'string',
+						'description' => 'Twinfield browse code.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -143,7 +143,7 @@ class RestApi {
 					return true;
 				},
 				'args'                => array(
-					'post_id'     => array(
+					'post_id' => array(
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
@@ -162,14 +162,14 @@ class RestApi {
 					return true;
 				},
 				'args'                => array(
-					'post_id'     => array(
+					'post_id' => array(
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 					),
-					'embed'       => array(
-						'description'       => 'Embed.',
-						'type'              => 'string',
+					'embed'   => array(
+						'description' => 'Embed.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -190,9 +190,9 @@ class RestApi {
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 					),
-					'office_code'     => array(
-						'description'       => 'Twinfield office code.',
-						'type'              => 'string',
+					'office_code' => array(
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
 					),
 					/**
 					 * Embed?
@@ -200,8 +200,8 @@ class RestApi {
 					 * @link https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
 					 */
 					'embed'       => array(
-						'description'       => 'Embed.',
-						'type'              => 'string',
+						'description' => 'Embed.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -217,22 +217,22 @@ class RestApi {
 					return true;
 				},
 				'args'                => array(
-					'post_id'     => array(
+					'post_id'               => array(
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 					),
-					'office_code'     => array(
-						'description'       => 'Twinfield office code.',
-						'type'              => 'string',
+					'office_code'           => array(
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
 					),
 					'transaction_type_code' => array(
-						'description'       => 'Twinfield transaction type code.',
-						'type'              => 'string',
+						'description' => 'Twinfield transaction type code.',
+						'type'        => 'string',
 					),
-					'transaction_number' => array(
-						'description'       => 'Twinfield transaction number.',
-						'type'              => 'string',
+					'transaction_number'    => array(
+						'description' => 'Twinfield transaction number.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -248,22 +248,22 @@ class RestApi {
 					return true;
 				},
 				'args'                => array(
-					'post_id'     => array(
+					'post_id'           => array(
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 					),
-					'office_code'     => array(
-						'description'       => 'Twinfield office code.',
-						'type'              => 'string',
+					'office_code'       => array(
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
 					),
 					'invoice_type_code' => array(
-						'description'       => 'Twinfield invoice type code.',
-						'type'              => 'string',
+						'description' => 'Twinfield invoice type code.',
+						'type'        => 'string',
 					),
-					'invoice_number' => array(
-						'description'       => 'Twinfield invoice number.',
-						'type'              => 'string',
+					'invoice_number'    => array(
+						'description' => 'Twinfield invoice number.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -279,22 +279,22 @@ class RestApi {
 					return true;
 				},
 				'args'                => array(
-					'post_id'     => array(
+					'post_id'             => array(
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 					),
-					'office_code'     => array(
-						'description'       => 'Twinfield office code.',
-						'type'              => 'string',
+					'office_code'         => array(
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
 					),
 					'dimension_type_code' => array(
-						'description'       => 'Twinfield dimension type code.',
-						'type'              => 'string',
+						'description' => 'Twinfield dimension type code.',
+						'type'        => 'string',
 					),
-					'dimension_code' => array(
-						'description'       => 'Twinfield dimension code.',
-						'type'              => 'string',
+					'dimension_code'      => array(
+						'description' => 'Twinfield dimension code.',
+						'type'        => 'string',
 					),
 				),
 			)
@@ -406,7 +406,7 @@ class RestApi {
 		$post_id = $request->get_param( 'post_id' );
 		$code    = $request->get_param( 'code' );
 
-        $openid_connect_client = $this->plugin->get_openid_connect_client(); 
+		$openid_connect_client = $this->plugin->get_openid_connect_client(); 
 
 		$response = $openid_connect_client->get_access_token( $code );
 
@@ -427,7 +427,7 @@ class RestApi {
 		 */
 		$url = \add_query_arg(
 			array(
-				'post' => $post_id,
+				'post'   => $post_id,
 				'action' => 'edit',
 			),
 			admin_url( 'post.php' )
@@ -468,14 +468,16 @@ class RestApi {
 		 * @link https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_envelope
 		 * @link https://jsonapi.org/format/#document-top-level
 		 */
-		$rest_response = new \WP_REST_Response( array(
-			'type'      => 'offices',
-			'data'      => $offices,
-			'_embedded' => (object) array(
-				'request'  => (string) $offices_list_request,
-				'response' => (string) $offices_list_response,
-			),
-		) );
+		$rest_response = new \WP_REST_Response(
+			array(
+				'type'      => 'offices',
+				'data'      => $offices,
+				'_embedded' => (object) array(
+					'request'  => (string) $offices_list_request,
+					'response' => (string) $offices_list_response,
+				),
+			) 
+		);
 
 		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
 
@@ -642,8 +644,8 @@ class RestApi {
 		);
 
 		$data['_embedded'] = (object) array(
-			'request_xml'   => $read_request->to_xml(),
-			'response_xml'  => (string) $read_response,
+			'request_xml'  => $read_request->to_xml(),
+			'response_xml' => (string) $read_response,
 		);
 
 		$response = new \WP_REST_Response( $data );
@@ -967,18 +969,20 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
 
-		$rest_response = new \WP_REST_Response( array(
-			'type'      => 'browse',
-			'data'      => $offices,
-			'_embedded' => (object) array(
-				'request'  => (string) $xml,
-				'response' => (string) $response,
-			),
-		) );
+		$rest_response = new \WP_REST_Response(
+			array(
+				'type'      => 'browse',
+				'data'      => $offices,
+				'_embedded' => (object) array(
+					'request'  => (string) $xml,
+					'response' => (string) $response,
+				),
+			) 
+		);
 
 		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
 
-		return $rest_response;		
+		return $rest_response;      
 	}
 
 	public function rest_api_browse_query( WP_REST_Request $request ) {
@@ -1067,14 +1071,16 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
 
-		$rest_response = new \WP_REST_Response( array(
-			'type'      => 'columns',
-			'data'      => $offices,
-			'_embedded' => (object) array(
-				'request'  => (string) $xml,
-				'response' => (string) $response,
-			),
-		) );
+		$rest_response = new \WP_REST_Response(
+			array(
+				'type'      => 'columns',
+				'data'      => $offices,
+				'_embedded' => (object) array(
+					'request'  => (string) $xml,
+					'response' => (string) $response,
+				),
+			) 
+		);
 
 		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
 

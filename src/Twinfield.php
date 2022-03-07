@@ -32,11 +32,11 @@ class Twinfield {
 		$this->organisations = $organisation;
 	}
 
-    public function new_organisation( $code ) {
-        $organisation = new Organisation( $code );
+	public function new_organisation( $code ) {
+		$organisation = new Organisation( $code );
 
-        $this->organisations[ $code ] = $organisation;
+		$this->organisations[ $code ] = $organisation;
 
-        return $organisation;
-    }
+		return $organisation;
+	}
 }

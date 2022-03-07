@@ -91,7 +91,7 @@ class TransactionUnserializer extends Unserializer {
 				$header->set_number( Security::filter( $element->header->number ) );
 
 				// Regime.
-				if ( $element->header->regime ) {				
+				if ( $element->header->regime ) {               
 					$header->set_regime( Security::filter( $element->header->regime ) );
 				}
 
@@ -99,11 +99,11 @@ class TransactionUnserializer extends Unserializer {
 				$header->set_date( $this->date_unserializer->unserialize( $element->header->date ) );
 
 				// Origin.
-				if ( $element->header->origin ) {				
+				if ( $element->header->origin ) {               
 					$header->set_origin( Security::filter( $element->header->origin ) );
 				}
 
-				if ( $element->header->originreference ) {				
+				if ( $element->header->originreference ) {              
 					$header->set_origin_reference( Security::filter( $element->header->originreference ) );
 				}
 
@@ -134,11 +134,13 @@ class TransactionUnserializer extends Unserializer {
 
 				// User.
 				if ( $element->header->user ) {
-					$header->set_user( new User(
-						Security::filter( $element->header->user ),
-						Security::filter( $element->header->user['name'] ),
-						Security::filter( $element->header->user['shortname'] )
-					) );
+					$header->set_user(
+						new User(
+							Security::filter( $element->header->user ),
+							Security::filter( $element->header->user['name'] ),
+							Security::filter( $element->header->user['shortname'] )
+						) 
+					);
 				}
 
 				// Modification date.
@@ -163,7 +165,7 @@ class TransactionUnserializer extends Unserializer {
 				$header->set_period( $period );
 
 				// Invoice number.
-				$header->set_invoice_number( Security::filter( $element->header->invoicenumber ) );				
+				$header->set_invoice_number( Security::filter( $element->header->invoicenumber ) );             
 
 				// Free texts.
 				$header->set_free_text_1( Security::filter( $element->header->freetext1 ) );
@@ -191,30 +193,36 @@ class TransactionUnserializer extends Unserializer {
 					}
 
 					if ( $dimensions_element->dim1 ) {
-						$line->set_dimension_1( new TransactionLineDimension(
-							Security::filter( $dimensions_element->dim1['dimensiontype'] ),
-							Security::filter( $dimensions_element->dim1 ),
-							Security::filter( $dimensions_element->dim1['name'] ),
-							Security::filter( $dimensions_element->dim1['shortname'] )
-						) );
+						$line->set_dimension_1(
+							new TransactionLineDimension(
+								Security::filter( $dimensions_element->dim1['dimensiontype'] ),
+								Security::filter( $dimensions_element->dim1 ),
+								Security::filter( $dimensions_element->dim1['name'] ),
+								Security::filter( $dimensions_element->dim1['shortname'] )
+							) 
+						);
 					}
 
 					if ( $dimensions_element->dim2 ) {
-						$line->set_dimension_2( new TransactionLineDimension(
-							Security::filter( $dimensions_element->dim2['dimensiontype'] ),
-							Security::filter( $dimensions_element->dim2 ),
-							Security::filter( $dimensions_element->dim2['name'] ),
-							Security::filter( $dimensions_element->dim2['shortname'] )
-						) );
+						$line->set_dimension_2(
+							new TransactionLineDimension(
+								Security::filter( $dimensions_element->dim2['dimensiontype'] ),
+								Security::filter( $dimensions_element->dim2 ),
+								Security::filter( $dimensions_element->dim2['name'] ),
+								Security::filter( $dimensions_element->dim2['shortname'] )
+							) 
+						);
 					}
 
 					if ( $dimensions_element->dim3 ) {
-						$line->set_dimension_3( new TransactionLineDimension(
-							Security::filter( $dimensions_element->dim3['dimensiontype'] ),
-							Security::filter( $dimensions_element->dim3 ),
-							Security::filter( $dimensions_element->dim3['name'] ),
-							Security::filter( $dimensions_element->dim3['shortname'] )
-						) );
+						$line->set_dimension_3(
+							new TransactionLineDimension(
+								Security::filter( $dimensions_element->dim3['dimensiontype'] ),
+								Security::filter( $dimensions_element->dim3 ),
+								Security::filter( $dimensions_element->dim3['name'] ),
+								Security::filter( $dimensions_element->dim3['shortname'] )
+							) 
+						);
 					}
 
 					/**
@@ -307,12 +315,14 @@ class TransactionUnserializer extends Unserializer {
 					}
 
 					if ( $element_line->vatcode ) {
-						$line->set_vat_code( new VatCode(
-							Security::filter( $element_line->vatcode ),
-							Security::filter( $element_line->vatcode['name'] ),
-							Security::filter( $element_line->vatcode['shortname'] ),
-							Security::filter( $element_line->vatcode['type'] )
-						) );
+						$line->set_vat_code(
+							new VatCode(
+								Security::filter( $element_line->vatcode ),
+								Security::filter( $element_line->vatcode['name'] ),
+								Security::filter( $element_line->vatcode['shortname'] ),
+								Security::filter( $element_line->vatcode['type'] )
+							) 
+						);
 					}
 
 					if ( $element_line->freetext1 ) {

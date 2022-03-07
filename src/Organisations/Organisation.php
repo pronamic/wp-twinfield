@@ -25,63 +25,63 @@ use Pronamic\WordPress\Twinfield\Offices\Office;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Organisation extends CodeName implements \JsonSerializable {
-    /**
-     * Twinfield.
-     * 
-     * @var Twinfield
-     */
-    private $twinfield;
+	/**
+	 * Twinfield.
+	 * 
+	 * @var Twinfield
+	 */
+	private $twinfield;
 
-    private $users;
+	private $users;
 
-    private $offices;
+	private $offices;
 
-    use UuidTrait;
+	use UuidTrait;
 
-    public function __construct( $code ) {
-        parent::__construct( $code );
+	public function __construct( $code ) {
+		parent::__construct( $code );
 
-        $this->users     = array();
-        $this->offices   = array();
-    }
+		$this->users   = array();
+		$this->offices = array();
+	}
 
-    public function get_offices() {
-        return $this->offices;
-    }
+	public function get_offices() {
+		return $this->offices;
+	}
 
-    public function new_user( $code ) {
-        if ( ! \array_key_exists( $code, $this->users ) ) {
-            $user = new User( $code );
+	public function new_user( $code ) {
+		if ( ! \array_key_exists( $code, $this->users ) ) {
+			$user = new User( $code );
 
-            $user->organisation = $this;
+			$user->organisation = $this;
 
-            $this->users[ $code ] = $user;
-        }
+			$this->users[ $code ] = $user;
+		}
 
-        return $this->users[ $code ];
-    }
+		return $this->users[ $code ];
+	}
 
-    public function office( $code ) {
-        return $this->new_office( $code );
-    }
+	public function office( $code ) {
+		return $this->new_office( $code );
+	}
 
-    public function new_office( $code ) {
-        if ( ! \array_key_exists( $code, $this->offices ) ) {
-            $office = new Office( $code );
+	public function new_office( $code ) {
+		if ( ! \array_key_exists( $code, $this->offices ) ) {
+			$office = new Office( $code );
 
-            $office->organisation = $this;
+			$office->organisation = $this;
 
-            $this->offices[ $code ] = $office;
-        }
+			$this->offices[ $code ] = $office;
+		}
 
-        return $this->offices[ $code ];
-    }
+		return $this->offices[ $code ];
+	}
 
-    public function jsonSerialize() {
-        return (object) array(
-            'code'      => $this->get_code(),
-            'name'      => $this->get_name(),
-            'shortname' => $this->get_shortname(),
-        );
-    }
+	public function jsonSerialize() {
+		return (object) array(
+			'code'      => $this->get_code(),
+			'name'      => $this->get_name(),
+			'shortname' => $this->get_shortname(),
+		);
+	}
 }

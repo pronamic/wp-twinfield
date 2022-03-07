@@ -21,29 +21,29 @@ use JsonSerializable;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DimensionType implements JsonSerializable {
-    private $office;
+	private $office;
 
 	private $code;
 
-    private $dimensions = array();
+	private $dimensions = array();
 
 	public function __construct( $office, $code ) {
-        $this->office = $office;
+		$this->office = $office;
 		$this->code   = $code;
 	}
 
-    public function jsonSerialize() {
-        return [
-            'office' => $this->office,
-            'code'   => $this->code,
-        ];
-    }
+	public function jsonSerialize() {
+		return array(
+			'office' => $this->office,
+			'code'   => $this->code,
+		);
+	}
 
-    public function new_dimension( $code ) {
-        $dimension = new Dimension( $this, $code );
+	public function new_dimension( $code ) {
+		$dimension = new Dimension( $this, $code );
 
-        $this->dimensions[] = $dimension;
+		$this->dimensions[] = $dimension;
 
-        return $dimension;
-    }
+		return $dimension;
+	}
 }

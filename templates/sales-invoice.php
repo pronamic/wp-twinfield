@@ -26,7 +26,7 @@ get_header();
 			?>
 
 			<div class="btn-group" role="group" aria-label="Basic example">
-				<a class="btn btn-secondary" href="<?php echo esc_url( untrailingslashit( add_query_arg() ) . '.pdf'); ?>" target="_blank">
+				<a class="btn btn-secondary" href="<?php echo esc_url( untrailingslashit( add_query_arg() ) . '.pdf' ); ?>" target="_blank">
 					<i class="fas fa-file-pdf"></i> PDF
 				</a>
 
@@ -34,9 +34,9 @@ get_header();
 					<i class="fas fa-file-code"></i> XML
 				</a>
 
-                <a class="btn btn-secondary" href="<?php echo esc_url( rest_url( $request->get_route() ) ); ?>" target="_blank">
-                    <i class="fas fa-file-code"></i> JSON
-                </a>
+				<a class="btn btn-secondary" href="<?php echo esc_url( rest_url( $request->get_route() ) ); ?>" target="_blank">
+					<i class="fas fa-file-code"></i> JSON
+				</a>
 			</div>
 		</div>
 
@@ -213,21 +213,21 @@ get_header();
 					?>
 				</header>
 
-                <?php
+				<?php
 
-                $document = new DOMDocument();
+				$document = new DOMDocument();
 
-                $document->preserveWhiteSpace = false;
-                $document->formatOutput       = true;
+				$document->preserveWhiteSpace = false;
+				$document->formatOutput       = true;
 
-                $document->loadXML( $section->xml );
+				$document->loadXML( $section->xml );
 
-                printf(
-                    '<textarea class="pronamic-twinfield-xml-textarea">%s</textarea>',
-                    esc_html( $document->saveXML( $document->documentElement ) )
-                );
+				printf(
+					'<textarea class="pronamic-twinfield-xml-textarea">%s</textarea>',
+					esc_html( $document->saveXML( $document->documentElement ) )
+				);
 
-                ?>
+				?>
 			</div>
 
 		<?php endforeach; ?>
@@ -247,14 +247,14 @@ get_header();
 </style>
 
 <script type="text/javascript">
-    const textareas = document.querySelectorAll( '.pronamic-twinfield-xml-textarea' );
+	const textareas = document.querySelectorAll( '.pronamic-twinfield-xml-textarea' );
 
-    textareas.forEach( ( textarea ) => {
-        editor = CodeMirror.fromTextArea(textarea, {
-            lineNumbers: true,
-            mode: 'application/xml'
-        });
-    } );
+	textareas.forEach( ( textarea ) => {
+		editor = CodeMirror.fromTextArea(textarea, {
+			lineNumbers: true,
+			mode: 'application/xml'
+		});
+	} );
 </script>
 
 <?php

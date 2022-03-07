@@ -8,6 +8,7 @@
  */
 
 namespace Pronamic\WordPress\Twinfield;
+
 /**
  * Query.
  *

@@ -61,9 +61,11 @@ if ( \array_key_exists( 'code', $_GET ) ) {
 if ( isset( $authentication ) ) {
 	$client = new Client( $openid_connect_client, $authentication );
 
-	$client->set_authentication_refresh_handler( function( $client ) use ( $authentication_file ) {
-		\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
-	} );
+	$client->set_authentication_refresh_handler(
+		function( $client ) use ( $authentication_file ) {
+			\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
+		} 
+	);
 
 	$organisation = $client->get_organisation();
 
@@ -178,7 +180,8 @@ if ( isset( $authentication ) ) {
 
 			$office = \reset( $offices );
 
-			if ( false !== $office ) : ?>
+			if ( false !== $office ) : 
+				?>
 
 				<?php
 
@@ -307,9 +310,12 @@ if ( isset( $authentication ) ) {
 
 				$summaries = $declarations_service->get_all_summaries( $office );
 
-				\usort( $summaries, function( $a, $b ) {
-					return -\strnatcmp( $a->get_id(), $b->get_id() );
-				} );
+				\usort(
+					$summaries,
+					function( $a, $b ) {
+						return -\strnatcmp( $a->get_id(), $b->get_id() );
+					} 
+				);
 
 				?>
 
@@ -378,7 +384,8 @@ if ( isset( $authentication ) ) {
 					$xbrl = $declarations_service->get_xbrl_by_summary( $summary );
 				}
 
-				if ( null !== $xbrl ) : ?>
+				if ( null !== $xbrl ) : 
+					?>
 
 					<h2>Declaration XBRL</h2>
 

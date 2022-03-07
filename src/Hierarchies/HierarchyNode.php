@@ -318,7 +318,7 @@ class HierarchyNode implements \IteratorAggregate {
 			}
 
 			foreach ( $child_nodes as $o ) {
-				$hierarchy->add_child_node( HierarchyNode::from_object( $o ) );
+				$hierarchy->add_child_node( self::from_object( $o ) );
 			}
 		}
 

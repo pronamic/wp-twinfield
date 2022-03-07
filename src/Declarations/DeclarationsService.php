@@ -227,7 +227,7 @@ class DeclarationsService extends AbstractService {
 		$response = $this->soap_client->__soapCall( $function, array( $parameters ) );
 
 		if ( isset( $response->vatReturn, $response->vatReturn->any ) ) {
-			return $response->vatReturn->any;			
+			return $response->vatReturn->any;           
 		}
 	}
 

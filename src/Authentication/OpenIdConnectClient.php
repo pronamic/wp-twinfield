@@ -153,14 +153,17 @@ class OpenIdConnectClient {
 				),
 			)
 		);
-var_dump( array(
-	'headers' => $this->get_headers(),
+		var_dump(
+			array(
+				'headers' => $this->get_headers(),
 				'body'    => array(
-			'grant_type'   => 'authorization_code',
-			'code'         => $code,
-			'redirect_uri' => $this->redirect_uri,
-		),
-			) );var_dump( $result );
+					'grant_type'   => 'authorization_code',
+					'code'         => $code,
+					'redirect_uri' => $this->redirect_uri,
+				),
+			) 
+		);
+		var_dump( $result );
 		$data = $result->json();
 
 		if ( ! \is_object( $data ) ) {

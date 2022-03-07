@@ -46,37 +46,37 @@ $rows = array_filter( $rows );
 <sethtmlpagefooter name="PronamicFooter" value="on" />
 
 <style type="text/css">
-    body {
-        font-family: tahoma;
-        font-size: 10pt;
-    }
+	body {
+		font-family: tahoma;
+		font-size: 10pt;
+	}
 
-    table {
-        border-collapse: collapse;
-    }
+	table {
+		border-collapse: collapse;
+	}
 
-    table th,
-    table td {
-        padding: 3px 0;
-    }
+	table th,
+	table td {
+		padding: 3px 0;
+	}
 
-    .pronamic-title {
-        color: #F9461C;
+	.pronamic-title {
+		color: #F9461C;
 
-        font-size: 14pt;
-        font-weight: normal;
-    }
+		font-size: 14pt;
+		font-weight: normal;
+	}
 
-    .pronamic-invoice-lines-table th,
-    .pronamic-invoice-lines-table td {
-        padding: 5px 0;
-    }
+	.pronamic-invoice-lines-table th,
+	.pronamic-invoice-lines-table td {
+		padding: 5px 0;
+	}
 
-    .pronamic-footer {
-        font-size: 8pt;
+	.pronamic-footer {
+		font-size: 8pt;
 
-        text-align: center;
-    }
+		text-align: center;
+	}
 </style>
 
 <div style="float: left; width: 50%; padding-top: 3em;">
@@ -248,7 +248,8 @@ $rows = array_filter( $rows );
 			<td valign="top" style="border-bottom: 1px solid #D3D3D3; padding: 5px 0;">
 				<?php echo esc_html( $line->get_description() ); ?><br />
 
-				<span style="color: #F9461C; font-size: 8pt;"><?php
+				<span style="color: #F9461C; font-size: 8pt;">
+				<?php
 
 					echo esc_html( $line->get_free_text_1() );
 					echo ' ';
@@ -256,7 +257,8 @@ $rows = array_filter( $rows );
 					echo ' ';
 					echo esc_html( $line->get_free_text_3() );
 
-					?></span>
+				?>
+					</span>
 			</td>
 			<td align="right" valign="top" style="border-bottom: 1px solid #D3D3D3; padding: 5px 0;">
 				<?php echo esc_html( twinfield_price( $line->get_value_excl() ) ); ?></td>

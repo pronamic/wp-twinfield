@@ -189,8 +189,8 @@ class SalesInvoice {
 
 	public function from_xml( $xml, $organisation ) {
 		$unserializer = new SalesInvoiceUnserializer();
-        
-        $simplexml = \simplexml_load_string( $xml );
+		
+		$simplexml = \simplexml_load_string( $xml );
 
 		return $unserializer->unserialize( $simplexml );
 	}

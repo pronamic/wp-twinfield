@@ -59,7 +59,7 @@ class DeletedTransactionsService extends AbstractService {
 
 		$this->soap_client->__setSoapHeaders( $soap_header );
 
-		$query = new GetDeletedTransactions();
+		$query              = new GetDeletedTransactions();
 		$query->CompanyCode = $office_code;
 
 		if ( null !== $date_from ) {

@@ -30,9 +30,9 @@ get_header();
 					<i class="fas fa-file-code"></i> XML
 				</a>
 
-                <a class="btn btn-secondary" href="<?php echo esc_url( rest_url( $request->get_route() ) ); ?>" target="_blank">
-                    <i class="fas fa-file-code"></i> JSON
-                </a>
+				<a class="btn btn-secondary" href="<?php echo esc_url( rest_url( $request->get_route() ) ); ?>" target="_blank">
+					<i class="fas fa-file-code"></i> JSON
+				</a>
 			</div>
 		</div>
 	</div>

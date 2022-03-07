@@ -26,8 +26,8 @@ class OfficesListRequest {
 	public function to_dom_document() {
 		$document = new \DOMDocument();
 
-		//$document->preserveWhiteSpace = false;
-		//$document->formatOutput       = true;
+		// $document->preserveWhiteSpace = false;
+		// $document->formatOutput       = true;
 
 		$element = $document->appendChild( $document->createElement( 'list' ) );
 
@@ -37,7 +37,7 @@ class OfficesListRequest {
 	}
 
 	public function to_xml() {
-		$dom =$this->to_dom_document();
+		$dom = $this->to_dom_document();
 
 		return $dom->saveXML( $dom->documentElement );
 	}
