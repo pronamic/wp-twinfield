@@ -3,7 +3,7 @@
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use WP_REST_Request;
-use Pronamic\WordPress\Twinfield\Accounting\Dimension;
+use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;

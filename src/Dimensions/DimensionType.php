@@ -7,7 +7,7 @@
  * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WordPress\Twinfield\Accounting;
+namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use JsonSerializable;
 
@@ -40,7 +40,7 @@ class DimensionType implements JsonSerializable {
 	}
 
 	public function new_dimension( $code ) {
-		$dimension = new Dimension( $this, $code );
+		$dimension = new Dimension( $this->code, $code );
 
 		$this->dimensions[] = $dimension;
 

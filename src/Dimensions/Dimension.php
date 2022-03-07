@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use Pronamic\WordPress\Twinfield\CodeName;
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\XML\Dimensions\DimensionUnserializer;
 
 /**
  * Dimension
@@ -134,5 +135,13 @@ class Dimension extends CodeName implements JsonSerializable {
 			'name'      => $this->get_name(),
 			'shortname' => $this->get_shortname(),
 		);
+	}
+
+	public static function from_xml( $xml, $office ) {
+		$unserializer = new DimensionUnserializer();
+
+		$simplexml = \simplexml_load_string( $xml );
+
+		return $unserializer->unserialize( $simplexml );
 	}
 }

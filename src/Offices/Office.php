@@ -12,7 +12,7 @@ namespace Pronamic\WordPress\Twinfield\Offices;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Organisation\Organisation;
 use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
-use Pronamic\WordPress\Twinfield\Accounting\DimensionType;
+use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
 
 /**
  * Office
