@@ -311,8 +311,59 @@ $twinfield = $organisation->get_twinfield();
 										'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/finder/:finder_type',
 										[
 											':auth_post_id' => $request->get_param( 'post_id' ),
-											':office_code' => $office->get_code(),
-											':finder_type' => $type,
+											':office_code'  => $office->get_code(),
+											':finder_type'  => $type,
+										]
+									)
+								);
+
+								printf(
+									'<a href="%s">%s</a>',
+									esc_url( $url ),
+									esc_html( $url )
+								);
+
+								?>
+							</td>
+						</tr>
+
+					<?php endforeach; ?>
+
+				</tbody>
+			</table>
+
+			<h2><?php esc_html_e( 'Browser', 'pronamic-twinfield' ); ?></h2>
+
+			<table>
+				<thead>
+					<tr>
+						<th scope="col"><?php esc_html_e( 'Type', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Label', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'REST URL', 'pronamic-twinfield' ); ?></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					
+					<?php foreach ( $twinfield->get_browse_codes() as $code => $label ) : ?>
+
+						<tr>
+							<td>
+								<code><?php echo esc_html( $code ); ?></code>
+							</td>
+							<td>
+								<?php echo esc_html( $label ); ?>
+							</td>
+							<td>
+								<?php
+
+								$url = rest_url( 
+									strtr(
+										'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/browse/:browse_code',
+										[
+											':auth_post_id' => $request->get_param( 'post_id' ),
+											':office_code'  => $office->get_code(),
+											':browse_code'  => $code,
 										]
 									)
 								);

@@ -69,7 +69,7 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
-			'/authorizations/(?P<post_id>\d+)/browse/fields/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<browse_code>[a-zA-Z0-9_-]+)',
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/browse/(?P<browse_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_browse_fields' ],

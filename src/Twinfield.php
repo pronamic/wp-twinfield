@@ -96,4 +96,46 @@ class Twinfield {
 			'XLT'  => \__( 'Translations', 'pronamic-twinfield' ),
 		];
 	}
+
+	public function get_browse_codes() {
+		return [
+			'000'   => \__( 'General ledger transactions', 'pronamic-twinfield' ),
+			'010'   => \__( 'Transactions still to be matched', 'pronamic-twinfield' ),
+			'020'   => \__( 'Transaction list', 'pronamic-twinfield' ),
+			'100'   => \__( 'Customer transactions', 'pronamic-twinfield' ),
+			'200'   => \__( 'Supplier transactions', 'pronamic-twinfield' ),
+			'300'   => \__( 'Project transactions', 'pronamic-twinfield' ),
+			'301'   => \__( 'Asset transactions', 'pronamic-twinfield' ),
+			'400'   => \__( 'Cash transactions', 'pronamic-twinfield' ),
+			'410'   => \__( 'Bank transactions', 'pronamic-twinfield' ),
+			'900'   => \__( 'Cost centers', 'pronamic-twinfield' ),
+			'030_1' => \__( 'General Ledger (details)', 'pronamic-twinfield' ),
+			'030_2' => \__( 'General Ledger (details) (v2)', 'pronamic-twinfield' ),
+			'030_3' => \__( 'General Ledger (details) (v3)', 'pronamic-twinfield' ),
+			'031'   => \__( 'General Ledger (intercompany)', 'pronamic-twinfield' ),
+			'031_2' => \__( 'General Ledger (intercompany)(v2)', 'pronamic-twinfield' ),
+			'040_1' => \__( 'Annual Report (totals)', 'pronamic-twinfield' ),
+			'050_1' => \__( 'Annual Report (YTD)', 'pronamic-twinfield' ),
+			'060'   => \__( 'Annual Report (totals multicurrency)', 'pronamic-twinfield' ),
+			'130_1' => \__( 'Customers', 'pronamic-twinfield' ),
+			'130_2' => \__( 'Customers (v2)', 'pronamic-twinfield' ),
+			'130_3' => \__( 'Customers (v3)', 'pronamic-twinfield' ),
+			'164'   => \__( 'Credit Management', 'pronamic-twinfield' ),
+			'230_1' => \__( 'Suppliers', 'pronamic-twinfield' ),
+			'230_2' => \__( 'Suppliers (v2)', 'pronamic-twinfield' ),
+			'302_1' => \__( 'Fixed Assets', 'pronamic-twinfield' ),
+			'610_1' => \__( 'Time & Expenses (Totals)', 'pronamic-twinfield' ),
+			'620'   => \__( 'Time & Expenses (Multicurrency)', 'pronamic-twinfield' ),
+			'650_1' => \__( 'Time & Expenses (Details)', 'pronamic-twinfield' ),
+			'651_1' => \__( 'Time & Expenses (Totals per week)', 'pronamic-twinfield' ),
+			'652_1' => \__( 'Time & Expenses (Totals per period)', 'pronamic-twinfield' ),
+			'660_1' => \__( 'Time & Expenses (Billing details)', 'pronamic-twinfield' ),
+			'661_1' => \__( 'Time & Expenses (Billing per week)', 'pronamic-twinfield' ),
+			'662_1' => \__( 'Time & Expenses (Billing per period)', 'pronamic-twinfield' ),
+			'670'   => \__( 'Transaction summary', 'pronamic-twinfield' ),
+			'680'   => \__( 'Bank link details', 'pronamic-twinfield' ),
+			'690'   => \__( 'Vat Return status', 'pronamic-twinfield' ),
+			'700'   => \__( 'Hierarchy access', 'pronamic-twinfield' ),
+		];
+	}
 }
