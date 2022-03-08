@@ -9,17 +9,19 @@
 
 namespace Pronamic\WordPress\Twinfield\Offices;
 
+use JsonSerializable;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Organisation\Organisation;
 use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
 use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
-use JsonSerializable;
 use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
 use Pronamic\WordPress\Twinfield\Traits\NameTrait;
 use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
 use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
 use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\CreatedTrait;
+use Pronamic\WordPress\Twinfield\Traits\TouchedTrait;
+use Pronamic\WordPress\Twinfield\Traits\UserTrait;
 
 /**
  * Office
@@ -50,6 +52,10 @@ class Office implements JsonSerializable {
 
 	use CreatedTrait;
 
+	use TouchedTrait;
+
+	use UserTrait;
+
 	private $transaction_types = [];
 
 	private $dimension_types = [];
@@ -60,6 +66,10 @@ class Office implements JsonSerializable {
 		$this->organisation = $organisation;
 
 		$this->set_code( $code );
+	}
+
+	public function get_organisation() {
+		return $this->organisation;
 	}
 
 	public function new_transaction_type( $code ) {
@@ -111,12 +121,17 @@ class Office implements JsonSerializable {
 		$office->set_shortname( (string) $simplexml->shortname );
 		$office->set_modified_at( \DateTimeImmutable::createFromFormat( 'YmdHis', (string) $simplexml->modified, new \DateTimeZone( 'UTC' ) ) );
 		$office->set_created_at( \DateTimeImmutable::createFromFormat( 'YmdHis', (string) $simplexml->created, new \DateTimeZone( 'UTC' ) ) );
-
-		$user = $office->organisation->new_user( (string) $simplexml->user );
+		$office->set_touched( (string) $simplexml->touched );
+		$office->set_user( $office->get_organisation()->new_user( (string) $simplexml->user ) );
 
 		return $office;
 	}
 
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
 	public function jsonSerialize() {
 		return [
 			'status'      => $this->get_status(),

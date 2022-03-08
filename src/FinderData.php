@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use JsonSerializable;
+
 /**
  * Finder data
  *
@@ -18,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class FinderData {
+class FinderData implements JsonSerializable {
 	/**
 	 * The total number of search results.
 	 *
@@ -65,5 +67,18 @@ class FinderData {
 	 */
 	public function get_items() {
 		return $this->Items; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'total_rows' => $this->TotalRows,
+			'columns'    => $this->Columns,
+			'items'      => $this->Items,
+		];
 	}
 }

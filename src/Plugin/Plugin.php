@@ -164,7 +164,9 @@ class Plugin {
 		$response = \rest_do_request( $request );
 
 		if ( $response->is_error() ) {
-			\wp_die( $response->get_error_message() );
+			$error = $response->as_error();
+
+			\wp_die( $error->get_error_message() );
 		}
 
 		switch ( $type ) {

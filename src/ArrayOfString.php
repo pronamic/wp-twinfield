@@ -9,6 +9,10 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use ArrayAccess;
+use IteratorAggregate;
+use JsonSerializable;
+
 /**
  * Array of array of string
  *
@@ -18,7 +22,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class ArrayOfString implements \ArrayAccess, \IteratorAggregate {
+class ArrayOfString implements ArrayAccess, IteratorAggregate, JsonSerializable {
 	/**
 	 * An array with strings
 	 *
@@ -96,5 +100,14 @@ class ArrayOfString implements \ArrayAccess, \IteratorAggregate {
 	 */
 	public function getIterator() {
 		return new \ArrayIterator( $this->string );
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return $this->string;
 	}
 }

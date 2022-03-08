@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
+use JsonSerializable;
+
 /**
  * Load Response
  *
@@ -16,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield\Hierarchies;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class LoadResponse {
+class LoadResponse implements JsonSerializable {
 	/**
 	 * Hierarchy.
 	 *
@@ -54,5 +56,16 @@ class LoadResponse {
 		$load_response = new LoadResponse( $hierarchy );
 
 		return $load_response;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'hierarchy' => $this->hierarchy,
+		];
 	}
 }

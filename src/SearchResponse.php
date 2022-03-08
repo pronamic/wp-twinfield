@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use JsonSerializable;
+
 /**
  * Search response
  *
@@ -18,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class SearchResponse {
+class SearchResponse implements JsonSerializable {
 	/**
 	 * The Twinfield search result code.
 	 *
@@ -62,5 +64,17 @@ class SearchResponse {
 	 */
 	public function get_data() {
 		return $this->data;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'result' => $this->SearchResult,
+			'data'   => $this->data,
+		];
 	}
 }

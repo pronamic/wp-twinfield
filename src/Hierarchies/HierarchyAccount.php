@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
+use JsonSerializable;
+
 /**
  * Hierarchy Account
  *
@@ -16,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield\Hierarchies;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class HierarchyAccount {
+class HierarchyAccount implements JsonSerializable {
 	/**
 	 * The dimension type.
 	 *
@@ -93,5 +95,18 @@ class HierarchyAccount {
 		$account = new HierarchyAccount( $object->Type, $object->Code, $object->BalanceType );
 
 		return $account;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'type'         => $this->type,
+			'code'         => $this->code,
+			'balance_type' => $this->balance_type,
+		];
 	}
 }

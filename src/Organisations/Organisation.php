@@ -51,8 +51,14 @@ class Organisation implements JsonSerializable {
 	public function __construct( $code ) {
 		$this->set_code( $code );
 
+		$this->twinfield = new Twinfield();
+
 		$this->users   = [];
 		$this->offices = [];
+	}
+
+	public function get_twinfield() {
+		return $this->twinfield;
 	}
 
 	public function get_offices() {

@@ -9,6 +9,10 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use IteratorAggregate;
+use JsonSerializable;
+
+
 /**
  * Array of message of error codes
  *
@@ -18,7 +22,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class ArrayOfMessageOfErrorCodes implements \IteratorAggregate {
+class ArrayOfMessageOfErrorCodes implements IteratorAggregate, JsonSerializable {
 	/**
 	 * An array with message of error codes.
 	 *
@@ -76,5 +80,14 @@ class ArrayOfMessageOfErrorCodes implements \IteratorAggregate {
 	 */
 	public function getIterator() {
 		return new \ArrayIterator( $this->get_array() );
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return $this->get_array();
 	}
 }

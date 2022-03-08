@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use JsonSerializable;
+
 /**
  * Message of error codes
  *
@@ -18,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class MessageOfErrorCodes {
+class MessageOfErrorCodes implements JsonSerializable {
 	/**
 	 * Type of error.
 	 *
@@ -46,4 +48,18 @@ class MessageOfErrorCodes {
 	 * @var ArrayOfString
 	 */
 	private $Parameters; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase -- Twinfield vaiable name.
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'type'       => $this->Type,
+			'text'       => $this->Text,
+			'code'       => $this->Code,
+			'parameters' => $this->Parameters,
+		];
+	}
 }

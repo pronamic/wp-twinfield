@@ -9,6 +9,9 @@
 
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
+use IteratorAggregate;
+use JsonSerializable;
+
 /**
  * Hierarchy Node
  *
@@ -16,7 +19,7 @@ namespace Pronamic\WordPress\Twinfield\Hierarchies;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class HierarchyNode implements \IteratorAggregate {
+class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Internal id.
 	 *
@@ -326,5 +329,21 @@ class HierarchyNode implements \IteratorAggregate {
 		 * Done.
 		 */
 		return $hierarchy;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'id'          => $this->id,
+			'code'        => $this->code,
+			'name'        => $this->name,
+			'description' => $this->description,
+			'accounts'    => $this->accounts,
+			'child_nodes' => \array_values( $this->child_nodes ),
+		];
 	}
 }

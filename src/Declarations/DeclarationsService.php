@@ -79,7 +79,7 @@ class DeclarationsService extends AbstractService {
 			return [];
 		}
 
-		$organisation = $office->organisation;
+		$organisation = $office->get_organisation();
 
 		$summaries = \array_map(
 			function( $item ) use ( $organisation ) {

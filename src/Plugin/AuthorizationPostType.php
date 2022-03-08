@@ -108,6 +108,15 @@ class AuthorizationPostType {
 			'normal',
 			'high'
 		);
+
+		\add_meta_box(
+			'pronamic_twinfield_menu',
+			\__( 'Menu', 'twinfield' ),
+			[ $this, 'meta_box_menu' ],
+			$post_type,
+			'normal',
+			'high'
+		);
 	}
 
 	/**
@@ -178,6 +187,19 @@ class AuthorizationPostType {
 		$plugin = $this->plugin;
 
 		include __DIR__ . '/../../admin/meta-box-authentication.php';
+	}
+
+	/**
+	 * Meta box menu.
+	 * 
+	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
+	 * @param WP_Post $post Post.
+	 * @param array   $box  Box.
+	 */
+	public function meta_box_menu( $post, $box ) {
+		$plugin = $this->plugin;
+
+		include __DIR__ . '/../../admin/meta-box-menu.php';
 	}
 
 	/**

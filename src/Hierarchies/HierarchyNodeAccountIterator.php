@@ -9,6 +9,9 @@
 
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
+use ArrayIterator;
+use RecursiveIterator;
+
 /**
  * Hierarchy Node Account Iterator
  *
@@ -17,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield\Hierarchies;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  * @link       https://github.com/scotteh/php-dom-wrapper/blob/1.2.0/src/Collections/NodeCollection.php
  */
-class HierarchyNodeAccountIterator extends \ArrayIterator implements \RecursiveIterator {
+class HierarchyNodeAccountIterator extends ArrayIterator implements RecursiveIterator {
 	/**
 	 * Get childeren.
 	 *

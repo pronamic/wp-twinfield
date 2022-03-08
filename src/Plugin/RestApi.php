@@ -12,6 +12,8 @@ use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use Pronamic\WordPress\Twinfield\Offices\OfficesList;
 use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
 use Pronamic\WordPress\Twinfield\ProcessXmlString;
+use Pronamic\WordPress\Twinfield\Search;
+use Pronamic\WordPress\Twinfield\Twinfield;
 
 class RestApi {
 	/**
@@ -169,6 +171,252 @@ class RestApi {
 					],
 					'embed'   => [
 						'description' => 'Embed.',
+						'type'        => 'string',
+					],
+				],
+			]
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/finder-types',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_finder_types' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id' => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					],
+				],
+			]
+		);
+
+		$finder_route_args = function( $callback = null, $type = null ) {
+			$callback = ( null === $callback ) ? [ $this, 'rest_api_finder' ] : $callback;
+
+			$args = [
+				'post_id'     => [
+					'description'       => 'Authorization post ID.',
+					'type'              => 'integer',
+					'sanitize_callback' => 'absint',
+				],
+				'pattern'     => [
+					'description' => 'The search pattern. May contain wildcards * and ?.',
+					'type'        => 'string',
+					'required'    => true,
+					'default'     => '*',
+				],
+				'field'       => [
+					'description' => 'Fields to search through, see Search fields.',
+					'type'        => 'int',
+					'required'    => true,
+					'default'     => 0,
+				],
+				'first_row'   => [
+					'description' => 'First row to return, usefull for paging.',
+					'type'        => 'int',
+					'required'    => true,
+					'default'     => 1,
+				],
+				'max_rows'    => [
+					'description' => 'Maximum number of rows to return, usefull for paging.',
+					'type'        => 'int',
+					'required'    => true,
+					'default'     => 10,
+				],
+				'office_code' => [
+					'description' => 'Twinfield office code.',
+					'type'        => 'string',
+				],
+			];
+
+			if ( null === $type ) {
+				$args['type'] = [
+					'description' => 'Finder type.',
+					'type'        => 'string',
+					'required'    => true,
+				];
+			}
+
+			return [
+				'methods'             => 'GET',
+				'callback'            => $callback,
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => $args,
+			];
+		};
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/finder/(?P<type>[a-zA-Z0-9_-]+)',
+			$finder_route_args()
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/finder/(?P<type>[a-zA-Z0-9_-]+)',
+			$finder_route_args()
+		);
+
+		$finder_types = [
+			[
+				'slug'    => 'suppliers',
+				'type'    => 'DIM',
+				'dimtype' => 'CRD',
+			],
+			[
+				'slug'    => 'suppliers',
+				'type'    => 'DIM',
+				'dimtype' => 'CRD',
+			],
+			[
+				'slug'    => 'customers',
+				'type'    => 'DIM',
+				'dimtype' => 'DEB',
+			],
+			[
+				'slug'    => 'cost-centers',
+				'type'    => 'DIM',
+				'dimtype' => 'KPL',
+			],
+			[
+				'slug'    => 'fixed-assets',
+				'type'    => 'DIM',
+				'dimtype' => 'KPL',
+			],
+			[
+				'slug'    => 'projects',
+				'type'    => 'DIM',
+				'dimtype' => 'PRJ',
+			],
+			[
+				'slug'    => 'activities',
+				'type'    => 'DIM',
+				'dimtype' => 'AST',
+			],
+			[
+				'slug'    => 'dimension-groups',
+				'type'    => 'GRP',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'dimension-types',
+				'type'    => 'DMT',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'asset-methods',
+				'type'    => 'ASM',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'offices',
+				'type'    => 'OFF',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'users',
+				'type'    => 'USR',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'articles',
+				'type'    => 'ART',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'currencies',
+				'type'    => 'CUR',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'rates',
+				'type'    => 'TRT',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'vat',
+				'type'    => 'VAT',
+				'dimtype' => null,
+			],
+			[
+				'slug'    => 'hierarchies',
+				'type'    => 'HIE',
+				'dimtype' => null,
+			],
+		];
+
+		foreach ( $finder_types as $finder_type ) {
+			$slug    = $finder_type['slug'];
+			$type    = $finder_type['type'];
+			$dimtype = $finder_type['dimtype'];
+
+			register_rest_route(
+				$namespace,
+				'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/' . $slug,
+				$finder_route_args(
+					function( WP_REST_Request $request ) use ( $type, $dimtype ) {
+						$request->set_param( 'type', $type );
+						$request->set_param( 'dimtype', $dimtype );
+
+						return $this->rest_api_finder( $request );
+					},
+					$type
+				)
+			);
+		}
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/hierarchies/(?P<hierarchy_code>[a-zA-Z0-9_-]+)',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_hierarchy' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'        => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					],
+					'office_code'    => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+					],
+					'hierarchy_code' => [
+						'description' => 'Twinfield hierarchy code.',
+						'type'        => 'string',
+					],
+				],
+			]
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/declarations',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_declarations' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'     => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					],
+					'office_code' => [
+						'description' => 'Twinfield office code.',
 						'type'        => 'string',
 					],
 				],
@@ -522,6 +770,93 @@ class RestApi {
 		return $rest_response;
 	}
 
+	public function rest_api_finder_types( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$twinfield = new Twinfield();
+
+		$finder_types = $twinfield->get_finder_types();
+
+		$data = array();
+
+		foreach ( $finder_types as $type => $label ) {
+			$data[] = [
+				'type'   => $type,
+				'label'  => $label,
+				'_links' => [
+					'self' => [ 
+						[
+							'href' => rest_url(
+								strtr(
+									'pronamic-twinfield/v1/authorizations/:id/finder/:type',
+									[
+										':id'   => $post_id,
+										':type' => $type,
+									]
+								)
+							),
+						],
+					],
+				],
+			];
+		}
+
+		return $data;
+	}
+
+	public function rest_api_finder( WP_REST_Request $request ) {
+		$post = get_post( $request->get_param( 'post_id' ) );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$finder = $client->get_finder();
+
+		$type      = $request->get_param( 'type' );
+		$pattern   = $request->get_param( 'pattern' );
+		$field     = $request->get_param( 'field' );
+		$first_row = $request->get_param( 'first_row' );
+		$max_rows  = $request->get_param( 'max_rows' );
+
+		$options = array();
+
+		/**
+		 * Office.
+		 * 
+		 * Since it is not possible to add the company code
+		 * to the finder, make sure the correct company is
+		 * set by using either the SelectCompany function
+		 * or adding the office option.
+		 * 
+		 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Miscellaneous/Finder
+		 */
+		$office_code = $request->get_param( 'office_code' );
+
+		if ( ! empty( $office_code ) ) {
+			$office = $organisation->new_office( $office_code );
+
+			$finder->set_office( $office );
+
+			$options['office'] = $office_code;
+		}
+
+		/**
+		 * Dimension type.
+		 */
+		$dimension_type = $request->get_param( 'dimtype' );
+
+		if ( ! empty( $dimension_type ) ) {
+			$options['dimtype'] = $dimension_type;
+		}
+
+		$search = new Search( $type, $pattern, $field, $first_row, $max_rows, $options );
+
+		$response = $finder->search( $search );
+
+		return $response;
+	}
+
 	public function rest_api_office( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -571,6 +906,50 @@ class RestApi {
 		);
 
 		return $response;
+	}
+
+	public function rest_api_hierarchy( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$hierarchies_service = $client->get_service( 'hierarchies' );
+
+		$hierarchies_service->set_office( $office );
+
+		$hierarchy_code = $request->get_param( 'hierarchy_code' );
+
+		$hierarchy = $hierarchies_service->get_hierarchy( $hierarchy_code );
+
+		return $hierarchy;
+	}
+
+	public function rest_api_declarations( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$declarations_service = $client->get_service( 'declarations' );
+
+		$summaries = $declarations_service->get_all_summaries( $office );
+
+		return $summaries;
 	}
 
 	public function rest_api_transaction( WP_REST_Request $request ) {
