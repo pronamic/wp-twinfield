@@ -1,3 +1,12 @@
+<?php
+/**
+ * Twinfield scripts.
+ *
+ * @link https://github.com/wp-twinfield/wp-twinfield/blob/develop/templates/sales-invoice.php
+ * @package Pronamic/WordPress/Twinfield
+ */
+
+?>
 <script src="https://unpkg.com/codemirror@5.38.0/lib/codemirror.js"></script>
 <script src="https://unpkg.com/codemirror@5.38.0/mode/xml/xml.js"></script>
 

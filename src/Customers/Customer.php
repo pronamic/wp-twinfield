@@ -36,7 +36,9 @@ class Customer extends Contact {
 	private $credit_management;
 
 	/**
-	 * Constructs and initializes an customer/
+	 * Construct customer.
+	 *
+	 * @param string $code Code.
 	 */
 	public function __construct( $code ) {
 		parent::__construct( 'DEB', $code );

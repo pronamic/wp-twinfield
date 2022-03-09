@@ -1,4 +1,10 @@
 <?php
+/**
+ * Twinfield offices template.
+ *
+ * @link https://github.com/wp-twinfield/wp-twinfield/blob/develop/templates/sales-invoice.php
+ * @package Pronamic/WordPress/Twinfield
+ */
 
 get_header();
 
@@ -15,7 +21,7 @@ get_header();
 	</thead>
 
 	<tbody>
-		
+
 		<?php foreach ( $offices as $office ) : ?>
 
 			<tr>
