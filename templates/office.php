@@ -315,8 +315,8 @@ $twinfield = $organisation->get_twinfield();
 										'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/finder/:finder_type',
 										[
 											':auth_post_id' => $request->get_param( 'post_id' ),
-											':office_code'  => $office->get_code(),
-											':finder_type'  => $type,
+											':office_code' => $office->get_code(),
+											':finder_type' => $type,
 										]
 									)
 								);
@@ -366,8 +366,8 @@ $twinfield = $organisation->get_twinfield();
 										'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/browse/:browse_code',
 										[
 											':auth_post_id' => $request->get_param( 'post_id' ),
-											':office_code'  => $office->get_code(),
-											':browse_code'  => $code,
+											':office_code' => $office->get_code(),
+											':browse_code' => $code,
 										]
 									)
 								);

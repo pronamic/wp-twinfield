@@ -1,7 +1,21 @@
 <?php
+/**
+ * Settings Fields
+ *
+ * @since      1.0.0
+ *
+ * @package    Pronamic/WordPress/Twinfield
+ */
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+/**
+ * Settings Fields
+ *
+ * @since      1.0.0
+ * @package    Pronamic/WordPress/Twinfield
+ * @author     Remco Tolsma <info@remcotolsma.nl>
+ */
 class SettingFields {
 	/**
 	 * Array to HTML attributes

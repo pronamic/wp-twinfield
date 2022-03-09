@@ -9,10 +9,9 @@
 
 namespace Pronamic\WordPress\Twinfield\Declarations;
 
-use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
-use Pronamic\WordPress\Twinfield\Session;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Declarations service
@@ -44,10 +43,10 @@ class DeclarationsService extends AbstractService {
 	 * Get all sumaries of the specified office code.
 	 *
 	 * @see https://c5.twinfield.de/webservices/documentation/#/ApiReference/Miscellaneous/Declaration
-	 * @param string $office_code The code of the office for which the returns should be retrieved. Mandatory.
+	 * @param Office $office The office for which the returns should be retrieved. Mandatory.
 	 * @return array
 	 */
-	public function get_all_summaries( $office ) {
+	public function get_all_summaries( Office $office ) {
 		$parameters = new \stdClass();
 
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.

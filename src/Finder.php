@@ -47,7 +47,7 @@ class Finder extends AbstractService {
 	public function search( Search $search ) {
 		$soap_client = $this->get_soap_client();
 
-		$response = $soap_client->Search( $search );
+		$response = $soap_client->Search( $search->to_twinfield_object() );
 
 		return $response;
 	}

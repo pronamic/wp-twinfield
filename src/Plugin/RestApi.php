@@ -1,4 +1,11 @@
 <?php
+/**
+ * REST API
+ *
+ * @since      1.0.0
+ *
+ * @package    Pronamic/WordPress/Twinfield
+ */
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
@@ -15,6 +22,13 @@ use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
 
+/**
+ * REST API
+ *
+ * @since      1.0.0
+ * @package    Pronamic/WordPress/Twinfield
+ * @author     Remco Tolsma <info@remcotolsma.nl>
+ */
 class RestApi {
 	/**
 	 * Plugin.
@@ -421,15 +435,15 @@ class RestApi {
 						'type'        => 'string',
 						'required'    => true,
 					],
-					'daybook' => [
+					'daybook'     => [
 						'description' => 'Deleted daybook (transaction type). Optional.',
 						'type'        => 'string',
 					],
-					'date_from' => [
+					'date_from'   => [
 						'description' => 'The Date from which deleted transactions should be read. Optional.',
 						'type'        => 'string',
 					],
-					'date_to' => [
+					'date_to'     => [
 						'description' => 'The Date to which deleted transactions should be read. Optional.',
 						'type'        => 'string',
 					],

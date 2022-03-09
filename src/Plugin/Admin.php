@@ -1,7 +1,21 @@
 <?php
+/**
+ * Admin
+ *
+ * @since      1.0.0
+ *
+ * @package    Pronamic/WordPress/Twinfield
+ */
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+/**
+ * Plugin
+ *
+ * @since      1.0.0
+ * @package    Pronamic/WordPress/Twinfield
+ * @author     Remco Tolsma <info@remcotolsma.nl>
+ */
 class Admin {
 	/**
 	 * Plugin.
@@ -13,7 +27,7 @@ class Admin {
 	/**
 	 * Construct admin.
 	 *
-	 * @param Plugin $pluin Plugin.
+	 * @param Plugin $plugin Plugin.
 	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;

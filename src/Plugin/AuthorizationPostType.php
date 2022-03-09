@@ -22,10 +22,20 @@ use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 class AuthorizationPostType {
 	public const KEY = 'pronamic_twf_auth';
 
+	/**
+	 * Construct authorization post type.
+	 *
+	 * @param Plugin $plugin Plugin.
+	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
 	}
 
+	/**
+	 * Setup.
+	 *
+	 * @return void
+	 */
 	public function setup() {
 		\add_action( 'init', [ $this, 'init' ] );
 
@@ -36,6 +46,11 @@ class AuthorizationPostType {
 		\add_action( 'display_post_states', [ $this, 'display_post_states' ], 10, 2 );
 	}
 
+	/**
+	 * Initialize.
+	 *
+	 * @return void
+	 */
 	public function init() {
 		\register_post_type(
 			self::KEY,
@@ -124,6 +139,8 @@ class AuthorizationPostType {
 	 * 
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L42
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L103-L124
+	 * @param int $post_id Post ID.
+	 * @return void
 	 */
 	public function maybe_set_default_authorization( $post_id ) {
 		// Don't set the default authorization if the post is not published.

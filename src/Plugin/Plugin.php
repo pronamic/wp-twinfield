@@ -21,6 +21,11 @@ use Pronamic\WordPress\Twinfield\Client;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Plugin {
+	/**
+	 * Construct plugin.
+	 *
+	 * @param string $file Plugin file.
+	 */
 	public function __construct( $file ) {
 		$this->file = $file;
 
@@ -36,6 +41,11 @@ class Plugin {
 		$this->authorization_post_type = new AuthorizationPostType( $this );
 	}
 
+	/**
+	 * Setup.
+	 *
+	 * @return void
+	 */
 	public function setup() {
 		$this->rest_api->setup();
 
