@@ -9,10 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\Periods;
 
-use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
-use Pronamic\WordPress\Twinfield\Session;
 
 /**
  * Periods service
