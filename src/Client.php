@@ -124,8 +124,6 @@ class Client {
 				return new Documents\DocumentService( $this );
 			case 'finder':
 				return new Finder( $this );
-			case 'session':
-				return new SessionClient( $this );
 			case 'processxml':
 				return new XMLProcessor( $this );
 			case 'periods':
