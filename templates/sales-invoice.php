@@ -3,6 +3,7 @@
  * Twinfield sales invoice template.
  *
  * @link https://github.com/wp-twinfield/wp-twinfield/blob/develop/templates/sales-invoice.php
+ * @package Pronamic/WordPress/Twinfield
  */
 
 get_header();

@@ -1,9 +1,9 @@
 <?php
-
 /**
- * mPDF template.
+ * Twinfield sales invoice mPDF template.
  *
  * @link https://mpdf.github.io/css-stylesheets/supported-css.html
+ * @package Pronamic/WordPress/Twinfield
  */
 
 $header = $sales_invoice->get_header();
