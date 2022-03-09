@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Periods;
 
 use DateTimeInterface;
 use DateTimeImmutable;
+use JsonSerializable;
 
 /**
  * Period
@@ -19,7 +20,7 @@ use DateTimeImmutable;
  * @package Pronamic/WP/Twinfield
  * @author  Remco Tolsma <info@remcotolsma.nl>
  */
-class Period {
+class Period implements JsonSerializable {
 	public function __construct( $year, $number, $name, $is_open, DateTimeInterface $end_date = null ) {
 		$this->year     = $year;
 		$this->number   = $number;
@@ -56,5 +57,20 @@ class Period {
 			$object->Open,
 			null === $object->EndDate ? null : new DateTimeImmutable( $object->EndDate )
 		);
+	}
+
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'year'     => $this->year,
+			'number'   => $this->number,
+			'name'     => $this->name,
+			'is_open'  => $this->is_open,
+			'end_date' => null === $this->end_date ? null : $this->end_date->format( 'Y-m-d' ),
+		];
 	}
 }

@@ -453,6 +453,61 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/years',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_years' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'     => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+						'required'          => true,
+					],
+					'office_code' => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+						'required'    => true,
+					],
+				],
+			]
+		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/periods/(?P<year>\d{4})',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_periods' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'     => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+						'required'          => true,
+					],
+					'office_code' => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+						'required'    => true,
+					],
+					'year'        => [
+						'description' => 'Year.',
+						'type'        => 'int',
+						'required'    => true,
+					],
+				],
+			]
+		);
+
+		register_rest_route(
+			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/declarations',
 			[
 				'methods'             => 'GET',
@@ -1003,6 +1058,76 @@ class RestApi {
 		$deleted_transactions = $deleted_transactions_service->get_deleted_transactions( $office_code );
 
 		return $deleted_transactions;
+	}
+
+	public function rest_api_years( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$periods_service = $client->get_service( 'periods' );
+
+		$periods_service->set_office( $office );
+
+		$years = $periods_service->get_years( $office );
+
+		$results = [];
+
+		foreach ( $years as $year ) {
+			$results[] = [
+				'year'   => $year,
+				'_links' => [
+					'self' => [
+						[
+							'href' => \rest_url( 
+								\strtr(
+									'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/periods/:year',
+									[
+										':auth_post_id' => $request->get_param( 'post_id' ),
+										':office_code'  => $office->get_code(),
+										':year'         => $year,
+									]
+								)
+							),
+						],
+					],
+				],
+			];
+		}
+
+		return $results;
+	}
+
+	public function rest_api_periods( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$periods_service = $client->get_service( 'periods' );
+
+		$periods_service->set_office( $office );
+
+		$year = $request->get_param( 'year' );
+
+		$periods = $periods_service->get_periods( $office, $year );
+
+		return $periods;
 	}
 
 	public function rest_api_declarations( WP_REST_Request $request ) {
