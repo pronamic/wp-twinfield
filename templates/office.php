@@ -211,6 +211,10 @@ $twinfield = $organisation->get_twinfield();
 					'label' => \__( 'Hierarchies', 'pronamic-twinfield' ),
 					'path'  => 'hierarchies',
 				],
+				[
+					'label' => \__( 'Deleted Transactions', 'pronamic-twinfield' ),
+					'path'  => 'deleted-transactions',
+				],
 			];
 
 			?>

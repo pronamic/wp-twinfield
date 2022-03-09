@@ -38,6 +38,8 @@ class DeletedTransactionsService extends AbstractService {
 	 */
 	public function __construct( Client $client ) {
 		parent::__construct( self::WSDL_FILE, $client );
+
+		$this->soap_header_authenication_name = 'Authentication';
 	}
 
 	/**
@@ -46,18 +48,7 @@ class DeletedTransactionsService extends AbstractService {
 	 * @see https://c3.twinfield.com/webservices/documentation/#/ApiReference/Transactions/DeletedTransactions
 	 */
 	public function get_deleted_transactions( $office_code, \DateTimeInterface $date_from = null, \DateTimeInterface $date_to = null ) {
-		$authentication = [
-			'AccessToken' => $this->client->access_token,
-			'CompanyCode' => $office_code,
-		];
-
-		$soap_header = new \SoapHeader(
-			'http://www.twinfield.com/',
-			'Authentication',
-			$authentication
-		);
-
-		$this->soap_client->__setSoapHeaders( $soap_header );
+		$soap_client = $this->get_soap_client();
 
 		$query              = new GetDeletedTransactions();
 		$query->CompanyCode = $office_code;
@@ -70,7 +61,7 @@ class DeletedTransactionsService extends AbstractService {
 			$query->DateTo = $date_to->format( 'Y-m-d' );
 		}
 
-		$result = $this->soap_client->Query( $query );
+		$result = $soap_client->Query( $query );
 
 		if ( ! isset( $result->DeletedTransactions ) ) {
 			return false;

@@ -402,6 +402,43 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/deleted-transactions',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_deleted_transactions' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'     => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+						'required'          => true,
+					],
+					'office_code' => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+						'required'    => true,
+					],
+					'daybook' => [
+						'description' => 'Deleted daybook (transaction type). Optional.',
+						'type'        => 'string',
+					],
+					'date_from' => [
+						'description' => 'The Date from which deleted transactions should be read. Optional.',
+						'type'        => 'string',
+					],
+					'date_to' => [
+						'description' => 'The Date to which deleted transactions should be read. Optional.',
+						'type'        => 'string',
+					],
+				],
+			]
+		);
+
+		register_rest_route(
+			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/declarations',
 			[
 				'methods'             => 'GET',
@@ -930,6 +967,28 @@ class RestApi {
 		$hierarchy = $hierarchies_service->get_hierarchy( $hierarchy_code );
 
 		return $hierarchy;
+	}
+
+	public function rest_api_deleted_transactions( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->new_office( $office_code );
+
+		$deleted_transactions_service = $client->get_service( 'deleted-transactions' );
+
+		$deleted_transactions_service->set_office( $office );
+
+		$deleted_transactions = $deleted_transactions_service->get_deleted_transactions( $office_code );
+
+		return $deleted_transactions;
 	}
 
 	public function rest_api_declarations( WP_REST_Request $request ) {
