@@ -18,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-abstract class ReadRequest {
+class ReadRequest {
 	/**
 	 * Specify what type of data to read.
 	 *
@@ -29,36 +29,45 @@ abstract class ReadRequest {
 	/**
 	 * Specify from wich office to read.
 	 *
-	 * @var string
+	 * @var array<string, string>
 	 */
-	private $office;
+	private $values;
 
 	/**
 	 * Constructs and initialize an Twinfield read request.
 	 *
-	 * @param string $type    Specify what type of data to read.
-	 * @param string $office  Specify from wich office to read.
+	 * @param array $values Values.
 	 */
-	public function __construct( $type, $office ) {
-		$this->type   = $type;
-		$this->office = $office;
+	public function __construct( $values = [] ) {
+		$this->values = $values;
 	}
 
-	/**
-	 * Get the read request type.
-	 *
-	 * @return string
-	 */
-	public function get_type() {
-		return $this->type;
+	public function set( $name, $value ) {
+		$this->values[ $name ] = $value;
 	}
 
-	/**
-	 * Get the read request office.
-	 *
-	 * @return string
-	 */
-	public function get_office() {
-		return $this->office;
+	public function to_dom_document() {
+		$document = new \DOMDocument();
+
+		// $document->preserveWhiteSpace = false;
+		// $document->formatOutput       = true;
+
+		$read_element = $document->appendChild( $document->createElement( 'read' ) );
+
+		foreach ( $this->values as $name => $value ) {
+			$read_element->appendChild( $document->createElement( $name, $value ) );
+		}
+
+		return $document;
+	}
+
+	public function to_xml() {
+		$dom = $this->to_dom_document();
+
+		return $dom->saveXML( $dom->documentElement );
+	}
+
+	public function __toString() {
+		return $this->to_xml();
 	}
 }

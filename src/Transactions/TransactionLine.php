@@ -994,13 +994,13 @@ class TransactionLine implements JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'office' => $this->transaction->get_transaction_type()->get_office()->get_code(),
-			'code'   => $this->transaction->get_transaction_type()->get_code(),
-			'number' => $this->transaction->get_number(),
-			'line'   => $this->id,
-			'type'   => $this->type,
-			'base_value'  => $this->base_value,
-			'open_base_value'   => $this->open_base_value,
+			'office'          => $this->transaction->get_transaction_type()->get_office()->get_code(),
+			'code'            => $this->transaction->get_transaction_type()->get_code(),
+			'number'          => $this->transaction->get_number(),
+			'line'            => $this->id,
+			'type'            => $this->type,
+			'base_value'      => $this->base_value,
+			'open_base_value' => $this->open_base_value,
 		];
 	}
 }

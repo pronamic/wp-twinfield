@@ -22,20 +22,6 @@ use Pronamic\WordPress\Twinfield\ReadRequest;
  */
 class SalesInvoiceReadRequest extends ReadRequest {
 	/**
-	 * Specifcy which sales invoice type to read.
-	 *
-	 * @var string
-	 */
-	private $code;
-
-	/**
-	 * Specifcy which sales invoice number to read.
-	 *
-	 * @var string
-	 */
-	private $invoice_number;
-
-	/**
 	 * Constructs and initialize an Twinfield article read request.
 	 *
 	 * @param string $office         Specify from wich office to read.
@@ -43,27 +29,13 @@ class SalesInvoiceReadRequest extends ReadRequest {
 	 * @param string $invoice_number The invoice number.
 	 */
 	public function __construct( $office, $code, $invoice_number ) {
-		parent::__construct( 'salesinvoice', $office );
-
-		$this->code           = $code;
-		$this->invoice_number = $invoice_number;
-	}
-
-	/**
-	 * Get the sales invoice type code.
-	 *
-	 * @return string
-	 */
-	public function get_code() {
-		return $this->code;
-	}
-
-	/**
-	 * Get the sales invoice number.
-	 *
-	 * @return string
-	 */
-	public function get_invoice_number() {
-		return $this->invoice_number;
+		parent::__construct(
+			[
+				'type'          => 'salesinvoice',
+				'office'        => $office,
+				'code'          => $code,
+				'invoicenumber' => $invoice_number,
+			]
+		);
 	}
 }

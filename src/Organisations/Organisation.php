@@ -9,7 +9,6 @@
 
 namespace Pronamic\WordPress\Twinfield\Organisations;
 
-use JsonSerializable;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\UuidTrait;
 use Pronamic\WordPress\Twinfield\Twinfield;
@@ -28,7 +27,7 @@ use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Organisation implements JsonSerializable {
+class Organisation extends CodeName {
 	/**
 	 * Twinfield.
 	 * 
@@ -87,13 +86,5 @@ class Organisation implements JsonSerializable {
 		}
 
 		return $this->offices[ $code ];
-	}
-
-	public function jsonSerialize() {
-		return (object) [
-			'code'      => $this->get_code(),
-			'name'      => $this->get_name(),
-			'shortname' => $this->get_shortname(),
-		];
 	}
 }

@@ -184,10 +184,10 @@ class Transaction implements JsonSerializable {
 		$lines = array_map(
 			function( $line ) {
 				return [
-					'id'   => $line->get_id(),
-					'type' => $line->get_type(),
-					'base_value'  => $line->get_base_value(),
-					'open_base_value'   => $line->get_open_base_value(),
+					'id'              => $line->get_id(),
+					'type'            => $line->get_type(),
+					'base_value'      => $line->get_base_value(),
+					'open_base_value' => $line->get_open_base_value(),
 				];
 			},
 			$this->lines

@@ -9,6 +9,11 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
+use Pronamic\WordPress\Twinfield\Traits\NameTrait;
+use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
+
 /**
  * Code name
  *
@@ -18,27 +23,12 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class CodeName {
-	/**
-	 * Code.
-	 *
-	 * @var string
-	 */
-	private $code;
+class CodeName implements JsonSerializable {
+	use CodeTrait;
 
-	/**
-	 * Name.
-	 *
-	 * @var string|null
-	 */
-	private $name;
+	use NameTrait;
 
-	/**
-	 * Shortname.
-	 *
-	 * @var string|null
-	 */
-	private $shortname;
+	use ShortnameTrait;
 
 	/**
 	 * Universally unique identifier.
@@ -58,60 +48,6 @@ class CodeName {
 		$this->set_code( $code );
 		$this->set_name( $name );
 		$this->set_shortname( $shortname );
-	}
-
-	/**
-	 * Get code.
-	 *
-	 * @return string
-	 */
-	public function get_code() {
-		return $this->code;
-	}
-
-	/**
-	 * Set code.
-	 *
-	 * @param string $code The code.
-	 */
-	public function set_code( $code ) {
-		$this->code = $code;
-	}
-
-	/**
-	 * Get name.
-	 *
-	 * @return string|null
-	 */
-	public function get_name() {
-		return $this->name;
-	}
-
-	/**
-	 * Set name.
-	 *
-	 * @param string|null $name The name.
-	 */
-	public function set_name( $name ) {
-		$this->name = $name;
-	}
-
-	/**
-	 * Get shortname.
-	 *
-	 * @return string|null
-	 */
-	public function get_shortname() {
-		return $this->shortname;
-	}
-
-	/**
-	 * Set shortname.
-	 *
-	 * @param string|null $shortname The shortname.
-	 */
-	public function set_shortname( $shortname ) {
-		$this->shortname = $shortname;
 	}
 
 	/**
@@ -139,5 +75,18 @@ class CodeName {
 	 */
 	public function __toString() {
 		return $this->get_code();
+	}
+
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return (object) [
+			'code'      => $this->get_code(),
+			'name'      => $this->get_name(),
+			'shortname' => $this->get_shortname(),
+		];
 	}
 }

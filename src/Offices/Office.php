@@ -14,9 +14,6 @@ use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Organisation\Organisation;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionType;
 use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
-use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
-use Pronamic\WordPress\Twinfield\Traits\NameTrait;
-use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
 use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
 use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\CreatedTrait;
@@ -32,19 +29,13 @@ use Pronamic\WordPress\Twinfield\Traits\UserTrait;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Office implements JsonSerializable {
+class Office extends CodeName implements JsonSerializable {
 	/**
 	 * Organisation.
 	 *
 	 * @var Organisation|null
 	 */
 	private $organisation;
-
-	use CodeTrait;
-
-	use NameTrait;
-
-	use ShortnameTrait;
 
 	use StatusTrait;
 
@@ -107,7 +98,7 @@ class Office implements JsonSerializable {
 		}
 
 		if ( 'office' !== $simplexml->getName() ) {
-			throw new \Exception( 'Invalid element name.' );   
+			throw new \Exception( \sprintf( 'Invalid element name: %s.', $simplexml->getName() ) );
 		}
 
 		$result = \strval( $simplexml['result'] );
