@@ -1192,7 +1192,13 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
 
+		$transaction_unserializer = new \Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer( $organisation );
+
+		$transaction = $transaction_unserializer->unserialize_string( (string) $response );
+
 		$data = [
+			'type'      => 'transaction',
+			'data'      => $transaction,
 			'_embedded' => (object) [
 				'request'  => $request->to_xml(),
 				'response' => (string) $response,

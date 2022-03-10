@@ -10,6 +10,7 @@
 
 namespace Pronamic\WordPress\Twinfield\XML\Transactions;
 
+use DOMDocument;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Currency;
 use Pronamic\WordPress\Twinfield\DestinationOffice;
@@ -38,9 +39,50 @@ class TransactionUnserializer extends Unserializer {
 	/**
 	 * Constructs and initializes an sales invoice unserializer.
 	 */
-	public function __construct() {
+	public function __construct( $organisation = null ) {
+		$this->organisation = $organisation;
+
 		$this->date_unserializer     = new DateUnserializer();
 		$this->datetime_unserializer = new DateTimeUnserializer();
+	}
+
+	private function get_element( $node, $name ) {
+		$item = $node->getElementsByTagName( $name )->item( 0 );
+
+		if ( null === $item ) {
+			throw new \Eception( 'Could not find element.' );
+		}
+
+		return $item;
+	}
+
+	/**
+	 * Unserialize the specified XML to an article.
+	 *
+	 * @param \SimpleXMLElement $element The XML element to unserialize.
+	 */
+	public function unserialize_string( $string ) {
+		$document = new DOMDocument();
+
+		$document->loadXML( $string );
+
+		$node_header = $this->get_element( $document, 'header' );
+
+		$node_office = $this->get_element( $node_header, 'office' );
+
+		$office = $this->organisation->office( $node_office->nodeValue );
+		$office->set_name( $node_office->getAttribute( 'name' ) );
+		$office->set_shortname( $node_office->getAttribute( 'shortname' ) );
+
+		$node_code = $this->get_element( $node_header, 'code' );
+
+		$transaction_type = $office->new_transaction_type( $node_code->nodeValue );
+		$transaction_type->set_name( $node_code->getAttribute( 'name' ) );
+		$transaction_type->set_shortname( $node_code->getAttribute( 'shortname' ) );
+
+		$transaction = $transaction_type->new_transaction( $this->get_element( $node_header, 'number' )->nodeValue );
+
+		return $transaction;
 	}
 
 	/**

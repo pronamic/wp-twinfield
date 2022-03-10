@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Accounting;
 
 use DateTimeInterface;
 use DOMDocument;
+use JsonSerializable;
 
 /**
  * Transaction
@@ -26,7 +27,7 @@ use DOMDocument;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Transaction {
+class Transaction implements JsonSerializable {
 	private $transaction_type;
 
 	private $lines;
@@ -144,5 +145,21 @@ class Transaction {
 		$document = $this->to_dom_document();
 
 		return $document->saveXML();
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'header' => [
+				'office' => $this->get_transaction_type()->get_office()->get_code(),
+				'code'   => $this->get_transaction_type()->get_code(),
+				'number' => $this->get_number(),
+			],
+			'lines'  => [],
+		];
 	}
 }
