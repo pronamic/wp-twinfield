@@ -167,8 +167,9 @@ class Transaction implements JsonSerializable {
 	 *
 	 * @return TransactionLine
 	 */
-	public function new_line() {
+	public function new_line( $id = null ) {
 		$line = new TransactionLine( $this );
+		$line->set_id( $id );
 
 		$this->add_line( $line );
 
