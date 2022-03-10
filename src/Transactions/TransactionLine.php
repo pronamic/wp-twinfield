@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\DestinationOffice;
+use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Relations\Relation;
 
@@ -61,13 +62,6 @@ class TransactionLine implements JsonSerializable {
 	 * @var string|null
 	 */
 	private $type;
-
-	/**
-	 * The unique key of this transaction line.
-	 *
-	 * @var TransactionLineKey
-	 */
-	private $key;
 
 	/**
 	 * The debit/credit indicator of this transaction line.
@@ -330,24 +324,6 @@ class TransactionLine implements JsonSerializable {
 	}
 
 	/**
-	 * Get the unique key of this transaction line.
-	 *
-	 * @return string The key.
-	 */
-	public function get_key() {
-		return $this->key;
-	}
-
-	/**
-	 * Set the unique key of this transaction line.
-	 *
-	 * @param string $key The key.
-	 */
-	public function set_key( $key ) {
-		$this->key = $key;
-	}
-
-	/**
 	 * Get code.
 	 *
 	 * @return string
@@ -413,9 +389,9 @@ class TransactionLine implements JsonSerializable {
 	/**
 	 * Set dimension 1 of this transaction line.
 	 *
-	 * @param TransactionLineDimension $dimension The dimension.
+	 * @param Dimension $dimension The dimension.
 	 */
-	public function set_dimension_1( TransactionLineDimension $dimension ) {
+	public function set_dimension_1( Dimension $dimension ) {
 		$this->dimension_1 = $dimension;
 	}
 
@@ -431,9 +407,9 @@ class TransactionLine implements JsonSerializable {
 	/**
 	 * Set dimension 2 of this transaction line.
 	 *
-	 * @param TransactionLineDimension $dimension The dimension.
+	 * @param Dimension $dimension The dimension.
 	 */
-	public function set_dimension_2( TransactionLineDimension $dimension ) {
+	public function set_dimension_2( Dimension $dimension ) {
 		$this->dimension_2 = $dimension;
 	}
 
@@ -449,9 +425,9 @@ class TransactionLine implements JsonSerializable {
 	/**
 	 * Set dimension 3 of this transaction line.
 	 *
-	 * @param TransactionLineDimension $dimension The dimension.
+	 * @param Dimension $dimension The dimension.
 	 */
-	public function set_dimension_3( TransactionLineDimension $dimension ) {
+	public function set_dimension_3( Dimension $dimension ) {
 		$this->dimension_3 = $dimension;
 	}
 

@@ -11,18 +11,13 @@
 namespace Pronamic\WordPress\Twinfield\XML\Transactions;
 
 use Pronamic\WordPress\Twinfield\Currency;
+use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\VatCode;
 use Pronamic\WordPress\Twinfield\Browse\Row;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Relations\Relation;
 use Pronamic\WordPress\Twinfield\Transactions\Transaction;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionHeader;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionTypeCode;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionLine;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionLineDimension;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionLineKey;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionResponse;
-use Pronamic\WordPress\Twinfield\XML\Security;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
 use Pronamic\WordPress\Twinfield\XML\DateUnserializer;
 use Pronamic\WordPress\Twinfield\XML\DateTimeUnserializer;
@@ -184,42 +179,37 @@ class BrowseTransactionsUnserializer extends Unserializer {
 
 				$lines[] = $line;
 
-				$key = new TransactionLineKey(
-					(string) $xml_key->office,
-					(string) $xml_key->code,
-					(string) $xml_key->number,
-					(string) $xml_key->line
-				);
-
-				$line->set_key( $key );
 				$line->set_id( $key->get_line() );
 
 				if ( $row->has_field( 'fin.trs.line.dim1' ) ) {
-					$dimension_1 = new TransactionLineDimension(
+					$dimension_1 = new Dimension(
 						$row->get_field( 'fin.trs.line.dim1type' ),
-						$row->get_field( 'fin.trs.line.dim1' ),
-						$row->get_field( 'fin.trs.line.dim1name' )
+						$row->get_field( 'fin.trs.line.dim1' )
 					);
+
+					$dimension_1->set_name( $row->get_field( 'fin.trs.line.dim1name' ) );
 				
 					$line->set_dimension_1( $dimension_1 );
 				}
 
 				if ( $row->has_field( 'fin.trs.line.dim2' ) ) {
-					$dimension_2 = new TransactionLineDimension(
+					$dimension_2 = new Dimension(
 						$row->get_field( 'fin.trs.line.dim2type' ),
-						$row->get_field( 'fin.trs.line.dim2' ),
-						$row->get_field( 'fin.trs.line.dim2name' )
+						$row->get_field( 'fin.trs.line.dim2' )
 					);
+
+					$dimension_2->set_name( $row->get_field( 'fin.trs.line.dim2name' ) );
 				
 					$line->set_dimension_2( $dimension_2 );
 				}
 
 				if ( $row->has_field( 'fin.trs.line.dim3' ) ) {
-					$dimension_3 = new TransactionLineDimension(
+					$dimension_3 = new Dimension(
 						$row->get_field( 'fin.trs.line.dim3type' ),
-						$row->get_field( 'fin.trs.line.dim3' ),
-						$row->get_field( 'fin.trs.line.dim3name' )
+						$row->get_field( 'fin.trs.line.dim3' )
 					);
+
+					$dimension_3->set_name( $row->get_field( 'fin.trs.line.dim3name' ) );
 				
 					$line->set_dimension_3( $dimension_3 );
 				}

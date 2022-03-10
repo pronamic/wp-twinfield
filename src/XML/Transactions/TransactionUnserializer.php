@@ -14,6 +14,7 @@ use DOMDocument;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Currency;
 use Pronamic\WordPress\Twinfield\DestinationOffice;
+use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\VatCode;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Transactions\Transaction;
@@ -260,36 +261,39 @@ class TransactionUnserializer extends Unserializer {
 					}
 
 					if ( $dimensions_element->dim1 ) {
-						$line->set_dimension_1(
-							new TransactionLineDimension(
-								Security::filter( $dimensions_element->dim1['dimensiontype'] ),
-								Security::filter( $dimensions_element->dim1 ),
-								Security::filter( $dimensions_element->dim1['name'] ),
-								Security::filter( $dimensions_element->dim1['shortname'] )
-							)
+						$dimension_1 = new Dimension(
+							Security::filter( $dimensions_element->dim1['dimensiontype'] ),
+							Security::filter( $dimensions_element->dim1 )
 						);
+
+						$dimension_1->set_name( $dimensions_element->dim1['name'] );
+						$dimension_1->set_name( $dimensions_element->dim1['shortname'] );
+
+						$line->set_dimension_1( $dimension_1 );
 					}
 
 					if ( $dimensions_element->dim2 ) {
-						$line->set_dimension_2(
-							new TransactionLineDimension(
-								Security::filter( $dimensions_element->dim2['dimensiontype'] ),
-								Security::filter( $dimensions_element->dim2 ),
-								Security::filter( $dimensions_element->dim2['name'] ),
-								Security::filter( $dimensions_element->dim2['shortname'] )
-							)
+						$dimension_2 = new Dimension(
+							Security::filter( $dimensions_element->dim2['dimensiontype'] ),
+							Security::filter( $dimensions_element->dim2 )
 						);
+
+						$dimension_2->set_name( $dimensions_element->dim2['name'] );
+						$dimension_2->set_name( $dimensions_element->dim2['shortname'] );
+
+						$line->set_dimension_2( $dimension_2 );
 					}
 
 					if ( $dimensions_element->dim3 ) {
-						$line->set_dimension_3(
-							new TransactionLineDimension(
-								Security::filter( $dimensions_element->dim3['dimensiontype'] ),
-								Security::filter( $dimensions_element->dim3 ),
-								Security::filter( $dimensions_element->dim3['name'] ),
-								Security::filter( $dimensions_element->dim3['shortname'] )
-							)
+						$dimension_3 = new Dimension(
+							Security::filter( $dimensions_element->dim3['dimensiontype'] ),
+							Security::filter( $dimensions_element->dim3 )
 						);
+
+						$dimension_3->set_name( $dimensions_element->dim3['name'] );
+						$dimension_3->set_name( $dimensions_element->dim3['shortname'] );
+
+						$line->set_dimension_3( $dimension_3 );
 					}
 
 					/**

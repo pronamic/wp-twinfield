@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
 use Pronamic\WordPress\Twinfield\Traits\NameTrait;
 use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
@@ -27,13 +28,7 @@ use Pronamic\WordPress\Twinfield\XML\Dimensions\DimensionUnserializer;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Dimension implements JsonSerializable {
-	use CodeTrait;
-
-	use NameTrait;
-
-	use ShortnameTrait;
-
+class Dimension extends CodeName implements JsonSerializable {
 	use StatusTrait;
 
 	use ModifiedTrait;
@@ -54,8 +49,9 @@ class Dimension implements JsonSerializable {
 	 * @param string $code      Code.
 	 */
 	public function __construct( $type, $code ) {
+		parent::__construct( $code );
+
 		$this->set_type( $type );
-		$this->set_code( $code );
 	}
 
 	/**
