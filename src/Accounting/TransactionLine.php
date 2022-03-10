@@ -43,6 +43,10 @@ class TransactionLine implements JsonSerializable {
 		$this->id = $id;
 	}
 
+	public function get_transaction() {
+		return $this->transaction;
+	}
+
 	public function get_type() {
 		return $this->type;
 	}

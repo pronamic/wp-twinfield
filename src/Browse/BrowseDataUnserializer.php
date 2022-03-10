@@ -57,7 +57,7 @@ class BrowseDataUnserializer {
 
 			$transaction = $transaction_type->new_transaction( $this->get_element( $key, 'number' )->nodeValue );
 
-			$transaction_line = $transaction->new_line($this->get_element( $key, 'line' )->nodeValue );
+			$transaction_line = $transaction->new_line( $this->get_element( $key, 'line' )->nodeValue );
 
 			$tds = $tr->getElementsByTagName( 'td' );
 

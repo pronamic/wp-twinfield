@@ -33,7 +33,7 @@ class Transaction {
 
 	public function __construct( $transaction_type, $number = null ) {
 		$this->transaction_type = $transaction_type;
-		$this->number = $number;
+		$this->number           = $number;
 
 		$this->lines = [];
 	}

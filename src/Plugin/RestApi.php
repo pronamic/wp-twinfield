@@ -1693,11 +1693,40 @@ class RestApi {
 
 		$unserializer = new \Pronamic\WordPress\Twinfield\Browse\BrowseDataUnserializer( $organisation );
 
-		$data = $unserializer->unserialize( (string) $response );
+		$transaction_lines = $unserializer->unserialize( (string) $response );
+
+		$data = array();
+
+		foreach ( $transaction_lines as $transaction_line ) {
+			$object = (array) $transaction_line->jsonSerialize();
+
+			$transaction      = $transaction_line->get_transaction();
+			$transaction_type = $transaction->get_transaction_type();
+			$office           = $transaction_type->get_office();
+			$organisation     = $office->get_organisation();
+
+			$object['_links'] = [
+				'transaction' => [
+					'href' => rest_url(
+						strtr(
+							'pronamic-twinfield/v1/authorizations/:id/transactions/:office_code/:transaction_type_code/:transaction_number',
+							[
+								':id'                    => $post_id,
+								':office_code'           => $office->get_code(),
+								':transaction_type_code' => $transaction_type->get_code(),
+								':transaction_number'    => $transaction->get_number(),
+							]
+						)
+					),
+				],
+			];
+
+			$data[] = $object;
+		}
 
 		$rest_response = new \WP_REST_Response(
 			[
-				'type'      => 'columns',
+				'type'      => 'browse',
 				'data'      => $data,
 				'_embedded' => (object) [
 					'request'  => (string) $xml,
