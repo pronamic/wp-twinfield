@@ -348,7 +348,7 @@ $twinfield = $organisation->get_twinfield();
 					<tr>
 						<th scope="col"><?php esc_html_e( 'Type', 'pronamic-twinfield' ); ?></th>
 						<th scope="col"><?php esc_html_e( 'Label', 'pronamic-twinfield' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'REST URL', 'pronamic-twinfield' ); ?></th>
+						<th scope="col" colspan="2"><?php esc_html_e( 'REST URL', 'pronamic-twinfield' ); ?></th>
 					</tr>
 				</thead>
 
@@ -376,6 +376,36 @@ $twinfield = $organisation->get_twinfield();
 										]
 									)
 								);
+
+								printf(
+									'<a href="%s">%s</a>',
+									esc_url( $url ),
+									esc_html( $url )
+								);
+
+								?>
+							</td>
+							<td>
+								<?php
+
+								$url = rest_url( 
+									strtr(
+										'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/browse/:browse_code/query',
+										[
+											':auth_post_id' => $request->get_param( 'post_id' ),
+											':office_code' => $office->get_code(),
+											':browse_code' => $code,
+										]
+									)
+								);
+
+								if ( '010' === $code ) {
+									$url = \add_query_arg(
+										'values[fin.trs.head.yearperiod]',
+										\sprintf( '%s/00..%s/55', \date( 'Y' ), \date( 'Y' ) ),
+										$url
+									);
+								}
 
 								printf(
 									'<a href="%s">%s</a>',

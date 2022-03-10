@@ -31,10 +31,19 @@ class Transaction {
 
 	private $lines;
 
-	public function __construct( $transaction_type ) {
+	public function __construct( $transaction_type, $number = null ) {
 		$this->transaction_type = $transaction_type;
+		$this->number = $number;
 
 		$this->lines = [];
+	}
+
+	public function get_transaction_type() {
+		return $this->transaction_type;
+	}
+
+	public function get_number() {
+		return $this->number;
 	}
 
 	public function set_currency( $currency ) {
@@ -45,8 +54,8 @@ class Transaction {
 		$this->date = $date;
 	}
 
-	public function new_line() {
-		$line = new TransactionLine( $this );
+	public function new_line( $id = null ) {
+		$line = new TransactionLine( $this, $id );
 
 		$this->lines[] = $line;
 

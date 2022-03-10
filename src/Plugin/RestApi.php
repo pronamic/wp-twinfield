@@ -108,6 +108,35 @@ class RestApi {
 			]
 		);
 
+		$browse_query_args = [
+			'post_id'     => [
+				'description'       => 'Authorization post ID.',
+				'type'              => 'integer',
+				'sanitize_callback' => 'absint',
+			],
+			'office_code' => [
+				'description' => 'Twinfield office code.',
+				'type'        => 'string',
+			],
+			'browse_code' => [
+				'description' => 'Twinfield browse code.',
+				'type'        => 'string',
+			],
+		];
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/browse/(?P<browse_code>[a-zA-Z0-9_-]+)/query',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_browse_query' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => $browse_query_args,
+			]
+		);
+
 		register_rest_route(
 			$namespace,
 			'/authorizations/(?P<post_id>\d+)/browse/query/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<browse_code>[a-zA-Z0-9_-]+)',
@@ -117,21 +146,7 @@ class RestApi {
 				'permission_callback' => function () {
 					return true;
 				},
-				'args'                => [
-					'post_id'     => [
-						'description'       => 'Authorization post ID.',
-						'type'              => 'integer',
-						'sanitize_callback' => 'absint',
-					],
-					'office_code' => [
-						'description' => 'Twinfield office code.',
-						'type'        => 'string',
-					],
-					'browse_code' => [
-						'description' => 'Twinfield browse code.',
-						'type'        => 'string',
-					],
-				],
+				'args'                => $browse_query_args,
 			]
 		);
 
@@ -1614,50 +1629,56 @@ class RestApi {
 			$columns_element->setAttribute( 'optimize', 'true' );
 		}
 
-		$values   = $request->get_param( 'values' );
-		$visibles = $request->get_param( 'visibles' );
+		$values   = (array) $request->get_param( 'values' );
+		$visibles = (array) $request->get_param( 'visibles' );
 
-		foreach ( $values as $field => $value ) {
-			$operator = 'equal';
-			$from     = $value;
-			$to       = null;
+		$fields = \array_keys( \array_merge( $values, $visibles ) );
 
-			/**
-			 * @link https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-values-between-a-range
-			 */
-			$between_position = \mb_strpos( $value, '..' );
-
-			if ( false !== $between_position ) {
-				$operator = 'between';
-				$from     = \mb_substr( $value, 0, $between_position );
-				$to       = \mb_substr( $value, $between_position + 2 );
-			}
-
-			$from_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $from );
-
-			if ( false !== $from_date ) {
-				$from = $from_date->format( 'Ymd' );
-			}
-
-			$to_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $to );
-
-			if ( false !== $to_date ) {
-				$to = $to_date->format( 'Ymd' );
-			}
-
+		foreach ( $fields as $field ) {
 			$column_element = $columns_element->appendChild( $document->createElement( 'column' ) );
-
 			$column_element->appendChild( $document->createElement( 'field', $field ) );
-			$column_element->appendChild( $document->createElement( 'operator', $operator ) );
-			$column_element->appendChild( $document->createElement( 'from', $from ) );
 
-			if ( ! empty( $to ) ) {
-				$column_element->appendChild( $document->createElement( 'to', $to ) );
+			if ( \array_key_exists( $field, $values ) ) {
+				$value = $values[ $field ];
+
+				$operator = 'equal';
+				$from     = $value;
+				$to       = null;
+
+				/**
+				 * @link https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-values-between-a-range
+				 */
+				$between_position = \mb_strpos( $value, '..' );
+
+				if ( false !== $between_position ) {
+					$operator = 'between';
+					$from     = \mb_substr( $value, 0, $between_position );
+					$to       = \mb_substr( $value, $between_position + 2 );
+				}
+
+				$from_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $from );
+
+				if ( false !== $from_date ) {
+					$from = $from_date->format( 'Ymd' );
+				}
+
+				$to_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $to );
+
+				if ( false !== $to_date ) {
+					$to = $to_date->format( 'Ymd' );
+				}
+
+				$column_element->appendChild( $document->createElement( 'operator', $operator ) );
+				$column_element->appendChild( $document->createElement( 'from', $from ) );
+
+				if ( ! empty( $to ) ) {
+					$column_element->appendChild( $document->createElement( 'to', $to ) );
+				}
 			}
 
 			$visible = false;
 
-			if ( array_key_exists( $field, $visibles ) ) {
+			if ( \array_key_exists( $field, $visibles ) ) {
 				$visible = (bool) $visibles[ $field ];
 			}
 
@@ -1670,10 +1691,14 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
 
+		$unserializer = new \Pronamic\WordPress\Twinfield\Browse\BrowseDataUnserializer( $organisation );
+
+		$data = $unserializer->unserialize( (string) $response );
+
 		$rest_response = new \WP_REST_Response(
 			[
 				'type'      => 'columns',
-				'data'      => $offices,
+				'data'      => $data,
 				'_embedded' => (object) [
 					'request'  => (string) $xml,
 					'response' => (string) $response,

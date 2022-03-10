@@ -37,8 +37,8 @@ class TransactionType extends CodeName {
 		return $this->office;
 	}
 
-	public function new_transaction() {
-		$transaction = new Transaction( $this );
+	public function new_transaction( $number = null ) {
+		$transaction = new Transaction( $this, $number );
 
 		$this->transactions[] = $transaction;
 

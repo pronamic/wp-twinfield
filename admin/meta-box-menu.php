@@ -15,6 +15,15 @@ $items = [
 		'label' => \__( 'Finder Types', 'pronamic-twinfield' ),
 		'path'  => 'finder-types',
 	],
+	/**
+	 * Browse Fields.
+	 * 
+	 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Browse-fields
+	 */
+	[
+		'label' => \__( 'Browse Fields', 'pronamic-twinfield' ),
+		'path'  => 'browse-fields',
+	],
 ];
 
 ?>

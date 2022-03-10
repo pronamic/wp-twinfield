@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Accounting;
 
 use DOMDocument;
+use JsonSerializable;
 
 /**
  * Transaction Line
@@ -25,7 +26,7 @@ use DOMDocument;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class TransactionLine {
+class TransactionLine implements JsonSerializable {
 	private $transaction;
 
 	private $type;
@@ -36,8 +37,10 @@ class TransactionLine {
 
 	private $description;
 
-	public function __construct( $transaction ) {
+	public function __construct( $transaction, $id = null ) {
 		$this->transaction = $transaction;
+
+		$this->id = $id;
 	}
 
 	public function get_type() {
@@ -110,5 +113,22 @@ class TransactionLine {
 
 	public function set_description( $description ) {
 		$this->description = $description;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 * 
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'office' => $this->transaction->get_transaction_type()->get_office()->get_code(),
+			'code'   => $this->transaction->get_transaction_type()->get_code(),
+			'number' => $this->transaction->get_number(),
+			'line'   => $this->id,
+			'type'   => $this->type,
+			'value'  => $this->value,
+			'open'   => $this->open_base_value,
+		];
 	}
 }
