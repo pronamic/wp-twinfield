@@ -1211,8 +1211,8 @@ class RestApi {
 				\strtr(
 					'pronamic-twinfield/v1/authorizations/:id/transaction-types/:office_code/:transaction_type_code',
 					[
-						':id' => $post_id,
-						':office_code' => $transaction->get_office()->get_code(),
+						':id'                    => $post_id,
+						':office_code'           => $transaction->get_office()->get_code(),
 						':transaction_type_code' => $transaction->get_transaction_type()->get_code(),
 					]
 				)
@@ -1229,7 +1229,7 @@ class RestApi {
 				\strtr(
 					'pronamic-twinfield/v1/authorizations/:id/offices/:office_code',
 					[
-						':id' => $post_id,
+						':id'          => $post_id,
 						':office_code' => $transaction->get_office()->get_code(),
 					]
 				)

@@ -11,9 +11,6 @@ namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\CodeName;
-use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
-use Pronamic\WordPress\Twinfield\Traits\NameTrait;
-use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
 use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
 use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\UniqueIdentificationTrait;
