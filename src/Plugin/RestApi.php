@@ -1174,8 +1174,6 @@ class RestApi {
 
 		$organisation = $client->get_organisation();
 
-		$xml_processor = $client->get_xml_processor();
-
 		$office_code = $request->get_param( 'office_code' );
 
 		$office = $organisation->new_office( $office_code );
@@ -1208,9 +1206,44 @@ class RestApi {
 		$response = new \WP_REST_Response( $data );
 
 		$response->add_link(
+			'transaction_type',
+			\rest_url(
+				\strtr(
+					'pronamic-twinfield/v1/authorizations/:id/transaction-types/:office_code/:transaction_type_code',
+					[
+						':id' => $post_id,
+						':office_code' => $transaction->get_office()->get_code(),
+						':transaction_type_code' => $transaction->get_transaction_type()->get_code(),
+					]
+				)
+			),
+			[
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			]
+		);
+
+		$response->add_link(
+			'office',
+			\rest_url(
+				\strtr(
+					'pronamic-twinfield/v1/authorizations/:id/offices/:office_code',
+					[
+						':id' => $post_id,
+						':office_code' => $transaction->get_office()->get_code(),
+					]
+				)
+			),
+			[
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			]
+		);
+
+		$response->add_link(
 			'organisation',
-			rest_url(
-				strtr(
+			\rest_url(
+				\strtr(
 					'pronamic-twinfield/v1/authorizations/:id/organisation',
 					[
 						':id' => $post_id,

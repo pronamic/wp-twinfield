@@ -77,6 +77,10 @@ class Transaction implements JsonSerializable {
 		return $this->transaction_type;
 	}
 
+	public function get_office() {
+		return $this->transaction_type->get_office();
+	}
+
 	public function get_number() {
 		return $this->header->get_number();
 	}
