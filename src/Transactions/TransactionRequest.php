@@ -7,7 +7,7 @@
  * @package    Pronamic/WordPress/Twinfield/Transactions
  */
 
-namespace Pronamic\WordPress\Twinfield\Accounting;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use DOMDocument;
 

@@ -283,7 +283,7 @@ if ( isset( $authentication ) ) {
 
 				<?php
 
-				$transaction_request = new Accounting\TransactionRequest( $transaction, 'temporary' );
+				$transaction_request = new Transactions\TransactionRequest( $transaction, 'temporary' );
 
 				?>
 

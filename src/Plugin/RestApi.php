@@ -1184,7 +1184,7 @@ class RestApi {
 
 		$xml_processor->set_office( $office );
 
-		$request = new \Pronamic\WordPress\Twinfield\Accounting\TransactionReadRequest(
+		$request = new \Pronamic\WordPress\Twinfield\Transactions\TransactionReadRequest(
 			$request->get_param( 'office_code' ),
 			$request->get_param( 'transaction_type_code' ),
 			$request->get_param( 'transaction_number' )
@@ -1245,7 +1245,7 @@ class RestApi {
 
 		$xml_processor->set_office( $office );
 
-		$read_request = new \Pronamic\WordPress\Twinfield\Accounting\SalesInvoiceReadRequest(
+		$read_request = new \Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceReadRequest(
 			$request->get_param( 'office_code' ),
 			$request->get_param( 'invoice_type_code' ),
 			$request->get_param( 'invoice_number' )
