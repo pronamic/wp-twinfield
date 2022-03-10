@@ -77,7 +77,7 @@ class BrowseDataUnserializer {
 		}
 
 		if ( 'fin.trs.line.openbasevaluesigned' === $key ) {
-			$transaction_line->open_base_value = $node->nodeValue;
+			$transaction_line->set_open_base_value( $node->nodeValue );
 		}
 	}
 }

@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
+use JsonSerializable;
+
 /**
  * Transaction
  *
@@ -23,7 +25,7 @@ namespace Pronamic\WordPress\Twinfield\Transactions;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class Transaction {
+class Transaction implements JsonSerializable {
 	/**
 	 * Websevice origin.
 	 *
@@ -69,6 +71,14 @@ class Transaction {
 	public function __construct() {
 		$this->header = new TransactionHeader();
 		$this->lines  = [];
+	}
+
+	public function get_transaction_type() {
+		return $this->transaction_type;
+	}
+
+	public function get_number() {
+		return $this->header->get_number();
 	}
 
 	/**
@@ -163,5 +173,117 @@ class Transaction {
 		$this->add_line( $line );
 
 		return $line;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		$lines = array_map(
+			function( $line ) {
+				return [
+					'id'   => $line->get_id(),
+					'type' => $line->get_type(),
+					'base_value'  => $line->get_base_value(),
+					'open_base_value'   => $line->get_open_base_value(),
+				];
+			},
+			$this->lines
+		);
+
+		return [
+			'header' => [
+				'office' => $this->get_transaction_type()->get_office()->get_code(),
+				'code'   => $this->get_transaction_type()->get_code(),
+				'number' => $this->get_header()->get_number(),
+			],
+			'lines'  => $lines,
+		];
+	}
+
+	public function to_dom_document() {
+		$document = new DOMDocument();
+
+		$document->preserveWhiteSpace = false;
+		$document->formatOutput       = true;
+
+		$e_transaction = $document->appendChild( $document->createElement( 'transaction' ) );
+
+		$e_header = $e_transaction->appendChild( $document->createElement( 'header' ) );
+
+		$e_header->appendChild( $document->createElement( 'office', $this->transaction_type->get_office()->get_code() ) );
+		$e_header->appendChild( $document->createElement( 'code', $this->transaction_type->get_code() ) );
+
+		if ( null !== $this->currency ) {
+			$e_header->appendChild( $document->createElement( 'currency', $this->currency->get_code() ) );
+		}
+
+		if ( null !== $this->date ) {
+			$e_header->appendChild( $document->createElement( 'date', $this->date->format( 'Ymd' ) ) );
+		}
+
+		$e_lines = $e_transaction->appendChild( $document->createElement( 'lines' ) );
+
+		foreach ( $this->lines as $line ) {
+			$e_line = $e_lines->appendChild( $document->createElement( 'line' ) );
+
+			$type = $line->get_type();
+
+			if ( null !== $type ) {
+				$e_line->setAttribute( 'type', $type );
+			}
+
+			$id = $line->get_id();
+
+			if ( null !== $id ) {
+				$e_line->setAttribute( 'id', $id );
+			}
+
+			$dimensions = [
+				'dim1' => $line->get_dimension_1(),
+				'dim2' => $line->get_dimension_2(),
+				'dim3' => $line->get_dimension_3(),
+			];
+
+			foreach ( $dimensions as $name => $dimension ) {
+				if ( null !== $dimension ) {
+					$e_line->appendChild( $document->createElement( $name, $dimension->get_code() ) );
+				}
+			}
+
+			$debit_credit = $line->get_debit_credit();
+
+			if ( null !== $debit_credit ) {
+				$e_line->appendChild( $document->createElement( 'debitcredit', $debit_credit ) );
+			}
+
+			$value = $line->get_value();
+
+			if ( null !== $value ) {
+				$e_line->appendChild( $document->createElement( 'value', $value ) );
+			}
+
+			$invoice_number = $line->get_invoice_number();
+
+			if ( null !== $invoice_number ) {
+				$e_line->appendChild( $document->createElement( 'invoicenumber', $invoice_number ) );
+			}
+
+			$description = $line->get_description();
+
+			if ( null !== $description ) {
+				$e_line->appendChild( $document->createElement( 'description', $description ) );
+			}
+		}
+
+		return $document;
+	}
+
+	public function to_xml() {
+		$document = $this->to_dom_document();
+
+		return $document->saveXML();
 	}
 }

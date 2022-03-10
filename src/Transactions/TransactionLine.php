@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
+use JsonSerializable;
 use Pronamic\WordPress\Twinfield\DestinationOffice;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Relations\Relation;
@@ -22,7 +23,7 @@ use Pronamic\WordPress\Twinfield\Relations\Relation;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class TransactionLine {
+class TransactionLine implements JsonSerializable {
 	/**
 	 * Websevice origin.
 	 *
@@ -984,5 +985,22 @@ class TransactionLine {
 	 */
 	public function set_destination_office( $destination_office ) {
 		$this->destination_office = $destination_office;
+	}
+
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return [
+			'office' => $this->transaction->get_transaction_type()->get_office()->get_code(),
+			'code'   => $this->transaction->get_transaction_type()->get_code(),
+			'number' => $this->transaction->get_number(),
+			'line'   => $this->id,
+			'type'   => $this->type,
+			'base_value'  => $this->base_value,
+			'open_base_value'   => $this->open_base_value,
+		];
 	}
 }

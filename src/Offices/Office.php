@@ -12,7 +12,7 @@ namespace Pronamic\WordPress\Twinfield\Offices;
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Organisation\Organisation;
-use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionType;
 use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
 use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
 use Pronamic\WordPress\Twinfield\Traits\NameTrait;

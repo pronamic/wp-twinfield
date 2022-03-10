@@ -6,11 +6,10 @@
  * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield\Accounting;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use Pronamic\WordPress\Twinfield\CodeName;
-use Pronamic\WordPress\Twinfield\Accounting\Transaction;
-use Pronamic\WordPress\Twinfield\Accounting\TransactionType;
+use Pronamic\WordPress\Twinfield\Transactions\Transaction;
 
 /**
  * Transaction Type
@@ -38,7 +37,10 @@ class TransactionType extends CodeName {
 	}
 
 	public function new_transaction( $number = null ) {
-		$transaction = new Transaction( $this, $number );
+		$transaction = new Transaction();
+
+		$transaction->transaction_type = $this;
+		$transaction->get_header()->set_number( $number );
 
 		$this->transactions[] = $transaction;
 

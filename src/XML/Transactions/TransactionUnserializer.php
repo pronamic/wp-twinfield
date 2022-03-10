@@ -46,14 +46,25 @@ class TransactionUnserializer extends Unserializer {
 		$this->datetime_unserializer = new DateTimeUnserializer();
 	}
 
+	/**
+	 * First.
+	 *
+	 * @link https://stackoverflow.com/questions/19555054/php-dom-how-to-get-child-elements-by-tag-name-in-an-elegant-manner
+	 */
 	private function get_element( $node, $name ) {
-		$item = $node->getElementsByTagName( $name )->item( 0 );
-
-		if ( null === $item ) {
-			throw new \Eception( 'Could not find element.' );
+		foreach ( $node->childNodes as $child ) {
+			if ( $child->nodeName === $name ) {
+				return $child;
+			}
 		}
 
-		return $item;
+		throw new \Exception(
+			\sprintf(
+				'Could not find element `%s` in `%s`.',
+				$name,
+				$node->nodeName
+			)
+		);
 	}
 
 	/**
@@ -66,21 +77,35 @@ class TransactionUnserializer extends Unserializer {
 
 		$document->loadXML( $string );
 
-		$node_header = $this->get_element( $document, 'header' );
+		$e_transaction = $this->get_element( $document, 'transaction' );
 
-		$node_office = $this->get_element( $node_header, 'office' );
+		$e_header = $this->get_element( $e_transaction, 'header' );
 
-		$office = $this->organisation->office( $node_office->nodeValue );
-		$office->set_name( $node_office->getAttribute( 'name' ) );
-		$office->set_shortname( $node_office->getAttribute( 'shortname' ) );
+		$e_office = $this->get_element( $e_header, 'office' );
 
-		$node_code = $this->get_element( $node_header, 'code' );
+		$office = $this->organisation->office( $e_office->nodeValue );
+		$office->set_name( $e_office->getAttribute( 'name' ) );
+		$office->set_shortname( $e_office->getAttribute( 'shortname' ) );
 
-		$transaction_type = $office->new_transaction_type( $node_code->nodeValue );
-		$transaction_type->set_name( $node_code->getAttribute( 'name' ) );
-		$transaction_type->set_shortname( $node_code->getAttribute( 'shortname' ) );
+		$e_code = $this->get_element( $e_header, 'code' );
 
-		$transaction = $transaction_type->new_transaction( $this->get_element( $node_header, 'number' )->nodeValue );
+		$transaction_type = $office->new_transaction_type( $e_code->nodeValue );
+		$transaction_type->set_name( $e_code->getAttribute( 'name' ) );
+		$transaction_type->set_shortname( $e_code->getAttribute( 'shortname' ) );
+
+		$transaction = $transaction_type->new_transaction( $this->get_element( $e_header, 'number' )->nodeValue );
+
+		$e_lines = $this->get_element( $e_transaction, 'lines' );
+
+		foreach ( $e_lines->childNodes as $e_line ) {
+			$line = $transaction->new_line();
+
+			$line->set_id( $e_line->getAttribute( 'id' ) );
+			$line->set_type( $e_line->getAttribute( 'type' ) );
+
+			$line->set_base_value( $this->get_element( $e_line, 'basevalue' )->nodeValue );
+			$line->set_open_base_value( $this->get_element( $e_line, 'basevalue' )->nodeValue );
+		}
 
 		return $transaction;
 	}
