@@ -1,6 +1,6 @@
 <?php
 /**
- * Read request
+ * List request
  *
  * @since      1.0.0
  *
@@ -10,7 +10,7 @@
 namespace Pronamic\WordPress\Twinfield;
 
 /**
- * Session
+ * List request
  *
  * This class represents an Twinfield session.
  *
@@ -18,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class ReadRequest {
+class ListRequest {
 	/**
 	 * Specify from wich office to read.
 	 *
@@ -41,7 +41,7 @@ class ReadRequest {
 		// $document->preserveWhiteSpace = false;
 		// $document->formatOutput       = true;
 
-		$read_element = $document->appendChild( $document->createElement( 'read' ) );
+		$read_element = $document->appendChild( $document->createElement( 'list' ) );
 
 		foreach ( $this->values as $name => $value ) {
 			$read_element->appendChild( $document->createElement( $name, $value ) );

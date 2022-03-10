@@ -18,14 +18,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class ListDimensionsRequest {
-	/**
-	 * Specify what dimension type of data to list.
-	 *
-	 * @var string
-	 */
-	private $dimension_type;
-
+class ListDimensionsRequest extends ListRequest {
 	/**
 	 * Constructs and initialize an Twinfield read request.
 	 *
@@ -33,17 +26,12 @@ class ListDimensionsRequest {
 	 * @param string $dimension_type Specify what type of data to read.
 	 */
 	public function __construct( $office, $dimension_type ) {
-		parent::__construct( ListEntities::DIMENSIONS, $office );
-
-		$this->dimension_type = $dimension_type;
-	}
-
-	/**
-	 * Get the dimension type.
-	 *
-	 * @return string
-	 */
-	public function get_dimension_type() {
-		return $this->dimension_type;
+		parent::__construct( 
+			[
+				'type'          => ListEntities::DIMENSIONS,
+				'office'        => $office, // @todo check if this is required.
+				'dimensiontype' => $dimension_type, // @todo check if this is required.
+			]
+		);
 	}
 }
