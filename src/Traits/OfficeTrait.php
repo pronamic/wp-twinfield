@@ -16,7 +16,7 @@ trait OfficeTrait {
 	 *
 	 * @var Office
 	 */
-	private $office;
+	protected $office;
 
 	/**
 	 * Get office.

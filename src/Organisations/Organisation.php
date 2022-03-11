@@ -91,9 +91,7 @@ class Organisation extends CodeName {
 	 */
 	public function new_user( $code ) {
 		if ( ! \array_key_exists( $code, $this->users ) ) {
-			$user = new User( $code );
-
-			$user->organisation = $this;
+			$user = new User( $this, $code );
 
 			$this->users[ $code ] = $user;
 		}

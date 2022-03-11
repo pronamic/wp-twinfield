@@ -10,7 +10,12 @@
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>
 			<property name="customPropertiesWhitelist" type="array">
+				<element value="childNodes" />
+				<element value="documentElement" />
+				<element value="ownerDocument" />
 				<element value="nodeValue" />
+				<element value="formatOutput" />
+				<element value="preserveWhiteSpace" />
 			</property>
 		</properties>
 	</rule>

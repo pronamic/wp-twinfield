@@ -202,13 +202,15 @@ class TransactionUnserializer extends Unserializer {
 
 				// User.
 				if ( $element->header->user ) {
-					$header->set_user(
-						new User(
-							Security::filter( $element->header->user ),
-							Security::filter( $element->header->user['name'] ),
-							Security::filter( $element->header->user['shortname'] )
-						)
+					$user = new User(
+						$this->organisation,
+						Security::filter( $element->header->user )
 					);
+
+					$user->set_name( $element->header->user['name'] );
+					$user->set_shortname( $element->header->user['shortname'] );
+
+					$header->set_user( $user );
 				}
 
 				// Modification date.

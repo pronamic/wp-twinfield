@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use DOMDocument;
+
 /**
  * List request
  *
@@ -35,8 +37,13 @@ class ListRequest {
 		$this->values = $values;
 	}
 
+	/**
+	 * Create DOMDocument.
+	 *
+	 * @return DOMDocument
+	 */
 	public function to_dom_document() {
-		$document = new \DOMDocument();
+		$document = new DOMDocument();
 
 		// $document->preserveWhiteSpace = false;
 		// $document->formatOutput       = true;
@@ -50,12 +57,22 @@ class ListRequest {
 		return $document;
 	}
 
+	/**
+	 * Create XML.
+	 *
+	 * @return string
+	 */
 	public function to_xml() {
 		$dom = $this->to_dom_document();
 
 		return $dom->saveXML( $dom->documentElement );
 	}
 
+	/**
+	 * String.
+	 *
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->to_xml();
 	}

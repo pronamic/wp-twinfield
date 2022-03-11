@@ -8,7 +8,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Traits;
 
-use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 
 trait OrganisationTrait {
 	/**
@@ -16,7 +16,7 @@ trait OrganisationTrait {
 	 *
 	 * @var Organisation
 	 */
-	private $organisation;
+	protected $organisation;
 
 	/**
 	 * Get organisation.

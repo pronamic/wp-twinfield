@@ -11,7 +11,6 @@ namespace Pronamic\WordPress\Twinfield\Browse;
 
 use Pronamic\WordPress\Twinfield\XMLProcessor;
 use Pronamic\WordPress\Twinfield\ProcessXmlString;
-use Pronamic\WordPress\Twinfield\XML\Browse\BrowseReadRequestSerializer;
 
 /**
  * Browser
@@ -39,9 +38,7 @@ class Browser {
 	 * @return BrowseDefinition
 	 */
 	public function get_browse_definition( BrowseReadRequest $request ) {
-		$serializer = new BrowseReadRequestSerializer( $request );
-
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $serializer ) );
+		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
 
 		$string = $response->get_result();
 

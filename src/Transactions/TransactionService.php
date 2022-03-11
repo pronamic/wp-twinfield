@@ -15,7 +15,6 @@ use Pronamic\WordPress\Twinfield\Browse\Browser;
 use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Relations\Relation;
-use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionReadRequestSerializer;
 use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer;
 use Pronamic\WordPress\Twinfield\XML\Transactions\BrowseTransactionsUnserializer;
 
@@ -110,9 +109,9 @@ class TransactionService {
 	public function get_transaction( $office, $code, $number ) {
 		$result = null;
 
-		$request = new TransactionReadRequestSerializer( new TransactionReadRequest( $office, $code, $number ) );
+		$request = new TransactionReadRequest( $office, $code, $number );
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request ) );
+		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
 
 		$xml = simplexml_load_string( $response );
 

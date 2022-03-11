@@ -9,7 +9,7 @@
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use Pronamic\WordPress\Twinfield\CodeName;
-use Pronamic\WordPress\Twinfield\Transactions\Transaction;
+use Pronamic\WordPress\Twinfield\Traits\OfficeTrait;
 
 /**
  * Transaction Type
@@ -21,10 +21,21 @@ use Pronamic\WordPress\Twinfield\Transactions\Transaction;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionType extends CodeName {
-	private $office;
+	use OfficeTrait;
 
+	/**
+	 * Transactions.
+	 *
+	 * @var Transaction[]
+	 */
 	private $transactions;
 
+	/**
+	 * Construct transaction type.
+	 *
+	 * @param Office $office Office.
+	 * @param string $code   Code.
+	 */
 	public function __construct( $office, $code ) {
 		parent::__construct( $code );
 
@@ -32,10 +43,12 @@ class TransactionType extends CodeName {
 		$this->transactions = [];
 	}
 
-	public function get_office() {
-		return $this->office;
-	}
-
+	/**
+	 * New transaction.
+	 *
+	 * @param string|null $number Number.
+	 * @return Transaction
+	 */
 	public function new_transaction( $number = null ) {
 		$transaction = new Transaction();
 

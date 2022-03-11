@@ -10,7 +10,8 @@
 namespace Pronamic\WordPress\Twinfield\Users;
 
 use Pronamic\WordPress\Twinfield\CodeName;
-use Pronamic\WordPress\Twinfield\Organisation\Organisation;
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
+use Pronamic\WordPress\Twinfield\Traits\OrganisationTrait;
 
 /**
  * User
@@ -22,19 +23,17 @@ use Pronamic\WordPress\Twinfield\Organisation\Organisation;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class User extends CodeName {
-	/**
-	 * Organisation.
-	 *
-	 * @var Organisation|null
-	 */
-	public $organisation;
+	use OrganisationTrait;
 
 	/**
-	 * Get organisation.
+	 * Construct user.
 	 *
-	 * @return Organisation|null
+	 * @param Organisation $organisation Organisation.
+	 * @param string       $code         Code.
 	 */
-	public function get_organisation() {
-		return $this->organisation;
+	public function __construct( Organisation $organisation, $code ) {
+		parent::__construct( $code );
+
+		$this->organisation = $organisation;
 	}
 }

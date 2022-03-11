@@ -29,10 +29,16 @@ class Twinfield {
 	 * Constructs and initializes a Twinfield object.
 	 */
 	public function __construct() {
-		$this->organisations = $organisation;
+		$this->organisations = [];
 	}
 
-	public function new_organisation( $code ) {
+	/**
+	 * Organisation.
+	 *
+	 * @param string $code Code.
+	 * @return Organisation
+	 */
+	public function organisation( $code ) {
 		$organisation = new Organisation( $code );
 
 		$this->organisations[ $code ] = $organisation;
@@ -97,6 +103,11 @@ class Twinfield {
 		];
 	}
 
+	/**
+	 * Get browse codes.
+	 *
+	 * @return array
+	 */
 	public function get_browse_codes() {
 		return [
 			'000'   => \__( 'General ledger transactions', 'pronamic-twinfield' ),

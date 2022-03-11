@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
+use DOMDocument;
 use JsonSerializable;
 
 /**
@@ -73,14 +74,29 @@ class Transaction implements JsonSerializable {
 		$this->lines  = [];
 	}
 
+	/**
+	 * Get transaction type.
+	 *
+	 * @return mixed
+	 */
 	public function get_transaction_type() {
 		return $this->transaction_type;
 	}
 
+	/**
+	 * Get office.
+	 *
+	 * @return Office
+	 */
 	public function get_office() {
 		return $this->transaction_type->get_office();
 	}
 
+	/**
+	 * Get number.
+	 *
+	 * @return string|null
+	 */
 	public function get_number() {
 		return $this->header->get_number();
 	}
@@ -169,6 +185,7 @@ class Transaction implements JsonSerializable {
 	/**
 	 * Create a new transaction line.
 	 *
+	 * @param string|null $id ID.
 	 * @return TransactionLine
 	 */
 	public function new_line( $id = null ) {
@@ -208,6 +225,11 @@ class Transaction implements JsonSerializable {
 		];
 	}
 
+	/**
+	 * Create DOMDocument.
+	 *
+	 * @return DOMDocument
+	 */
 	public function to_dom_document() {
 		$document = new DOMDocument();
 
@@ -286,6 +308,11 @@ class Transaction implements JsonSerializable {
 		return $document;
 	}
 
+	/**
+	 * Create XML.
+	 *
+	 * @return string
+	 */
 	public function to_xml() {
 		$document = $this->to_dom_document();
 

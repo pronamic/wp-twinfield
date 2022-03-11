@@ -28,35 +28,79 @@ use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class TransactionResponse {
+	/**
+	 * Transaction.
+	 *
+	 * @var Transaction
+	 */
 	private $transaction;
 
+	/**
+	 * Destiny.
+	 *
+	 * @var string
+	 */
 	private $destiny;
 
+	/**
+	 * Result.
+	 *
+	 * @var bool
+	 */
 	private $result;
 
+	/**
+	 * Errors.
+	 *
+	 * @var array
+	 */
 	private $errors;
 
-	public function __construct( $transaction, $destiny, $errors ) {
+	/**
+	 * Construct transaction response.
+	 *
+	 * @param Transaction $transaction Transaction.
+	 * @param string      $destiny     Destiny.
+	 * @param array       $errors      Errors.
+	 */
+	public function __construct( Transaction $transaction, $destiny, $errors ) {
 		$this->transaction = $transaction;
 		$this->destiny     = $destiny;
 		$this->errors      = $errors;
 	}
 
+	/**
+	 * Is successfully?
+	 *
+	 * @return bool
+	 */
 	public function is_successfully() {
 		return 0 === \count( $this->errors );
 	}
 
+	/**
+	 * Get errors.
+	 *
+	 * @return array
+	 */
 	public function get_errors() {
 		return $this->errors;
 	}
 
-	public function from_xml( $xml ) {
+	/**
+	 * Create from XML.
+	 *
+	 * @param string $xml XML.
+	 * @return TransactionResponse
+	 * @throws \Exception Throws exception when reading from XML fails.
+	 */
+	public static function from_xml( $xml ) {
 		$document = new DOMDocument();
 
 		$result = $document->loadXML( $xml );
 
 		if ( false === $result ) {
-			throw new \Eception( 'Could not load XML.' );
+			throw new \Exception( 'Could not load XML.' );
 		}
 
 		$transaction_unserializer = new TransactionUnserializer();

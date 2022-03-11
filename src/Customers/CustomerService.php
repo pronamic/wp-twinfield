@@ -16,7 +16,6 @@ use Pronamic\WordPress\Twinfield\Browse\Browser;
 use Pronamic\WordPress\Twinfield\Browse\BrowseCodes;
 use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
 
-use Pronamic\WordPress\Twinfield\XML\Customers\CustomerReadRequestSerializer;
 use Pronamic\WordPress\Twinfield\XML\Customers\CustomerSerializer;
 use Pronamic\WordPress\Twinfield\XML\Customers\CustomerUnserializer;
 

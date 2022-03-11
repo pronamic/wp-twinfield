@@ -223,7 +223,7 @@ class TransactionHeader {
 	/**
 	 * Set start value.
 	 *
-	 * @param string|null Value.
+	 * @param string|null $value Value.
 	 */
 	public function set_start_value( $value ) {
 		$this->start_value = $value;
@@ -259,7 +259,7 @@ class TransactionHeader {
 	/**
 	 * Set the user.
 	 *
-	 * @param User|null $suer User.
+	 * @param User|null $user User.
 	 */
 	public function set_user( $user ) {
 		$this->user = $user;
