@@ -314,7 +314,7 @@ class RestApi {
 			[
 				'slug'    => 'fixed-assets',
 				'type'    => 'DIM',
-				'dimtype' => 'KPL',
+				'dimtype' => 'AST',
 			],
 			[
 				'slug'    => 'projects',
@@ -324,7 +324,7 @@ class RestApi {
 			[
 				'slug'    => 'activities',
 				'type'    => 'DIM',
-				'dimtype' => 'AST',
+				'dimtype' => 'ACT',
 			],
 			[
 				'slug'    => 'dimension-groups',
