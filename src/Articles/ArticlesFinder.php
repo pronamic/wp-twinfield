@@ -10,10 +10,10 @@
 
 namespace Pronamic\WordPress\Twinfield\Articles;
 
-use Pronamic\WordPress\Twinfield\Finder;
-use Pronamic\WordPress\Twinfield\FinderTypes;
-use Pronamic\WordPress\Twinfield\Search;
-use Pronamic\WordPress\Twinfield\SearchFields;
+use Pronamic\WordPress\Twinfield\Finder\Finder;
+use Pronamic\WordPress\Twinfield\Finder\FinderTypes;
+use Pronamic\WordPress\Twinfield\Finder\Search;
+use Pronamic\WordPress\Twinfield\Finder\SearchFields;
 
 /**
  * Articles Finder

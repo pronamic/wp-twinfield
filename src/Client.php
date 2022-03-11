@@ -16,6 +16,7 @@ use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\InvalidTokenException;
 use Pronamic\WordPress\Twinfield\Offices\OfficeService;
 use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Finder\Finder;
 
 /**
  * Client
@@ -257,11 +258,9 @@ class Client {
 			'ArrayOfArrayOfString'       => __NAMESPACE__ . '\ArrayOfArrayOfString',
 			'ArrayOfMessageOfErrorCodes' => __NAMESPACE__ . '\ArrayOfMessageOfErrorCodes',
 			'ArrayOfString'              => __NAMESPACE__ . '\ArrayOfString',
-			'FinderData'                 => __NAMESPACE__ . '\FinderData',
 			'LogonResponse'              => __NAMESPACE__ . '\LogonResponse',
 			'MessageOfErrorCodes'        => __NAMESPACE__ . '\MessageOfErrorCodes',
 			'ProcessXmlStringResponse'   => __NAMESPACE__ . '\ProcessXmlStringResponse',
-			'SearchResponse'             => __NAMESPACE__ . '\SearchResponse',
 			'SelectCompanyResponse'      => __NAMESPACE__ . '\SelectCompanyResponse',
 			'Query'                      => __NAMESPACE__ . '\Query',
 			'GetDeletedTransactions'     => __NAMESPACE__ . '\Transactions\GetDeletedTransactions',

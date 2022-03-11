@@ -7,7 +7,7 @@
  * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield;
+namespace Pronamic\WordPress\Twinfield\Finder;
 
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
@@ -49,6 +49,6 @@ class Finder extends AbstractService {
 
 		$response = $soap_client->Search( $search->to_twinfield_object() );
 
-		return $response;
+		return SearchResponse::from_twinfield_object( $response );
 	}
 }

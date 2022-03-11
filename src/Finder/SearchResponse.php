@@ -7,7 +7,7 @@
  * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield;
+namespace Pronamic\WordPress\Twinfield\Finder;
 
 use JsonSerializable;
 
@@ -26,7 +26,7 @@ class SearchResponse implements JsonSerializable {
 	 *
 	 * @var ArrayOfMessageOfErrorCodes
 	 */
-	private $SearchResult; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase -- Twinfield vaiable name.
+	private $search_result;
 
 	/**
 	 * The Twinfield search data.
@@ -36,13 +36,23 @@ class SearchResponse implements JsonSerializable {
 	private $data;
 
 	/**
+	 * Construct search response.
+	 * 
+	 * @param ArrayOfMessageOfErrorCodes $search_result Result.
+	 * @param FinderData                 $data          Data.
+	 */
+	public function __construct( $search_result, $data ) {
+		$this->search_result = $search_result;
+		$this->data          = $data;
+	}
+
+	/**
 	 * Helper function to check if this response is successful.
 	 *
 	 * @return boolean
 	 */
 	public function is_successful() {
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
-		$array = $this->SearchResult->get_array();
+		$array = $this->search_result->get_array();
 
 		return empty( $array );
 	}
@@ -53,8 +63,7 @@ class SearchResponse implements JsonSerializable {
 	 * @return string
 	 */
 	public function get_search_result() {
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
-		return $this->SearchResult;
+		return $this->search_result;
 	}
 
 	/**
@@ -73,8 +82,21 @@ class SearchResponse implements JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'result' => $this->SearchResult,
+			'result' => $this->search_result,
 			'data'   => $this->data,
 		];
+	}
+
+	/**
+	 * From Twinfield object.
+	 * 
+	 * @param object $object Object.
+	 * @return self
+	 */
+	public static function from_twinfield_object( $object ) {
+		return new self(
+			$object->SearchResult,
+			FinderData::from_twinfield_object( $object->data )
+		);
 	}
 }

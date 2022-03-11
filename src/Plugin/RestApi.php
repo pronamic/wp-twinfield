@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
 use WP_REST_Request;
 use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
@@ -19,7 +20,7 @@ use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use Pronamic\WordPress\Twinfield\Offices\OfficesList;
 use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
 use Pronamic\WordPress\Twinfield\ProcessXmlString;
-use Pronamic\WordPress\Twinfield\Search;
+use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
 
 /**
@@ -390,7 +391,26 @@ class RestApi {
 						$request->set_param( 'type', $type );
 						$request->set_param( 'dimtype', $dimtype );
 
-						return $this->rest_api_finder( $request );
+						$response = $this->rest_api_finder( $request );
+
+						switch ( $type ) {
+							case 'DIM':
+								switch ( $dimtype ) {
+									case 'CRD':
+										$data = array();
+
+										foreach ( $response->get_data() as $item ) {
+											$supplier = new Supplier( $dimtype, $item[0] );
+											$supplier->set_name( $item[1] );
+
+											$data[] = $supplier;
+										}
+
+										return $data;
+								}
+						}
+
+						return $response;
 					},
 					$type
 				)

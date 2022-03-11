@@ -7,7 +7,7 @@
  * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield;
+namespace Pronamic\WordPress\Twinfield\Finder;
 
 /**
  * Search fields
