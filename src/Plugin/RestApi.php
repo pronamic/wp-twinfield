@@ -301,11 +301,6 @@ class RestApi {
 				'dimtype' => 'CRD',
 			],
 			[
-				'slug'    => 'suppliers',
-				'type'    => 'DIM',
-				'dimtype' => 'CRD',
-			],
-			[
 				'slug'    => 'customers',
 				'type'    => 'DIM',
 				'dimtype' => 'DEB',
