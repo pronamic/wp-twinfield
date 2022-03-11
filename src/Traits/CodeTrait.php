@@ -1,4 +1,10 @@
 <?php
+/**
+ * Code trait
+ *
+ * @since 1.0.0
+ * @package Pronamic/WordPress/Twinfield/Traits
+ */
 
 namespace Pronamic\WordPress\Twinfield\Traits;
 
@@ -8,7 +14,7 @@ trait CodeTrait {
 	 *
 	 * @var string
 	 */
-	private $code;
+	protected $code;
 
 	/**
 	 * Get code.

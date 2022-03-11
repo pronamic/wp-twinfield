@@ -10,6 +10,8 @@
 namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
+use Pronamic\WordPress\Twinfield\Traits\OfficeTrait;
 
 /**
  * Dimension Type
@@ -21,9 +23,9 @@ use JsonSerializable;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class DimensionType implements JsonSerializable {
-	private $office;
+	use OfficeTrait;
 
-	private $code;
+	use CodeTrait;
 
 	/**
 	 * Level.
@@ -38,13 +40,29 @@ class DimensionType implements JsonSerializable {
 	 */
 	private $level;
 
+	/**
+	 * Dimensions.
+	 *
+	 * @var Dimension[]
+	 */
 	private $dimensions = [];
 
+	/**
+	 * Construct dimension type.
+	 *
+	 * @param Office $office Office.
+	 * @param string $code   Code.
+	 */
 	public function __construct( $office, $code ) {
 		$this->office = $office;
 		$this->code   = $code;
 	}
 
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return mixed
+	 */
 	public function jsonSerialize() {
 		return [
 			'office' => $this->office,
@@ -52,6 +70,12 @@ class DimensionType implements JsonSerializable {
 		];
 	}
 
+	/**
+	 * New dimension.
+	 *
+	 * @param string $code Code.
+	 * @return Dimension
+	 */
 	public function new_dimension( $code ) {
 		$dimension = new Dimension( $this->code, $code );
 

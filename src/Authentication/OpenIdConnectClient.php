@@ -138,6 +138,7 @@ class OpenIdConnectClient {
 	 *
 	 * @param string $code Code.
 	 * @return string
+	 * @throws \Exception Throws exception when access token could not be retrieved.
 	 */
 	public function get_access_token( $code ) {
 		$url = self::URL_TOKEN;
@@ -153,25 +154,14 @@ class OpenIdConnectClient {
 				],
 			]
 		);
-		var_dump(
-			[
-				'headers' => $this->get_headers(),
-				'body'    => [
-					'grant_type'   => 'authorization_code',
-					'code'         => $code,
-					'redirect_uri' => $this->redirect_uri,
-				],
-			]
-		);
-		var_dump( $result );
+
 		$data = $result->json();
 
 		if ( ! \is_object( $data ) ) {
 			throw new \Exception(
 				\sprintf(
-					'Unknow response from `%s` endpoint: %s.',
-					$url,
-					\print_r( $data, true )
+					'Unknow response from `%s` endpoint.',
+					$url
 				)
 			);
 		}
@@ -181,7 +171,7 @@ class OpenIdConnectClient {
 				\sprintf(
 					'Received error from `%s` endpoint: %s.',
 					$url,
-					\print_r( $data->error, true )
+					$data->error
 				)
 			);
 		}
@@ -194,6 +184,7 @@ class OpenIdConnectClient {
 	 *
 	 * @param string $access_token Access token.
 	 * @return mixed
+	 * @throws \Exception Throws exception when access token validation could not be retrieved.
 	 */
 	public function get_access_token_validation( $access_token ) {
 		$url = self::URL_ACCESS_TOKEN_VALIDATION;
@@ -206,14 +197,14 @@ class OpenIdConnectClient {
 		if ( ! \is_object( $data ) ) {
 			throw new \Exception(
 				\sprintf(
-					'Unknow response from `%s` endpoint: %s.',
-					$url,
-					\print_r( $data, true )
+					'Unknow response from `%s` endpoint.',
+					$url
 				)
 			);
 		}
 
 		if ( \property_exists( $data, 'Message' ) ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			throw new \Exception( $data->Message );
 		}
 
@@ -225,6 +216,7 @@ class OpenIdConnectClient {
 	 *
 	 * @param string $refresh_token Refresh token.
 	 * @return mixed
+	 * @throws \Exception Throws exception when token could not be refreshed.
 	 */
 	public function refresh_token( $refresh_token ) {
 		$url = self::URL_TOKEN;
@@ -245,9 +237,8 @@ class OpenIdConnectClient {
 		if ( ! \is_object( $data ) ) {
 			throw new \Exception(
 				\sprintf(
-					'Unknow response from `%s` endpoint: %s.',
-					$url,
-					\print_r( $data, true )
+					'Unknow response from `%s` endpoint.',
+					$url
 				)
 			);
 		}
@@ -258,11 +249,13 @@ class OpenIdConnectClient {
 	/**
 	 * Get user info.
 	 *
+	 * ```
 	 * curl --header "Authorization: Bearer ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●" https://login.twinfield.com/auth/authentication/connect/userinfo
+	 * ```
 	 *
 	 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Authentication/OpenIdConnect
 	 * @link https://connect2id.com/products/server/docs/api/userinfo
-	 * @param string $acces_token Access token.
+	 * @param string $access_token Access token.
 	 * @return object
 	 */
 	public function get_user_info( $access_token ) {
@@ -289,6 +282,7 @@ class OpenIdConnectClient {
 	 * @return self
 	 */
 	public static function from_json_file( $file ) {
+		// phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 		$data = \json_decode( \file_get_contents( $file, true ) );
 
 		$client = new self( $data->client_id, $data->client_secret );

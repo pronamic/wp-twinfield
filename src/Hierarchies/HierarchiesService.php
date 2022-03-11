@@ -41,6 +41,7 @@ class HierarchiesService extends AbstractService {
 	/**
 	 * Get hierarchy by code.
 	 *
+	 * @param string $hierarchy_code Hierarchy code.
 	 * @return LoadResponse
 	 */
 	public function get_hierarchy( $hierarchy_code ) {

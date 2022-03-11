@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Contacts;
 
 use Pronamic\WordPress\Twinfield\Address;
 use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
+use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
 
 /**
  * Contact
@@ -26,13 +27,6 @@ class Contact extends Dimension {
 	 * @var string
 	 */
 	private $office;
-
-	/**
-	 * Type.
-	 *
-	 * @var string
-	 */
-	private $type;
 
 	/**
 	 * Name.
@@ -56,7 +50,10 @@ class Contact extends Dimension {
 	private $addresses;
 
 	/**
-	 * Constructs and initialize an contact.
+	 * Constructs and initialize a contact.
+	 *
+	 * @param DimensionType $type Dimension type.
+	 * @param string        $code Dimension code.
 	 */
 	public function __construct( $type, $code ) {
 		parent::__construct( $type, $code );

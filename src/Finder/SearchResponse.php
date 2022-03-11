@@ -95,6 +95,7 @@ class SearchResponse implements JsonSerializable {
 	 */
 	public static function from_twinfield_object( $object ) {
 		return new self(
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$object->SearchResult,
 			FinderData::from_twinfield_object( $object->data )
 		);

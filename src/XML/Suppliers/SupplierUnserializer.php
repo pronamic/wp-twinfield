@@ -10,9 +10,10 @@
 
 namespace Pronamic\WordPress\Twinfield\XML\Suppliers;
 
+use Pronamic\WordPress\Twinfield\DimensionTypes;
+use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
 use Pronamic\WordPress\Twinfield\XML\Security;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
-use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
 
 /**
  * Sales invoices unserializer
@@ -29,7 +30,10 @@ class SupplierUnserializer extends Unserializer {
 	 */
 	public function unserialize( \SimpleXMLElement $element ) {
 		if ( 'dimension' === $element->getName() && DimensionTypes::CRD === Security::filter( $element->type ) ) {
-			$supplier = new Supplier();
+			$supplier = new Supplier(
+				Security::filter( $element->type ),
+				Security::filter( $element->code ),
+			);
 
 			$supplier->set_office( Security::filter( $element->office ) );
 			$supplier->set_code( Security::filter( $element->code ) );

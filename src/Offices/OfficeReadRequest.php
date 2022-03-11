@@ -25,9 +25,9 @@ use Pronamic\WordPress\Twinfield\Offices\Office;
  */
 class OfficeReadRequest extends ReadRequest {
 	/**
-	 * Constructs and initializes an sales invoice service.
+	 * Construct office read request.
 	 *
-	 * @param XMLProcessor $xml_processor The XML processor.
+	 * @param string $code Office code.
 	 */
 	public function __construct( $code ) {
 		parent::__construct(

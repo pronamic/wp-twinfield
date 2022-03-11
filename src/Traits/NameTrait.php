@@ -1,4 +1,10 @@
 <?php
+/**
+ * Name trait
+ *
+ * @since 1.0.0
+ * @package Pronamic/WordPress/Twinfield/Traits
+ */
 
 namespace Pronamic\WordPress\Twinfield\Traits;
 

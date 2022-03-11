@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created trait
+ *
+ * @since 1.0.0
+ * @package Pronamic/WordPress/Twinfield/Traits
+ */
 
 namespace Pronamic\WordPress\Twinfield\Traits;
 
@@ -22,7 +28,7 @@ trait CreatedTrait {
 	/**
 	 * Set created at datetime object.
 	 *
-	 * @param null|\DateTimeImmutable 
+	 * @param null|\DateTimeImmutable $created_at Date/time.
 	 */
 	public function set_created_at( \DateTimeImmutable $created_at = null ) {
 		$this->created_at = $created_at;

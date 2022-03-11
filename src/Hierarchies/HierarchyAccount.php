@@ -92,6 +92,7 @@ class HierarchyAccount implements JsonSerializable {
 	 * @return Hierarchy
 	 */
 	public static function from_object( $object ) {
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$account = new HierarchyAccount( $object->Type, $object->Code, $object->BalanceType );
 
 		return $account;

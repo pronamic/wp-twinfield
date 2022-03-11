@@ -84,7 +84,7 @@ if ( isset( $authentication ) ) {
 
 		$xml_response = $xml_processor->process_xml_string( $process_xml_string );
 
-		$transaction_response = Accounting\TransactionResponse::from_xml( $xml_response->get_result() );
+		$transaction_response = Transactions\TransactionResponse::from_xml( $xml_response->get_result() );
 
 		var_dump( $transaction_response );
 	}

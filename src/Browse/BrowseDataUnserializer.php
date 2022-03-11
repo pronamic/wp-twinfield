@@ -38,12 +38,14 @@ class BrowseDataUnserializer {
 	 * @param string  $name Name.
 	 *
 	 * @return DOMNode
+	 *
+	 * @throws \Exception When element could not be found.
 	 */
 	private function get_element( DOMNode $node, $name ) {
 		$item = $node->getElementsByTagName( $name )->item( 0 );
 
 		if ( null === $item ) {
-			throw new \Eception( 'Could not find element.' );
+			throw new \Exception( 'Could not find element.' );
 		}
 
 		return $item;
@@ -52,7 +54,7 @@ class BrowseDataUnserializer {
 	/**
 	 * Unserialize.
 	 * 
-	 * @param \SimpleXMLElement $element Element.
+	 * @param string $string XML.
 	 * @return array
 	 */
 	public function unserialize( $string ) {

@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
 use JsonSerializable;
 
@@ -112,7 +113,7 @@ class SalesInvoice implements JsonSerializable {
 	/**
 	 * Add the specified VAT line to this sales invoice.
 	 *
-	 * @param SalesInvoiceLine $line The sales invoice line to add.
+	 * @param SalesInvoiceVatLine $vat_line The sales invoice line to add.
 	 */
 	public function add_vat_line( SalesInvoiceVatLine $vat_line ) {
 		$this->vat_lines[] = $vat_line;
@@ -203,7 +204,15 @@ class SalesInvoice implements JsonSerializable {
 		];
 	}
 
-	public function from_xml( $xml, $organisation ) {
+	/**
+	 * Create from XML.
+	 *
+	 * @param string       $xml          XML.
+	 * @param Organisation $organisation Organisation.
+	 *
+	 * @return SalesInvoice
+	 */
+	public static function from_xml( $xml, $organisation ) {
 		$unserializer = new SalesInvoiceUnserializer();
 		
 		$simplexml = \simplexml_load_string( $xml );

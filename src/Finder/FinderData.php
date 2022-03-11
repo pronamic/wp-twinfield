@@ -48,7 +48,7 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	 * 
 	 * @param int   $total_rows Total rows.
 	 * @param array $columns    Columns.
-	 * @param array $titems     Items.
+	 * @param array $items      Items.
 	 */
 	public function __construct( $total_rows, $columns, $items ) {
 		$this->total_rows = $total_rows;
@@ -112,6 +112,7 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	 * @return self
 	 */
 	public static function from_twinfield_object( $object ) {
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		return new self( $object->TotalRows, $object->Columns, $object->Items );
 	}
 }

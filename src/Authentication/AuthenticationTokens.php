@@ -44,6 +44,10 @@ class AuthenticationTokens implements JsonSerializable {
 
 	/**
 	 * Construct access token.
+	 *
+	 * @param string $access_token  Access token.
+	 * @param string $token_type    Token type.
+	 * @param string $refresh_token Refresh token.
 	 */
 	public function __construct( $access_token, $token_type, $refresh_token ) {
 		$this->access_token  = $access_token;
@@ -51,16 +55,31 @@ class AuthenticationTokens implements JsonSerializable {
 		$this->refresh_token = $refresh_token;
 	}
 
+	/**
+	 * Get access token.
+	 *
+	 * @return string
+	 */
 	public function get_access_token() {
 		return $this->access_token;
 	}
 
+	/**
+	 * Get refresh token.
+	 *
+	 * @return string
+	 */
 	public function get_refresh_token() {
 		return $this->refresh_token;
 	}
 
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return array
+	 */
 	public function jsonSerialize() {
-		return (object) [
+		return [
 			'access_token'  => $this->access_token,
 			'token_type'    => $this->token_type,
 			'refresh_token' => $this->refresh_token,
@@ -69,7 +88,8 @@ class AuthenticationTokens implements JsonSerializable {
 
 	/**
 	 * Create access token validation object from a plain object.
-	 * 
+	 *
+	 * @param object $object Object.
 	 * @return self
 	 */
 	public function from_object( $object ) {

@@ -31,9 +31,9 @@ class OfficeService {
 	private $client;
 
 	/**
-	 * Constructs and initializes an sales invoice service.
+	 * Construct office service.
 	 *
-	 * @param XMLProcessor $xml_processor The XML processor.
+	 * @param Client $client Client.
 	 */
 	public function __construct( Client $client ) {
 		$this->client = $client;

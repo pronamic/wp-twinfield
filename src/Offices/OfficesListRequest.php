@@ -19,6 +19,9 @@ use Pronamic\WordPress\Twinfield\ListRequest;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class OfficesListRequest extends ListRequest {
+	/**
+	 * Construct offices list request.
+	 */
 	public function __construct() {
 		parent::__construct( [ 'type' => 'offices' ] );
 	}

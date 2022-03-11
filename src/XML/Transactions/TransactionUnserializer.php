@@ -413,9 +413,7 @@ class TransactionUnserializer extends Unserializer {
 			// Response.
 			$result = Security::filter( $element['result'] );
 
-			$response = new TransactionResponse( $transaction, $result, $element );
-
-			return $response;
+			return $transaction;
 		}
 	}
 }

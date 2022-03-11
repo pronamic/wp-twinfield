@@ -6,4 +6,12 @@
 	<rule ref="PronamicWP">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 	</rule>
+
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<properties>
+			<property name="customPropertiesWhitelist" type="array">
+				<element value="nodeValue" />
+			</property>
+		</properties>
+	</rule>
 </ruleset>

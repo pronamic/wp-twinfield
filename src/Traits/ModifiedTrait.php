@@ -1,4 +1,10 @@
 <?php
+/**
+ * Modified trait
+ *
+ * @since 1.0.0
+ * @package Pronamic/WordPress/Twinfield/Traits
+ */
 
 namespace Pronamic\WordPress\Twinfield\Traits;
 
@@ -22,7 +28,7 @@ trait ModifiedTrait {
 	/**
 	 * Set modified at datetime object.
 	 *
-	 * @param null|\DateTimeImmutable 
+	 * @param null|\DateTimeImmutable $modified_at Date/time.
 	 */
 	public function set_modified_at( \DateTimeImmutable $modified_at = null ) {
 		$this->modified_at = $modified_at;

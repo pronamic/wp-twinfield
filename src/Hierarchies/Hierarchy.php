@@ -64,6 +64,8 @@ class Hierarchy implements IteratorAggregate, JsonSerializable {
 
 	/**
 	 * Node map.
+	 *
+	 * @var array
 	 */
 	private $node_map;
 
@@ -146,6 +148,7 @@ class Hierarchy implements IteratorAggregate, JsonSerializable {
 	 * @return Hierarchy
 	 */
 	public static function from_object( $object ) {
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$hierarchy = new Hierarchy( $object->Code, $object->Name, $object->Description, HierarchyNode::from_object( $object->RootNode ) );
 
 		return $hierarchy;

@@ -388,6 +388,16 @@ class RestApi {
 				'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/' . $slug,
 				$finder_route_args(
 					function( WP_REST_Request $request ) use ( $type, $dimtype ) {
+						$post = get_post( $request->get_param( 'post_id' ) );
+
+						$client = $this->plugin->get_client( $post );
+
+						$organisation = $client->get_organisation();
+
+						$office_code = $request->get_param( 'office_code' );
+
+						$office = $organisation->office( $office_code );
+
 						$request->set_param( 'type', $type );
 						$request->set_param( 'dimtype', $dimtype );
 
@@ -402,8 +412,9 @@ class RestApi {
 										foreach ( $response->get_data() as $item ) {
 											$supplier = new Supplier( $dimtype, $item[0] );
 											$supplier->set_name( $item[1] );
+											$supplier->set_office( $office );
 
-											$data[] = $supplier;
+											$data[] = $this->add_links_to_collection_item( 'pronamic-twinfield/v1/authorizations/' . $post->ID, $supplier );
 										}
 
 										return $data;
@@ -773,6 +784,31 @@ class RestApi {
 		);
 	}
 
+	private function add_links_to_collection_item( $prefix, $item ) {
+		if ( $item instanceof Dimension ) {
+			$data = (array) $item->jsonSerialize();
+
+			$data['_links'] = [
+				'dimension' => [
+					'href' => rest_url(
+						strtr(
+							$prefix . '/dimensions/:office_code/:dimension_type/:dimension_code',
+							[
+								':office_code'    => $item->get_office()->get_code(),
+								':dimension_type' => $item->get_type(),
+								':dimension_code' => $item->get_code(),
+							]
+						)
+					),
+				],
+			];
+
+			return $data;
+		}
+
+		return $item;
+	}
+
 	public function redirect_authorization( $route ) {
 		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
 
@@ -970,7 +1006,7 @@ class RestApi {
 		$office_code = $request->get_param( 'office_code' );
 
 		if ( ! empty( $office_code ) ) {
-			$office = $organisation->new_office( $office_code );
+			$office = $organisation->office( $office_code );
 
 			$finder->set_office( $office );
 
@@ -1004,7 +1040,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$xml_processor = $client->get_xml_processor();
 
@@ -1055,7 +1091,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$hierarchies_service = $client->get_service( 'hierarchies' );
 
@@ -1079,7 +1115,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$deleted_transactions_service = $client->get_service( 'deleted-transactions' );
 
@@ -1101,7 +1137,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$periods_service = $client->get_service( 'periods' );
 
@@ -1147,7 +1183,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$periods_service = $client->get_service( 'periods' );
 
@@ -1171,7 +1207,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$declarations_service = $client->get_service( 'declarations' );
 
@@ -1191,7 +1227,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$xml_processor = $client->get_xml_processor();
 
@@ -1287,7 +1323,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$xml_processor = $client->get_xml_processor();
 
@@ -1433,7 +1469,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$xml_processor = $client->get_xml_processor();
 
@@ -1617,7 +1653,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$xml_processor = $client->get_xml_processor();
 
@@ -1664,7 +1700,7 @@ class RestApi {
 
 		$office_code = $request->get_param( 'office_code' );
 
-		$office = $organisation->new_office( $office_code );
+		$office = $organisation->office( $office_code );
 
 		$xml_processor = $client->get_xml_processor();
 

@@ -455,6 +455,13 @@ class SalesInvoiceLine implements JsonSerializable {
 		$this->performance_date = $performance_date;
 	}
 
+	/**
+	 * From SimpleXML element.
+	 *
+	 * @param \SimpleXMLElement $element Element.
+	 *
+	 * @return SalesInvoiceLine
+	 */
 	public function from_simplexml_element( $element ) {
 		$object = new self();
 

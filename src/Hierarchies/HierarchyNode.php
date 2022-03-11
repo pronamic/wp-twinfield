@@ -293,12 +293,16 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	 * @return Hierarchy
 	 */
 	public static function from_object( $object ) {
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$hierarchy = new HierarchyNode( $object->Id, $object->Code, $object->Name, $object->Description );
 
 		/**
 		 * Accounts.
 		 */
+
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( \property_exists( $object, 'Accounts' ) && \property_exists( $object->Accounts, 'HierarchyAccount' ) ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$hierarchy_accounts = $object->Accounts->HierarchyAccount;
 
 			if ( \is_object( $hierarchy_accounts ) ) {
@@ -313,7 +317,10 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 		/**
 		 * Child nodes.
 		 */
+
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( \property_exists( $object, 'ChildNodes' ) && \property_exists( $object->ChildNodes, 'HierarchyNode' ) ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$child_nodes = $object->ChildNodes->HierarchyNode;
 
 			if ( \is_object( $child_nodes ) ) {

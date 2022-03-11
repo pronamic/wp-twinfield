@@ -11,8 +11,6 @@ namespace Pronamic\WordPress\Twinfield\Users;
 
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Organisation\Organisation;
-use Pronamic\WordPress\Twinfield\Traits\CodeTrait;
-use Pronamic\WordPress\Twinfield\Traits\NameTrait;
 
 /**
  * User
@@ -24,10 +22,6 @@ use Pronamic\WordPress\Twinfield\Traits\NameTrait;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class User extends CodeName {
-	use CodeTrait;
-
-	use NameTrait;
-
 	/**
 	 * Organisation.
 	 *

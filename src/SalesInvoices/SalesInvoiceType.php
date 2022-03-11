@@ -23,7 +23,13 @@ use Pronamic\WordPress\Twinfield\Offices\Office;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class SalesInvoiceType {
-	public function __construct( $office, $code ) {
+	/**
+	 * Construct sales invoice type.
+	 *
+	 * @param Office $office Office.
+	 * @param string $code   Code.
+	 */
+	public function __construct( Office $office, $code ) {
 		$this->office = $office;
 		$this->code   = $code;
 	}

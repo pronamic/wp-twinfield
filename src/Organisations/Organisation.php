@@ -35,18 +35,27 @@ class Organisation extends CodeName {
 	 */
 	private $twinfield;
 
-	use CodeTrait;
-
-	use NameTrait;
-
-	use ShortnameTrait;
-
 	use UuidTrait;
 
+	/**
+	 * Users.
+	 *
+	 * @var User[]
+	 */
 	private $users;
 
+	/**
+	 * Offices.
+	 *
+	 * @var Office[]
+	 */
 	private $offices;
 
+	/**
+	 * Construct Twinfield organisation.
+	 *
+	 * @param string $code Code.
+	 */
 	public function __construct( $code ) {
 		$this->set_code( $code );
 
@@ -56,14 +65,30 @@ class Organisation extends CodeName {
 		$this->offices = [];
 	}
 
+	/**
+	 * Get Twinfield.
+	 *
+	 * @return Twinfield
+	 */
 	public function get_twinfield() {
 		return $this->twinfield;
 	}
 
+	/**
+	 * Get offices.
+	 *
+	 * @return Office[]
+	 */
 	public function get_offices() {
 		return $this->offices;
 	}
 
+	/**
+	 * User.
+	 *
+	 * @param string $code User code.
+	 * @return User
+	 */
 	public function new_user( $code ) {
 		if ( ! \array_key_exists( $code, $this->users ) ) {
 			$user = new User( $code );
@@ -76,11 +101,13 @@ class Organisation extends CodeName {
 		return $this->users[ $code ];
 	}
 
+	/**
+	 * Office.
+	 *
+	 * @param string $code Office code.
+	 * @return Office
+	 */
 	public function office( $code ) {
-		return $this->new_office( $code );
-	}
-
-	public function new_office( $code ) {
 		if ( ! \array_key_exists( $code, $this->offices ) ) {
 			$this->offices[ $code ] = new Office( $this, $code );
 		}

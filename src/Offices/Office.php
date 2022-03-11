@@ -11,7 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Offices;
 
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\CodeName;
-use Pronamic\WordPress\Twinfield\Organisation\Organisation;
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionType;
 use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
 use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
@@ -19,6 +19,7 @@ use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\CreatedTrait;
 use Pronamic\WordPress\Twinfield\Traits\TouchedTrait;
 use Pronamic\WordPress\Twinfield\Traits\UserTrait;
+use Pronamic\WordPress\Twinfield\Traits\OrganisationTrait;
 
 /**
  * Office
@@ -30,12 +31,7 @@ use Pronamic\WordPress\Twinfield\Traits\UserTrait;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Office extends CodeName implements JsonSerializable {
-	/**
-	 * Organisation.
-	 *
-	 * @var Organisation|null
-	 */
-	private $organisation;
+	use OrganisationTrait;
 
 	use StatusTrait;
 
@@ -47,22 +43,45 @@ class Office extends CodeName implements JsonSerializable {
 
 	use UserTrait;
 
+	/**
+	 * Transaction types.
+	 *
+	 * @var array
+	 */
 	private $transaction_types = [];
 
+	/**
+	 * Dimension types.
+	 *
+	 * @var array
+	 */
 	private $dimension_types = [];
 
+	/**
+	 * Sales invoice types.
+	 *
+	 * @var array
+	 */
 	private $sales_invoice_types = [];
 
-	public function __construct( $organisation, $code ) {
+	/**
+	 * Construct office.
+	 *
+	 * @param Organisation $organisation Organisation.
+	 * @param string       $code         Office code.
+	 */
+	public function __construct( Organisation $organisation, $code ) {
 		$this->organisation = $organisation;
-
-		$this->set_code( $code );
+		$this->code         = $code;
 	}
 
-	public function get_organisation() {
-		return $this->organisation;
-	}
-
+	/**
+	 * New transaction type.
+	 *
+	 * @param string $code Code.
+	 *
+	 * @return TransactionType
+	 */
 	public function new_transaction_type( $code ) {
 		$transaction_type = new TransactionType( $this, $code );
 
@@ -71,6 +90,13 @@ class Office extends CodeName implements JsonSerializable {
 		return $transaction_type;
 	}
 
+	/**
+	 * New dimension type.
+	 *
+	 * @param string $code Code.
+	 *
+	 * @return DimensionType
+	 */
 	public function new_dimension_type( $code ) {
 		$dimension_type = new DimensionType( $this, $code );
 
@@ -79,6 +105,13 @@ class Office extends CodeName implements JsonSerializable {
 		return $dimension_type;
 	}
 
+	/**
+	 * Sales invoice type.
+	 *
+	 * @param string $code Code.
+	 *
+	 * @return \Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceType
+	 */
 	public function sales_invoice_type( $code ) {
 		$sales_invoice_type = new \Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceType( $this, $code );
 
@@ -89,6 +122,10 @@ class Office extends CodeName implements JsonSerializable {
 
 	/**
 	 * From XML.
+	 *
+	 * @param string $xml    XML.
+	 * @param Office $office Office.
+	 * @throws \Exception Throws exception when loading from XML fails.
 	 */
 	public static function from_xml( $xml, $office ) {
 		$simplexml = \simplexml_load_string( $xml );

@@ -84,6 +84,12 @@ class Dimension extends CodeName implements JsonSerializable {
 		];
 	}
 
+	/**
+	 * Create dimension from XML.
+	 *
+	 * @param string $xml    XML.
+	 * @param Office $office Office.
+	 */
 	public static function from_xml( $xml, $office ) {
 		$unserializer = new DimensionUnserializer();
 
