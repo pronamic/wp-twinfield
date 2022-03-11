@@ -38,7 +38,7 @@ trait UuidTrait {
 	/**
 	 * Set UUID.
 	 *
-	 * @param string $uuid UUID
+	 * @param string $uuid UUID.
 	 */
 	public function set_uuid( $uuid ) {
 		$this->uuid = $uuid;
