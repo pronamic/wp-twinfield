@@ -20,7 +20,7 @@ class SettingFields {
 	/**
 	 * Array to HTML attributes
 	 *
-	 * @param array $pieces
+	 * @param array $attributes Attributes.
 	 */
 	private static function array_to_html_attributes( array $attributes ) {
 		$html  = '';
@@ -38,7 +38,7 @@ class SettingFields {
 	/**
 	 * Render text
 	 *
-	 * @param array $attributes
+	 * @param array $attributes Attributes.
 	 */
 	public static function render_text( $attributes ) {
 		$attributes = wp_parse_args(
@@ -73,20 +73,22 @@ class SettingFields {
 			unset( $attributes['description'] );
 		}
 
-		printf( '<input %s />', self::array_to_html_attributes( $attributes ) ); // xss ok
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		printf( '<input %s />', self::array_to_html_attributes( $attributes ) );
 
 		if ( $description ) {
-			printf( // xss ok
+			printf(
 				'<span class="description"><br />%s</span>',
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				$description
-			); // xss ok
+			);
 		}
 	}
 
 	/**
 	 * Render password
 	 *
-	 * @param array $attributes
+	 * @param array $attributes Attributes.
 	 */
 	public static function render_password( $attributes ) {
 		$attributes['type'] = 'password';
@@ -94,6 +96,11 @@ class SettingFields {
 		self::render_text( $attributes );
 	}
 
+	/**
+	 * Radio buttons.
+	 * 
+	 * @param array $args Arguments.
+	 */
 	public static function radio_buttons( $args ) {
 		$name    = $args['label_for'];
 		$current = get_option( $name );

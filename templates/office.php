@@ -23,8 +23,8 @@ $twinfield = $organisation->get_twinfield();
 				'<h1>%s</h1>',
 				sprintf(
 					'Office %s - %s',
-					$organisation->get_code(),
-					$office->get_code()
+					esc_html( $organisation->get_code() ),
+					esc_html( $office->get_code() )
 				)
 			);
 
@@ -78,15 +78,15 @@ $twinfield = $organisation->get_twinfield();
 				<dd>
 					<?php
 
-					$status = $office->get_status();
+					$office_status = $office->get_status();
 
-					switch ( $status ) {
+					switch ( $office_status ) {
 						case 'active':
 							esc_html_e( 'Active', 'pronamic-twinfield' );
 
 							break;
 						default:
-							echo esc_html( $status );
+							echo esc_html( $office_status );
 
 							break;
 					}
@@ -234,7 +234,7 @@ $twinfield = $organisation->get_twinfield();
 				</thead>
 
 				<tbody>
-					
+
 					<?php foreach ( $items as $item ) : ?>
 
 						<tr>
@@ -302,12 +302,12 @@ $twinfield = $organisation->get_twinfield();
 				</thead>
 
 				<tbody>
-					
-					<?php foreach ( $twinfield->get_finder_types() as $type => $label ) : ?>
+
+					<?php foreach ( $twinfield->get_finder_types() as $finder_type => $label ) : ?>
 
 						<tr>
 							<td>
-								<code><?php echo esc_html( $type ); ?></code>
+								<code><?php echo esc_html( $finder_type ); ?></code>
 							</td>
 							<td>
 								<?php echo esc_html( $label ); ?>
@@ -321,7 +321,7 @@ $twinfield = $organisation->get_twinfield();
 										[
 											':auth_post_id' => $request->get_param( 'post_id' ),
 											':office_code' => $office->get_code(),
-											':finder_type' => $type,
+											':finder_type' => $finder_type,
 										]
 									)
 								);
@@ -353,7 +353,7 @@ $twinfield = $organisation->get_twinfield();
 				</thead>
 
 				<tbody>
-					
+
 					<?php foreach ( $twinfield->get_browse_codes() as $code => $label ) : ?>
 
 						<tr>
@@ -402,7 +402,7 @@ $twinfield = $organisation->get_twinfield();
 								if ( '010' === $code ) {
 									$url = \add_query_arg(
 										'values[fin.trs.head.yearperiod]',
-										\sprintf( '%s/00..%s/55', \date( 'Y' ), \date( 'Y' ) ),
+										\sprintf( '%s/00..%s/55', wp_date( 'Y' ), wp_date( 'Y' ) ),
 										$url
 									);
 								}

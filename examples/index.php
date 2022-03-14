@@ -1,4 +1,10 @@
 <?php
+/**
+ * Twinfield example.
+ *
+ * @link https://github.com/wp-twinfield/wp-twinfield/blob/develop/templates/sales-invoice.php
+ * @package Pronamic/WordPress/Twinfield
+ */
 
 namespace Pronamic\WordPress\Twinfield;
 
@@ -14,8 +20,12 @@ require __DIR__ . '/../vendor/autoload.php';
 \WorDBless\Load::load();
 
 // Xdebug.
+
+// phpcs:ignore WordPress.PHP.IniSet.Risky
 \ini_set( 'xdebug.var_display_max_depth', -1 );
+// phpcs:ignore WordPress.PHP.IniSet.Risky
 \ini_set( 'xdebug.var_display_max_children', -1 );
+// phpcs:ignore WordPress.PHP.IniSet.Risky
 \ini_set( 'xdebug.var_display_max_data', -1 );
 
 // Load.
@@ -27,7 +37,7 @@ if ( ! is_readable( $file ) ) {
 
 $openid_connect_client = Authentication\OpenIdConnectClient::from_json_file( $file );
 
-// Authentication
+// Authentication.
 $authentication_file = __DIR__ . '/authentication-secret.json';
 
 if ( \is_readable( $authentication_file ) ) {

@@ -39,6 +39,8 @@ class BrowseTransactionsUnserializer extends Unserializer {
 
 	/**
 	 * Constructs and initializes a browse transaction unserializer.
+	 * 
+	 * @param mixed $browse_definition Browse definition.
 	 */
 	public function __construct( $browse_definition = null ) {
 		$this->date_unserializer     = new DateUnserializer();

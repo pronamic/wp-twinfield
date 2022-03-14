@@ -85,7 +85,16 @@ $rows = array_filter( $rows );
 	<br />
 
 	<div>
-		<?php echo implode( '<br />', $rows ); ?>
+		<?php 
+
+		echo wp_kses(
+			implode( '<br />', $rows ),
+			array(
+				'br' => array(),
+			)
+		);
+
+		?>
 	</div>
 </div>
 

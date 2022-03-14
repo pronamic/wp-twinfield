@@ -17,25 +17,54 @@ namespace Pronamic\WordPress\Twinfield\Declarations;
  * @author  Remco Tolsma <info@remcotolsma.nl>
  */
 class Status {
+	/**
+	 * Construct status.
+	 * 
+	 * @param string $description       Description.
+	 * @param string $step_index        Step index.
+	 * @param string $extra_information Extra information.
+	 */
 	public function __construct( $description, $step_index, $extra_information ) {
 		$this->description       = $description;
 		$this->step_index        = $step_index;
 		$this->extra_information = $extra_information;
 	}
 
+	/**
+	 * Get description.
+	 * 
+	 * @return string
+	 */
 	public function get_description() {
 		return $this->description;
 	}
 
+	/**
+	 * Get step index.
+	 * 
+	 * @return string
+	 */
 	public function get_step_index() {
 		return $this->step_index;
 	}
 
+	/**
+	 * Get extra information.
+	 * 
+	 * @return string
+	 */
 	public function get_extra_information() {
 		return $this->extra_information;
 	}
 
+	/**
+	 * Create status from Twinfield object.
+	 * 
+	 * @param object $object Object.
+	 * @return self
+	 */
 	public static function from_twinfield_object( $object ) {
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 		return new self( $object->Description, $object->StepIndex, $object->ExtraInformation );
 	}
 }

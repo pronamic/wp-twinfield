@@ -17,6 +17,7 @@ use Pronamic\WordPress\Twinfield\Authentication\InvalidTokenException;
 use Pronamic\WordPress\Twinfield\Offices\OfficeService;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Finder\Finder;
+use SoapClient;
 
 /**
  * Client
@@ -49,10 +50,21 @@ class Client {
 		$this->services = [];
 	}
 
+	/**
+	 * Get authentication.
+	 * 
+	 * @return AuthenticationInfo
+	 */
 	public function get_authentication() {
 		return $this->authentication;
 	}
 
+	/**
+	 * Set authentication.
+	 * 
+	 * @param AuthenticationInfo $authentication Authentication.
+	 * @return void
+	 */
 	public function set_authentication( AuthenticationInfo $authentication ) {
 		$this->authentication = $authentication;
 
@@ -63,10 +75,21 @@ class Client {
 		$this->cluster_url = $this->authentication->get_validation()->get_cluster_url();
 	}
 
+	/**
+	 * Set authentication refresh handler.
+	 * 
+	 * @param callback $callback Callback.
+	 * @return void
+	 */
 	public function set_authentication_refresh_handler( $callback ) {
 		$this->authentication_refresh_handler = $callback;
 	}
 
+	/**
+	 * Authenticate.
+	 * 
+	 * @return AuthenticationInfo
+	 */
 	public function authenticate() {
 		if ( $this->authentication->get_validation()->is_expired() ) {
 			$response = $this->openid_connect_client->refresh_token( $this->authentication->get_tokens()->get_refresh_token() );
@@ -166,26 +189,53 @@ class Client {
 		return $this->get_service( 'processxml' );
 	}
 
+	/**
+	 * Get organisation.
+	 * 
+	 * @return Organisation
+	 */
 	public function get_organisation() {
 		return $this->organisation;
 	}
 
+	/**
+	 * Get user.
+	 * 
+	 * @return User
+	 */
 	public function get_user() {
 		return $this->user;
 	}
 
+	/**
+	 * Get offices.
+	 * 
+	 * @return Office[]
+	 */
 	public function get_offices() {
 		$office_service = new OfficeService( $this );
 
 		return $office_service->get_offices();
 	}
 
+	/**
+	 * Get office.
+	 * 
+	 * @param Office $office Office.
+	 * @return Office
+	 */
 	public function get_office( Office $office ) {
 		$office_service = new OfficeService( $this );
 
 		return $office_service->get_office( $office );
 	}
 
+	/**
+	 * Get transaction types.
+	 * 
+	 * @param Office $office Office.
+	 * @return array
+	 */
 	public function get_transaction_types( Office $office ) {
 		$finder = $this->get_finder();
 
@@ -222,12 +272,24 @@ class Client {
 		return $transaction_types;
 	}
 
+	/**
+	 * Get WSDL URL.
+	 * 
+	 * @param string $wsdl_file WSDL file.
+	 * @return string
+	 */
 	private function get_wsdl_url( $wsdl_file ) {
 		return $this->cluster_url . $wsdl_file;
 	}
 
+	/**
+	 * New SOAP client.
+	 * 
+	 * @param string $wsdl_file WSDL file.
+	 * @return SoapClient
+	 */
 	public function new_soap_client( $wsdl_file ) {
-		return new \SoapClient( $this->get_wsdl_url( $wsdl_file ), $this->get_soap_client_options() );
+		return new SoapClient( $this->get_wsdl_url( $wsdl_file ), $this->get_soap_client_options() );
 	}
 
 	/**

@@ -18,9 +18,9 @@ get_header();
 				'<h1>%s</h1>',
 				sprintf(
 					'Sales Invoice %s - %s - %s',
-					$sales_invoice->get_header()->get_office(),
-					$sales_invoice->get_header()->get_type(),
-					$sales_invoice->get_header()->get_number()
+					esc_html( $sales_invoice->get_header()->get_office() ),
+					esc_html( $sales_invoice->get_header()->get_type() ),
+					esc_html( $sales_invoice->get_header()->get_number() )
 				)
 			);
 

@@ -5,6 +5,8 @@
 
 	<rule ref="PronamicWP">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+
+		<exclude name="WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown" />
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.ValidVariableName">

@@ -45,11 +45,12 @@ class DeclarationsService extends AbstractService {
 	 * @see https://c5.twinfield.de/webservices/documentation/#/ApiReference/Miscellaneous/Declaration
 	 * @param Office $office The office for which the returns should be retrieved. Mandatory.
 	 * @return array
+	 * @throws \Exception When no summaries could be found for the specified office.
 	 */
 	public function get_all_summaries( Office $office ) {
 		$parameters = new \stdClass();
 
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 		$parameters->companyCode = $office->get_code();
 
 		$soap_client = $this->get_soap_client( $office );
@@ -60,20 +61,22 @@ class DeclarationsService extends AbstractService {
 			throw new \Exception(
 				\sprintf(
 					'Unknow response from declarations webservice: %s',
-					\print_r( $result, true )
+					\wp_json_encode( $result )
 				)
 			);
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 		if ( ! isset( $result->GetAllSummariesResult ) ) {
 			throw new \Exception(
 				\sprintf(
 					'No summaries result from declarations webservice: %s',
-					\print_r( $result, true )
+					\wp_json_encode( $result )
 				)
 			);
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 		if ( ! isset( $result->vatReturn, $result->vatReturn->DeclarationSummary ) ) {
 			return [];
 		}
@@ -84,6 +87,7 @@ class DeclarationsService extends AbstractService {
 			function( $item ) use ( $organisation ) {
 				return DeclarationSummary::from_twinfield_object( $organisation, $item );
 			},
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 			$this->force_array( $result->vatReturn->DeclarationSummary )
 		);
 
@@ -112,7 +116,7 @@ class DeclarationsService extends AbstractService {
 				break;
 		}
 
-		// phpcs:disable WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 
 		$parameters = new \stdClass();
 
@@ -179,7 +183,7 @@ class DeclarationsService extends AbstractService {
 				break;
 		}
 
-		// phpcs:disable WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar -- Twinfield vaiable name.
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 
 		$parameters = new \stdClass();
 
@@ -195,12 +199,25 @@ class DeclarationsService extends AbstractService {
 		// phpcs:enable
 	}
 
+	/**
+	 * Get XBRL by summary.
+	 * 
+	 * @param DeclarationSummary $summary Summary.
+	 * @return string
+	 */
 	public function get_xbrl_by_summary( $summary ) {
 		$this->set_office( $summary->company );
 
 		return $this->get_xbrl( $summary->id, $summary->document_code );
 	}
 
+	/**
+	 * Get XML.
+	 * 
+	 * @param string      $document_id   Document ID.
+	 * @param string|null $document_code Document code.
+	 * @return string
+	 */
 	public function get_xml( $document_id, $document_code = null ) {
 		$function = 'GetVatReturnAsXml';
 
@@ -219,6 +236,8 @@ class DeclarationsService extends AbstractService {
 				break;
 		}
 
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
+
 		$parameters = new \stdClass();
 
 		$parameters->documentId = $document_id;
@@ -228,6 +247,8 @@ class DeclarationsService extends AbstractService {
 		if ( isset( $response->vatReturn, $response->vatReturn->any ) ) {
 			return $response->vatReturn->any;           
 		}
+
+		// phpcs:enable
 	}
 
 	/**
