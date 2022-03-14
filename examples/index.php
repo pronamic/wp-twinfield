@@ -166,7 +166,7 @@ if ( isset( $authentication ) ) {
 				</thead>
 
 				<tbody>
-					
+
 					<?php foreach ( $offices as $office ) : ?>
 
 						<tr>
@@ -210,7 +210,7 @@ if ( isset( $authentication ) ) {
 					<dt>Shortname</dt>
 					<dd><?php echo \esc_html( (string) $office->get_shortname() ); ?></dd>
 				</dl>
-				
+
 				<h2>Transaction Types</h2>
 
 				<?php
@@ -227,7 +227,7 @@ if ( isset( $authentication ) ) {
 					</thead>
 
 					<tbody>
-						
+
 						<?php foreach ( $transaction_types as $transaction_type ) : ?>
 
 							<tr>
@@ -243,7 +243,7 @@ if ( isset( $authentication ) ) {
 
 					</tbody>
 				</table>
-				
+
 				<h2>Transaction Type</h2>
 
 				<?php
@@ -256,7 +256,7 @@ if ( isset( $authentication ) ) {
 					<dt>Code</dt>
 					<dd><code><?php echo \esc_html( $transaction_type->get_code() ); ?></code></dd>
 				</dl>
-				
+
 				<h2>Transaction</h2>
 
 				<?php
@@ -288,7 +288,7 @@ if ( isset( $authentication ) ) {
 
 				?>
 				<textarea name="pronamic_twinfield_xml" class="code-mirror-xml"><?php echo \esc_textarea( $transaction->to_xml() ); ?></textarea>
-				
+
 				<h2>Transaction Request</h2>
 
 				<?php
@@ -357,7 +357,7 @@ if ( isset( $authentication ) ) {
 					</thead>
 
 					<tbody>
-						
+
 						<?php foreach ( $summaries as $summary ) : ?>
 
 							<tr>
@@ -428,12 +428,12 @@ if ( isset( $authentication ) ) {
 
 				<?php
 
-				$year = \date( 'Y' );
+				$year = \wp_date( 'Y' );
 
 				$periods = $periods_service->get_periods( $office, $year );
 
 				?>
-				<h2><?php \printf( 'Periods Year: %s', $year ); ?></h2>
+				<h2><?php \printf( 'Periods Year: %s', \esc_html( $year ) ); ?></h2>
 
 				<table>
 					<thead>
@@ -446,7 +446,7 @@ if ( isset( $authentication ) ) {
 					</thead>
 
 					<tbody>
-						
+
 						<?php foreach ( $periods as $period ) : ?>
 
 							<tr>
@@ -551,7 +551,7 @@ if ( isset( $authentication ) ) {
 				<h4>Request</h4>
 
 				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_request_document->saveXML() ); ?></textarea>
- 
+
 				<h4>Response</h4>
 
 				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_response_document->saveXML() ); ?></textarea>
