@@ -457,6 +457,31 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_budget' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'     => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+						'required'          => true,
+					],
+					'office_code' => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+						'required'    => true,
+					],
+				],
+			]
+		);
+
+		register_rest_route(
+			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/deleted-transactions',
 			[
 				'methods'             => 'GET',
@@ -900,7 +925,7 @@ class RestApi {
 
 		$offices_list_request = new OfficesListRequest();
 
-		$offices_list_response = $xml_processor->process_xml_string( new ProcessXmlString( $offices_list_request->to_xml() ) );
+		$offices_list_response = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
 
 		$offices = OfficesList::from_xml( (string) $offices_list_response, $client->get_organisation() );
 
@@ -1102,6 +1127,28 @@ class RestApi {
 		$hierarchy = $hierarchies_service->get_hierarchy( $hierarchy_code );
 
 		return $hierarchy;
+	}
+
+	public function rest_api_budget( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->office( $office_code );
+
+		$budget_service = $client->get_service( 'budget' );
+
+		$budget_service->set_office( $office );
+
+		$budget = $budget_service->get_budget_by_profit_and_loss_query( $office, '001', 2022, 1, 12, true, true );
+
+		return $budget;
 	}
 
 	public function rest_api_deleted_transactions( WP_REST_Request $request ) {

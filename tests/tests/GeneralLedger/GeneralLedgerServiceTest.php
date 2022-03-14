@@ -42,7 +42,7 @@ class GeneralLedgerServiceTest extends TestCase {
 
 		$office_code    = getenv( 'TWINFIELD_OFFICE_CODE' );
 		$general_ledger = '2999';
-		$year           = date( 'Y' );
+		$year           = wp_date( 'Y' );
 
 		$transaction_lines = $service->get_transaction_lines( $office_code, $general_ledger, $year );
 

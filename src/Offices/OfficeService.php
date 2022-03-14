@@ -42,46 +42,16 @@ class OfficeService {
 	/**
 	 * Get offices.
 	 *
-	 * @return array
+	 * @return OfficesList
 	 */
 	public function get_offices() {
-		$result = null;
-
-		$request = '<list><type>offices</type></list>';
-
-		$document = new \DOMDocument();
-
-		$list_element = $document->createElement( 'list' );
-
-		$document->appendChild( $list_element );
-
-		$type_element = $document->createElement( 'type' );
-		$type_element->appendChild( new \DOMText( 'offices' ) );
-
-		$list_element->appendChild( $type_element );
-
-		$xml_string = $document->saveXML();
-
 		$xml_processor = $this->client->get_xml_processor();
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml_string ) );
+		$offices_list_request = new OfficesListRequest();
 
-		$xml = simplexml_load_string( $response );
+		$offices_list_response = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
 
-		if ( false !== $xml ) {
-			$result = [];
-
-			foreach ( $xml->office as $element ) {
-				$office = $this->client->organisation->new_office( Security::filter( $element ) );
-
-				$office->set_name( Security::filter( $element['name'] ) );
-				$office->set_shortname( Security::filter( $element['shortname'] ) );
-
-				$result[] = $office;
-			}
-		}
-
-		return $result;
+		return OfficesList::from_xml( (string) $offices_list_response, $this->client->get_organisation() );
 	}
 
 	/**

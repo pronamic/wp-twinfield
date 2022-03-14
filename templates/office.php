@@ -220,6 +220,10 @@ $twinfield = $organisation->get_twinfield();
 					'label' => \__( 'Years', 'pronamic-twinfield' ),
 					'path'  => 'years',
 				],
+				[
+					'label' => \__( 'Budget', 'pronamic-twinfield' ),
+					'path'  => 'budget',
+				],
 			];
 
 			?>

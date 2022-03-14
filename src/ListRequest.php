@@ -45,9 +45,6 @@ class ListRequest {
 	public function to_dom_document() {
 		$document = new DOMDocument();
 
-		// $document->preserveWhiteSpace = false;
-		// $document->formatOutput       = true;
-
 		$read_element = $document->appendChild( $document->createElement( 'list' ) );
 
 		foreach ( $this->values as $name => $value ) {
