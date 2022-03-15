@@ -115,7 +115,7 @@ class DeclarationSummary {
 		$assignee = $organisation->new_user( $object->Assignee->Code );
 		$assignee->set_name( $object->Assignee->Name );
 
-		$company = $organisation->new_office( $object->Company->Code );
+		$company = $organisation->office( $object->Company->Code );
 		$company->set_name( $object->Company->Name );
 
 		return new self(
