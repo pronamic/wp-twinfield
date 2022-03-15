@@ -324,11 +324,8 @@ class Client {
 			'MessageOfErrorCodes'        => __NAMESPACE__ . '\MessageOfErrorCodes',
 			'ProcessXmlStringResponse'   => __NAMESPACE__ . '\ProcessXmlStringResponse',
 			'SelectCompanyResponse'      => __NAMESPACE__ . '\SelectCompanyResponse',
-			'Query'                      => __NAMESPACE__ . '\Query',
-			'GetDeletedTransactions'     => __NAMESPACE__ . '\Transactions\GetDeletedTransactions',
 			'GetYears'                   => __NAMESPACE__ . '\Periods\QueryGetYears',
 			'GetPeriods'                 => __NAMESPACE__ . '\Periods\QueryGetPeriods',
-			'GetBudgetByProfitAndLoss'   => __NAMESPACE__ . '\Budget\GetBudgetByProfitAndLossQuery',
 			'GetBudgetTotalsResult'      => __NAMESPACE__ . '\Budget\GetBudgetTotalsResult',
 			'GetBudgetTotalResult'       => __NAMESPACE__ . '\Budget\GetBudgetTotalResult',
 		];

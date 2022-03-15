@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use DOMDocument;
+
 /**
  * Session
  *
@@ -35,8 +37,13 @@ class ReadRequest {
 		$this->values = $values;
 	}
 
+	/**
+	 * Convert to DOMDocument.
+	 * 
+	 * @return DOMDocument
+	 */
 	public function to_dom_document() {
-		$document = new \DOMDocument();
+		$document = new DOMDocument();
 
 		// $document->preserveWhiteSpace = false;
 		// $document->formatOutput       = true;
@@ -50,12 +57,22 @@ class ReadRequest {
 		return $document;
 	}
 
+	/**
+	 * Convert to XML string.
+	 * 
+	 * @return string
+	 */
 	public function to_xml() {
 		$dom = $this->to_dom_document();
 
 		return $dom->saveXML( $dom->documentElement );
 	}
 
+	/**
+	 * To string.
+	 * 
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->to_xml();
 	}

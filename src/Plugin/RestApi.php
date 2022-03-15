@@ -10,18 +10,21 @@
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
-use WP_REST_Request;
 use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
+use Pronamic\WordPress\Twinfield\Budget\GetBudgetByProfitAndLossQuery;
 use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use Pronamic\WordPress\Twinfield\Offices\OfficesList;
 use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
 use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
+use Pronamic\WordPress\Twinfield\Transactions\DeletedTransactionsQuery;
+use WP_REST_Request;
+use WP_REST_Response;
 
 /**
  * REST API
@@ -40,13 +43,19 @@ class RestApi {
 
 	/**
 	 * Constructs and initialize Twinfield REST API object.
+	 * 
+	 * @param Plugin $plugin Plugin.
 	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
 	}
 
+	/**
+	 * Setup.
+	 * 
+	 * @return void
+	 */
 	public function setup() {
-		// Actions
 		\add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
 	}
 
@@ -457,7 +466,7 @@ class RestApi {
 
 		register_rest_route(
 			$namespace,
-			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget',
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget/(?P<budget_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_budget' ],
@@ -465,16 +474,40 @@ class RestApi {
 					return true;
 				},
 				'args'                => [
-					'post_id'     => [
+					'post_id'             => [
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
 						'required'          => true,
 					],
-					'office_code' => [
+					'office_code'         => [
 						'description' => 'Twinfield office code.',
 						'type'        => 'string',
 						'required'    => true,
+					],
+					'budget_code'         => [
+						'description' => 'Twinfield budget code.',
+						'type'        => 'string',
+						'required'    => true,
+						'default'     => '001',
+					],
+					'year'                => [
+						'description' => 'Year to be retrieved.',
+						'type'        => 'int',
+						'required'    => true,
+						'default'     => \wp_date( 'Y' ),
+					],
+					'include_provisional' => [
+						'description' => 'Include provisional transactions.',
+						'type'        => 'bool',
+						'required'    => true,
+						'default'     => true,
+					],
+					'include_final'       => [
+						'description' => 'Include final transactions.',
+						'type'        => 'bool',
+						'required'    => true,
+						'default'     => true,
 					],
 				],
 			]
@@ -809,6 +842,13 @@ class RestApi {
 		);
 	}
 
+	/**
+	 * Add links to collection item.
+	 * 
+	 * @param string $prefix Prefix.
+	 * @param mixed  $item   Item.
+	 * @return array
+	 */
 	private function add_links_to_collection_item( $prefix, $item ) {
 		if ( $item instanceof Dimension ) {
 			$data = (array) $item->jsonSerialize();
@@ -834,6 +874,12 @@ class RestApi {
 		return $item;
 	}
 
+	/**
+	 * Redirect authorizations.
+	 * 
+	 * @param string $route Route.
+	 * @return WP_REST_Response
+	 */
 	public function redirect_authorization( $route ) {
 		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
 
@@ -847,6 +893,12 @@ class RestApi {
 		return new \WP_REST_Response( null, 303, [ 'Location' => $url ] );
 	}
 
+	/**
+	 * REST API authorize.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_authorize( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 		$code    = $request->get_param( 'code' );
@@ -881,6 +933,12 @@ class RestApi {
 		return new \WP_REST_Response( null, 303, [ 'Location' => $url ] );
 	}
 
+	/**
+	 * REST API organisation.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_organisation( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 		
@@ -916,6 +974,12 @@ class RestApi {
 		return $rest_response;
 	}
 
+	/**
+	 * REST API offices.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_offices( WP_REST_Request $request ) {
 		$post = get_post( $request->get_param( 'post_id' ) );
 
@@ -967,6 +1031,12 @@ class RestApi {
 		return $rest_response;
 	}
 
+	/**
+	 * REST API finder types.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_finder_types( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1001,6 +1071,12 @@ class RestApi {
 		return $data;
 	}
 
+	/**
+	 * REST API finder.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_finder( WP_REST_Request $request ) {
 		$post = get_post( $request->get_param( 'post_id' ) );
 
@@ -1054,6 +1130,12 @@ class RestApi {
 		return $response;
 	}
 
+	/**
+	 * REST API office.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_office( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1105,6 +1187,12 @@ class RestApi {
 		return $response;
 	}
 
+	/**
+	 * REST API hierarchy.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_hierarchy( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1129,6 +1217,12 @@ class RestApi {
 		return $hierarchy;
 	}
 
+	/**
+	 * REST API budget.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_budget( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1146,11 +1240,26 @@ class RestApi {
 
 		$budget_service->set_office( $office );
 
-		$budget = $budget_service->get_budget_by_profit_and_loss_query( $office, '001', 2022, 1, 12, true, true );
+		$code                = $request->get_param( 'budget_code' );
+		$year                = $request->get_param( 'year' );
+		$period_from         = null;
+		$period_to           = null;
+		$include_provisional = $request->get_param( 'include_provisional' );
+		$include_final       = $request->get_param( 'include_final' );
+
+		$query = new GetBudgetByProfitAndLossQuery( $code, $year, $period_from, $period_to, $include_provisional, $include_final );
+
+		$budget = $budget_service->get_budget_by_profit_and_loss_query( $office, $query );
 
 		return $budget;
 	}
 
+	/**
+	 * REST API deleted transactions.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_deleted_transactions( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1168,11 +1277,19 @@ class RestApi {
 
 		$deleted_transactions_service->set_office( $office );
 
-		$deleted_transactions = $deleted_transactions_service->get_deleted_transactions( $office_code );
+		$deleted_transactions_query = new DeletedTransactionsQuery( $office_code );
+
+		$deleted_transactions = $deleted_transactions_service->get_deleted_transactions( $deleted_transactions_query );
 
 		return $deleted_transactions;
 	}
 
+	/**
+	 * REST API years.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_years( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1219,6 +1336,12 @@ class RestApi {
 		return $results;
 	}
 
+	/**
+	 * REST API periods.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_periods( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1243,6 +1366,12 @@ class RestApi {
 		return $periods;
 	}
 
+	/**
+	 * REST API declarations.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_declarations( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1263,6 +1392,12 @@ class RestApi {
 		return $summaries;
 	}
 
+	/**
+	 * REST API transaction.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_transaction( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1357,6 +1492,12 @@ class RestApi {
 		return $response;
 	}
 
+	/**
+	 * REST API sales invoice.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_sales_invoice( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1501,7 +1642,10 @@ class RestApi {
 	}
 
 	/**
-	 * /authorizations/(?P<post_id>\d+)/dimensions/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<dimension_type_code>[a-zA-Z0-9_-]+)/(?P<dimension_code>[a-zA-Z0-9_-]+)
+	 * REST API dimension.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
 	 */
 	public function rest_api_dimension( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
@@ -1597,6 +1741,12 @@ class RestApi {
 		return $rest_response;
 	}
 
+	/**
+	 * REST API customers list.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_customers_list( WP_REST_Request $request ) {
 		$client = $this->plugin->get_client();
 
@@ -1617,6 +1767,12 @@ class RestApi {
 		return $customers;
 	}
 
+	/**
+	 * REST API customers.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_customers( WP_REST_Request $request ) {
 		$pattern = $request->get_param( 'search' );
 		$pattern = empty( $pattern ) ? '*' : '*' . $pattern . '*';
@@ -1654,6 +1810,12 @@ class RestApi {
 		return $options;
 	}
 
+	/**
+	 * REST API articles.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_articles( WP_REST_Request $request ) {
 		$pattern = $request->get_param( 'search' );
 		$pattern = empty( $pattern ) ? '*' : '*' . $pattern . '*';
@@ -1691,6 +1853,12 @@ class RestApi {
 		return $options;
 	}
 
+	/**
+	 * REST API browse fields.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_browse_fields( WP_REST_Request $request ) {
 		$post = get_post( $request->get_param( 'post_id' ) );
 
@@ -1736,6 +1904,12 @@ class RestApi {
 		return $rest_response;      
 	}
 
+	/**
+	 * REST API browse query.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
 	public function rest_api_browse_query( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
@@ -1783,6 +1957,8 @@ class RestApi {
 				$to       = null;
 
 				/**
+				 * Syntax for values between a range.
+				 *
 				 * @link https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-values-between-a-range
 				 */
 				$between_position = \mb_strpos( $value, '..' );

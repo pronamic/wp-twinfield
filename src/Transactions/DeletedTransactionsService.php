@@ -45,44 +45,18 @@ class DeletedTransactionsService extends AbstractService {
 	/**
 	 * Get deleted transactions.
 	 *
-	 * @see https://c3.twinfield.com/webservices/documentation/#/ApiReference/Transactions/DeletedTransactions
+	 * @link https://c3.twinfield.com/webservices/documentation/#/ApiReference/Transactions/DeletedTransactions
+	 * @param DeletedTransactionsQuery $query Deleted transactions query.
+	 * @return mixed
 	 */
-	public function get_deleted_transactions( $office_code, \DateTimeInterface $date_from = null, \DateTimeInterface $date_to = null ) {
+	public function get_deleted_transactions( DeletedTransactionsQuery $query ) {
 		$soap_client = $this->get_soap_client();
 
-		$query              = new GetDeletedTransactions();
-		$query->CompanyCode = $office_code;
+		$result = $soap_client->__soapCall(
+			'Query',
+			[ $query->get_soap_var() ]
+		);
 
-		if ( null !== $date_from ) {
-			$query->DateFrom = $date_from->format( 'Y-m-d' );
-		}
-
-		if ( null !== $date_to ) {
-			$query->DateTo = $date_to->format( 'Y-m-d' );
-		}
-
-		$result = $soap_client->Query( $query );
-
-		if ( ! isset( $result->DeletedTransactions ) ) {
-			return false;
-		}
-
-		if ( ! isset( $result->DeletedTransactions->DeletedTransaction ) ) {
-			return false;
-		}
-
-		$transactions = false;
-
-		$data = $result->DeletedTransactions->DeletedTransaction;
-
-		if ( is_object( $data ) ) {
-			$transactions = [ $data ];
-		}
-
-		if ( is_array( $data ) ) {
-			$transactions = $data;
-		}
-
-		return $transactions;
+		return DeletedTransactions::from_twinfield_object( $result );
 	}
 }

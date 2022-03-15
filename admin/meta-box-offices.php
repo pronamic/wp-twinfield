@@ -20,7 +20,7 @@ $i = 1;
 	</thead>
 
 	<tbody>
-		
+
 		<?php foreach ( $offices as $office ) : ?>
 
 			<tr>

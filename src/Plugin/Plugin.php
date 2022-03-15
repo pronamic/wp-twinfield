@@ -29,15 +29,12 @@ class Plugin {
 	public function __construct( $file ) {
 		$this->file = $file;
 
-		// REST API
 		$this->rest_api = new RestApi( $this );
 
-		// Admin.
 		if ( is_admin() ) {
 			$this->admin = new Admin( $this );
 		}
 
-		// AuthorizationPostType
 		$this->authorization_post_type = new AuthorizationPostType( $this );
 	}
 
