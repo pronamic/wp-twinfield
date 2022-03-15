@@ -49,6 +49,16 @@ class ObjectAccess {
 	}
 
 	/**
+	 * Get object.
+	 * 
+	 * @param string $property Property.
+	 * @return self
+	 */
+	public function get_object( $property ) {
+		return self::from_object( $this->get_property( $property ) );
+	}
+
+	/**
 	 * Get array.
 	 * 
 	 * @param string $property Property.
@@ -62,5 +72,15 @@ class ObjectAccess {
 		}
 
 		return [ $value ];
+	}
+
+	/**
+	 * Create object access object from object.
+	 * 
+	 * @param object $object Object.
+	 * @return self
+	 */
+	public static function from_object( $object ) {
+		return new self( $object );
 	}
 }

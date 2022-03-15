@@ -11,6 +11,9 @@ namespace Pronamic\WordPress\Twinfield\Periods;
 
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
+use SoapHeader;
+use SoapVar;
 
 /**
  * Periods service
@@ -50,31 +53,30 @@ class PeriodsService extends AbstractService {
 	public function get_years( $office ) {
 		$soap_client = $this->get_soap_client( $office );
 
-		$query = new QueryGetYears();
+		$authentication = $this->client->authenticate();
 
-		$result = $soap_client->Query( $query );
+		$result = $soap_client->__soapCall(
+			'Query',
+			[
+				new SoapVar(
+					[],
+					\SOAP_ENC_OBJECT,
+					'GetYears',
+					'http://schemas.datacontract.org/2004/07/Twinfield.WebServices.PeriodService'
+				),
+			],
+			null,
+			new SoapHeader(
+				'http://www.twinfield.com/',
+				'Authentication',
+				[
+					'AccessToken' => $authentication->get_tokens()->get_access_token(),
+					'CompanyCode' => $office->get_code(),
+				]
+			)
+		);
 
-		if ( ! is_object( $result ) ) {
-			throw new \Exception( 'Could not get years from Twinfield period service.' );
-		}
-
-		if ( ! property_exists( $result, 'Years' ) ) {
-			throw new \Exception( 'Could not get years from Twinfield period service.' );
-		}
-
-		$years_object = $result->Years;
-
-		if ( ! property_exists( $years_object, 'int' ) ) {
-			throw new \Exception( 'Could not get years from Twinfield period service.' );
-		}
-
-		$int_array = $years_object->int;
-
-		if ( ! is_array( $int_array ) ) {
-			throw new \Exception( 'Could not get years from Twinfield period service.' );
-		}
-
-		return $int_array;
+		return ObjectAccess::from_object( $result )->get_object( 'Years' )->get_array( 'int' );
 	}
 
 	/**
@@ -86,30 +88,32 @@ class PeriodsService extends AbstractService {
 	public function get_periods( $office, $year ) {
 		$soap_client = $this->get_soap_client( $office );
 
-		$query       = new QueryGetPeriods();
-		$query->Year = $year;
+		$authentication = $this->client->authenticate();
 
-		$result = $soap_client->Query( $query );
+		$result = $soap_client->__soapCall(
+			'Query',
+			[
+				new SoapVar(
+					[
+						'Year' => $year,
+					],
+					\SOAP_ENC_OBJECT,
+					'GetPeriods',
+					'http://schemas.datacontract.org/2004/07/Twinfield.WebServices.PeriodService'
+				),
+			],
+			null,
+			new SoapHeader(
+				'http://www.twinfield.com/',
+				'Authentication',
+				[
+					'AccessToken' => $authentication->get_tokens()->get_access_token(),
+					'CompanyCode' => $office->get_code(),
+				]
+			)
+		);
 
-		if ( ! is_object( $result ) ) {
-			throw new \Exception( 'Could not get periods from Twinfield period service.' );
-		}
-
-		if ( ! property_exists( $result, 'Periods' ) ) {
-			throw new \Exception( 'Could not get periods from Twinfield period service.' );
-		}
-
-		$periods_object = $result->Periods;
-
-		if ( ! property_exists( $periods_object, 'Period' ) ) {
-			throw new \Exception( 'Could not get periods from Twinfield period service.' );
-		}
-
-		$period_array = $periods_object->Period;
-
-		if ( ! is_array( $period_array ) ) {
-			throw new \Exception( 'Could not get periods from Twinfield period service.' );
-		}
+		$period_array = ObjectAccess::from_object( $result )->get_object( 'Periods' )->get_array( 'Period' );
 
 		$periods = \array_map(
 			function( $item ) use ( $year ) {

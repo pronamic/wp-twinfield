@@ -320,12 +320,9 @@ class Client {
 			'ArrayOfArrayOfString'       => __NAMESPACE__ . '\ArrayOfArrayOfString',
 			'ArrayOfMessageOfErrorCodes' => __NAMESPACE__ . '\ArrayOfMessageOfErrorCodes',
 			'ArrayOfString'              => __NAMESPACE__ . '\ArrayOfString',
-			'LogonResponse'              => __NAMESPACE__ . '\LogonResponse',
 			'MessageOfErrorCodes'        => __NAMESPACE__ . '\MessageOfErrorCodes',
 			'ProcessXmlStringResponse'   => __NAMESPACE__ . '\ProcessXmlStringResponse',
 			'SelectCompanyResponse'      => __NAMESPACE__ . '\SelectCompanyResponse',
-			'GetYears'                   => __NAMESPACE__ . '\Periods\QueryGetYears',
-			'GetPeriods'                 => __NAMESPACE__ . '\Periods\QueryGetPeriods',
 			'GetBudgetTotalsResult'      => __NAMESPACE__ . '\Budget\GetBudgetTotalsResult',
 			'GetBudgetTotalResult'       => __NAMESPACE__ . '\Budget\GetBudgetTotalResult',
 		];
