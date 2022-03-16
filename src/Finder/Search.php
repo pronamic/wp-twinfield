@@ -79,7 +79,7 @@ class Search {
 		$this->field     = $field;
 		$this->first_row = $first_row;
 		$this->max_rows  = $max_rows;
-		$this->options   = ArrayOfArrayOfString::parse_array( $options );
+		$this->options   = $options;
 	}
 
 	/**

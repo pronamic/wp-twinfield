@@ -14,7 +14,7 @@ use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
-use Pronamic\WordPress\Twinfield\Budget\GetBudgetByProfitAndLossQuery;
+use Pronamic\WordPress\Twinfield\Budget\BudgetByProfitAndLossQuery;
 use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use Pronamic\WordPress\Twinfield\Offices\OfficesList;
 use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
@@ -1245,7 +1245,7 @@ class RestApi {
 		$include_provisional = $request->get_param( 'include_provisional' );
 		$include_final       = $request->get_param( 'include_final' );
 
-		$query = new GetBudgetByProfitAndLossQuery( $code, $year, $period_from, $period_to, $include_provisional, $include_final );
+		$query = new BudgetByProfitAndLossQuery( $code, $year, $period_from, $period_to, $include_provisional, $include_final );
 
 		$budget = $budget_service->get_budget_by_profit_and_loss_query( $office, $query );
 

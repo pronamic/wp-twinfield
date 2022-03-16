@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Finder;
 
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
  * Search response
@@ -94,10 +95,11 @@ class SearchResponse implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_twinfield_object( $object ) {
+		$data = ObjectAccess::from_object( $object );
+
 		return new self(
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$object->SearchResult,
-			FinderData::from_twinfield_object( $object->data )
+			$data->get_property( 'SearchResult' ),
+			FinderData::from_twinfield_object( $data->get_property( 'data' ) )
 		);
 	}
 }

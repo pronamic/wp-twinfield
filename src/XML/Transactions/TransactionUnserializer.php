@@ -11,18 +11,17 @@
 namespace Pronamic\WordPress\Twinfield\XML\Transactions;
 
 use DOMDocument;
+use DOMNode;
 use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Currency;
 use Pronamic\WordPress\Twinfield\DestinationOffice;
 use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 use Pronamic\WordPress\Twinfield\VatCode;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Transactions\Transaction;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionHeader;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionTypeCode;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionLine;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionLineDimension;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionResponse;
 use Pronamic\WordPress\Twinfield\Users\User;
 use Pronamic\WordPress\Twinfield\XML\Security;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
@@ -39,6 +38,8 @@ use Pronamic\WordPress\Twinfield\XML\DateTimeUnserializer;
 class TransactionUnserializer extends Unserializer {
 	/**
 	 * Constructs and initializes an sales invoice unserializer.
+	 *
+	 * @param Organisation $organisation Organisation.
 	 */
 	public function __construct( $organisation = null ) {
 		$this->organisation = $organisation;
@@ -51,6 +52,9 @@ class TransactionUnserializer extends Unserializer {
 	 * First.
 	 *
 	 * @link https://stackoverflow.com/questions/19555054/php-dom-how-to-get-child-elements-by-tag-name-in-an-elegant-manner
+	 * @param DOMNode $node DOMNode.
+	 * @param string  $name Name.
+	 * @throws \Exception Throws exception when element could not be found.
 	 */
 	private function get_element( $node, $name ) {
 		foreach ( $node->childNodes as $child ) {
@@ -71,7 +75,7 @@ class TransactionUnserializer extends Unserializer {
 	/**
 	 * Unserialize the specified XML to an article.
 	 *
-	 * @param \SimpleXMLElement $element The XML element to unserialize.
+	 * @param string $string The string to unserialize.
 	 */
 	public function unserialize_string( $string ) {
 		$document = new DOMDocument();

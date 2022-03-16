@@ -222,7 +222,7 @@ $twinfield = $organisation->get_twinfield();
 				],
 				[
 					'label' => \__( 'Budget', 'pronamic-twinfield' ),
-					'path'  => 'budget',
+					'path'  => 'budget/001',
 				],
 			];
 

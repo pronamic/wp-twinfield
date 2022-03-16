@@ -115,6 +115,7 @@ class Plugin {
 		);
 
 		// Authorize.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$this->maybe_handle_authorize( $_GET );
 	}
 
@@ -179,7 +180,7 @@ class Plugin {
 		if ( $response->is_error() ) {
 			$error = $response->as_error();
 
-			\wp_die( $error->get_error_message() );
+			\wp_die( \esc_html( $error->get_error_message() ) );
 		}
 
 		switch ( $type ) {
@@ -255,6 +256,7 @@ class Plugin {
 									 */
 									header( 'Content-Type: application/xml' );
 
+									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									echo $data->_embedded->response_xml;
 
 									exit;

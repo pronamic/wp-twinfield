@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Finder;
 
 use IteratorAggregate;
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
  * Finder data
@@ -32,14 +33,14 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	/**
 	 * The column names.
 	 *
-	 * @var ArrayOfString
+	 * @var array
 	 */
 	private $columns;
 
 	/**
 	 * The requested data items.
 	 *
-	 * @var ArrayOfArrayOfString
+	 * @var array
 	 */
 	private $items;
 
@@ -68,7 +69,7 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Get the column names.
 	 *
-	 * @return ArrayOfString
+	 * @return array
 	 */
 	public function get_columns() {
 		return $this->columns;
@@ -77,7 +78,7 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Get the requested data items.
 	 *
-	 * @return ArrayOfArrayOfString
+	 * @return array
 	 */
 	public function get_items() {
 		return $this->items;
@@ -112,7 +113,21 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	 * @return self
 	 */
 	public static function from_twinfield_object( $object ) {
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		return new self( $object->TotalRows, $object->Columns, $object->Items );
+		$data = ObjectAccess::from_object( $object );
+
+		$columns = $data->get_object( 'Columns' )->get_array( 'string' );
+
+		$items = \array_map(
+			function( $object ) {
+				return ObjectAccess::from_object( $object )->get_array( 'string' );
+			},
+			$data->get_object( 'Items' )->get_array( 'ArrayOfString' )
+		);
+
+		return new self(
+			$data->get_property( 'TotalRows' ),
+			$columns,
+			$items
+		);
 	}
 }

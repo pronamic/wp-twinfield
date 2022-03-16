@@ -299,7 +299,6 @@ class Client {
 	 */
 	private function get_soap_client_options() {
 		return [
-			'classmap'           => $this->get_class_map(),
 			'connection_timeout' => 30,
 			'trace'              => true,
 			'compression'        => \SOAP_COMPRESSION_ACCEPT | \SOAP_COMPRESSION_GZIP,
@@ -307,23 +306,6 @@ class Client {
 			'cache_wsdl'         => \WSDL_CACHE_MEMORY,
 			// Disable HTTP Keep Alive to prevent 'error fetching HTTP headers'.
 			'keep_alive'         => false,
-		];
-	}
-
-	/**
-	 * Get the class map to connect Twinfield classes to classes in this library.
-	 *
-	 * @return array
-	 */
-	private function get_class_map() {
-		return [
-			'ArrayOfArrayOfString'       => __NAMESPACE__ . '\ArrayOfArrayOfString',
-			'ArrayOfMessageOfErrorCodes' => __NAMESPACE__ . '\ArrayOfMessageOfErrorCodes',
-			'ArrayOfString'              => __NAMESPACE__ . '\ArrayOfString',
-			'MessageOfErrorCodes'        => __NAMESPACE__ . '\MessageOfErrorCodes',
-			'SelectCompanyResponse'      => __NAMESPACE__ . '\SelectCompanyResponse',
-			'GetBudgetTotalsResult'      => __NAMESPACE__ . '\Budget\GetBudgetTotalsResult',
-			'GetBudgetTotalResult'       => __NAMESPACE__ . '\Budget\GetBudgetTotalResult',
 		];
 	}
 }

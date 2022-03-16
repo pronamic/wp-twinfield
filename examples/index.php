@@ -44,12 +44,10 @@ if ( \is_readable( $authentication_file ) ) {
 	$authentication = Authentication\AuthenticationInfo::from_object( \json_decode( \file_get_contents( $authentication_file, true ) ) );
 }
 
-/**
- * @link https://github.com/googleapis/google-api-php-client/blob/master/docs/oauth-web.md#create-authorization-credentials
- * @link https://developers.google.com/gmail/api/quickstart/php
- */
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 if ( \array_key_exists( 'code', $_GET ) ) {
-	$response = $openid_connect_client->get_access_token( $_GET['code'] );
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$response = $openid_connect_client->get_access_token( \sanitize_text_field( $_GET['code'] ) );
 
 	$tokens = Authentication\AuthenticationTokens::from_object( $response );
 
@@ -59,6 +57,7 @@ if ( \array_key_exists( 'code', $_GET ) ) {
 
 	$authentication = new Authentication\AuthenticationInfo( $tokens, $validation );
 
+    // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
 	\file_put_contents( $authentication_file, \wp_json_encode( $authentication, \JSON_PRETTY_PRINT ) );
 
 	$url = \remove_query_arg( 'code' );
@@ -73,6 +72,7 @@ if ( isset( $authentication ) ) {
 
 	$client->set_authentication_refresh_handler(
 		function( $client ) use ( $authentication_file ) {
+            // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
 			\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
 		} 
 	);
@@ -93,8 +93,6 @@ if ( isset( $authentication ) ) {
 		$xml_response = $xml_processor->process_xml_string( $xml );
 
 		$transaction_response = Transactions\TransactionResponse::from_xml( $xml_response->get_result() );
-
-		var_dump( $transaction_response );
 	}
 }
 
@@ -407,17 +405,17 @@ if ( isset( $authentication ) ) {
 
 				$periods_service = $client->get_service( 'periods' );
 
-				$years = $periods_service->get_years( $office );
+				$office_years = $periods_service->get_years( $office );
 
-				$years = \array_reverse( $years );
+				$office_years = \array_reverse( $office_years );
 
 				?>
 				<ul>
 
-					<?php foreach ( $years as $year ) : ?>
+					<?php foreach ( $office_years as $office_year ) : ?>
 
 						<li>
-							<?php echo \esc_html( $year ); ?>
+							<?php echo \esc_html( $office_year ); ?>
 						</li>
 
 					<?php endforeach; ?>
@@ -426,12 +424,12 @@ if ( isset( $authentication ) ) {
 
 				<?php
 
-				$year = \wp_date( 'Y' );
+				$periods_year = \wp_date( 'Y' );
 
-				$periods = $periods_service->get_periods( $office, $year );
+				$periods = $periods_service->get_periods( $office, $periods_year );
 
 				?>
-				<h2><?php \printf( 'Periods Year: %s', \esc_html( $year ) ); ?></h2>
+				<h2><?php \printf( 'Periods Year: %s', \esc_html( $periods_year ) ); ?></h2>
 
 				<table>
 					<thead>

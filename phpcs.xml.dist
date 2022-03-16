@@ -15,6 +15,7 @@
 				<element value="childNodes" />
 				<element value="documentElement" />
 				<element value="ownerDocument" />
+				<element value="nodeName" />
 				<element value="nodeValue" />
 				<element value="formatOutput" />
 				<element value="preserveWhiteSpace" />

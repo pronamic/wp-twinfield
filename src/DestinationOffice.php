@@ -27,17 +27,6 @@ class DestinationOffice extends CodeName {
 	private $dimension_1;
 
 	/**
-	 * Construct a destination office.
-	 *
-	 * @param string      $code      Code.
-	 * @param string|null $name      Name.
-	 * @param string|null $shortname Shortname.
-	 */
-	public function __construct( $code ) {
-		parent::__construct( $code );
-	}
-
-	/**
 	 * Get dimension 1.
 	 *
 	 * @return CodeName|null

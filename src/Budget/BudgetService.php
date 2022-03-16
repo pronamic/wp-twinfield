@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Budget;
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
 use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 use SoapHeader;
 use SoapVar;
 
@@ -70,6 +71,13 @@ class BudgetService extends AbstractService {
 			)
 		);
 
-		return $result;
+		$totals = \array_map(
+			function( $object ) {
+				return BudgetTotalResult::from_twinfield_object( $object );
+			},
+			ObjectAccess::from_object( $result )->get_object( 'BudgetTotals' )->get_array( 'GetBudgetTotalResult' )
+		);
+
+		return $totals;
 	}
 }
