@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield;
 
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
  * XML Processor
@@ -41,20 +42,18 @@ class XMLProcessor extends AbstractService {
 	/**
 	 * Send the specified XML string to Twinfield for processing.
 	 *
-	 * @param ProcessXmlString|string $xml The XML string to process by Twinfield.
+	 * @param string $xml The XML string to process by Twinfield.
 	 * @return string
 	 */
 	public function process_xml_string( $xml ) {
 		$soap_client = $this->get_soap_client();
 
-		$string = $xml instanceof ProcessXmlString ? (string) $xml : $xml;
-
 		$data = [
-			'xmlRequest' => $string,
+			'xmlRequest' => $xml,
 		];
 
-		$response = $soap_client->ProcessXmlString( $data );
+		$response = $soap_client->__soapCall( 'ProcessXmlString', [ $data ] );
 
-		return $response;
+		return ObjectAccess::from_object( $response )->get_property( 'ProcessXmlStringResult' );
 	}
 }

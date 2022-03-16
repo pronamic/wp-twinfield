@@ -1,7 +1,21 @@
 <?php
+/**
+ * Settings
+ *
+ * @since      1.0.0
+ *
+ * @package    Pronamic/WordPress/Twinfield
+ */
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+/**
+ * Settings
+ *
+ * @since      1.0.0
+ * @package    Pronamic/WordPress/Twinfield
+ * @author     Remco Tolsma <info@remcotolsma.nl>
+ */
 class Settings {
 	/**
 	 * Twinfield plugin object.
@@ -10,21 +24,28 @@ class Settings {
 	 */
 	private $plugin;
 
-		/**
-		 * Constructs and initialize Twinfield plugin settings.
-		 */
+	/**
+	 * Construct Twinfield plugin settings.
+	 *
+	 * @param Plugin $plugin Plugin.
+	 */
 	public function __construct( Plugin $plugin ) {
 		$this->plugin = $plugin;
-
-		
 	}
 
+	/**
+	 * Setup.
+	 *
+	 * @return void
+	 */
 	public function setup() {
 		\add_action( 'admin_init', [ $this, 'admin_init' ] );
 	}
 
 	/**
-	 * Admin initialize
+	 * Admin initialize.
+	 *
+	 * @return void
 	 */
 	public function admin_init() {
 		// Section - OpenID Connect Authentication.

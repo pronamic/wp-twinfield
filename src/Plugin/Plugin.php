@@ -12,6 +12,7 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 use Pronamic\WordPress\Twinfield\Client;
+use WP_Post;
 
 /**
  * Plugin
@@ -117,6 +118,11 @@ class Plugin {
 		$this->maybe_handle_authorize( $_GET );
 	}
 
+	/**
+	 * Maybe handle authorize.
+	 *
+	 * @param array $data Data.
+	 */
 	public function maybe_handle_authorize( $data ) {
 		if ( ! \array_key_exists( 'code', $data ) ) {
 			return;
@@ -269,6 +275,11 @@ class Plugin {
 		return false;
 	}
 
+	/**
+	 * Get OpenID connect client.
+	 *
+	 * @return OpenIdConnectClient
+	 */
 	public function get_openid_connect_client() {
 		$client_id     = \get_option( 'pronamic_twinfield_openid_connect_client_id' );
 		$client_secret = \get_option( 'pronamic_twinfield_openid_connect_client_secret' );
@@ -278,6 +289,13 @@ class Plugin {
 		return $openid_connect_client;
 	}
 
+	/**
+	 * Save authentication.
+	 *
+	 * @param WP_Post            $post           Post.
+	 * @param AuthenticationInfo $authentication Authentication.
+	 * @return int|\WP_Error
+	 */
 	public function save_authentication( $post, $authentication ) {
 		return \wp_update_post(
 			[
@@ -294,6 +312,12 @@ class Plugin {
 		);
 	}
 
+	/**
+	 * Get client by post.
+	 *
+	 * @param WP_Post $post Post.
+	 * @return Client
+	 */
 	public function get_client( $post ) {
 		$openid_connect_client = $this->get_openid_connect_client();
 

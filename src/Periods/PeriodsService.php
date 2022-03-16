@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Periods;
 
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 use SoapHeader;
 use SoapVar;
@@ -48,6 +49,7 @@ class PeriodsService extends AbstractService {
 	 * Get years.
 	 *
 	 * @link   https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Miscellaneous/Period#Queries
+	 * @param Office $office Office.
 	 * @return array
 	 */
 	public function get_years( $office ) {
@@ -83,6 +85,8 @@ class PeriodsService extends AbstractService {
 	 * Get periods.
 	 *
 	 * @link   https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Miscellaneous/Period#Queries
+	 * @param Office $office Office.
+	 * @param int    $year   Year.
 	 * @return array
 	 */
 	public function get_periods( $office, $year ) {

@@ -10,7 +10,6 @@
 namespace Pronamic\WordPress\Twinfield\Browse;
 
 use Pronamic\WordPress\Twinfield\XMLProcessor;
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
 
 /**
  * Browser
@@ -38,7 +37,7 @@ class Browser {
 	 * @return BrowseDefinition
 	 */
 	public function get_browse_definition( BrowseReadRequest $request ) {
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+		$response = $this->xml_processor->process_xml_string( $request->to_xml() );
 
 		$string = $response->get_result();
 
@@ -58,9 +57,7 @@ class Browser {
 	public function get_xml_string( BrowseDefinition $browse_definition ) {
 		$string = $browse_definition->get_xml_columns()->asXML();
 
-		$process_xml_string = new ProcessXmlString( $string );
-
-		$response = $this->xml_processor->process_xml_string( $process_xml_string );
+		$response = $this->xml_processor->process_xml_string( $string );
 
 		return $response;
 	}

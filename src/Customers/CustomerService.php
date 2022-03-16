@@ -9,7 +9,6 @@
 
 namespace Pronamic\WordPress\Twinfield\Customers;
 
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\XMLProcessor;
 
 use Pronamic\WordPress\Twinfield\Browse\Browser;
@@ -63,7 +62,7 @@ class CustomerService {
 		</list>
 		';
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+		$response = $this->xml_processor->process_xml_string( $xml );
 
 		$xml = simplexml_load_string( $response );
 
@@ -94,7 +93,7 @@ class CustomerService {
 
 		$request = new CustomerReadRequestSerializer( new CustomerReadRequest( $office, $code ) );
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request ) );
+		$response = $this->xml_processor->process_xml_string( (string) $request );
 
 		$xml = simplexml_load_string( $response );
 
@@ -116,7 +115,7 @@ class CustomerService {
 	public function insert_customer( Customer $customer ) {
 		$xml = new CustomerSerializer( $customer );
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+		$response = $this->xml_processor->process_xml_string( (string) $xml );
 
 		$xml = simplexml_load_string( $response );
 

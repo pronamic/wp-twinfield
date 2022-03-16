@@ -9,10 +9,6 @@
 
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
-use Pronamic\WordPress\Twinfield\Client;
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
-use Pronamic\WordPress\Twinfield\XMLProcessor;
-use Pronamic\WordPress\Twinfield\XML\Security;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**

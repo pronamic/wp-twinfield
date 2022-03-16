@@ -1,4 +1,11 @@
 <?php
+/**
+ * Meta Box Offices
+ *
+ * @author Pronamic <info@pronamic.eu>
+ * @copyright 2005-2022 Pronamic
+ * @package Pronamic/WordPress/Twinfield
+ */
 
 namespace Pronamic\WordPress\Twinfield;
 

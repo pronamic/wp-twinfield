@@ -10,7 +10,6 @@
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use DateTimeInterface;
-use Pronamic\WordPress\Twinfield\Query;
 use SoapVar;
 
 /**

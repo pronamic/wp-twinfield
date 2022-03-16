@@ -9,12 +9,9 @@
 
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\XMLProcessor;
 use Pronamic\WordPress\Twinfield\Browse\Browser;
 use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
-use Pronamic\WordPress\Twinfield\Offices\Office;
-use Pronamic\WordPress\Twinfield\Relations\Relation;
 use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer;
 use Pronamic\WordPress\Twinfield\XML\Transactions\BrowseTransactionsUnserializer;
 
@@ -111,7 +108,7 @@ class TransactionService {
 
 		$request = new TransactionReadRequest( $office, $code, $number );
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+		$response = $this->xml_processor->process_xml_string( $request->to_xml() );
 
 		$xml = simplexml_load_string( $response );
 

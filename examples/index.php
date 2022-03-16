@@ -86,13 +86,11 @@ if ( isset( $authentication ) ) {
 
 		$xml = \wp_unslash( $_POST['pronamic_twinfield_xml'] );
 
-		$process_xml_string = new ProcessXmlString( $xml );
-
 		$xml_processor = $client->get_xml_processor();
 
 		$xml_processor->set_office( $office );
 
-		$xml_response = $xml_processor->process_xml_string( $process_xml_string );
+		$xml_response = $xml_processor->process_xml_string( $xml );
 
 		$transaction_response = Transactions\TransactionResponse::from_xml( $xml_response->get_result() );
 
@@ -486,7 +484,7 @@ if ( isset( $authentication ) ) {
 				 */
 				$browse_read_request = new Browse\BrowseReadRequest( $office->get_code(), '010' );
 
-				$browse_read_response = $xml_processor->process_xml_string( new ProcessXmlString( $browse_read_request->to_xml() ) );
+				$browse_read_response = $xml_processor->process_xml_string( $browse_read_request->to_xml() );
 
 				/**
 				 * 3. Fill in the selection criteria.
@@ -521,7 +519,7 @@ if ( isset( $authentication ) ) {
 
 				$browse_request_document->loadXML( $xml_columns_string );
 
-				$browse_response = $xml_processor->process_xml_string( new ProcessXmlString( $xml_columns_string ) );
+				$browse_response = $xml_processor->process_xml_string( $xml_columns_string );
 
 				$browse_response_document = new \DOMDocument();
 

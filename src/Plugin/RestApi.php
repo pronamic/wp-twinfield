@@ -11,7 +11,6 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
 use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
-use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
@@ -19,7 +18,6 @@ use Pronamic\WordPress\Twinfield\Budget\GetBudgetByProfitAndLossQuery;
 use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use Pronamic\WordPress\Twinfield\Offices\OfficesList;
 use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
 use Pronamic\WordPress\Twinfield\Transactions\DeletedTransactionsQuery;
@@ -1155,7 +1153,7 @@ class RestApi {
 
 		$request = new OfficeReadRequest( $office_code );
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+		$response = $xml_processor->process_xml_string( $request->to_xml() );
 
 		$data = [
 			'type'      => 'office',
@@ -1421,7 +1419,7 @@ class RestApi {
 			$request->get_param( 'transaction_number' )
 		);
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+		$response = $xml_processor->process_xml_string( $request->to_xml() );
 
 		$transaction_unserializer = new \Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer( $organisation );
 
@@ -1523,7 +1521,7 @@ class RestApi {
 			$request->get_param( 'invoice_number' )
 		);
 
-		$read_response = $xml_processor->process_xml_string( new ProcessXmlString( $read_request->to_xml() ) );
+		$read_response = $xml_processor->process_xml_string( $read_request->to_xml() );
 
 		$sales_invoice = \Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoice::from_xml( (string) $read_response, $organisation );
 
@@ -1672,7 +1670,7 @@ class RestApi {
 			$request->get_param( 'dimension_code' )
 		);
 
-		$dimension_read_response = $xml_processor->process_xml_string( new ProcessXmlString( $dimension_read_request->to_xml() ) );
+		$dimension_read_response = $xml_processor->process_xml_string( $dimension_read_request->to_xml() );
 
 		$dimension = Dimension::from_xml( (string) $dimension_read_response, $office );
 
@@ -1886,7 +1884,7 @@ class RestApi {
 
 		$xml = $document->saveXML( $document->documentElement );
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+		$response = $xml_processor->process_xml_string( $xml );
 
 		$rest_response = new \WP_REST_Response(
 			[
@@ -2002,7 +2000,7 @@ class RestApi {
 
 		$xml = $document->saveXML( $document->documentElement );
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+		$response = $xml_processor->process_xml_string( $xml );
 
 		$unserializer = new \Pronamic\WordPress\Twinfield\Browse\BrowseDataUnserializer( $organisation );
 

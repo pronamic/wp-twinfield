@@ -9,12 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Offices;
 
-use Pronamic\WordPress\Twinfield\Client;
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\ReadRequest;
-use Pronamic\WordPress\Twinfield\XMLProcessor;
-use Pronamic\WordPress\Twinfield\XML\Security;
-use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Office Read Request

@@ -21,8 +21,14 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/**
+ * Autoload.
+ */
 require __DIR__ . '/vendor/autoload.php';
 
+/**
+ * Bootstrap.
+ */
 $pronamic_twinfield_plugin = new Pronamic\WordPress\Twinfield\Plugin\Plugin( __FILE__ );
 
 $pronamic_twinfield_plugin->setup();

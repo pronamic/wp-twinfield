@@ -9,7 +9,6 @@
 
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
 use Pronamic\WordPress\Twinfield\XMLProcessor;
 use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceSerializer;
 use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
@@ -53,7 +52,7 @@ class SalesInvoiceService {
 
 		$request = new SalesInvoiceReadRequest( $office, $code, $number );
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $request->to_xml() ) );
+		$response = $this->xml_processor->process_xml_string( $request->to_xml() );
 
 		$xml = simplexml_load_string( $response );
 
@@ -77,7 +76,7 @@ class SalesInvoiceService {
 
 		$xml = new SalesInvoiceSerializer( $sales_invoice );
 
-		$response = $this->xml_processor->process_xml_string( new ProcessXmlString( $xml ) );
+		$response = $this->xml_processor->process_xml_string( $xml );
 
 		$xml = simplexml_load_string( $response );
 

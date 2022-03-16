@@ -10,10 +10,6 @@
 namespace Pronamic\WordPress\Twinfield\Offices;
 
 use Pronamic\WordPress\Twinfield\Client;
-use Pronamic\WordPress\Twinfield\ProcessXmlString;
-use Pronamic\WordPress\Twinfield\XMLProcessor;
-use Pronamic\WordPress\Twinfield\XML\Security;
-use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Office Service
@@ -67,8 +63,8 @@ class OfficeService {
 
 		$xml_processor->set_office( $office );
 
-		$response = $xml_processor->process_xml_string( new ProcessXmlString( $office_read_request->to_xml() ) );
+		$response = $xml_processor->process_xml_string( $office_read_request->to_xml() );
 
-		return Office::from_xml( \strval( $response ), $office );
+		return Office::from_xml( $response, $office );
 	}
 }

@@ -321,7 +321,6 @@ class Client {
 			'ArrayOfMessageOfErrorCodes' => __NAMESPACE__ . '\ArrayOfMessageOfErrorCodes',
 			'ArrayOfString'              => __NAMESPACE__ . '\ArrayOfString',
 			'MessageOfErrorCodes'        => __NAMESPACE__ . '\MessageOfErrorCodes',
-			'ProcessXmlStringResponse'   => __NAMESPACE__ . '\ProcessXmlStringResponse',
 			'SelectCompanyResponse'      => __NAMESPACE__ . '\SelectCompanyResponse',
 			'GetBudgetTotalsResult'      => __NAMESPACE__ . '\Budget\GetBudgetTotalsResult',
 			'GetBudgetTotalResult'       => __NAMESPACE__ . '\Budget\GetBudgetTotalResult',
