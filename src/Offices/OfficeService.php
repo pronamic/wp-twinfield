@@ -38,7 +38,7 @@ class OfficeService {
 	/**
 	 * Get offices.
 	 *
-	 * @return OfficesList
+	 * @return OfficesXmlReader
 	 */
 	public function get_offices() {
 		$xml_processor = $this->client->get_xml_processor();
@@ -47,7 +47,9 @@ class OfficeService {
 
 		$offices_list_response = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
 
-		return OfficesList::from_xml( (string) $offices_list_response, $this->client->get_organisation() );
+		$offices_xml_reader = new OfficesXmlReader( $this->client->get_organisation() );
+
+		return $offices_xml_reader->read( $offices_list_response );
 	}
 
 	/**

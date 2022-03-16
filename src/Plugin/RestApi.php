@@ -16,7 +16,7 @@ use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 use Pronamic\WordPress\Twinfield\Budget\BudgetByProfitAndLossQuery;
 use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
-use Pronamic\WordPress\Twinfield\Offices\OfficesList;
+use Pronamic\WordPress\Twinfield\Offices\OfficesXmlReader;
 use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
@@ -989,7 +989,9 @@ class RestApi {
 
 		$offices_list_response = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
 
-		$offices = OfficesList::from_xml( (string) $offices_list_response, $client->get_organisation() );
+		$offices_xml_reader = new OfficesXmlReader( $client->get_organisation() );
+
+		$offices = $offices_xml_reader->read( $offices_list_response );
 
 		/**
 		 * Envelope.

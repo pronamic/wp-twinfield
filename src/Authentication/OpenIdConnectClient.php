@@ -285,11 +285,7 @@ class OpenIdConnectClient {
 		// phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 		$data = \json_decode( \file_get_contents( $file, true ) );
 
-		$client = new self( $data->client_id, $data->client_secret );
-
-		if ( \property_exists( $data, 'redirect_uri' ) ) {
-			$client->set_redirect_uri( $data->redirect_uri );
-		}
+		$client = new self( $data->client_id, $data->client_secret, $data->redirect_uri );
 
 		return $client;
 	}

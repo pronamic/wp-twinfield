@@ -88,13 +88,21 @@ class Search {
 	 * @return array
 	 */
 	public function to_twinfield_object() {
+		$options = [];
+
+		foreach ( $this->options as $key => $value ) {
+			$options[] = [ $key, $value ];
+		}
+
 		return [
 			'type'     => $this->type,
 			'pattern'  => $this->pattern,
 			'field'    => $this->field,
 			'firstRow' => $this->first_row,
 			'maxRows'  => $this->max_rows,
-			'options'  => $this->options,
+			'options'  => [
+				'ArrayOfString' => $options,
+			],
 		];
 	}
 }
