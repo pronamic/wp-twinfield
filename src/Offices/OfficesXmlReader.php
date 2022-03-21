@@ -39,7 +39,7 @@ class OfficesXmlReader {
 
 		$offices = [];
 
-		foreach ( $simplexml->office as $office_xml  ) {
+		foreach ( $simplexml->office as $office_xml ) {
 			$office = $this->organisation->office( (string) $office_xml );
 
 			$office->set_name( (string) $office_xml['name'] );

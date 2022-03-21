@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Finder;
 
+use ArrayIterator;
 use IteratorAggregate;
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
@@ -87,10 +88,10 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Get iterator.
 	 *
-	 * @return \ArrayIterator
+	 * @return ArrayIterator
 	 */
 	public function getIterator() {
-		return $this->items->getIterator();
+		return new ArrayIterator( $this->items );
 	}
 
 	/**

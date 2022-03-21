@@ -67,6 +67,50 @@ if ( \array_key_exists( 'code', $_GET ) ) {
 	exit;
 }
 
+/**
+ * Maybe process XML.
+ *
+ * @param Client $client Client.
+ */
+function pronamic_twinfield_maybe_process_xml( Client $client ) {
+	if ( ! \array_key_exists( 'pronamic_twinfield_process_xml', $_POST ) ) {
+		return;
+	}
+
+	if ( ! \array_key_exists( 'pronamic_twinfield_nonce', $_POST ) ) {
+		return;
+	}
+
+	if ( ! \array_key_exists( 'pronamic_twinfield_office_code', $_POST ) ) {
+		return;
+	}
+
+	if ( ! \array_key_exists( 'pronamic_twinfield_xml', $_POST ) ) {
+		return;
+	}
+
+	if ( ! \wp_verify_nonce( \sanitize_text_field( \wp_unslash( $_POST['pronamic_twinfield_nonce'] ) ), 'pronamic_twinfield_process_xml' ) ) {
+		return;
+	}
+
+	$office_code = \sanitize_text_field( \wp_unslash( $_POST['pronamic_twinfield_office_code'] ) );
+
+	$organisation = $client->get_organisation();
+
+	$office = $organisation->new_office( $office_code );
+
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	$xml = \wp_unslash( $_POST['pronamic_twinfield_xml'] );
+
+	$xml_processor = $client->get_xml_processor();
+
+	$xml_processor->set_office( $office );
+
+	$xml_response = $xml_processor->process_xml_string( $xml );
+
+	$transaction_response = Transactions\TransactionResponse::from_xml( $xml_response->get_result() );
+}
+
 if ( isset( $authentication ) ) {
 	$client = new Client( $openid_connect_client, $authentication );
 
@@ -77,23 +121,7 @@ if ( isset( $authentication ) ) {
 		} 
 	);
 
-	$organisation = $client->get_organisation();
-
-	if ( \array_key_exists( 'pronamic_twinfield_process_xml', $_POST ) ) {
-		$office_code = \wp_unslash( $_POST['pronamic_twinfield_office_code'] );
-
-		$office = $organisation->new_office( $office_code );
-
-		$xml = \wp_unslash( $_POST['pronamic_twinfield_xml'] );
-
-		$xml_processor = $client->get_xml_processor();
-
-		$xml_processor->set_office( $office );
-
-		$xml_response = $xml_processor->process_xml_string( $xml );
-
-		$transaction_response = Transactions\TransactionResponse::from_xml( $xml_response->get_result() );
-	}
+	pronamic_twinfield_maybe_process_xml( $client );
 }
 
 ?>
@@ -304,6 +332,8 @@ if ( isset( $authentication ) ) {
 					<div>
 						<input type="hidden" name="pronamic_twinfield_office_code" value="<?php echo \esc_attr( $office->get_code() ); ?>" />
 
+						<?php \wp_nonce_field( 'pronamic_twinfield_process_xml', 'pronamic_twinfield_nonce' ); ?>
+
 						<button type="submit" name="pronamic_twinfield_process_xml">Submit</button>
 					</div>
 				</form>
@@ -390,12 +420,20 @@ if ( isset( $authentication ) ) {
 					$xbrl = $declarations_service->get_xbrl_by_summary( $summary );
 				}
 
-				if ( null !== $xbrl ) : 
+				if ( null !== $xbrl ) :
+
+					$document = new \DOMDocument();
+
+					$document->preserveWhiteSpace = false;
+					$document->formatOutput       = true;
+
+					$document->loadXML( $xbrl );
+
 					?>
 
 					<h2>Declaration XBRL</h2>
 
-					<?php var_dump( $xbrl ); ?>
+					<textarea class="code-mirror-xml"><?php echo \esc_textarea( $document->saveXML() ); ?></textarea>
 
 				<?php endif; ?>
 
@@ -489,7 +527,7 @@ if ( isset( $authentication ) ) {
 				 * 
 				 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Fill-in-the-selection-criteria
 				 */
-				$browse_definition = new Browse\BrowseDefinition( \simplexml_load_string( $browse_read_response->get_result() ) );
+				$browse_definition = new Browse\BrowseDefinition( \simplexml_load_string( $browse_read_response ) );
 
 				$browse_definition->get_column( 'fin.trs.head.yearperiod' )->between( '198501', '202201' );
 
@@ -524,7 +562,7 @@ if ( isset( $authentication ) ) {
 				$browse_response_document->preserveWhiteSpace = false;
 				$browse_response_document->formatOutput       = true;
 
-				$browse_response_document->loadXML( $browse_response->get_result() );
+				$browse_response_document->loadXML( $browse_response );
 
 				?>
 
@@ -540,7 +578,7 @@ if ( isset( $authentication ) ) {
 
 				<h4>Response</h4>
 
-				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_read_response->get_result() ); ?></textarea>
+				<textarea class="code-mirror-xml"><?php echo \esc_textarea( $browse_read_response ); ?></textarea>
 
 				<h3>4. Compose and send the (browse) query to Twinfield</h3>
 
