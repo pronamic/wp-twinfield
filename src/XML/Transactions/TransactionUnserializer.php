@@ -123,7 +123,6 @@ class TransactionUnserializer extends Unserializer {
 	public function unserialize( \SimpleXMLElement $element ) {
 		if ( 'transaction' === $element->getName() ) {
 			$transaction = new Transaction();
-			$transaction->set_webservice_origin( 'transactions' );
 
 			$header = $transaction->get_header();
 

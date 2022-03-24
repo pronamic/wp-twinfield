@@ -28,13 +28,6 @@ use JsonSerializable;
  */
 class Transaction implements JsonSerializable {
 	/**
-	 * Websevice origin.
-	 *
-	 * @var string|null
-	 */
-	private $webservice_origin;
-
-	/**
 	 * Browse definition.
 	 *
 	 * @var BrowseDefinition|null
@@ -99,24 +92,6 @@ class Transaction implements JsonSerializable {
 	 */
 	public function get_number() {
 		return $this->header->get_number();
-	}
-
-	/**
-	 * Get webservice origin.
-	 *
-	 * @return string|null
-	 */
-	public function get_webservice_origin() {
-		return $this->webservice_origin;
-	}
-
-	/**
-	 * Set webservice origin.
-	 *
-	 * @param string|null $webservice_origin Webservice origin.
-	 */
-	public function set_webservice_origin( $webservice_origin ) {
-		$this->webservice_origin = $webservice_origin;
 	}
 
 	/**

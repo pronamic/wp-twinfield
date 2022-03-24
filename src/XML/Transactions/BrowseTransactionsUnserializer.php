@@ -91,7 +91,6 @@ class BrowseTransactionsUnserializer extends Unserializer {
 				if ( ! isset( $this->transactions[ $transaction_key ] ) ) {
 					// Transaction.
 					$transaction = new Transaction();
-					$transaction->set_webservice_origin( 'browse' );
 					$transaction->set_browse_definition( $this->browse_definition );
 
 					$this->transactions[ $transaction_key ] = $transaction;
