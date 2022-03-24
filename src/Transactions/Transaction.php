@@ -70,6 +70,15 @@ class Transaction implements JsonSerializable {
 	}
 
 	/**
+	 * Get type.
+	 *
+	 * @return mixed
+	 */
+	public function get_type() {
+		return $this->transaction_type;
+	}
+
+	/**
 	 * Get office.
 	 *
 	 * @return Office

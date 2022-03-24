@@ -207,6 +207,12 @@ class Plugin {
 							include __DIR__ . '/../../templates/office.php';
 
 							return false;
+						case 'transaction':
+							$transaction = $data->data;
+
+							include __DIR__ . '/../../templates/transaction.php';
+
+							return false;
 						case 'sales_invoice':
 							$sales_invoice = $data->data;
 
