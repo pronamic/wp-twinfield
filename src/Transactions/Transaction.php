@@ -28,13 +28,6 @@ use JsonSerializable;
  */
 class Transaction implements JsonSerializable {
 	/**
-	 * Browse definition.
-	 *
-	 * @var BrowseDefinition|null
-	 */
-	private $browse_definition;
-
-	/**
 	 * Location.
 	 *
 	 * Indicate the destiny of the purchase transaction:
@@ -92,24 +85,6 @@ class Transaction implements JsonSerializable {
 	 */
 	public function get_number() {
 		return $this->header->get_number();
-	}
-
-	/**
-	 * Get browse definition.
-	 *
-	 * @return BrowseDefinition|null
-	 */
-	public function get_browse_definition() {
-		return $this->browse_definition;
-	}
-
-	/**
-	 * Set browse definition.
-	 *
-	 * @param BrowseDefinition|null $browse_definition Browse definition.
-	 */
-	public function set_browse_definition( $browse_definition ) {
-		$this->browse_definition = $browse_definition;
 	}
 
 	/**
