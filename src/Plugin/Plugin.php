@@ -12,6 +12,9 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
+use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Transactions\TransactionType;
 use WP_Post;
 
 /**
@@ -159,6 +162,38 @@ class Plugin {
 	}
 
 	/**
+	 * Get link for object.
+	 *
+	 * @param $object Object.
+	 * @return string
+	 */
+	public function get_link( $post_id, $object ) {
+		if ( $object instanceof Office ) {
+			return \home_url( 'pronamic-twinfield/authorizations/' . $post_id . '/offices/' . $object->get_code() );
+		}
+
+		if ( $object instanceof TransactionType ) {
+			$office = $object->get_office();
+
+			return \home_url( 'pronamic-twinfield/authorizations/' . $post_id . '/offices/' . $office->get_code() . '/transaction-types/' . $object->get_code() );
+		}
+
+		if ( $object instanceof Dimension ) {
+			return \home_url(
+				\strtr(
+					'pronamic-twinfield/v1/authorizations/:id/dimensions/:office_code/:dimension_type_code/:dimension_code',
+					[
+						':id'                  => $post_id,
+						':office_code'         => $object->get_type()->get_office()->get_code(),
+						':dimension_type_code' => $object->get_type()->get_code(),
+						':dimension_code'      => $object->get_code(),
+					]
+				)
+			);
+		}
+	}
+
+	/**
 	 * Template include.
 	 *
 	 * @link https://github.com/WordPress/WordPress/blob/5.5/wp-includes/template-loader.php#L97-L113
@@ -209,6 +244,7 @@ class Plugin {
 							return false;
 						case 'transaction':
 							$transaction = $data->data;
+							$post_id     = $data->post_id;
 
 							include __DIR__ . '/../../templates/transaction.php';
 

@@ -212,37 +212,34 @@ class TransactionUnserializer extends Unserializer {
 				}
 
 				if ( $dimensions_element->dim1 ) {
-					$dimension_1 = new Dimension(
-						Security::filter( $dimensions_element->dim1['dimensiontype'] ),
-						Security::filter( $dimensions_element->dim1 )
-					);
+					$dimension_type = $office->new_dimension_type( (string) $dimensions_element->dim1['dimensiontype'] );
+
+					$dimension_1 = $dimension_type->new_dimension( (string) $dimensions_element->dim1 );
 
 					$dimension_1->set_name( $dimensions_element->dim1['name'] );
-					$dimension_1->set_name( $dimensions_element->dim1['shortname'] );
+					$dimension_1->set_shortname( $dimensions_element->dim1['shortname'] );
 
 					$line->set_dimension_1( $dimension_1 );
 				}
 
 				if ( $dimensions_element->dim2 ) {
-					$dimension_2 = new Dimension(
-						Security::filter( $dimensions_element->dim2['dimensiontype'] ),
-						Security::filter( $dimensions_element->dim2 )
-					);
+					$dimension_type = $office->new_dimension_type( (string) $dimensions_element->dim2['dimensiontype'] );
+
+					$dimension_2 = $dimension_type->new_dimension( (string) $dimensions_element->dim2 );
 
 					$dimension_2->set_name( $dimensions_element->dim2['name'] );
-					$dimension_2->set_name( $dimensions_element->dim2['shortname'] );
+					$dimension_2->set_shortname( $dimensions_element->dim2['shortname'] );
 
 					$line->set_dimension_2( $dimension_2 );
 				}
 
 				if ( $dimensions_element->dim3 ) {
-					$dimension_3 = new Dimension(
-						Security::filter( $dimensions_element->dim3['dimensiontype'] ),
-						Security::filter( $dimensions_element->dim3 )
-					);
+					$dimension_type = $office->new_dimension_type( (string) $dimensions_element->dim3['dimensiontype'] );
+
+					$dimension_3 = $dimension_type->new_dimension( (string) $dimensions_element->dim3 );
 
 					$dimension_3->set_name( $dimensions_element->dim3['name'] );
-					$dimension_3->set_name( $dimensions_element->dim3['shortname'] );
+					$dimension_3->set_shortname( $dimensions_element->dim3['shortname'] );
 
 					$line->set_dimension_3( $dimension_3 );
 				}

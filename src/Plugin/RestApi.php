@@ -1430,6 +1430,7 @@ class RestApi {
 		$data = [
 			'type'      => 'transaction',
 			'data'      => $transaction,
+			'post_id'   => $post_id,
 			'_embedded' => (object) [
 				'request'  => $request->to_xml(),
 				'response' => (string) $response,
@@ -1437,6 +1438,22 @@ class RestApi {
 		];
 
 		$response = new \WP_REST_Response( $data );
+
+		$response->add_link(
+			'authorization',
+			\rest_url(
+				\strtr(
+					'pronamic-twinfield/v1/authorizations/:id',
+					[
+						':id' => $post_id,
+					]
+				)
+			),
+			[
+				'type'       => 'application/hal+json',
+				'embeddable' => true,
+			]
+		);
 
 		$response->add_link(
 			'transaction_type',

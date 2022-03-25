@@ -35,15 +35,15 @@ class Dimension extends CodeName implements JsonSerializable {
 	/**
 	 * Type.
 	 *
-	 * @var string
+	 * @var DimensionType
 	 */
 	private $type;
 
 	/**
 	 * Constructs and initializes a dimension.
 	 *
-	 * @param string $type      Type.
-	 * @param string $code      Code.
+	 * @param DimensionType $type      Type.
+	 * @param string        $code      Code.
 	 */
 	public function __construct( $type, $code ) {
 		parent::__construct( $code );
@@ -54,7 +54,7 @@ class Dimension extends CodeName implements JsonSerializable {
 	/**
 	 * Get type.
 	 *
-	 * @return string
+	 * @return DimensionType
 	 */
 	public function get_type() {
 		return $this->type;
@@ -63,7 +63,7 @@ class Dimension extends CodeName implements JsonSerializable {
 	/**
 	 * Set type.
 	 *
-	 * @param string $type The type.
+	 * @param DimensionType $type The type.
 	 */
 	public function set_type( $type ) {
 		$this->type = $type;

@@ -32,14 +32,6 @@ get_header();
 
 		$items = array(
 			(object) array(
-				'label' => __( 'Office', 'pronamic-twinfield' ),
-				'value' => $transaction->get_office()->get_code(),
-			),
-			(object) array(
-				'label' => __( 'Code', 'pronamic-twinfield' ),
-				'value' => $transaction->get_type()->get_code(),
-			),
-			(object) array(
 				'label' => __( 'Number', 'pronamic-twinfield' ),
 				'value' => $transaction->get_number(),
 			),
@@ -57,6 +49,35 @@ get_header();
 
 			<div class="content">
 				<dl class="dl-horizontal">
+					<dt><?php esc_html_e( 'Office', 'pronamic-twinfield' ); ?></dt>
+					<dd>
+						<?php
+
+						$office = $transaction->get_office();
+
+						printf(
+							'<a href="%s">%s</a>',
+							\esc_url( $this->get_link( $post_id, $office ) ),
+							\esc_html( $office->get_code() )
+						);
+
+						?>
+					</dd>
+
+					<dt><?php esc_html_e( 'Code', 'pronamic-twinfield' ); ?></dt>
+					<dd>
+						<?php
+
+						$type = $transaction->get_type();
+
+						printf(
+							'<a href="%s">%s</a>',
+							\esc_url( $this->get_link( $post_id, $type ) ),
+							\esc_html( $type->get_code() )
+						);
+
+						?>
+					</dd>
 
 					<?php foreach ( $items as $item ) : ?>
 
@@ -67,6 +88,91 @@ get_header();
 
 				</dl>
 			</div>
+		</div>
+
+		<div class="panel">
+			<header>
+				<h3><?php esc_html_e( 'Lines', 'pronamic-twinfield' ); ?></h3>
+			</header>
+
+			<table class="table table-striped table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th scope="col"><?php esc_html_e( 'ID', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Dimension 1', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Dimension 2', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Dimension 3', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Description', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Value', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Free Text 1', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Free Text 2', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Free Text 3', 'pronamic-twinfield' ); ?></th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<?php foreach ( $transaction->get_lines() as $line ) : ?>
+
+						<tr>
+							<td>
+								<?php echo esc_html( $line->get_id() ); ?>
+							</td>
+
+							<?php
+
+							$dimensions = array(
+								$line->get_dimension_1(),
+								$line->get_dimension_2(),
+								$line->get_dimension_3(),
+							);
+
+							foreach ( $dimensions as $dimension ) : ?>
+
+								<td>
+									<?php
+
+									if ( null !== $dimension ) {
+										printf(
+											'<a href="%s">%s</a>',
+											\esc_url( $this->get_link( $post_id, $dimension ) ),
+											\esc_html( 
+												\sprintf(
+													'%s - %s - %s',
+													$dimension->get_type()->get_code(),
+													$dimension->get_code(),
+													$dimension->get_name()
+												)
+											)
+										);
+									}
+
+									?>
+								</td>
+
+							<?php endforeach; ?>
+
+							<td>
+								<?php echo esc_html( $line->get_description() ); ?>
+							</td>
+							<td>
+								<?php echo esc_html( $line->get_value() ); ?>
+							</td>
+							<td>
+								<?php echo esc_html( $line->get_free_text_1() ); ?>
+							</td>
+							<td>
+								<?php echo esc_html( $line->get_free_text_2() ); ?>
+							</td>
+							<td>
+								<?php echo esc_html( $line->get_free_text_3() ); ?>
+							</td>
+						</tr>
+
+					<?php endforeach; ?>
+
+				</tbody>
+			</table>
 		</div>
 
 		<?php

@@ -77,7 +77,7 @@ class DimensionType implements JsonSerializable {
 	 * @return Dimension
 	 */
 	public function new_dimension( $code ) {
-		$dimension = new Dimension( $this->code, $code );
+		$dimension = new Dimension( $this, $code );
 
 		$this->dimensions[] = $dimension;
 
