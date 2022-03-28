@@ -9,10 +9,10 @@
 
 namespace Pronamic\WordPress\Twinfield\Browse;
 
-use DOMDocument;
-use DOMNode;
 use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionLine;
+use Pronamic\WordPress\Twinfield\XML\DateTimeUnserializer;
+use SimpleXMLElement;
 
 /**
  * Browse data unserializer
@@ -32,26 +32,6 @@ class BrowseDataUnserializer {
 	}
 
 	/**
-	 * Get first element.
-	 *
-	 * @param DOMNode $node Node.
-	 * @param string  $name Name.
-	 *
-	 * @return DOMNode
-	 *
-	 * @throws \Exception When element could not be found.
-	 */
-	private function get_element( DOMNode $node, $name ) {
-		$item = $node->getElementsByTagName( $name )->item( 0 );
-
-		if ( null === $item ) {
-			throw new \Exception( 'Could not find element.' );
-		}
-
-		return $item;
-	}
-
-	/**
 	 * Unserialize.
 	 * 
 	 * @param string $string XML.
@@ -60,27 +40,23 @@ class BrowseDataUnserializer {
 	public function unserialize( $string ) {
 		$data = [];
 
-		$document = new DOMDocument();
+		$simplexml = \simplexml_load_string( $string );
 
-		$document->loadXML( $string );
+		foreach ( $simplexml->tr as $tr ) {
+			$office = $this->organisation->office( (string) $tr->key->office );
 
-		$th = $this->get_element( $document, 'th' );
+			$type = $office->new_transaction_type( (string) $tr->key->code );
 
-		foreach ( $document->getElementsByTagName( 'tr' ) as $tr ) {
-			$key = $this->get_element( $tr, 'key' );
-			
-			$office = $this->organisation->office( $this->get_element( $key, 'office' )->nodeValue );
+			$transaction = $type->new_transaction( (string) $tr->key->number );
 
-			$type = $office->new_transaction_type( $this->get_element( $key, 'code' )->nodeValue );
+			$line = $transaction->new_line( (string) $tr->key->line );
 
-			$transaction = $type->new_transaction( $this->get_element( $key, 'number' )->nodeValue );
+			$index = 0;
 
-			$line = $transaction->new_line( $this->get_element( $key, 'line' )->nodeValue );
+			foreach ( $simplexml->th->td as $td ) {
+				$this->unserialize_td( (string) $td, $tr->td[ $index ], $line );
 
-			$tds = $tr->getElementsByTagName( 'td' );
-
-			foreach ( $th->getElementsByTagName( 'td' ) as $i => $td ) {
-				$this->unserialize_td( $td->nodeValue, $tds->item( $i ), $line );
+				$index++;
 			}
 
 			$data[] = $line;
@@ -98,28 +74,32 @@ class BrowseDataUnserializer {
 	 *
 	 * @return mixed|void
 	 */
-	private function unserialize_td( $key, DOMNode $node, TransactionLine $line ) {
+	private function unserialize_td( $key, SimpleXMLElement $element, TransactionLine $line ) {
 		switch ( $key ) {
+			case 'fin.trs.head.modified':
+				return $line->get_transaction()->get_header()->set_modification_date( \DateTimeImmutable::createFromFormat( 'YmdHis', (string) $element, new \DateTimeZone( 'UTC' ) ) );
 			case 'fin.trs.line.basevaluesigned':
-				return $line->set_base_value( $node->nodeValue );
+				return $line->set_base_value( (string) $element );
 			case 'fin.trs.line.openbasevaluesigned':
-				return $line->set_open_base_value( $node->nodeValue );
+				return $line->set_open_base_value( (string) $element );
 			case 'fin.trs.line.valuesigned':
-				return $line->set_value( $node->nodeValue );
+				return $line->set_value( (string) $element );
 			case 'fin.trs.line.debitcredit':
-				return $line->set_debit_credit( $node->nodeValue );
+				return $line->set_debit_credit( (string) $element );
 			case 'fin.trs.line.openbasevaluesigned':
-				return $line->set_open_base_value( $node->nodeValue );
+				return $line->set_open_base_value( (string) $element );
 			case 'fin.trs.line.dim1':
-				return $line->set_dimension_1( $node->nodeValue );
+				return $line->set_dimension_1( (string) $element );
 			case 'fin.trs.line.dim2':
-				return $line->set_dimension_2( $node->nodeValue );
+				return $line->set_dimension_2( (string) $element );
 			case 'fin.trs.line.dim3':
-				return $line->set_dimension_3( $node->nodeValue );
+				return $line->set_dimension_3( (string) $element );
 			case 'fin.trs.line.description':
-				return $line->set_description( $node->nodeValue );
+				return $line->set_description( (string) $element );
 			case 'fin.trs.line.invnumber':
-				return $line->set_invoice_number( $node->nodeValue );
+				return $line->set_invoice_number( (string) $element );
+			case 'fin.trs.line.matchdate':
+				return $line->set_match_date( \DateTimeImmutable::createFromFormat( 'Ymd', (string) $element, new \DateTimeZone( 'UTC' ) )->setTime( 0, 0 ) );
 		}
 	}
 }

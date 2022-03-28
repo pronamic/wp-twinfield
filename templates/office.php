@@ -411,6 +411,32 @@ $twinfield = $organisation->get_twinfield();
 									);
 								}
 
+								if ( \in_array( (string) $code, array( '100', '200' ), true ) ) {
+									$from = new \DateTime( 'yesterday' );
+									$to   = new \DateTime( 'tomorrow' );
+
+									$url = \add_query_arg(
+										array(
+											'values[fin.trs.line.matchdate]'   => \sprintf( '%s..%s', $from->format( 'Y-m-d' ), $to->format( 'Y-m-d' ) ),
+											'visibles[fin.trs.line.matchdate]' => '1',
+										),
+										$url
+									);
+								}
+
+								if ( '030_1' === $code ) {
+									$from = new \DateTime( 'yesterday' );
+									$to   = new \DateTime( 'tomorrow' );
+
+									$url = \add_query_arg(
+										array(
+											'values[fin.trs.head.modified]'   => \sprintf( '%s..%s', $from->format( 'YmdHis' ), $to->format( 'YmdHis' ) ),
+											'visibles[fin.trs.head.modified]' => '1',
+										),
+										$url
+									);
+								}
+
 								printf(
 									'<a href="%s">%s</a>',
 									esc_url( $url ),

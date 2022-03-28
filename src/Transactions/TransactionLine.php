@@ -951,14 +951,18 @@ class TransactionLine implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
+		$modification_date = $this->transaction->get_header()->get_modification_date();
+
 		return [
-			'office'          => $this->transaction->get_transaction_type()->get_office()->get_code(),
-			'code'            => $this->transaction->get_transaction_type()->get_code(),
-			'number'          => $this->transaction->get_number(),
-			'line'            => $this->id,
-			'type'            => $this->type,
-			'base_value'      => $this->base_value,
-			'base_value_open' => $this->base_value_open,
+			'office'            => $this->transaction->get_transaction_type()->get_office()->get_code(),
+			'code'              => $this->transaction->get_transaction_type()->get_code(),
+			'number'            => $this->transaction->get_number(),
+			'line'              => $this->id,
+			'type'              => $this->type,
+			'base_value'        => $this->base_value,
+			'base_value_open'   => $this->base_value_open,
+			'modification_date' => ( null === $modification_date ) ? null : $modification_date->format( DATE_ATOM ),
+			'match_date'        => ( null === $this->match_date ) ? null : $this->match_date->format( DATE_ATOM ),
 		];
 	}
 }

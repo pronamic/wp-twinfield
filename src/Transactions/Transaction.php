@@ -168,17 +168,20 @@ class Transaction implements JsonSerializable {
 					'id'              => $line->get_id(),
 					'type'            => $line->get_type(),
 					'base_value'      => $line->get_base_value(),
-					'open_base_value' => $line->get_open_base_value(),
+					'base_value_open' => $line->get_base_value_open(),
 				];
 			},
 			$this->lines
 		);
 
+		$modification_date = $this->get_header()->get_modification_date();
+
 		return [
 			'header' => [
-				'office' => $this->get_transaction_type()->get_office()->get_code(),
-				'code'   => $this->get_transaction_type()->get_code(),
-				'number' => $this->get_header()->get_number(),
+				'office'            => $this->get_transaction_type()->get_office()->get_code(),
+				'code'              => $this->get_transaction_type()->get_code(),
+				'number'            => $this->get_header()->get_number(),
+				'modification_date' => ( null === $modification_date ) ? null : $modification_date->format( DATE_ATOM ),
 			],
 			'lines'  => $lines,
 		];
