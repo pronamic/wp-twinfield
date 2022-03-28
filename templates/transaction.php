@@ -104,6 +104,7 @@ get_header();
 						<th scope="col"><?php esc_html_e( 'Dimension 3', 'pronamic-twinfield' ); ?></th>
 						<th scope="col"><?php esc_html_e( 'Description', 'pronamic-twinfield' ); ?></th>
 						<th scope="col"><?php esc_html_e( 'Value', 'pronamic-twinfield' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Value Open', 'pronamic-twinfield' ); ?></th>
 						<th scope="col"><?php esc_html_e( 'Free Text 1', 'pronamic-twinfield' ); ?></th>
 						<th scope="col"><?php esc_html_e( 'Free Text 2', 'pronamic-twinfield' ); ?></th>
 						<th scope="col"><?php esc_html_e( 'Free Text 3', 'pronamic-twinfield' ); ?></th>
@@ -156,7 +157,10 @@ get_header();
 								<?php echo esc_html( $line->get_description() ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $line->get_value() ); ?>
+								<?php echo esc_html( $line->get_base_value() ); ?>
+							</td>
+							<td>
+								<?php echo esc_html( $line->get_base_value_open() ); ?>
 							</td>
 							<td>
 								<?php echo esc_html( $line->get_free_text_1() ); ?>

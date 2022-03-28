@@ -8,15 +8,13 @@
  * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\Customers;
+namespace Pronamic\WordPress\Twinfield\Customers;
 
 use Pronamic\WordPress\Twinfield\Country;
 use Pronamic\WordPress\Twinfield\DimensionTypes;
 use Pronamic\WordPress\Twinfield\EmailList;
 use Pronamic\WordPress\Twinfield\XML\Security;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
-use Pronamic\WordPress\Twinfield\Customers\Customer;
-use Pronamic\WordPress\Twinfield\Customers\CustomerResponse;
 
 /**
  * Sales invoices unserializer

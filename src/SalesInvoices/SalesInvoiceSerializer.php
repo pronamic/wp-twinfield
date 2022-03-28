@@ -8,10 +8,9 @@
  * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 use Pronamic\WordPress\Twinfield\XML\Serializer;
-use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoice;
 
 /**
  * Sales invoice serializer

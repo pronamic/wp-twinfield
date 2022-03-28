@@ -8,12 +8,9 @@
  * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\Articles;
+namespace Pronamic\WordPress\Twinfield\Articles;
 
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
-use Pronamic\WordPress\Twinfield\Articles\Article;
-use Pronamic\WordPress\Twinfield\Articles\ArticleHeader;
-use Pronamic\WordPress\Twinfield\Articles\ArticleLine;
 
 /**
  * Article unserializer

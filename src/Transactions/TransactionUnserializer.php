@@ -8,7 +8,7 @@
  * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\Transactions;
+namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use DOMDocument;
 use DOMNode;
@@ -19,8 +19,6 @@ use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 use Pronamic\WordPress\Twinfield\VatCode;
 use Pronamic\WordPress\Twinfield\Offices\Office;
-use Pronamic\WordPress\Twinfield\Transactions\Transaction;
-use Pronamic\WordPress\Twinfield\Transactions\TransactionTypeCode;
 use Pronamic\WordPress\Twinfield\Transactions\TransactionLineDimension;
 use Pronamic\WordPress\Twinfield\Users\User;
 use Pronamic\WordPress\Twinfield\XML\Security;
@@ -266,7 +264,7 @@ class TransactionUnserializer extends Unserializer {
 				}
 
 				if ( $element_line->basevalueopen ) {
-					$line->set_open_base_value( Security::filter( $element_line->basevalueopen, FILTER_VALIDATE_FLOAT ) );
+					$line->set_base_value_open( Security::filter( $element_line->basevalueopen, FILTER_VALIDATE_FLOAT ) );
 				}
 
 				if ( $element_line->value ) {

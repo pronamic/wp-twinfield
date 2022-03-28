@@ -1423,7 +1423,7 @@ class RestApi {
 
 		$response = $xml_processor->process_xml_string( $request->to_xml() );
 
-		$transaction_unserializer = new \Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer( $organisation );
+		$transaction_unserializer = new \Pronamic\WordPress\Twinfield\Transactions\TransactionUnserializer( $organisation );
 
 		$transaction = $transaction_unserializer->unserialize_string( (string) $response );
 

@@ -8,11 +8,10 @@
  * @package    Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\Customers;
+namespace Pronamic\WordPress\Twinfield\Customers;
 
 use Pronamic\WordPress\Twinfield\DimensionTypes;
 use Pronamic\WordPress\Twinfield\XML\Serializer;
-use Pronamic\WordPress\Twinfield\Customers\Customer;
 
 /**
  * Sales invoice serializer

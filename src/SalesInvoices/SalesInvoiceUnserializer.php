@@ -8,15 +8,11 @@
  * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\SalesInvoices;
+namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 use Pronamic\WordPress\Twinfield\XML\Security;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
 use Pronamic\WordPress\Twinfield\XML\DateUnserializer;
-use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoice;
-use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceHeader;
-use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceLine;
-use Pronamic\WordPress\Twinfield\SalesInvoices\SalesInvoiceResponse;
 use Pronamic\WordPress\Twinfield\VatCode;
 
 /**

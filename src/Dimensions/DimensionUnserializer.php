@@ -8,7 +8,7 @@
  * @package    Pronamic/WordPress/Twinfield/XML/Articles
  */
 
-namespace Pronamic\WordPress\Twinfield\XML\Dimensions;
+namespace Pronamic\WordPress\Twinfield\Dimensions;
 
 use Pronamic\WordPress\Twinfield\DimensionTypes;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;

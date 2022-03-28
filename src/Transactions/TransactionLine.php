@@ -512,8 +512,8 @@ class TransactionLine implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function get_open_base_value() {
-		return $this->open_base_value;
+	public function get_base_value_open() {
+		return $this->base_value_open;
 	}
 
 	/**
@@ -521,26 +521,8 @@ class TransactionLine implements JsonSerializable {
 	 *
 	 * @param string $value The value.
 	 */
-	public function set_open_base_value( $value ) {
-		$this->open_base_value = $value;
-	}
-
-	/**
-	 * Get the signed open base value of this transaction line.
-	 *
-	 * @return string
-	 */
-	public function get_open_base_value_signed() {
-		return $this->open_base_value_signed;
-	}
-
-	/**
-	 * Set the signed  open base value of this transaction line.
-	 *
-	 * @param string $value The value.
-	 */
-	public function set_open_base_value_signed( $value ) {
-		$this->open_base_value_signed = $value;
+	public function set_base_value_open( $value ) {
+		$this->base_value_open = $value;
 	}
 
 	/**
@@ -976,7 +958,7 @@ class TransactionLine implements JsonSerializable {
 			'line'            => $this->id,
 			'type'            => $this->type,
 			'base_value'      => $this->base_value,
-			'open_base_value' => $this->open_base_value,
+			'base_value_open' => $this->base_value_open,
 		];
 	}
 }
