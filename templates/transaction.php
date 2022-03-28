@@ -128,7 +128,8 @@ get_header();
 								$line->get_dimension_3(),
 							);
 
-							foreach ( $dimensions as $dimension ) : ?>
+							foreach ( $dimensions as $dimension ) : 
+								?>
 
 								<td>
 									<?php
