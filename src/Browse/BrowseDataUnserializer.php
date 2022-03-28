@@ -68,9 +68,9 @@ class BrowseDataUnserializer {
 	/**
 	 * Unserialize table data.
 	 *
-	 * @param string          $key  Key.
-	 * @param DOMNode         $node Node.
-	 * @param TransactionLine $line Line.
+	 * @param string           $key     Key.
+	 * @param SimpleXMLElement $element SimpleXmlElement.
+	 * @param TransactionLine  $line    Line.
 	 *
 	 * @return mixed|void
 	 */

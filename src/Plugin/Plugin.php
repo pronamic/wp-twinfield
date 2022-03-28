@@ -164,7 +164,8 @@ class Plugin {
 	/**
 	 * Get link for object.
 	 *
-	 * @param $object Object.
+	 * @param int    $post_id Post ID.
+	 * @param object $object  Object.
 	 * @return string
 	 */
 	public function get_link( $post_id, $object ) {

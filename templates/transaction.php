@@ -68,12 +68,12 @@ get_header();
 					<dd>
 						<?php
 
-						$type = $transaction->get_type();
+						$transaction_type = $transaction->get_type();
 
 						printf(
 							'<a href="%s">%s</a>',
-							\esc_url( $this->get_link( $post_id, $type ) ),
-							\esc_html( $type->get_code() )
+							\esc_url( $this->get_link( $post_id, $transaction_type ) ),
+							\esc_html( $transaction_type->get_code() )
 						);
 
 						?>

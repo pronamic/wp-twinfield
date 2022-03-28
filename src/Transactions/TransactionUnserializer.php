@@ -61,6 +61,7 @@ class TransactionUnserializer extends Unserializer {
 	 * Unserialize the specified XML to an article.
 	 *
 	 * @param \SimpleXMLElement $element The XML element to unserialize.
+	 * @throws \Exception Throws exception when XML does not conform to schema.
 	 */
 	public function unserialize( \SimpleXMLElement $element ) {
 		if ( 'transaction' !== $element->getName() ) {
