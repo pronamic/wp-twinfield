@@ -13,8 +13,8 @@ namespace Pronamic\WordPress\Twinfield\Dimensions;
 use Pronamic\WordPress\Twinfield\DimensionTypes;
 use Pronamic\WordPress\Twinfield\XML\Unserializer;
 use Pronamic\WordPress\Twinfield\XML\Security;
-use Pronamic\WordPress\Twinfield\XML\Customers\CustomerUnserializer;
-use Pronamic\WordPress\Twinfield\XML\Suppliers\SupplierUnserializer;
+use Pronamic\WordPress\Twinfield\Customers\CustomerUnserializer;
+use Pronamic\WordPress\Twinfield\Suppliers\SupplierUnserializer;
 
 /**
  * Dimension unserializer

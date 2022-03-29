@@ -14,7 +14,6 @@ use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
 use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\UniqueIdentificationTrait;
-use Pronamic\WordPress\Twinfield\XML\Dimensions\DimensionUnserializer;
 
 /**
  * Dimension
