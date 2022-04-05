@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+use Pronamic\WordPress\Twinfield\Customers\Customer;
 use Pronamic\WordPress\Twinfield\Suppliers\Supplier;
 use Pronamic\WordPress\Twinfield\Dimensions\Dimension;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
@@ -422,6 +423,18 @@ class RestApi {
 											$supplier->set_office( $office );
 
 											$data[] = $this->add_links_to_collection_item( 'pronamic-twinfield/v1/authorizations/' . $post->ID, $supplier );
+										}
+
+										return $data;
+									case 'DEB':
+										$data = array();
+
+										foreach ( $response->get_data() as $item ) {
+											$customer = new Customer( $dimtype, $item[0] );
+											$customer->set_name( $item[1] );
+											$customer->set_office( $office );
+
+											$data[] = $this->add_links_to_collection_item( 'pronamic-twinfield/v1/authorizations/' . $post->ID, $customer );
 										}
 
 										return $data;

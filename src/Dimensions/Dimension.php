@@ -14,6 +14,7 @@ use Pronamic\WordPress\Twinfield\CodeName;
 use Pronamic\WordPress\Twinfield\Traits\StatusTrait;
 use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\UniqueIdentificationTrait;
+use Pronamic\WordPress\Twinfield\Traits\OfficeTrait;
 
 /**
  * Dimension
@@ -30,6 +31,8 @@ class Dimension extends CodeName implements JsonSerializable {
 	use ModifiedTrait;
 
 	use UniqueIdentificationTrait;
+
+	use OfficeTrait;
 
 	/**
 	 * Type.
@@ -80,6 +83,7 @@ class Dimension extends CodeName implements JsonSerializable {
 			'name'      => $this->get_name(),
 			'shortname' => $this->get_shortname(),
 			'uid'       => $this->get_uid(),
+			'status'    => $this->get_status(),
 		];
 	}
 
@@ -90,7 +94,7 @@ class Dimension extends CodeName implements JsonSerializable {
 	 * @param Office $office Office.
 	 */
 	public static function from_xml( $xml, $office ) {
-		$unserializer = new DimensionUnserializer();
+		$unserializer = new DimensionUnserializer( $office->get_organisation() );
 
 		$simplexml = \simplexml_load_string( $xml );
 

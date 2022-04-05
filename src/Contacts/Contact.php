@@ -22,20 +22,6 @@ use Pronamic\WordPress\Twinfield\Dimensions\DimensionType;
  */
 class Contact extends Dimension {
 	/**
-	 * Office.
-	 *
-	 * @var string
-	 */
-	private $office;
-
-	/**
-	 * Name.
-	 *
-	 * @var string
-	 */
-	private $name;
-
-	/**
 	 * Website.
 	 *
 	 * @var string
@@ -59,42 +45,6 @@ class Contact extends Dimension {
 		parent::__construct( $type, $code );
 
 		$this->addresses = [];
-	}
-
-	/**
-	 * Get office.
-	 *
-	 * @return string
-	 */
-	public function get_office() {
-		return $this->office;
-	}
-
-	/**
-	 * Set office
-	 *
-	 * @param string $office The office.
-	 */
-	public function set_office( $office ) {
-		$this->office = $office;
-	}
-
-	/**
-	 * Get name.
-	 *
-	 * @return string
-	 */
-	public function get_name() {
-		return $this->name;
-	}
-
-	/**
-	 * Set name.
-	 *
-	 * @param string $name The name.
-	 */
-	public function set_name( $name ) {
-		$this->name = $name;
 	}
 
 	/**

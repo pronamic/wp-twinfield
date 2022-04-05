@@ -225,6 +225,12 @@ class Plugin {
 
 				if ( \property_exists( $data, 'type' ) ) {
 					switch ( $data->type ) {
+						case 'dimension':
+							$dimension = $data->data;
+
+							include __DIR__ . '/../../templates/dimension.php';
+
+							return false;
 						case 'organisation':
 							$organisation = $data->data;
 

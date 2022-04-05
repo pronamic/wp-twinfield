@@ -38,10 +38,11 @@ class Customer extends Contact {
 	/**
 	 * Construct customer.
 	 *
+	 * @param string $type Type.
 	 * @param string $code Code.
 	 */
-	public function __construct( $code ) {
-		parent::__construct( 'DEB', $code );
+	public function __construct( $type, $code ) {
+		parent::__construct( $type, $code );
 
 		$this->financials        = new CustomerFinancials();
 		$this->credit_management = new CustomerCreditManagement();
