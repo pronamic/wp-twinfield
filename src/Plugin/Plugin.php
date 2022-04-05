@@ -228,7 +228,13 @@ class Plugin {
 						case 'dimension':
 							$dimension = $data->data;
 
-							include __DIR__ . '/../../templates/dimension.php';
+							$template = 'dimension.php';
+
+							if ( 'DEB' === $dimension->get_type() ) {
+								$template = 'customer.php';
+							}
+
+							include __DIR__ . '/../../templates/' . $template;
 
 							return false;
 						case 'organisation':
