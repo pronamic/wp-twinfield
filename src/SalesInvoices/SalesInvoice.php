@@ -10,7 +10,6 @@
 namespace Pronamic\WordPress\Twinfield\SalesInvoices;
 
 use Pronamic\WordPress\Twinfield\Organisations\Organisation;
-use Pronamic\WordPress\Twinfield\XML\SalesInvoices\SalesInvoiceUnserializer;
 use JsonSerializable;
 
 /**
