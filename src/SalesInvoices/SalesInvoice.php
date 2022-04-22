@@ -214,9 +214,7 @@ class SalesInvoice implements JsonSerializable {
 	 */
 	public static function from_xml( $xml, $organisation ) {
 		$unserializer = new SalesInvoiceUnserializer();
-		
-		$simplexml = \simplexml_load_string( $xml );
 
-		return $unserializer->unserialize( $simplexml );
+		return $unserializer->unserialize( $xml );
 	}
 }
