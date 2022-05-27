@@ -9,6 +9,8 @@
 
 namespace Pronamic\WordPress\Twinfield\Utility;
 
+use JsonSerializable;
+
 /**
  * Object access
  *
@@ -18,7 +20,7 @@ namespace Pronamic\WordPress\Twinfield\Utility;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class ObjectAccess {
+class ObjectAccess implements JsonSerializable {
 	/**
 	 * Construct object access.
 	 * 
@@ -82,5 +84,14 @@ class ObjectAccess {
 	 */
 	public static function from_object( $object ) {
 		return new self( $object );
+	}
+
+	/**
+	 * Serialize to JSON.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return $this->object;
 	}
 }

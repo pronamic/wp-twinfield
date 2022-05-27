@@ -851,6 +851,41 @@ class RestApi {
 				],
 			]
 		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/bank-statements',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_bank_statements' ],
+				'permission_callback' => function () {
+					return true;
+				},
+				'args'                => [
+					'post_id'        => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+					],
+					'office_code'    => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+					],
+					'date_from'      => [
+						'description' => 'All statements with a statement date equal to or higher than this value will be included.',
+						'type'        => 'string',
+					],
+					'date_to'        => [
+						'description' => 'All statements with a statement date equal to or lower than this value will be included.',
+						'type'        => 'string',
+					],
+					'include_posted' => [
+						'description' => 'If value is true, statements that have been posted will be included.',
+						'type'        => 'boolean',
+					],
+				],
+			]
+		);
 	}
 
 	/**
@@ -2099,5 +2134,31 @@ class RestApi {
 		);
 
 		return $rest_response;
+	}
+
+	/**
+	 * REST API bank statements.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
+	public function rest_api_bank_statements( WP_REST_Request $request ) {
+		$post_id = $request->get_param( 'post_id' );
+
+		$post = get_post( $post_id );
+
+		$client = $this->plugin->get_client( $post );
+
+		$organisation = $client->get_organisation();
+
+		$office_code = $request->get_param( 'office_code' );
+
+		$office = $organisation->office( $office_code );
+
+		$bank_statements_service = new \Pronamic\WordPress\Twinfield\BankStatements\BankStatementsService( $client );
+
+		$bank_statements = $bank_statements_service->get_bank_statements( $office );
+
+		return $bank_statements;
 	}
 }

@@ -224,6 +224,10 @@ $twinfield = $organisation->get_twinfield();
 					'label' => \__( 'Budget', 'pronamic-twinfield' ),
 					'path'  => 'budget/001',
 				],
+				[
+					'label' => \__( 'Bank Statements', 'pronamic-twinfield' ),
+					'path'  => 'bank-statements',
+				],
 			];
 
 			?>
