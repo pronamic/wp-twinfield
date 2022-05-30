@@ -18,7 +18,7 @@ use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
  */
 class BankStatementLine implements JsonSerializable {
 	/**
-	 * ne identifier.
+	 * Line identifier.
 	 * 
 	 * @var int
 	 */
@@ -103,8 +103,19 @@ class BankStatementLine implements JsonSerializable {
 
 	/**
 	 * Construct bank statement line.
-	 * 
-	 * @param int $id Line identifier.
+	 *
+	 * @param int    $id                    Line identifier.
+	 * @param string $contra_account_number Basic bank account number (BBAN) of the contraparty.
+	 * @param string $contra_iban           International bank account number (IBAN) of the contraparty.
+	 * @param string $contra_account_name   Bank account name of the contraparty.
+	 * @param string $payment_reference     Transaction payment reference.
+	 * @param string $amount                Transaction amount.
+	 * @param string $base_amount           Transaction amount in the base currency.
+	 * @param string $description           Transaction description.
+	 * @param string $transaction_type_id   Transaction type identification code.
+	 * @param string $reference             Transaction reference of the bank.
+	 * @param string $end_to_end_id         Unique identification assigned by the initiating party.
+	 * @param string $return_reason         Return reason code for returned or rejected transaction.
 	 */
 	public function __construct( $id, $contra_account_number, $contra_iban, $contra_account_name, $payment_reference, $amount, $base_amount, $description, $transaction_type_id, $reference, $end_to_end_id, $return_reason ) {
 		$this->id                    = $id;

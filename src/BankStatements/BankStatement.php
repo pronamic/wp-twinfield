@@ -69,14 +69,14 @@ class BankStatement implements JsonSerializable {
 	/**
 	 * Opening balance amount.
 	 * 
-	 * @var float
+	 * @var string
 	 */
 	private $opening_balance;
 
 	/**
 	 * Closing balance amount.
 	 * 
-	 * @var float
+	 * @var string
 	 */
 	private $closing_balance;
 
@@ -97,13 +97,15 @@ class BankStatement implements JsonSerializable {
 	/**
 	 * Construct bank statement.
 	 * 
-	 * @param string            $code           Code.
-	 * @param int               $number         Number.
-	 * @param int               $sub_id         Sub ID.
-	 * @param string            $account_number Account number.
-	 * @param string            $iban           IBAN.
-	 * @param DateTimeInterface $statement_date Statement date.
-	 * @param string            $currency       Currency.
+	 * @param string            $code            Code.
+	 * @param int               $number          Number.
+	 * @param int               $sub_id          Sub ID.
+	 * @param string            $account_number  Account number.
+	 * @param string            $iban            IBAN.
+	 * @param DateTimeInterface $statement_date  Statement date.
+	 * @param string            $currency        Currency.
+	 * @param string            $opening_balance Opening balance amount.
+	 * @param string            $closing_balance Closing balance amount.
 	 */
 	public function __construct( $code, $number, $sub_id, $account_number, $iban, DateTimeInterface $statement_date, $currency, $opening_balance, $closing_balance ) {
 		$this->code            = $code;
