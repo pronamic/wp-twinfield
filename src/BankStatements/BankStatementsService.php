@@ -48,7 +48,7 @@ class BankStatementsService extends AbstractService {
 	 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseBankStatements
 	 * @param Office              $office The office for which the returns should be retrieved. Mandatory.
 	 * @param BankStatementsQuery $query  The get bank statements query.
-	 * @return array
+	 * @return BankStatements
 	 * @throws \Exception When no summaries could be found for the specified office.
 	 */
 	public function get_bank_statements( Office $office, BankStatementsQuery $query ) {
