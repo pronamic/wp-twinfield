@@ -36,6 +36,16 @@ class ObjectAccess implements JsonSerializable {
 	}
 
 	/**
+	 * Checks if the object has a property.
+	 *
+	 * @param string $property Property.
+	 * @return bool True if the property exists, false if it doesn't exist.
+	 */
+	public function has_property( $property ) {
+		return \property_exists( $this->object, $property );
+	}
+
+	/**
 	 * Get property.
 	 * 
 	 * @param string $property Property.

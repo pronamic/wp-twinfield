@@ -74,11 +74,39 @@ class BankStatementLine implements JsonSerializable {
 	private $description;
 
 	/**
+	 * Transaction type identification code.
+	 * 
+	 * @var string
+	 */
+	private $transaction_type_id;
+
+	/**
+	 * Transaction reference of the bank.
+	 * 
+	 * @var string
+	 */
+	private $reference;
+
+	/**
+	 * Unique identification assigned by the initiating party.
+	 * 
+	 * @var string
+	 */
+	private $end_to_end_id;
+
+	/**
+	 * Return reason code for returned or rejected transaction.
+	 * 
+	 * @var string
+	 */
+	private $return_reason;
+
+	/**
 	 * Construct bank statement line.
 	 * 
 	 * @param int $id Line identifier.
 	 */
-	public function __construct( $id, $contra_account_number, $contra_iban, $contra_account_name, $payment_reference, $amount, $base_amount, $description ) {
+	public function __construct( $id, $contra_account_number, $contra_iban, $contra_account_name, $payment_reference, $amount, $base_amount, $description, $transaction_type_id, $reference, $end_to_end_id, $return_reason ) {
 		$this->id                    = $id;
 		$this->contra_account_number = $contra_account_number;
 		$this->contra_iban           = $contra_iban;
@@ -87,6 +115,10 @@ class BankStatementLine implements JsonSerializable {
 		$this->amount                = $amount;
 		$this->base_amount           = $base_amount;
 		$this->description           = $description;
+		$this->transaction_type_id   = $transaction_type_id;
+		$this->reference             = $reference;
+		$this->end_to_end_id         = $end_to_end_id;
+		$this->return_reason         = $return_reason;
 	}
 
 	/**
@@ -106,6 +138,10 @@ class BankStatementLine implements JsonSerializable {
 			$data->get_property( 'Amount' ),
 			$data->get_property( 'BaseAmount' ),
 			$data->get_property( 'Description' ),
+			$data->get_property( 'TransactionTypeId' ),
+			$data->get_property( 'Reference' ),
+			$data->get_property( 'EndToEndId' ),
+			$data->get_property( 'ReturnReason' ),
 		);
 
 		return $bank_statement_line;
@@ -126,6 +162,10 @@ class BankStatementLine implements JsonSerializable {
 			'amount'                => $this->amount,
 			'base_amount'           => $this->amount,
 			'description'           => $this->description,
+			'transaction_type_id'   => $this->transaction_type_id,
+			'reference'             => $this->reference,
+			'end_to_end_id'         => $this->end_to_end_id,
+			'return_reason'         => $this->return_reason,
 		];
 	}
 }

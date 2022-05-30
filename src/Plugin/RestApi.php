@@ -2157,7 +2157,13 @@ class RestApi {
 
 		$bank_statements_service = new \Pronamic\WordPress\Twinfield\BankStatements\BankStatementsService( $client );
 
-		$bank_statements = $bank_statements_service->get_bank_statements( $office );
+		$query = new \Pronamic\WordPress\Twinfield\BankStatements\BankStatementsQuery(
+			new \DateTimeImmutable( $request->get_param( 'date_from' ) ),
+			new \DateTimeImmutable( $request->get_param( 'date_to' ) ),
+			(bool) $request->get_param( 'include_posted' )
+		);
+
+		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
 
 		return $bank_statements;
 	}

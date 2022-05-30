@@ -34,8 +34,10 @@ class BankStatements implements IteratorAggregate, JsonSerializable {
 
 		$bank_statements = new self();
 
-		foreach ( $data->get_array( 'BankStatement' ) as $bank_statement_object ) {
-			$bank_statements->items[] = BankStatement::from_twinfield_object( $bank_statement_object );
+		if ( $data->has_property( 'BankStatement' ) ) {
+			foreach ( $data->get_array( 'BankStatement' ) as $bank_statement_object ) {
+				$bank_statements->items[] = BankStatement::from_twinfield_object( $bank_statement_object );
+			}
 		}
 
 		return $bank_statements;

@@ -46,11 +46,12 @@ class BankStatementsService extends AbstractService {
 	 * Get bank statements.
 	 *
 	 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseBankStatements
-	 * @param Office $office The office for which the returns should be retrieved. Mandatory.
+	 * @param Office              $office The office for which the returns should be retrieved. Mandatory.
+	 * @param BankStatementsQuery $query  The get bank statements query.
 	 * @return array
 	 * @throws \Exception When no summaries could be found for the specified office.
 	 */
-	public function get_bank_statements( Office $office ) {
+	public function get_bank_statements( Office $office, BankStatementsQuery $query ) {
 		$soap_client = $this->get_soap_client( $office );
 
 		$authentication = $this->client->authenticate();
@@ -58,16 +59,7 @@ class BankStatementsService extends AbstractService {
 		$result = $soap_client->__soapCall(
 			'Query',
 			[
-				new SoapVar(
-					[
-						'IncludePostedStatements' => true,
-						'StatementDateFrom'       => '2021-06-02T00:00:00',
-						'StatementDateTo'         => '2021-06-03T00:00:00',
-					],
-					\SOAP_ENC_OBJECT,
-					'GetBankStatements',
-					'http://schemas.datacontract.org/2004/07/Twinfield.WebServices.BankStatementService'
-				),
+				$query->get_soap_var(),
 			],
 			null,
 			new SoapHeader(
@@ -79,8 +71,6 @@ class BankStatementsService extends AbstractService {
 				]
 			)
 		);
-
-		// return ObjectAccess::from_object( $result )->get_object( 'BankStatements' );
 
 		return BankStatements::from_twinfield_object(
 			ObjectAccess::from_object( $result )->get_property( 'BankStatements' )
