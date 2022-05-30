@@ -133,6 +133,14 @@ class Plugin {
 	private function install_tables() {
 		global $wpdb;
 
+		$version = '1.0.0';
+
+		$db_version = \get_option( 'pronamic_twinfield_db_version' );
+
+		if ( $version === $db_version ) {
+			return;
+		}
+
 		$queries = "
 			CREATE TABLE {$wpdb->prefix}twinfield_organisations (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -143,7 +151,7 @@ class Plugin {
 
 			CREATE TABLE {$wpdb->prefix}twinfield_offices (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-				organisation_id BIGINT NOT NULL,
+				organisation_id BIGINT UNSIGNED NOT NULL,
 				code VARCHAR(80) NOT NULL
 				PRIMARY KEY  ( id ),
 				KEY organisation_id ( organisation_id ),
@@ -182,7 +190,7 @@ class Plugin {
 				amount DECIMAL(15,2) NOT NULL,
 				base_amount DECIMAL(15,2) NOT NULL,
 				description VARCHAR(80) NOT NULL,
-				transaction_type_id VARCHAR(16),
+				transaction_type_id VARCHAR(16) NOT NULL,
 				reference VARCHAR(80) NOT NULL,
 				end_to_end_id VARCHAR(80) NOT NULL,
 				return_reason VARCHAR(80) NOT NULL,
@@ -195,6 +203,38 @@ class Plugin {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		dbDelta( $queries );
+
+		$wpdb->query( "
+			ALTER TABLE {$wpdb->prefix}twinfield_offices
+			ADD CONSTRAINT fk_office_organisation_id
+			FOREIGN KEY ( organisation_id )
+			REFERENCES {$wpdb->prefix}twinfield_organisations ( id )
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+			;
+		" );
+
+		$wpdb->query( "
+			ALTER TABLE {$wpdb->prefix}twinfield_bank_statements
+			ADD CONSTRAINT fk_bank_statement_office_id
+			FOREIGN KEY ( office_id )
+			REFERENCES {$wpdb->prefix}twinfield_offices ( id )
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+			;
+		" );
+
+		$wpdb->query( "
+			ALTER TABLE {$wpdb->prefix}twinfield_bank_statement_lines
+			ADD CONSTRAINT fk_bank_statement_line_bank_stament_id
+			FOREIGN KEY ( bank_statement_id )
+			REFERENCES {$wpdb->prefix}twinfield_bank_statements ( id )
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+			;
+		" );
+
+		\update_option( 'pronamic_twinfield_db_version', $version );
 	}
 
 	/**
