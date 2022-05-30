@@ -117,9 +117,84 @@ class Plugin {
 			'top'
 		);
 
+		// Tables.
+		$this->install_tables();
+
 		// Authorize.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$this->maybe_handle_authorize( $_GET );
+	}
+
+	/**
+	 * Install tables.
+	 *
+	 * @return void
+	 */
+	private function install_tables() {
+		global $wpdb;
+
+		$queries = "
+			CREATE TABLE {$wpdb->prefix}twinfield_organisations (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				code VARCHAR(80) NOT NULL,
+				PRIMARY KEY  ( id ),
+				UNIQUE KEY code ( code )
+			);
+
+			CREATE TABLE {$wpdb->prefix}twinfield_offices (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				organisation_id BIGINT NOT NULL,
+				code VARCHAR(80) NOT NULL
+				PRIMARY KEY  ( id ),
+				KEY organisation_id ( organisation_id ),
+				UNIQUE KEY code ( organisation_id, code )
+			);
+
+			CREATE TABLE {$wpdb->prefix}twinfield_bank_statements (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				office_id BIGINT UNSIGNED NOT NULL,
+				code VARCHAR(80) NOT NULL,
+				number INT UNSIGNED NOT NULL,
+				sub_id INT UNSIGNED NOT NULL,
+				account_number VARCHAR(40) NOT NULL,
+				iban VARCHAR(40) NOT NULL,
+				statement_date DATETIME NOT NULL,
+				currency VARCHAR(3) NOT NULL,
+				opening_balance DECIMAL(15,2) NOT NULL,
+				closing_balance DECIMAL(15,2) NOT NULL,
+				transaction_number VARCHAR(16),
+				PRIMARY KEY  (id),
+				KEY office_id ( office_id ),
+				KEY code ( office_id, code ),
+				KEY code_number ( office_id, code, `number` ),
+				UNIQUE KEY bank_statement ( office_id, code, `number`, sub_id ),
+				KEY transaction_number ( office_id, code, transaction_number )
+			);
+
+			CREATE TABLE {$wpdb->prefix}twinfield_bank_statement_lines (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				bank_statement_id BIGINT UNSIGNED NOT NULL,
+				line_id INT UNSIGNED NOT NULL,
+				contra_account_number VARCHAR(40) NOT NULL,
+				contra_iban VARCHAR(40) NOT NULL,
+				contra_account_name VARCHAR(80) NOT NULL,
+				payment_reference VARCHAR(80) NOT NULL,
+				amount DECIMAL(15,2) NOT NULL,
+				base_amount DECIMAL(15,2) NOT NULL,
+				description VARCHAR(80) NOT NULL,
+				transaction_type_id VARCHAR(16),
+				reference VARCHAR(80) NOT NULL,
+				end_to_end_id VARCHAR(80) NOT NULL,
+				return_reason VARCHAR(80) NOT NULL,
+				PRIMARY KEY  (id),
+				KEY bank_statement_id ( bank_statement_id ),
+				UNIQUE KEY bank_statement_line ( bank_statement_id, line_id )
+			);
+		";
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		dbDelta( $queries );
 	}
 
 	/**
