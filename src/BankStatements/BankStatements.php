@@ -11,12 +11,16 @@ use DateTimeInterface;
 use DateTimeImmutable;
 use IteratorAggregate;
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
+use Pronamic\WordPress\Twinfield\Traits\OfficeTrait;
 
 /**
  * Bank statements class
  */
 class BankStatements implements IteratorAggregate, JsonSerializable {
+	use OfficeTrait;
+
 	/**
 	 * Statements.
 	 * 
@@ -25,14 +29,24 @@ class BankStatements implements IteratorAggregate, JsonSerializable {
 	private $items = [];
 
 	/**
+	 * Contruct bank statements.
+	 * 
+	 * @param Office $office Office.
+	 */
+	public function __construct( Office $office ) {
+		$this->office = $office;
+	}
+
+	/**
 	 * From Twinfield object.
 	 * 
+	 * @param Office $office Office.
 	 * @param object $object Object.
 	 */
-	public static function from_twinfield_object( $object ) {
+	public static function from_twinfield_object( $office, $object ) {
 		$data = ObjectAccess::from_object( $object );
 
-		$bank_statements = new self();
+		$bank_statements = new self( $office );
 
 		if ( $data->has_property( 'BankStatement' ) ) {
 			foreach ( $data->get_array( 'BankStatement' ) as $bank_statement_object ) {

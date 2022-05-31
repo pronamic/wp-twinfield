@@ -122,6 +122,24 @@ class BankStatement implements JsonSerializable {
 	}
 
 	/**
+	 * Get bank statement date.
+	 * 
+	 * @return DateTimeInterface
+	 */
+	public function get_date() {
+		return $this->statement_date;
+	}
+
+	/**
+	 * Get bank statement lines.
+	 * 
+	 * @return BankStatementLine[]
+	 */
+	public function get_lines() {
+		return $this->lines;
+	}
+
+	/**
 	 * From Twinfield object.
 	 * 
 	 * @param object $object Object.
@@ -159,7 +177,7 @@ class BankStatement implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return [
+		return (object) [
 			'code'               => $this->code,
 			'number'             => $this->number,
 			'sub_id'             => $this->sub_id,

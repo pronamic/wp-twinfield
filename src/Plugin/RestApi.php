@@ -22,8 +22,10 @@ use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
 use Pronamic\WordPress\Twinfield\Transactions\DeletedTransactionsQuery;
+use WP_HTTP_Response;
 use WP_REST_Request;
 use WP_REST_Response;
+use WP_REST_Server;
 
 /**
  * REST API
@@ -56,6 +58,8 @@ class RestApi {
 	 */
 	public function setup() {
 		\add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+
+		\add_filter( 'rest_post_dispatch', [ $this, 'rest_post_dispatch' ], 10, 3 );
 	}
 
 	/**
@@ -2166,5 +2170,212 @@ class RestApi {
 		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
 
 		return $bank_statements;
+	}
+
+	/**
+	 * REST API post dispatch.
+	 * 
+	 * @param WP_HTTP_Response $result  Result to send to the client. Usually a `WP_REST_Response`.
+	 * @param WP_REST_Server   $server  Server instance.
+	 * @param WP_REST_Request  $request Request used to generate the response.
+	 * @return WP_HTTP_Response
+	 */
+	public function rest_post_dispatch( WP_HTTP_Response $response, WP_REST_Server $server, WP_REST_Request $request ) {
+		$data = $response->get_data();
+
+		if ( ! $request->has_param( 'pull' ) ) {
+			return $response;
+		}
+
+		if ( $data instanceof \Pronamic\WordPress\Twinfield\BankStatements\BankStatements ) {
+			header( 'Content-Type: text/html' );
+
+			var_dump( $data );
+
+			$this->bank_statements_update_or_create( $data );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Upsert.
+	 * 
+	 * @link https://atymic.dev/tips/laravel-8-upserts/
+	 * @link https://laravel.com/docs/9.x/eloquent#upserts
+	 * @link https://stackoverflow.com/questions/2634152/getting-mysql-insert-id-while-using-on-duplicate-key-update-with-php
+	 */
+	public function bank_statements_update_or_create( $bank_statements ) {
+		global $wpdb;
+
+		$office = $bank_statements->get_office();
+
+		$organisation = $office->get_organisation();
+
+		$organisation_id = $this->first_or_create(
+			$wpdb->prefix . 'twinfield_organisations',
+			[
+				'code' => $organisation->get_code(),
+			],
+			[],
+			[
+				'code' => '%s',
+			],
+			'id'
+		);
+
+		$office_id = $this->first_or_create(
+			$wpdb->prefix . 'twinfield_offices',
+			[
+				'organisation_id' => $organisation_id,
+				'code'            => $office->get_code(),
+			],
+			[],
+			[
+				'organisation_id' => '%d',
+				'code'            => '%s',
+			],
+			'id'
+		);
+
+		foreach ( $bank_statements as $bank_statement ) {
+			$data = $bank_statement->jsonSerialize();
+
+			$bank_statement_id = $this->first_or_create(
+				$wpdb->prefix . 'twinfield_bank_statements',
+				[
+					'office_id'          => $office_id,
+					'code'               => $data->code,
+					'number'             => $data->number,
+					'sub_id'             => $data->sub_id,
+				],
+				[
+					'account_number'     => $data->account_number,
+					'iban'               => $data->iban,
+					'statement_date'     => $bank_statement->get_date()->format( 'Y-m-d H:i:s' ),
+					'currency'           => $data->currency,
+					'opening_balance'    => $data->opening_balance,
+					'closing_balance'    => $data->closing_balance,
+					'transaction_number' => $data->transaction_number,
+				],
+				[
+					'office_id'          => '%d',
+					'code'               => '%s',
+					'number'             => '%d',
+					'sub_id'             => '%d',
+					'account_number'     => '%s',
+					'iban'               => '%s',
+					'statement_date'     => '%s',
+					'currency'           => '%s',
+					'opening_balance'    => '%f',
+					'closing_balance'    => '%f',
+					'transaction_number' => '%s',
+				],
+				'id',
+				true
+			);
+
+			foreach ( $bank_statement->get_lines() as $line ) {
+				$data = $line->jsonSerialize();
+
+				$bank_statement_line_id = $this->first_or_create(
+					$wpdb->prefix . 'twinfield_bank_statement_lines',
+					[
+						'bank_statement_id' => $bank_statement_id,
+						'line_id'           => $line->get_id(),
+					],
+					[
+						'contra_account_number' => $data->contra_account_number,
+						'contra_iban'           => $data->contra_iban,
+						'contra_account_name'   => $data->contra_account_name,
+						'payment_reference'     => $data->payment_reference,
+						'amount'                => $data->amount,
+						'base_amount'           => $data->base_amount,
+						'description'           => $data->description,
+						'transaction_type_id'   => $data->transaction_type_id,
+						'reference'             => $data->reference,
+						'end_to_end_id'         => $data->end_to_end_id,
+						'return_reason'         => $data->return_reason,
+					],
+					[
+						'bank_statement_id'     => '%d',
+						'line_id'               => '%d',
+						'contra_account_number' => '%s',
+						'contra_iban'           => '%s',
+						'contra_account_name'   => '%s',
+						'payment_reference'     => '%s',
+						'amount'                => '%s',
+						'base_amount'           => '%f',
+						'description'           => '%s',
+						'transaction_type_id'   => '%s',
+						'reference'             => '%s',
+						'end_to_end_id'         => '%s',
+						'return_reason'         => '%s',
+					],
+					'id',
+					true
+				);
+			}
+		}
+	}
+
+	/**
+	 * First or create.
+	 * 
+	 * @link https://github.com/laravel/framework/blob/v9.14.1/src/Illuminate/Database/Eloquent/Builder.php#L540-L556
+	 * @link https://laravel.com/docs/9.x/eloquent
+	 */
+	public function first_or_create( $table, $condition, $values, $format, $id_column, $update = false ) {
+		global $wpdb;
+
+		$where_condition = [];
+
+		foreach ( $condition as $key => $value ) {
+			$where_condition[] = $key . ' = ' . $format[ $key ];
+		}
+
+		$query = $wpdb->prepare(
+			sprintf(
+				'SELECT %s FROM %s WHERE %s LIMIT 1;',
+				$id_column,
+				$table,
+				implode( ' AND ', $where_condition )
+			),
+			$condition
+		);
+
+		$id = $wpdb->get_var( $query );
+
+		if ( null !== $id && true === $update ) {
+			$result = $wpdb->update(
+				$table,
+				$values,
+				[
+					$id_column => $id,
+				],
+			);
+
+			if ( false === $result ) {
+				throw new \Exception( \sprintf( 'Update error: %s', $wpdb->last_error ) );
+			}
+		}
+
+		if ( null === $id ) {
+			$data = array_merge( $condition, $values );
+
+			$result = $wpdb->insert(
+				$table,
+				$data,
+				$format
+			);
+
+			if ( false === $result ) {var_dump( $data );
+				throw new \Exception( \sprintf( 'Insert error: %s', $wpdb->last_error ) );
+			}
+
+			$id = $wpdb->insert_id;
+		}
+
+		return $id;
 	}
 }

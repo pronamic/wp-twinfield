@@ -73,6 +73,7 @@ class BankStatementsService extends AbstractService {
 		);
 
 		return BankStatements::from_twinfield_object(
+			$office,
 			ObjectAccess::from_object( $result )->get_property( 'BankStatements' )
 		);
 	}

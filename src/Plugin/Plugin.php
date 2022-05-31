@@ -189,7 +189,7 @@ class Plugin {
 				payment_reference VARCHAR(80) NOT NULL,
 				amount DECIMAL(15,2) NOT NULL,
 				base_amount DECIMAL(15,2) NOT NULL,
-				description VARCHAR(80) NOT NULL,
+				description TINYTEXT NOT NULL,
 				transaction_type_id VARCHAR(16) NOT NULL,
 				reference VARCHAR(80) NOT NULL,
 				end_to_end_id VARCHAR(80) NOT NULL,

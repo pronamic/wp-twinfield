@@ -133,6 +133,15 @@ class BankStatementLine implements JsonSerializable {
 	}
 
 	/**
+	 * Get line ID.
+	 * 
+	 * @return int
+	 */
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
 	 * From Twinfield object.
 	 * 
 	 * @param object $object Object.
@@ -164,7 +173,7 @@ class BankStatementLine implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return [
+		return (object) [
 			'id'                    => $this->id,
 			'contra_account_number' => $this->contra_account_number,
 			'contra_iban'           => $this->contra_iban,
