@@ -2206,48 +2206,39 @@ class RestApi {
 	 * @link https://stackoverflow.com/questions/2634152/getting-mysql-insert-id-while-using-on-duplicate-key-update-with-php
 	 */
 	public function bank_statements_update_or_create( $bank_statements ) {
-		global $wpdb;
+		$orm = $this->get_orm();
 
 		$office = $bank_statements->get_office();
 
 		$organisation = $office->get_organisation();
 
-		$organisation_id = $this->first_or_create(
-			$wpdb->prefix . 'twinfield_organisations',
+		$organisation_id = $orm->first_or_create(
+			$organisation,
 			[
 				'code' => $organisation->get_code(),
 			],
 			[],
-			[
-				'code' => '%s',
-			],
-			'id'
 		);
 
-		$office_id = $this->first_or_create(
-			$wpdb->prefix . 'twinfield_offices',
+		$office_id = $orm->first_or_create(
+			$office,
 			[
 				'organisation_id' => $organisation_id,
 				'code'            => $office->get_code(),
 			],
-			[],
-			[
-				'organisation_id' => '%d',
-				'code'            => '%s',
-			],
-			'id'
+			[]
 		);
 
 		foreach ( $bank_statements as $bank_statement ) {
 			$data = $bank_statement->jsonSerialize();
 
-			$bank_statement_id = $this->first_or_create(
-				$wpdb->prefix . 'twinfield_bank_statements',
+			$bank_statement_id = $orm->update_or_create(
+				$bank_statement,
 				[
-					'office_id'          => $office_id,
-					'code'               => $data->code,
-					'number'             => $data->number,
-					'sub_id'             => $data->sub_id,
+					'office_id' => $office_id,
+					'code'      => $data->code,
+					'number'    => $data->number,
+					'sub_id'    => $data->sub_id,
 				],
 				[
 					'account_number'     => $data->account_number,
@@ -2258,28 +2249,14 @@ class RestApi {
 					'closing_balance'    => $data->closing_balance,
 					'transaction_number' => $data->transaction_number,
 				],
-				[
-					'office_id'          => '%d',
-					'code'               => '%s',
-					'number'             => '%d',
-					'sub_id'             => '%d',
-					'account_number'     => '%s',
-					'iban'               => '%s',
-					'statement_date'     => '%s',
-					'currency'           => '%s',
-					'opening_balance'    => '%f',
-					'closing_balance'    => '%f',
-					'transaction_number' => '%s',
-				],
-				'id',
 				true
 			);
 
 			foreach ( $bank_statement->get_lines() as $line ) {
 				$data = $line->jsonSerialize();
 
-				$bank_statement_line_id = $this->first_or_create(
-					$wpdb->prefix . 'twinfield_bank_statement_lines',
+				$bank_statement_line_id = $orm->update_or_create(
+					$line,
 					[
 						'bank_statement_id' => $bank_statement_id,
 						'line_id'           => $line->get_id(),
@@ -2297,85 +2274,84 @@ class RestApi {
 						'end_to_end_id'         => $data->end_to_end_id,
 						'return_reason'         => $data->return_reason,
 					],
-					[
-						'bank_statement_id'     => '%d',
-						'line_id'               => '%d',
-						'contra_account_number' => '%s',
-						'contra_iban'           => '%s',
-						'contra_account_name'   => '%s',
-						'payment_reference'     => '%s',
-						'amount'                => '%s',
-						'base_amount'           => '%f',
-						'description'           => '%s',
-						'transaction_type_id'   => '%s',
-						'reference'             => '%s',
-						'end_to_end_id'         => '%s',
-						'return_reason'         => '%s',
-					],
-					'id',
 					true
 				);
 			}
 		}
 	}
 
-	/**
-	 * First or create.
-	 * 
-	 * @link https://github.com/laravel/framework/blob/v9.14.1/src/Illuminate/Database/Eloquent/Builder.php#L540-L556
-	 * @link https://laravel.com/docs/9.x/eloquent
-	 */
-	public function first_or_create( $table, $condition, $values, $format, $id_column, $update = false ) {
+	public function get_orm() {
 		global $wpdb;
 
-		$where_condition = [];
+		$orm = new EntityManager( $wpdb );
 
-		foreach ( $condition as $key => $value ) {
-			$where_condition[] = $key . ' = ' . $format[ $key ];
-		}
-
-		$query = $wpdb->prepare(
-			sprintf(
-				'SELECT %s FROM %s WHERE %s LIMIT 1;',
-				$id_column,
-				$table,
-				implode( ' AND ', $where_condition )
-			),
-			$condition
+		$orm->register_entity(
+			\Pronamic\WordPress\Twinfield\Organisations\Organisation::class,
+			new Entity(
+				$wpdb->prefix . 'twinfield_organisations',
+				'id',
+				[
+					'code' => '%s',
+				]
+			)
 		);
 
-		$id = $wpdb->get_var( $query );
-
-		if ( null !== $id && true === $update ) {
-			$result = $wpdb->update(
-				$table,
-				$values,
+		$orm->register_entity(
+			\Pronamic\WordPress\Twinfield\Offices\Office::class,
+			new Entity(
+				$wpdb->prefix . 'twinfield_offices',
+				'id',
 				[
-					$id_column => $id,
-				],
-			);
+					'organisation_id' => '%d',
+					'code'            => '%s',
+				]
+			)
+		);
 
-			if ( false === $result ) {
-				throw new \Exception( \sprintf( 'Update error: %s', $wpdb->last_error ) );
-			}
-		}
+		$orm->register_entity(
+			\Pronamic\WordPress\Twinfield\BankStatements\BankStatement::class,
+			new Entity(
+				$wpdb->prefix . 'twinfield_bank_statements',
+				'id',
+				[
+					'office_id'          => '%d',
+					'code'               => '%s',
+					'number'             => '%d',
+					'sub_id'             => '%d',
+					'account_number'     => '%s',
+					'iban'               => '%s',
+					'statement_date'     => '%s',
+					'currency'           => '%s',
+					'opening_balance'    => '%f',
+					'closing_balance'    => '%f',
+					'transaction_number' => '%s',
+				]
+			)
+		);
 
-		if ( null === $id ) {
-			$data = array_merge( $condition, $values );
+		$orm->register_entity(
+			\Pronamic\WordPress\Twinfield\BankStatements\BankStatementLine::class,
+			new Entity(
+				$wpdb->prefix . 'twinfield_bank_statement_lines',
+				'id',
+				[
+					'bank_statement_id'     => '%d',
+					'line_id'               => '%d',
+					'contra_account_number' => '%s',
+					'contra_iban'           => '%s',
+					'contra_account_name'   => '%s',
+					'payment_reference'     => '%s',
+					'amount'                => '%s',
+					'base_amount'           => '%f',
+					'description'           => '%s',
+					'transaction_type_id'   => '%s',
+					'reference'             => '%s',
+					'end_to_end_id'         => '%s',
+					'return_reason'         => '%s',
+				]
+			)
+		);
 
-			$result = $wpdb->insert(
-				$table,
-				$data,
-				$format
-			);
-
-			if ( false === $result ) {var_dump( $data );
-				throw new \Exception( \sprintf( 'Insert error: %s', $wpdb->last_error ) );
-			}
-
-			$id = $wpdb->insert_id;
-		}
-
-		return $id;
+		return $orm;
 	}
 }

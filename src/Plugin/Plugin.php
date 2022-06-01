@@ -204,7 +204,8 @@ class Plugin {
 
 		dbDelta( $queries );
 
-		$wpdb->query( "
+		$wpdb->query(
+			"
 			ALTER TABLE {$wpdb->prefix}twinfield_offices
 			ADD CONSTRAINT fk_office_organisation_id
 			FOREIGN KEY ( organisation_id )
@@ -212,9 +213,11 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" );
+		" 
+		);
 
-		$wpdb->query( "
+		$wpdb->query(
+			"
 			ALTER TABLE {$wpdb->prefix}twinfield_bank_statements
 			ADD CONSTRAINT fk_bank_statement_office_id
 			FOREIGN KEY ( office_id )
@@ -222,9 +225,11 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" );
+		" 
+		);
 
-		$wpdb->query( "
+		$wpdb->query(
+			"
 			ALTER TABLE {$wpdb->prefix}twinfield_bank_statement_lines
 			ADD CONSTRAINT fk_bank_statement_line_bank_stament_id
 			FOREIGN KEY ( bank_statement_id )
@@ -232,7 +237,8 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" );
+		" 
+		);
 
 		\update_option( 'pronamic_twinfield_db_version', $version );
 	}
