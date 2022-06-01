@@ -7,6 +7,8 @@
  * @link    https://redbeanphp.com/
  * @link    https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/php-mapping.html
  * @link    https://symfony.com/doc/current/doctrine.html#creating-an-entity-class
+ * @link    http://propelorm.org/documentation/reference/active-record.html
+ * @link    https://www.baeldung.com/hibernate-entitymanager
  */
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
