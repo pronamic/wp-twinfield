@@ -65,6 +65,43 @@ class EntityManager {
 		return $id;
 	}
 
+	private function insert( $entity, $data ) {
+		$data['created_at'] = \current_time( 'mysql', true );
+		$data['updated_at'] = \current_time( 'mysql', true );
+
+		$result = $this->wpdb->insert(
+			$entity->table,
+			$data,
+			array_intersect_key( $entity->format, $data )
+		);
+
+		if ( false === $result ) {
+			throw new \Exception( \sprintf( 'Insert error: %s', $this->wpdb->last_error ) );
+		}
+
+		$id = $this->wpdb->insert_id;
+
+		return $id;
+	}
+
+	private function update( $entity, $data, $id ) {
+		$data['updated_at'] = \current_time( 'mysql', true );
+
+		$result = $this->wpdb->update(
+			$entity->table,
+			$data,
+			[
+				$entity->primary_key => $id,
+			],
+		);
+
+		if ( false === $result ) {
+			throw new \Exception( \sprintf( 'Update error: %s', $this->wpdb->last_error ) );
+		}
+
+		return $id;
+	}
+
 	public function first_or_create( $object, $condition, $values ) {
 		global $wpdb;
 		
@@ -75,17 +112,7 @@ class EntityManager {
 		if ( null === $id ) {
 			$data = array_merge( $condition, $values );
 
-			$result = $this->wpdb->insert(
-				$entity->table,
-				$data,
-				array_intersect_key( $entity->format, $data )
-			);
-
-			if ( false === $result ) {
-				throw new \Exception( \sprintf( 'Insert error: %s', $wpdb->last_error ) );
-			}
-
-			$id = $this->wpdb->insert_id;
+			$id = $this->insert( $entity, $data );
 		}
 
 		return $id;
@@ -99,33 +126,13 @@ class EntityManager {
 		$id = $this->first( $object, $condition );
 
 		if ( null !== $id ) {
-			$result = $this->wpdb->update(
-				$entity->table,
-				$values,
-				[
-					$entity->primary_key => $id,
-				],
-			);
-
-			if ( false === $result ) {
-				throw new \Exception( \sprintf( 'Update error: %s', $this->wpdb->last_error ) );
-			}
+			$id = $this->update( $entity, $values, $id );
 		}
 
 		if ( null === $id ) {
 			$data = array_merge( $condition, $values );
 
-			$result = $this->wpdb->insert(
-				$entity->table,
-				$data,
-				array_intersect_key( $entity->format, $data )
-			);
-
-			if ( false === $result ) {
-				throw new \Exception( \sprintf( 'Insert error: %s', $this->wpdb->last_error ) );
-			}
-
-			$id = $this->wpdb->insert_id;
+			$id = $this->insert( $entity, $data );
 		}
 
 		return $id;

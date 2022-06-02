@@ -58,8 +58,6 @@ class RestApi {
 	 */
 	public function setup() {
 		\add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
-
-		\add_filter( 'rest_post_dispatch', [ $this, 'rest_post_dispatch' ], 10, 3 );
 	}
 
 	/**
@@ -870,25 +868,36 @@ class RestApi {
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
+						'required'          => true,
 					],
 					'office_code'    => [
 						'description' => 'Twinfield office code.',
 						'type'        => 'string',
+						'required'    => true,
 					],
 					'date_from'      => [
 						'description' => 'All statements with a statement date equal to or higher than this value will be included.',
 						'type'        => 'string',
 						'default'     => 'yesterday',
+						'required'    => true,
 					],
 					'date_to'        => [
 						'description' => 'All statements with a statement date equal to or lower than this value will be included.',
 						'type'        => 'string',
 						'default'     => 'midnight',
+						'required'    => true,
 					],
 					'include_posted' => [
 						'description' => 'If value is true, statements that have been posted will be included.',
 						'type'        => 'boolean',
 						'default'     => true,
+						'required'    => true,
+					],
+					'pull'           => [
+						'description' => 'Pull flag to update the local repository.',
+						'type'        => 'boolean',
+						'default'     => false,
+						'required'    => false,
 					],
 				],
 			]
@@ -2172,33 +2181,17 @@ class RestApi {
 
 		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
 
+		if ( $request->get_param( 'pull' ) ) {
+			$this->pull_object( $bank_statements );
+		}
+
 		return $bank_statements;
 	}
 
-	/**
-	 * REST API post dispatch.
-	 * 
-	 * @param WP_HTTP_Response $result  Result to send to the client. Usually a `WP_REST_Response`.
-	 * @param WP_REST_Server   $server  Server instance.
-	 * @param WP_REST_Request  $request Request used to generate the response.
-	 * @return WP_HTTP_Response
-	 */
-	public function rest_post_dispatch( WP_HTTP_Response $response, WP_REST_Server $server, WP_REST_Request $request ) {
-		$data = $response->get_data();
-
-		if ( ! $request->has_param( 'pull' ) ) {
-			return $response;
+	public function pull_object( $object ) {
+		if ( $object instanceof \Pronamic\WordPress\Twinfield\BankStatements\BankStatements ) {
+			$this->bank_statements_update_or_create( $object );
 		}
-
-		if ( $data instanceof \Pronamic\WordPress\Twinfield\BankStatements\BankStatements ) {
-			header( 'Content-Type: text/html' );
-
-			var_dump( $data );
-
-			$this->bank_statements_update_or_create( $data );
-		}
-
-		return $response;
 	}
 
 	/**
@@ -2246,7 +2239,7 @@ class RestApi {
 				[
 					'account_number'     => $data->account_number,
 					'iban'               => $data->iban,
-					'statement_date'     => $bank_statement->get_date()->format( 'Y-m-d H:i:s' ),
+					'date'               => $bank_statement->get_date()->format( 'Y-m-d' ),
 					'currency'           => $data->currency,
 					'opening_balance'    => $data->opening_balance,
 					'closing_balance'    => $data->closing_balance,
@@ -2323,7 +2316,7 @@ class RestApi {
 					'sub_id'             => '%d',
 					'account_number'     => '%s',
 					'iban'               => '%s',
-					'statement_date'     => '%s',
+					'date'               => '%s',
 					'currency'           => '%s',
 					'opening_balance'    => '%f',
 					'closing_balance'    => '%f',

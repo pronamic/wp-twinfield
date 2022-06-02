@@ -148,6 +148,8 @@ class Plugin {
 		$queries = "
 			CREATE TABLE {$wpdb->prefix}twinfield_organisations (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
 				code VARCHAR(80) NOT NULL,
 				PRIMARY KEY  ( id ),
 				UNIQUE KEY code ( code )
@@ -155,8 +157,10 @@ class Plugin {
 
 			CREATE TABLE {$wpdb->prefix}twinfield_offices (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
 				organisation_id BIGINT UNSIGNED NOT NULL,
-				code VARCHAR(80) NOT NULL
+				code VARCHAR(80) NOT NULL,
 				PRIMARY KEY  ( id ),
 				KEY organisation_id ( organisation_id ),
 				UNIQUE KEY code ( organisation_id, code )
@@ -164,13 +168,15 @@ class Plugin {
 
 			CREATE TABLE {$wpdb->prefix}twinfield_bank_statements (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
 				office_id BIGINT UNSIGNED NOT NULL,
 				code VARCHAR(80) NOT NULL,
-				number INT UNSIGNED NOT NULL,
+				`number` INT UNSIGNED NOT NULL,
 				sub_id INT UNSIGNED NOT NULL,
 				account_number VARCHAR(40) NOT NULL,
 				iban VARCHAR(40) NOT NULL,
-				statement_date DATETIME NOT NULL,
+				`date` DATE NOT NULL,
 				currency VARCHAR(3) NOT NULL,
 				opening_balance DECIMAL(15,2) NOT NULL,
 				closing_balance DECIMAL(15,2) NOT NULL,
@@ -185,6 +191,8 @@ class Plugin {
 
 			CREATE TABLE {$wpdb->prefix}twinfield_bank_statement_lines (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
 				bank_statement_id BIGINT UNSIGNED NOT NULL,
 				line_id INT UNSIGNED NOT NULL,
 				contra_account_number VARCHAR(40) NOT NULL,
@@ -193,7 +201,7 @@ class Plugin {
 				payment_reference VARCHAR(80) NOT NULL,
 				amount DECIMAL(15,2) NOT NULL,
 				base_amount DECIMAL(15,2) NOT NULL,
-				description TINYTEXT NOT NULL,
+				description TEXT NOT NULL,
 				transaction_type_id VARCHAR(16) NOT NULL,
 				reference VARCHAR(80) NOT NULL,
 				end_to_end_id VARCHAR(80) NOT NULL,
