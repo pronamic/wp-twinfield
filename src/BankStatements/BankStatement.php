@@ -57,7 +57,7 @@ class BankStatement implements JsonSerializable {
 	 * 
 	 * @var DateTimeInterface
 	 */
-	private $statement_date;
+	private $date;
 
 	/**
 	 * Currency of the amounts. For instance "EUR".
@@ -102,18 +102,18 @@ class BankStatement implements JsonSerializable {
 	 * @param int               $sub_id          Sub ID.
 	 * @param string            $account_number  Account number.
 	 * @param string            $iban            IBAN.
-	 * @param DateTimeInterface $statement_date  Statement date.
+	 * @param DateTimeInterface $date            Statement date.
 	 * @param string            $currency        Currency.
 	 * @param string            $opening_balance Opening balance amount.
 	 * @param string            $closing_balance Closing balance amount.
 	 */
-	public function __construct( $code, $number, $sub_id, $account_number, $iban, DateTimeInterface $statement_date, $currency, $opening_balance, $closing_balance ) {
+	public function __construct( $code, $number, $sub_id, $account_number, $iban, DateTimeInterface $date, $currency, $opening_balance, $closing_balance ) {
 		$this->code            = $code;
 		$this->number          = $number;
 		$this->sub_id          = $sub_id;
 		$this->account_number  = $account_number;
 		$this->iban            = $iban;
-		$this->statement_date  = $statement_date;
+		$this->date            = $date;
 		$this->currency        = $currency;
 		$this->opening_balance = $opening_balance;
 		$this->closing_balance = $closing_balance;
@@ -127,7 +127,7 @@ class BankStatement implements JsonSerializable {
 	 * @return DateTimeInterface
 	 */
 	public function get_date() {
-		return $this->statement_date;
+		return $this->date;
 	}
 
 	/**
@@ -183,7 +183,7 @@ class BankStatement implements JsonSerializable {
 			'sub_id'             => $this->sub_id,
 			'account_number'     => $this->account_number,
 			'iban'               => $this->iban,
-			'statement_date'     => $this->statement_date->format( \DATE_ATOM ),
+			'statement_date'     => $this->date->format( \DATE_ATOM ),
 			'currency'           => $this->currency,
 			'opening_balance'    => $this->opening_balance,
 			'closing_balance'    => $this->closing_balance,
