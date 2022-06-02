@@ -878,14 +878,17 @@ class RestApi {
 					'date_from'      => [
 						'description' => 'All statements with a statement date equal to or higher than this value will be included.',
 						'type'        => 'string',
+						'default'     => 'yesterday',
 					],
 					'date_to'        => [
 						'description' => 'All statements with a statement date equal to or lower than this value will be included.',
 						'type'        => 'string',
+						'default'     => 'midnight',
 					],
 					'include_posted' => [
 						'description' => 'If value is true, statements that have been posted will be included.',
 						'type'        => 'boolean',
+						'default'     => true,
 					],
 				],
 			]
