@@ -18,7 +18,7 @@ class CLI {
 	 */
 	public function __construct() {
 		\WP_CLI::add_command(
-			'twinfield offices list',
+			'twinfield office list',
 			function( $args, $assoc_args ) {
 				$authorization_post_id = \array_key_exists( 'authorization', $assoc_args ) ? $assoc_args['authorization'] : \get_option( 'pronamic_twinfield_authorization_post_id' );
 
@@ -28,6 +28,17 @@ class CLI {
 
 				$response = rest_do_request( $request );
 
+				/**
+				 * REST API endpoints permissions.
+				 * 
+				 * @link https://make.wordpress.org/cli/handbook/references/config/#global-parameters
+				 * @link https://github.com/woocommerce/woocommerce/blob/6.5.1/plugins/woocommerce/includes/cli/class-wc-cli-rest-command.php#L349-L358
+				 * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/#permissions-callback
+				 */
+				if ( 401 === $response->get_status() ) {
+					\WP_CLI::error( 'Unauthorized, make sure to include the --user flag with an account that has permissions for this action.' );
+				}
+
 				$data = (object) $response->get_data();
 
 				$offices = $data->data;
@@ -35,8 +46,9 @@ class CLI {
 				$items = \array_map(
 					function( $office ) {
 						return [
-							'code' => $office->get_code(),
-							'name' => $office->get_name(),
+							'code'      => $office->get_code(),
+							'name'      => $office->get_name(),
+							'shortname' => $office->get_shortname(),
 						];
 					},
 					$offices
@@ -47,6 +59,7 @@ class CLI {
 					[
 						'code',
 						'name',
+						'shortname',
 					] 
 				);
 
@@ -55,7 +68,7 @@ class CLI {
 		);
 
 		\WP_CLI::add_command(
-			'twinfield bank-statements',
+			'twinfield bank-statement query',
 			function( $args, $assoc_args ) {
 				$authorization_post_id = \array_key_exists( 'authorization', $assoc_args ) ? $assoc_args['authorization'] : \get_option( 'pronamic_twinfield_authorization_post_id' );
 

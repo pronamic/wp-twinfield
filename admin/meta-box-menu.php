@@ -67,12 +67,14 @@ $items = [
 				<td>
 					<?php
 
-					$url = \rest_url( 'pronamic-twinfield/v1/authorizations/' . $post->ID . '/' . $item['path'] );
+					$rest_api_url = \rest_url( 'pronamic-twinfield/v1/authorizations/' . $post->ID . '/' . $item['path'] );
+
+					$rest_api_nonce_url = \wp_nonce_url( $rest_api_url, 'wp_rest' );
 
 					\printf(
 						'<a href="%s">%s</a>',
-						\esc_url( $url ),
-						\esc_html( $url )
+						\esc_url( $rest_api_nonce_url ),
+						\esc_html( $rest_api_url )
 					);
 
 					?>

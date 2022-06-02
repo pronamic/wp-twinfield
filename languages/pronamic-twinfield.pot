@@ -1,0 +1,919 @@
+# Copyright (C) 2022 Pronamic
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pronamic Twinfield 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-twinfield\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-06-02T12:10:17+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: pronamic-twinfield\n"
+
+#. Plugin Name of the plugin
+msgid "Pronamic Twinfield"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.pronamic.eu/plugins/twinfield/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Twinfield plugin for WordPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Pronamic"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.pronamic.eu/"
+msgstr ""
+
+#: admin/meta-box-authorize.php:26
+msgid "Connect with Twinfield"
+msgstr ""
+
+#: admin/meta-box-menu.php:14
+#: templates/dimension.php:49
+#: templates/office.php:46
+msgid "Organisation"
+msgstr ""
+
+#: admin/meta-box-menu.php:18
+#: src/Twinfield.php:81
+#: templates/office.php:180
+msgid "Offices"
+msgstr ""
+
+#: admin/meta-box-menu.php:22
+#: templates/office.php:208
+msgid "Finder Types"
+msgstr ""
+
+#: admin/meta-box-menu.php:31
+msgid "Browse Fields"
+msgstr ""
+
+#: admin/meta-box-menu.php:40
+msgid "Item"
+msgstr ""
+
+#: admin/meta-box-menu.php:41
+#: templates/office.php:239
+#: templates/offices.php:18
+msgid "Page URL"
+msgstr ""
+
+#: admin/meta-box-menu.php:42
+#: templates/office.php:240
+#: templates/office.php:308
+#: templates/office.php:359
+msgid "REST URL"
+msgstr ""
+
+#: src/Plugin/Admin.php:117
+#: src/Plugin/Admin.php:118
+msgid "Twinfield"
+msgstr ""
+
+#: src/Plugin/Admin.php:129
+#: src/Plugin/AuthorizationPostType.php:58
+msgid "Twinfield Authorizations"
+msgstr ""
+
+#: src/Plugin/Admin.php:130
+#: src/Plugin/AuthorizationPostType.php:85
+msgid "Authorizations"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:60
+msgctxt "post type general name"
+msgid "Authorizations"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:61
+msgctxt "post type singular name"
+msgid "Authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:62
+msgctxt "twinfield authorizations"
+msgid "Add New"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:63
+msgid "Add New Authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:64
+msgid "Edit Authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:65
+msgid "New Authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:66
+msgid "View Authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:67
+msgid "View Authorizations"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:68
+msgid "Search Authorizations"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:69
+msgid "No authorizations found."
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:70
+msgid "Not authorizations found in Trash."
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:71
+msgid "Parent Authorization:"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:72
+msgid "All Authorizations"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:73
+msgid "Authorization Archives"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:74
+msgid "Authorization Attributes"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:75
+msgid "Insert into authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:76
+msgid "Uploaded to this authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:77
+msgid "Featured image"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:78
+msgid "Set featured image"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:79
+msgid "Remove featured image"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:80
+msgid "Use as featured image"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:81
+msgid "Filter authorizations list"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:82
+msgid "Filter by date"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:83
+msgid "Authorizations list navigation"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:84
+msgid "Authorizations list"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:86
+msgctxt "add new from admin bar"
+msgid "Twinfield Authorization"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:203
+#: templates/customer.php:113
+msgid "Default"
+msgstr ""
+
+#: src/Plugin/RestApi.php:82
+msgid "Post ID."
+msgstr ""
+
+#: src/Plugin/RestApi.php:87
+msgid "Code."
+msgstr ""
+
+#: src/Plugin/Settings.php:101
+msgid "Default Authorization"
+msgstr ""
+
+#: src/Plugin/Settings.php:107
+msgid "— Select Authorization —"
+msgstr ""
+
+#: src/Plugin/Settings.php:133
+msgid "— Select a page —"
+msgstr ""
+
+#: src/Twinfield.php:57
+msgid "Items"
+msgstr ""
+
+#: src/Twinfield.php:58
+msgid "Asset methods"
+msgstr ""
+
+#: src/Twinfield.php:59
+msgid "Budgets\tcode"
+msgstr ""
+
+#: src/Twinfield.php:60
+msgid "Cashbooks and banks"
+msgstr ""
+
+#: src/Twinfield.php:61
+msgid "Billing schedule"
+msgstr ""
+
+#: src/Twinfield.php:62
+msgid "Credit management action codes"
+msgstr ""
+
+#: src/Twinfield.php:63
+msgid "Certificates"
+msgstr ""
+
+#: src/Twinfield.php:64
+msgid "List of available (not paid) cheques"
+msgstr ""
+
+#: src/Twinfield.php:65
+msgid "Countries"
+msgstr ""
+
+#: src/Twinfield.php:66
+#: templates/office.php:192
+msgid "Currencies"
+msgstr ""
+
+#: src/Twinfield.php:67
+msgid "Dimensions (financials)"
+msgstr ""
+
+#: src/Twinfield.php:68
+msgid "Dimensions (modifiedsince option)"
+msgstr ""
+
+#: src/Twinfield.php:69
+msgid "Dimensions (projects)"
+msgstr ""
+
+#: src/Twinfield.php:70
+msgid "Dimension types"
+msgstr ""
+
+#: src/Twinfield.php:71
+msgid "Vat types"
+msgstr ""
+
+#: src/Twinfield.php:72
+msgid "Filter mappings"
+msgstr ""
+
+#: src/Twinfield.php:73
+msgid "Payment files"
+msgstr ""
+
+#: src/Twinfield.php:74
+msgid "Dimension groups"
+msgstr ""
+
+#: src/Twinfield.php:75
+msgid "Gateways"
+msgstr ""
+
+#: src/Twinfield.php:76
+#: templates/office.php:212
+msgid "Hierarchies"
+msgstr ""
+
+#: src/Twinfield.php:77
+msgid "Hierarchy nodes"
+msgstr ""
+
+#: src/Twinfield.php:78
+msgid "Invoice types"
+msgstr ""
+
+#: src/Twinfield.php:79
+msgid "List of available (not paid) invoices"
+msgstr ""
+
+#: src/Twinfield.php:80
+msgid "Matching types"
+msgstr ""
+
+#: src/Twinfield.php:82
+msgid "Office groups"
+msgstr ""
+
+#: src/Twinfield.php:83
+msgid "Available offices for InterCompany transactions"
+msgstr ""
+
+#: src/Twinfield.php:84
+msgid "Payment types"
+msgstr ""
+
+#: src/Twinfield.php:85
+msgid "Paying-in slips"
+msgstr ""
+
+#: src/Twinfield.php:86
+msgid "Periods"
+msgstr ""
+
+#: src/Twinfield.php:87
+msgid "Reports"
+msgstr ""
+
+#: src/Twinfield.php:88
+msgid "Word templates (invoices, reminder letters)"
+msgstr ""
+
+#: src/Twinfield.php:89
+msgid "Reminder scenarios"
+msgstr ""
+
+#: src/Twinfield.php:90
+msgid "User roles"
+msgstr ""
+
+#: src/Twinfield.php:91
+msgid "Sub items"
+msgstr ""
+
+#: src/Twinfield.php:92
+msgid "Distribution by periods (Budgets/Extended Trial Balance allocation)"
+msgstr ""
+
+#: src/Twinfield.php:93
+msgid "Tax groups"
+msgstr ""
+
+#: src/Twinfield.php:94
+msgid "Time & quantities transaction types"
+msgstr ""
+
+#: src/Twinfield.php:95
+msgid "Transaction types (daybooks)"
+msgstr ""
+
+#: src/Twinfield.php:96
+msgid "Time project rates"
+msgstr ""
+
+#: src/Twinfield.php:97
+#: templates/office.php:184
+msgid "Users"
+msgstr ""
+
+#: src/Twinfield.php:98
+msgid "VAT codes"
+msgstr ""
+
+#: src/Twinfield.php:99
+msgid "VAT numbers of relations"
+msgstr ""
+
+#: src/Twinfield.php:100
+msgid "VAT Groups"
+msgstr ""
+
+#: src/Twinfield.php:101
+msgid "VAT Groups countries"
+msgstr ""
+
+#: src/Twinfield.php:102
+msgid "Translations"
+msgstr ""
+
+#: src/Twinfield.php:113
+msgid "General ledger transactions"
+msgstr ""
+
+#: src/Twinfield.php:114
+msgid "Transactions still to be matched"
+msgstr ""
+
+#: src/Twinfield.php:115
+msgid "Transaction list"
+msgstr ""
+
+#: src/Twinfield.php:116
+msgid "Customer transactions"
+msgstr ""
+
+#: src/Twinfield.php:117
+msgid "Supplier transactions"
+msgstr ""
+
+#: src/Twinfield.php:118
+msgid "Project transactions"
+msgstr ""
+
+#: src/Twinfield.php:119
+msgid "Asset transactions"
+msgstr ""
+
+#: src/Twinfield.php:120
+msgid "Cash transactions"
+msgstr ""
+
+#: src/Twinfield.php:121
+msgid "Bank transactions"
+msgstr ""
+
+#: src/Twinfield.php:122
+msgid "Cost centers"
+msgstr ""
+
+#: src/Twinfield.php:123
+msgid "General Ledger (details)"
+msgstr ""
+
+#: src/Twinfield.php:124
+msgid "General Ledger (details) (v2)"
+msgstr ""
+
+#: src/Twinfield.php:125
+msgid "General Ledger (details) (v3)"
+msgstr ""
+
+#: src/Twinfield.php:126
+msgid "General Ledger (intercompany)"
+msgstr ""
+
+#: src/Twinfield.php:127
+msgid "General Ledger (intercompany)(v2)"
+msgstr ""
+
+#: src/Twinfield.php:128
+msgid "Annual Report (totals)"
+msgstr ""
+
+#: src/Twinfield.php:129
+msgid "Annual Report (YTD)"
+msgstr ""
+
+#: src/Twinfield.php:130
+msgid "Annual Report (totals multicurrency)"
+msgstr ""
+
+#: src/Twinfield.php:131
+#: templates/office.php:148
+msgid "Customers"
+msgstr ""
+
+#: src/Twinfield.php:132
+msgid "Customers (v2)"
+msgstr ""
+
+#: src/Twinfield.php:133
+msgid "Customers (v3)"
+msgstr ""
+
+#: src/Twinfield.php:134
+#: templates/customer.php:65
+msgid "Credit Management"
+msgstr ""
+
+#: src/Twinfield.php:135
+#: templates/office.php:144
+msgid "Suppliers"
+msgstr ""
+
+#: src/Twinfield.php:136
+msgid "Suppliers (v2)"
+msgstr ""
+
+#: src/Twinfield.php:137
+#: templates/office.php:156
+msgid "Fixed Assets"
+msgstr ""
+
+#: src/Twinfield.php:138
+msgid "Time & Expenses (Totals)"
+msgstr ""
+
+#: src/Twinfield.php:139
+msgid "Time & Expenses (Multicurrency)"
+msgstr ""
+
+#: src/Twinfield.php:140
+msgid "Time & Expenses (Details)"
+msgstr ""
+
+#: src/Twinfield.php:141
+msgid "Time & Expenses (Totals per week)"
+msgstr ""
+
+#: src/Twinfield.php:142
+msgid "Time & Expenses (Totals per period)"
+msgstr ""
+
+#: src/Twinfield.php:143
+msgid "Time & Expenses (Billing details)"
+msgstr ""
+
+#: src/Twinfield.php:144
+msgid "Time & Expenses (Billing per week)"
+msgstr ""
+
+#: src/Twinfield.php:145
+msgid "Time & Expenses (Billing per period)"
+msgstr ""
+
+#: src/Twinfield.php:146
+msgid "Transaction summary"
+msgstr ""
+
+#: src/Twinfield.php:147
+msgid "Bank link details"
+msgstr ""
+
+#: src/Twinfield.php:148
+msgid "Vat Return status"
+msgstr ""
+
+#: src/Twinfield.php:149
+msgid "Hierarchy access"
+msgstr ""
+
+#: templates/customer.php:30
+#: templates/customer.php:125
+msgid "Contact"
+msgstr ""
+
+#: templates/customer.php:35
+#: templates/customer.php:121
+#: templates/dimension.php:99
+#: templates/office.php:71
+#: templates/offices.php:16
+msgid "Name"
+msgstr ""
+
+#: templates/customer.php:38
+#: templates/dimension.php:71
+#: templates/sales-invoice.php:48
+#: templates/transaction.php:52
+msgid "Office"
+msgstr ""
+
+#: templates/customer.php:46
+msgid "Financials"
+msgstr ""
+
+#: templates/customer.php:51
+msgid "Due Days"
+msgstr ""
+
+#: templates/customer.php:54
+msgid "Electronic Billing"
+msgstr ""
+
+#: templates/customer.php:55
+#: templates/customer.php:78
+#: templates/customer.php:114
+msgid "Yes"
+msgstr ""
+
+#: templates/customer.php:55
+#: templates/customer.php:84
+#: templates/customer.php:114
+msgid "No"
+msgstr ""
+
+#: templates/customer.php:57
+#: templates/customer.php:145
+msgid "Email"
+msgstr ""
+
+#: templates/customer.php:70
+msgid "Send Reminder"
+msgstr ""
+
+#: templates/customer.php:81
+msgid "Yes, by e-mail"
+msgstr ""
+
+#: templates/customer.php:94
+msgid "Reminder Email"
+msgstr ""
+
+#: templates/customer.php:102
+msgid "Addresses"
+msgstr ""
+
+#: templates/customer.php:117
+#: templates/dimension.php:93
+#: templates/office.php:306
+#: templates/office.php:357
+#: templates/sales-invoice.php:52
+msgid "Type"
+msgstr ""
+
+#: templates/customer.php:129
+msgid "Address"
+msgstr ""
+
+#: templates/customer.php:133
+msgid "Postal Code"
+msgstr ""
+
+#: templates/customer.php:137
+msgid "City"
+msgstr ""
+
+#: templates/customer.php:141
+msgid "Country"
+msgstr ""
+
+#: templates/customer.php:149
+msgid "Phone Number"
+msgstr ""
+
+#: templates/customer.php:153
+msgid "Fax Number"
+msgstr ""
+
+#: templates/customer.php:157
+msgid "VAT Number"
+msgstr ""
+
+#: templates/customer.php:161
+msgid "COC Number"
+msgstr ""
+
+#: templates/dimension.php:46
+#: templates/office.php:43
+msgid "Details"
+msgstr ""
+
+#: templates/dimension.php:96
+#: templates/office.php:68
+#: templates/offices.php:15
+#: templates/organisation.php:13
+#: templates/transaction.php:67
+msgid "Code"
+msgstr ""
+
+#: templates/dimension.php:102
+#: templates/office.php:74
+#: templates/offices.php:17
+msgid "Shortname"
+msgstr ""
+
+#: templates/dimension.php:113
+#: templates/office.php:466
+#: templates/sales-invoice.php:190
+#: templates/transaction.php:189
+#: templates/transaction.php:241
+msgid "Request XML"
+msgstr ""
+
+#: templates/dimension.php:120
+#: templates/office.php:473
+#: templates/sales-invoice.php:197
+#: templates/transaction.php:196
+#: templates/transaction.php:248
+msgid "Response XML"
+msgstr ""
+
+#: templates/office.php:77
+#: templates/sales-invoice.php:72
+msgid "Status"
+msgstr ""
+
+#: templates/office.php:85
+msgid "Active"
+msgstr ""
+
+#: templates/office.php:97
+msgid "Created At"
+msgstr ""
+
+#: templates/office.php:100
+msgid "Modified At"
+msgstr ""
+
+#: templates/office.php:103
+msgid "Touched"
+msgstr ""
+
+#: templates/office.php:106
+msgid "User"
+msgstr ""
+
+#: templates/office.php:113
+msgid "—"
+msgstr ""
+
+#: templates/office.php:138
+msgid "Menu"
+msgstr ""
+
+#: templates/office.php:152
+msgid "Cost Centers"
+msgstr ""
+
+#: templates/office.php:160
+msgid "Projects"
+msgstr ""
+
+#: templates/office.php:164
+msgid "Activities"
+msgstr ""
+
+#: templates/office.php:168
+msgid "Dimension Groups"
+msgstr ""
+
+#: templates/office.php:172
+msgid "Dimension Types"
+msgstr ""
+
+#: templates/office.php:176
+msgid "Asset Methods"
+msgstr ""
+
+#: templates/office.php:188
+msgid "Articles"
+msgstr ""
+
+#: templates/office.php:196
+msgid "Rates"
+msgstr ""
+
+#: templates/office.php:200
+msgid "VAT"
+msgstr ""
+
+#: templates/office.php:204
+msgid "Declarations"
+msgstr ""
+
+#: templates/office.php:216
+msgid "Deleted Transactions"
+msgstr ""
+
+#: templates/office.php:220
+msgid "Years"
+msgstr ""
+
+#: templates/office.php:224
+msgid "Budget"
+msgstr ""
+
+#: templates/office.php:228
+msgid "Bank Statements"
+msgstr ""
+
+#: templates/office.php:238
+#: templates/office.php:307
+#: templates/office.php:358
+msgid "Label"
+msgstr ""
+
+#: templates/office.php:301
+msgid "Finder"
+msgstr ""
+
+#: templates/office.php:352
+msgid "Browser"
+msgstr ""
+
+#: templates/offices.php:19
+msgid "Rest URL"
+msgstr ""
+
+#: templates/organisation.php:16
+msgid "Universally Unique Identifier"
+msgstr ""
+
+#: templates/organisation.php:16
+msgid "UUID"
+msgstr ""
+
+#: templates/sales-invoice.php:56
+#: templates/transaction.php:35
+msgid "Number"
+msgstr ""
+
+#: templates/sales-invoice.php:60
+msgid "Invoice Date"
+msgstr ""
+
+#: templates/sales-invoice.php:64
+msgid "Due Date"
+msgstr ""
+
+#: templates/sales-invoice.php:68
+msgid "Customer"
+msgstr ""
+
+#: templates/sales-invoice.php:80
+#: templates/transaction.php:47
+msgid "Header"
+msgstr ""
+
+#: templates/sales-invoice.php:99
+#: templates/transaction.php:95
+msgid "Lines"
+msgstr ""
+
+#: templates/sales-invoice.php:105
+#: templates/transaction.php:101
+msgid "ID"
+msgstr ""
+
+#: templates/sales-invoice.php:106
+msgid "Article"
+msgstr ""
+
+#: templates/sales-invoice.php:107
+msgid "Sub Article"
+msgstr ""
+
+#: templates/sales-invoice.php:108
+msgid "Quantity"
+msgstr ""
+
+#: templates/sales-invoice.php:109
+#: templates/transaction.php:105
+msgid "Description"
+msgstr ""
+
+#: templates/sales-invoice.php:110
+msgid "Value Excl"
+msgstr ""
+
+#: templates/sales-invoice.php:111
+msgid "Vat Value"
+msgstr ""
+
+#: templates/sales-invoice.php:112
+msgid "Value Inc"
+msgstr ""
+
+#: templates/sales-invoice.php:113
+#: templates/transaction.php:108
+msgid "Free Text 1"
+msgstr ""
+
+#: templates/sales-invoice.php:114
+#: templates/transaction.php:109
+msgid "Free Text 2"
+msgstr ""
+
+#: templates/sales-invoice.php:115
+#: templates/transaction.php:110
+msgid "Free Text 3"
+msgstr ""
+
+#: templates/sales-invoice.php:167
+msgid "Totals"
+msgstr ""
+
+#: templates/transaction.php:39
+msgid "Date"
+msgstr ""
+
+#: templates/transaction.php:102
+msgid "Dimension 1"
+msgstr ""
+
+#: templates/transaction.php:103
+msgid "Dimension 2"
+msgstr ""
+
+#: templates/transaction.php:104
+msgid "Dimension 3"
+msgstr ""
+
+#: templates/transaction.php:106
+msgid "Value"
+msgstr ""
+
+#: templates/transaction.php:107
+msgid "Value Open"
+msgstr ""

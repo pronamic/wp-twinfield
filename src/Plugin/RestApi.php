@@ -98,9 +98,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_browse_fields' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -141,9 +139,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_browse_query' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => $browse_query_args,
 			]
 		);
@@ -154,9 +150,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_browse_query' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => $browse_query_args,
 			]
 		);
@@ -169,9 +163,7 @@ class RestApi {
 				'callback'            => function( WP_REST_Request $request ) {
 					return $this->redirect_authorization( 'organisation' );
 				},
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 			]
 		);
 
@@ -181,9 +173,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_organisation' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id' => [
 						'description'       => 'Authorization post ID.',
@@ -200,9 +190,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_offices' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id' => [
 						'description'       => 'Authorization post ID.',
@@ -223,9 +211,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_finder_types' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id' => [
 						'description'       => 'Authorization post ID.',
@@ -286,9 +272,7 @@ class RestApi {
 			return [
 				'methods'             => 'GET',
 				'callback'            => $callback,
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => $args,
 			];
 		};
@@ -456,9 +440,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'        => [
 						'description'       => 'Authorization post ID.',
@@ -483,9 +465,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_budget' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'             => [
 						'description'       => 'Authorization post ID.',
@@ -532,9 +512,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_deleted_transactions' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -569,9 +547,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_years' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -594,9 +570,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_periods' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -624,9 +598,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_declarations' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -647,9 +619,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_office' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -679,9 +649,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_transaction' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'               => [
 						'description'       => 'Authorization post ID.',
@@ -710,9 +678,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_sales_invoice' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'           => [
 						'description'       => 'Authorization post ID.',
@@ -741,9 +707,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_dimension' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'             => [
 						'description'       => 'Authorization post ID.',
@@ -774,9 +738,7 @@ class RestApi {
 				'callback'            => function( WP_REST_Request $request ) {
 					return $this->redirect_authorization( 'offices' );
 				},
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 			]
 		);
 
@@ -786,9 +748,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_customers_list' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 			]
 		);
 
@@ -798,9 +758,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_customers' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'page'     => [
 						'description'       => 'Current page of the collection.',
@@ -829,9 +787,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_articles' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'page'     => [
 						'description'       => 'Current page of the collection.',
@@ -860,9 +816,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_bank_statements' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'permission_callback' => [ $this, 'permission_callback' ],
 				'args'                => [
 					'post_id'        => [
 						'description'       => 'Authorization post ID.',
@@ -902,6 +856,23 @@ class RestApi {
 				],
 			]
 		);
+	}
+
+	/**
+	 * Permission callback.
+	 * 
+	 * @return bool True if permission, false otherwise.
+	 */
+	public function permission_callback() {
+		if ( \current_user_can( 'manage_options' ) ) {
+			return true;
+		}
+
+		if ( \defined( 'WP_CLI' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
