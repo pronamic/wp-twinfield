@@ -79,11 +79,15 @@ class CLI {
 							$data = $bank_statement->jsonSerialize();
 
 							$items[] = [
-								'office_code' => $office_code,
-								'date'        => $bank_statement->get_date()->format( 'Y-m-d' ),
-								'code'        => $data->code,
-								'number'      => $data->number,
-								'sub_id'      => $data->sub_id,
+								'office_code'        => $office_code,
+								'date'               => $bank_statement->get_date()->format( 'Y-m-d' ),
+								'code'               => $data->code,
+								'number'             => $data->number,
+								'sub_id'             => $data->sub_id,
+								'currency'           => $data->currency,
+								'opening_balance'    => $data->opening_balance,
+								'closing_balance'    => $data->closing_balance,
+								'transaction_number' => $data->currency,
 							];
 						}
 					}
@@ -99,6 +103,10 @@ class CLI {
 						'code',
 						'number',
 						'sub_id',
+						'currency',
+						'opening_balance',
+						'closing_balance',
+						'transaction_number',
 					] 
 				);
 
