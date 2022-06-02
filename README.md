@@ -165,6 +165,7 @@ $offices = $organisation_service->get_offices();
 wp twinfield user
 wp twinfield organisation
 wp twinfield ... » /wp-json/pronamic-twinfield/v1/...
+wp twinfield bank-statements $( wp twinfield offices list --field=code ) --date_from=2022-01-01 --date_to=2023-01-01 --include_posted=true --pull=true
 ```
 
 ### Config

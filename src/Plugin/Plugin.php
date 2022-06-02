@@ -39,6 +39,10 @@ class Plugin {
 			$this->admin = new Admin( $this );
 		}
 
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			$this->cli = new CLI();
+		}
+
 		$this->authorization_post_type = new AuthorizationPostType( $this );
 	}
 
