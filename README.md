@@ -178,6 +178,19 @@ wp twinfield bank-statement query $( wp twinfield office list --field=code --exc
 wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2018-01-01 --date_to=2019-01-01 --include_posted=true --pull=true
 ```
 
+### Queries
+
+```
+SELECT
+	DATE_FORMAT( bank_statement.date, '%Y-%m' ),
+	COUNT( bank_statement.id )
+FROM
+	wp_twinfield_bank_statements AS bank_statement
+GROUP BY
+	DATE_FORMAT( bank_statement.date, '%Y-%m' )
+;
+```
+
 ### Config
 
 ```php

@@ -186,7 +186,8 @@ class Plugin {
 				KEY code ( office_id, code ),
 				KEY code_number ( office_id, code, `number` ),
 				UNIQUE KEY bank_statement ( office_id, code, `number`, sub_id ),
-				KEY transaction_number ( office_id, code, transaction_number )
+				KEY transaction_number ( office_id, code, transaction_number ),
+				KEY `date` ( `date` )
 			);
 
 			CREATE TABLE {$wpdb->prefix}twinfield_bank_statement_lines (
