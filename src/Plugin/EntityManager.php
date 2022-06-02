@@ -76,7 +76,7 @@ class EntityManager {
 		);
 
 		if ( false === $result ) {
-			throw new \Exception( \sprintf( 'Insert error: %s', $this->wpdb->last_error ) );
+			throw new \Exception( \sprintf( 'Insert error: %s, data: %s.', $this->wpdb->last_error, \wp_json_encode( $data, \JSON_PRETTY_PRINT ) ) );
 		}
 
 		$id = $this->wpdb->insert_id;

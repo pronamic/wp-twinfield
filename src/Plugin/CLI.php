@@ -43,6 +43,15 @@ class CLI {
 
 				$offices = $data->data;
 
+				$exclude = \array_key_exists( 'exclude', $assoc_args ) ? wp_parse_list( $assoc_args['exclude'] ) : [];
+
+				$offices = \array_filter(
+					$offices,
+					function( $office ) use ( $exclude ) {
+						return ! \in_array( $office->get_code(), $exclude, true );
+					}
+				);
+
 				$items = \array_map(
 					function( $office ) {
 						return [
@@ -74,39 +83,45 @@ class CLI {
 
 				$items = [];
 
-				try {
-					foreach ( $args as $office_code ) {
-						$route = '/pronamic-twinfield/v1/authorizations/' . $authorization_post_id . '/offices/' . $office_code . '/bank-statements';
+				$progress = \WP_CLI\Utils\make_progress_bar( 'Bank statement query', \count( $args ) );
 
-						$request = new WP_REST_Request( 'GET', $route );
+				foreach ( $args as $office_code ) {
+					$route = '/pronamic-twinfield/v1/authorizations/' . $authorization_post_id . '/offices/' . $office_code . '/bank-statements';
 
-						foreach ( $assoc_args as $key => $value ) {
-							$request->set_param( $key, $value );
-						}
+					$request = new WP_REST_Request( 'GET', $route );
 
-						$response = rest_do_request( $request );
-
-						$bank_statements = (object) $response->get_data();
-
-						foreach ( $bank_statements as $bank_statement ) {
-							$data = $bank_statement->jsonSerialize();
-
-							$items[] = [
-								'office_code'        => $office_code,
-								'date'               => $bank_statement->get_date()->format( 'Y-m-d' ),
-								'code'               => $data->code,
-								'number'             => $data->number,
-								'sub_id'             => $data->sub_id,
-								'currency'           => $data->currency,
-								'opening_balance'    => $data->opening_balance,
-								'closing_balance'    => $data->closing_balance,
-								'transaction_number' => $data->currency,
-							];
-						}
+					foreach ( $assoc_args as $key => $value ) {
+						$request->set_param( $key, $value );
 					}
-				} catch ( \Exception $e ) {
-					\WP_CLI::error( $e->getMessage() );
+
+					try {
+						$response = rest_do_request( $request );
+					} catch ( \Exception $e ) {
+						\WP_CLI::error( '' . $office_code . ': ' . $e->getMessage() );
+					}
+
+					$bank_statements = (object) $response->get_data();
+
+					foreach ( $bank_statements as $bank_statement ) {
+						$data = $bank_statement->jsonSerialize();
+
+						$items[] = [
+							'office_code'        => $office_code,
+							'date'               => $bank_statement->get_date()->format( 'Y-m-d' ),
+							'code'               => $data->code,
+							'number'             => $data->number,
+							'sub_id'             => $data->sub_id,
+							'currency'           => $data->currency,
+							'opening_balance'    => $data->opening_balance,
+							'closing_balance'    => $data->closing_balance,
+							'transaction_number' => $data->currency,
+						];
+					}
+
+					$progress->tick();
 				}
+
+				$progress->finish();
 
 				$formatter = new \WP_CLI\Formatter(
 					$assoc_args,

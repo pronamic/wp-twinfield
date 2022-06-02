@@ -197,7 +197,7 @@ class Plugin {
 				line_id INT UNSIGNED NOT NULL,
 				contra_account_number VARCHAR(40) NOT NULL,
 				contra_iban VARCHAR(40) NOT NULL,
-				contra_account_name VARCHAR(80) NOT NULL,
+				contra_account_name TINYTEXT NOT NULL,
 				payment_reference VARCHAR(80) NOT NULL,
 				amount DECIMAL(15,2) NOT NULL,
 				base_amount DECIMAL(15,2) NOT NULL,

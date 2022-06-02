@@ -22,7 +22,7 @@ class Entity {
 		$this->primary_key = $primary_key;
 		$this->format      = $format;
 
-        $this->format['created_at'] = '%s';
-        $this->format['updated_at'] = '%s';
+		$this->format['created_at'] = '%s';
+		$this->format['updated_at'] = '%s';
 	}
 }
