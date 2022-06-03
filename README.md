@@ -170,12 +170,8 @@ wp twinfield bank-statement query $( wp twinfield office list --field=code ) --d
 wp twinfield bank-statement query 1000 --date_from=2010-01-01 --date_to=2011-01-01 --include_posted=true
 wp twinfield bank-statement query 1000 --date_from=2011-01-01 --date_to=2012-01-01 --include_posted=true
 wp twinfield bank-statement query 1000 --date_from=2012-01-01 --date_to=2013-01-01 --include_posted=true
-wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2013-01-01 --date_to=2014-01-01 --include_posted=true --pull=true
-wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2014-01-01 --date_to=2015-01-01 --include_posted=true --pull=true
-wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2015-01-01 --date_to=2016-01-01 --include_posted=true --pull=true
-wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2016-01-01 --date_to=2017-01-01 --include_posted=true --pull=true
-wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2017-01-01 --date_to=2018-01-01 --include_posted=true --pull=true
-wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2018-01-01 --date_to=2019-01-01 --include_posted=true --pull=true
+wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from=2022-01-01 --date_to=2023-01-01 --include_posted=true --pull=true
+wp twinfield bank-statement query $( wp twinfield office list --field=code --exclude=NL001,NLLEEG,ZESJAB,ZESJAB2 ) --date_from="midnight -1 week" --date_to=midnight --include_posted=true --pull=true
 ```
 
 ### Queries
