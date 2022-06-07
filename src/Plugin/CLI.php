@@ -123,6 +123,12 @@ class CLI {
 
 				$progress->finish();
 
+				$display = \WP_CLI\Utils\get_flag_value( $assoc_args, 'display', true );
+				
+				if ( ! $display ) {
+					return;
+				}
+
 				$formatter = new \WP_CLI\Formatter(
 					$assoc_args,
 					[
