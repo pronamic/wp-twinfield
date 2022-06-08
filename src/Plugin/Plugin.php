@@ -26,6 +26,26 @@ use WP_Post;
  */
 class Plugin {
 	/**
+	 * Instance.
+	 *
+	 * @var self|null
+	 */
+	protected static $instance;
+
+	/**
+	 * Instance.
+	 *
+	 * @return self
+	 */
+	public static function instance( $file = null ) {
+		if ( null === self::$instance ) {
+			self::$instance = new self( $file );
+		}
+
+		return self::$instance;
+	}
+
+	/**
 	 * Construct plugin.
 	 *
 	 * @param string $file Plugin file.

@@ -30,6 +30,6 @@ require __DIR__ . '/vendor/autoload.php';
 /**
  * Bootstrap.
  */
-$pronamic_twinfield_plugin = new Pronamic\WordPress\Twinfield\Plugin\Plugin( __FILE__ );
+$pronamic_twinfield_plugin = Pronamic\WordPress\Twinfield\Plugin\Plugin::instance( __FILE__ );
 
 $pronamic_twinfield_plugin->setup();
