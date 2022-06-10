@@ -58,7 +58,17 @@ class AccessTokenValidation implements JsonSerializable {
 	 * @return bool True if expired, false otherwise.
 	 */
 	public function is_expired() {
-		return $this->expiration < \time();
+		return $this->expires_in( 0 );
+	}
+
+	/**
+	 * Check if the access token expires in the specified number seconds.
+	 * 
+	 * @param int $seconds Seconds.
+	 * @return bool True if expires in the number seconds, false otherwise.
+	 */
+	public function expires_in( $seconds = 0 ) {
+		return $this->expiration < ( \time() + $seconds );
 	}
 
 	/**

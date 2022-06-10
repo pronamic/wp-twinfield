@@ -92,7 +92,7 @@ class Client {
 	 * @return AuthenticationInfo
 	 */
 	public function authenticate() {
-		if ( $this->authentication->get_validation()->is_expired() ) {
+		if ( $this->authentication->get_validation()->expires_in( 5 * \MINUTE_IN_SECONDS ) ) {
 			$response = $this->openid_connect_client->refresh_token( $this->authentication->get_tokens()->get_refresh_token() );
 			
 			$tokens = AuthenticationTokens::from_object( $response );
