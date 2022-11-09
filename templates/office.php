@@ -374,7 +374,7 @@ $twinfield = $organisation->get_twinfield();
 							<td>
 								<?php
 
-								$url = rest_url( 
+								$rest_api_url = rest_url( 
 									strtr(
 										'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/browse/:browse_code',
 										[
@@ -385,10 +385,12 @@ $twinfield = $organisation->get_twinfield();
 									)
 								);
 
+								$rest_api_nonce_url = wp_nonce_url( $rest_api_url, 'wp_rest' );
+
 								printf(
 									'<a href="%s">%s</a>',
-									esc_url( $url ),
-									esc_html( $url )
+									esc_url( $rest_api_nonce_url ),
+									esc_html( $rest_api_url )
 								);
 
 								?>
@@ -441,9 +443,11 @@ $twinfield = $organisation->get_twinfield();
 									);
 								}
 
+								$rest_api_nonce_url = wp_nonce_url( $url, 'wp_rest' );
+
 								printf(
 									'<a href="%s">%s</a>',
-									esc_url( $url ),
+									esc_url( $rest_api_nonce_url ),
 									esc_html( $url )
 								);
 
