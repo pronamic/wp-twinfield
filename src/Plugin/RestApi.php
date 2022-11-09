@@ -856,6 +856,34 @@ class RestApi {
 				],
 			]
 		);
+
+		register_rest_route(
+			$namespace,
+			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/reports/(?P<report_code>[a-zA-Z0-9_-]+)/',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_report' ],
+				'permission_callback' => [ $this, 'permission_callback' ],
+				'args'                => [
+					'post_id'     => [
+						'description'       => 'Authorization post ID.',
+						'type'              => 'integer',
+						'sanitize_callback' => 'absint',
+						'required'          => true,
+					],
+					'office_code' => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+						'required'    => true,
+					],
+					'report_code' => [
+						'description' => 'Twinfield office code.',
+						'type'        => 'string',
+						'required'    => true,
+					],
+				],
+			]
+		);
 	}
 
 	/**
@@ -2121,6 +2149,75 @@ class RestApi {
 		);
 
 		return $rest_response;
+	}
+
+	/**
+	 * REST API report.
+	 * 
+	 * @param WP_REST_Request $request WordPress REST API request object.
+	 * @return WP_REST_Response
+	 */
+	public function rest_api_report( WP_REST_Request $request ) {
+		$reports = [
+			[
+				'code'        => 'customer-open-items',
+				'label'       => __( 'Customer open items', 'pronamic-twinfield' ),
+				'label_nl'    => 'Openstaande postenlijst per debiteur',
+				'browse_code' => '100',
+				'fields'      => [
+					'fin.trs.line.matchstatus' => 'available',
+				],
+			],
+		];
+
+		$request = new WP_REST_Request(
+			'GET',
+			strtr(
+				'/pronamic-twinfield/v1/authorizations/:id/offices/:office_code/browse/:browse_code/query',
+				[
+					':id'          => $request->get_param( 'post_id' ),
+					':office_code' => $request->get_param( 'office_code' ),
+					':browse_code' => '100',
+				]
+			)
+		);
+
+		$request->set_param(
+			'values',
+			[
+				'fin.trs.line.matchstatus' => 'available',
+			]
+		);
+
+		$request->set_param(
+			'visibles',
+			[
+				'fin.trs.head.yearperiod'          => true,
+				'fin.trs.head.code'                => true,
+				'fin.trs.head.shortname'           => true,
+				'fin.trs.head.number'              => true,
+				'fin.trs.head.status'              => true,
+				'fin.trs.head.date'                => true,
+				'fin.trs.line.dim2'                => true,
+				'fin.trs.line.dim2name'            => true,
+				'fin.trs.head.curcode'             => true,
+				'fin.trs.line.valuesigned'         => true,
+				'fin.trs.line.basevaluesigned'     => true,
+				'fin.trs.line.repvaluesigned'      => true,
+				'fin.trs.line.openbasevaluesigned' => true,
+				'fin.trs.line.invnumber'           => true,
+				'fin.trs.line.datedue'             => true,
+				'fin.trs.line.matchstatus'         => true,
+				'fin.trs.line.matchnumber'         => true,
+				'fin.trs.line.matchdate'           => true,
+				'fin.trs.line.openvaluesigned'     => true,
+				'fin.trs.line.availableforpayruns' => true,
+				'fin.trs.line.modified'            => true,
+			]
+		);
+
+		return \rest_do_request( $request );
+
 	}
 
 	/**

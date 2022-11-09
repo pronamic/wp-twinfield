@@ -81,25 +81,29 @@ class BrowseDataUnserializer {
 			case 'fin.trs.line.basevaluesigned':
 				return $line->set_base_value( (string) $element );
 			case 'fin.trs.line.openbasevaluesigned':
-				return $line->set_open_base_value( (string) $element );
+				// return $line->set_open_base_value( (string) $element );
 			case 'fin.trs.line.valuesigned':
 				return $line->set_value( (string) $element );
 			case 'fin.trs.line.debitcredit':
 				return $line->set_debit_credit( (string) $element );
-			case 'fin.trs.line.openbasevaluesigned':
-				return $line->set_open_base_value( (string) $element );
 			case 'fin.trs.line.dim1':
 				return $line->set_dimension_1( (string) $element );
 			case 'fin.trs.line.dim2':
-				return $line->set_dimension_2( (string) $element );
+				// return $line->set_dimension_2( (string) $element );
 			case 'fin.trs.line.dim3':
-				return $line->set_dimension_3( (string) $element );
+				// return $line->set_dimension_3( (string) $element );
 			case 'fin.trs.line.description':
 				return $line->set_description( (string) $element );
 			case 'fin.trs.line.invnumber':
 				return $line->set_invoice_number( (string) $element );
 			case 'fin.trs.line.matchdate':
-				return $line->set_match_date( \DateTimeImmutable::createFromFormat( 'Ymd', (string) $element, new \DateTimeZone( 'UTC' ) )->setTime( 0, 0 ) );
+				$value = (string) $element;
+
+				if ( '' === $value ) {
+					return null;
+				}
+
+				return $line->set_match_date( \DateTimeImmutable::createFromFormat( 'Ymd', $value, new \DateTimeZone( 'UTC' ) )->setTime( 0, 0 ) );
 		}
 	}
 }
