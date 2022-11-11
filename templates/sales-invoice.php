@@ -6,6 +6,8 @@
  * @package Pronamic/WordPress/Twinfield
  */
 
+use Pronamic\WordPress\Money\Money;
+
 get_header();
 
 ?>
@@ -170,13 +172,13 @@ get_header();
 			<div class="content">
 				<dl class="dl-horizontal">
 					<dt><?php esc_html_e( 'Value Excl', 'twinfield' ); ?></dt>
-					<dd><?php echo esc_html( twinfield_price( $sales_invoice->get_value_excl() ) ); ?></dd>
+					<dd><?php echo esc_html( ( new Money( $sales_invoice->get_value_excl() ) )->format_i18n() ); ?></dd>
 
 					<dt><?php esc_html_e( 'Vat Value', 'twinfield' ); ?></dt>
-					<dd><?php echo esc_html( twinfield_price( $sales_invoice->get_vat_value() ) ); ?></dd>
+					<dd><?php echo esc_html( ( new Money( $sales_invoice->get_vat_value() ) )->format_i18n() ); ?></dd>
 
 					<dt><?php esc_html_e( 'Value Inc', 'twinfield' ); ?></dt>
-					<dd><?php echo esc_html( twinfield_price( $sales_invoice->get_value_inc() ) ); ?></dd>
+					<dd><?php echo esc_html( ( new Money( $sales_invoice->get_value_inc() ) )->format_i18n() ); ?></dd>
 				</dl>
 			</div>
 		</div>

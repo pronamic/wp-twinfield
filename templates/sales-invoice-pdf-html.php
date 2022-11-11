@@ -6,6 +6,8 @@
  * @package Pronamic/WordPress/Twinfield
  */
 
+use Pronamic\WordPress\Money\Money;
+
 $header = $sales_invoice->get_header();
 
 $lines = $sales_invoice->get_lines();
@@ -205,7 +207,7 @@ $rows = array_filter( $rows );
 			<strong>Totaal (excl. btw)</strong>
 		</th>
 		<td align="right" valign="top">
-			<?php echo esc_html( twinfield_price( $sales_invoice->get_totals()->get_value_excl() ) ); ?>
+			<?php echo esc_html( ( new Money( $sales_invoice->get_totals()->get_value_excl() ) )->format_i18n() ); ?>
 		</td>
 	</tr>
 
@@ -230,7 +232,7 @@ $rows = array_filter( $rows );
 				?>
 			</th>
 			<td align="right" valign="top">
-				<?php echo esc_html( twinfield_price( $vat_line->get_vat_value() ) ); ?>
+				<?php echo esc_html( ( new Money( $vat_line->get_vat_value() ) )->format_i18n() ); ?>
 			</td>
 		</tr>
 
@@ -241,7 +243,7 @@ $rows = array_filter( $rows );
 			<strong>Totaal (incl. btw)</strong>
 		</th>
 		<td align="right" valign="top">
-			<?php echo esc_html( twinfield_price( $sales_invoice->get_totals()->get_value_inc() ) ); ?>
+			<?php echo esc_html( ( new Money( $sales_invoice->get_totals()->get_value_inc() ) )->format_i18n() ); ?>
 		</td>
 	</tr>
 	</tfoot>
@@ -270,7 +272,7 @@ $rows = array_filter( $rows );
 					</span>
 			</td>
 			<td align="right" valign="top" style="border-bottom: 1px solid #D3D3D3; padding: 5px 0;">
-				<?php echo esc_html( twinfield_price( $line->get_value_excl() ) ); ?></td>
+				<?php echo esc_html( ( new Money( $line->get_value_excl() ) )->format_i18n() ); ?></td>
 			</td>
 		</tr>
 
@@ -302,7 +304,7 @@ $rows = array_filter( $rows );
 			<strong>Bedrag:</strong>
 		</th>
 		<td>
-			<span style="font-family: Courier New;"><?php echo esc_html( twinfield_price( $sales_invoice->get_totals()->get_value_inc() ) ); ?></span>
+			<span style="font-family: Courier New;"><?php echo esc_html( ( new Money( $sales_invoice->get_totals()->get_value_inc() ) )->format_i18n() ); ?></span>
 		</td>
 	</tr>
 	<tr>
