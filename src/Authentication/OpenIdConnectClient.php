@@ -125,7 +125,7 @@ class OpenIdConnectClient {
 		 * @link https://auth0.com/docs/protocols/oauth2/oauth-state
 		 */
 		if ( null !== $this->state ) {
-			$args['state'] = $this->state;
+			$args['state'] = \rawurlencode( $this->state );
 		}
 
 		$url = add_query_arg( $args, $url );

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e331d9de4fab4cd6d6d6312dec6cab9",
+    "content-hash": "cca3532cc9e3e33cd2c35f60fe5a5eb2",
     "packages": [
         {
             "name": "mpdf/mpdf",
@@ -860,6 +860,49 @@
                 "source": "https://github.com/dealerdirect/phpcodesniffer-composer-installer"
             },
             "time": "2022-02-04T12:51:07+00:00"
+        },
+        {
+            "name": "deployer/deployer",
+            "version": "v7.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deployphp/deployer.git",
+                "reference": "99a57a9035cfe0eeae5dba5befe5411ac0f3ac72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/99a57a9035cfe0eeae5dba5befe5411ac0f3ac72",
+                "reference": "99a57a9035cfe0eeae5dba5befe5411ac0f3ac72",
+                "shasum": ""
+            },
+            "bin": [
+                "dep"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Medvedev",
+                    "email": "anton@medv.io"
+                }
+            ],
+            "description": "Deployment Tool",
+            "homepage": "https://deployer.org",
+            "support": {
+                "docs": "https://deployer.org/docs",
+                "issues": "https://github.com/deployphp/deployer/issues",
+                "source": "https://github.com/deployphp/deployer"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/antonmedv",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-09-10T07:44:30+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -4909,5 +4952,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

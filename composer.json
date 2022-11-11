@@ -31,7 +31,8 @@
         "sensiolabs/security-checker": "^4.1",
         "squizlabs/php_codesniffer": "^3.2",
         "automattic/wordbless": "^0.3.1",
-        "pronamic/wp-coding-standards": "^1.1"
+        "pronamic/wp-coding-standards": "^1.1",
+        "deployer/deployer": "^7.0"
     },
     "scripts": {
         "post-autoload-dump": "php -r \"copy('vendor/automattic/wordbless/src/dbless-wpdb.php', 'wordpress/wp-content/db.php');\"",

@@ -290,11 +290,35 @@ class Plugin {
 			return;
 		}
 
+		$state_decoded = \base64_decode( $data['state'], true );
+
+		if ( false === $state_decoded ) {
+			return;
+		}
+
+		$state_object = \json_decode( $state_decoded );
+
+		if ( ! is_object( $state_object ) ) {
+			return;
+		}
+
+		if ( ! property_exists( $state_object, 'plugin' ) ) {
+			return;
+		}
+
+		if ( ! property_exists( $state_object, 'post_id' ) ) {
+			return;
+		}
+
+		if ( 'pronamic-twinfield' !== $state_object->plugin ) {
+			return;
+		}
+
 		$url = \add_query_arg(
 			[
 				'code' => $data['code'],
 			],
-			\rest_url( 'pronamic-twinfield/v1/authorize/' . $data['state'] )
+			\rest_url( 'pronamic-twinfield/v1/authorize/' . $state_object->post_id )
 		);
 
 		\wp_safe_redirect( $url );

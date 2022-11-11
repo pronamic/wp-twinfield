@@ -16,9 +16,18 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
  */
 $openid_connect_client = $plugin->get_openid_connect_client();
 
-$openid_connect_client->set_state( \get_the_ID() );
+$openid_connect_client->set_state(
+	\base64_encode(
+		\wp_json_encode(
+			[
+				'plugin'  => 'pronamic-twinfield',
+				'post_id' => \get_the_ID(),
+			]
+		)
+	)
+);
 
-$url = $openid_connect_client->get_authorize_url( $state );
+$url = $openid_connect_client->get_authorize_url();
 
 \printf(
 	'<a href="%s">%s</a>',
