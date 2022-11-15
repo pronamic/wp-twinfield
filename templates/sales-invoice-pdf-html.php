@@ -12,6 +12,10 @@ $header = $sales_invoice->get_header();
 
 $lines = $sales_invoice->get_lines();
 
+$total = $sales_invoice->get_value_inc();
+
+$title = ( $total > 0 ) ? 'Factuur' : 'Creditfactuur';
+
 $address = $customer->get_address_by_number( $header->get_invoice_address_number() );
 
 $rows = array();
@@ -82,7 +86,7 @@ $rows = array_filter( $rows );
 </style>
 
 <div style="float: left; width: 50%; padding-top: 3em;">
-	<h1 class="pronamic-title">Factuur</h1>
+	<h1 class="pronamic-title"><?php echo esc_html( $title ); ?></h1>
 
 	<br />
 
@@ -296,99 +300,102 @@ $rows = array_filter( $rows );
 	?>
 </div>
 
-<br />
+<?php if ( $total > 0 ) : ?>
 
-<table>
-	<tr>
-		<th align="left" scope="row">
-			<strong>Bedrag:</strong>
-		</th>
-		<td>
-			<span style="font-family: Courier New;"><?php echo esc_html( ( new Money( $sales_invoice->get_totals()->get_value_inc() ) )->format_i18n() ); ?></span>
-		</td>
-	</tr>
-	<tr>
-		<th align="left" scope="row">
-			<strong>Naar rekening:</strong>
-		</th>
-		<td>
-			<span style="font-family: Courier New;">NL56 RABO 0108 6347 79</span>
-		</td>
-	</tr>
-	<tr>
-		<th align="left" scope="row">
-			<strong>Ten name van:</strong>
-		</th>
-		<td>
-			<span style="font-family: Courier New;">Pronamic</span>
-		</td>
-	</tr>
-	<tr>
-		<th align="left" scope="row">
-			<strong>Betalingskenmerk:</strong>
-		</th>
-		<td>
-			<span style="font-family: Courier New;"><?php echo esc_html( $header->get_customer() ); ?> / <?php echo esc_html( $header->get_number() ); ?></span>
-		</td>
-	</tr>
-</table>
+	<br />
 
-<p>
-	Gebruik onderstaande links om de factuur online te betalen:
-</p>
+	<table>
+		<tr>
+			<th align="left" scope="row">
+				<strong>Bedrag:</strong>
+			</th>
+			<td>
+				<span style="font-family: Courier New;"><?php echo esc_html( ( new Money( $sales_invoice->get_totals()->get_value_inc() ) )->format_i18n() ); ?></span>
+			</td>
+		</tr>
+		<tr>
+			<th align="left" scope="row">
+				<strong>Naar rekening:</strong>
+			</th>
+			<td>
+				<span style="font-family: Courier New;">NL56 RABO 0108 6347 79</span>
+			</td>
+		</tr>
+		<tr>
+			<th align="left" scope="row">
+				<strong>Ten name van:</strong>
+			</th>
+			<td>
+				<span style="font-family: Courier New;">Pronamic</span>
+			</td>
+		</tr>
+		<tr>
+			<th align="left" scope="row">
+				<strong>Betalingskenmerk:</strong>
+			</th>
+			<td>
+				<span style="font-family: Courier New;"><?php echo esc_html( $header->get_customer() ); ?> / <?php echo esc_html( $header->get_number() ); ?></span>
+			</td>
+		</tr>
+	</table>
 
+	<p>
+		Gebruik onderstaande links om de factuur online te betalen:
+	</p>
 
-<table>
-	<tr>
-		<th align="left" scope="row">
-			<strong>Nederlands</strong>
-		</th>
-		<td>
-			<?php
+	<table>
+		<tr>
+			<th align="left" scope="row">
+				<strong>Nederlands</strong>
+			</th>
+			<td>
+				<?php
 
-			$url = 'https://www.pronamic.nl/betaal/';
+				$url = 'https://www.pronamic.nl/betaal/';
 
-			$url = add_query_arg(
-				array(
-					'referentie' => $header->get_number(),
-					'bedrag'     => $sales_invoice->get_value_inc(),
-				),
-				$url
-			);
+				$url = add_query_arg(
+					array(
+						'referentie' => $header->get_number(),
+						'bedrag'     => $sales_invoice->get_value_inc(),
+					),
+					$url
+				);
 
-			printf(
-				'<a href="%s">%s</a>',
-				esc_url( $url ),
-				esc_html( $url )
-			);
+				printf(
+					'<a href="%s">%s</a>',
+					esc_url( $url ),
+					esc_html( $url )
+				);
 
-			?>
-		</td>
-	</tr>
-	<tr>
-		<th align="left" scope="row">
-			<strong>English</strong>
-		</th>
-		<td>
-			<?php
+				?>
+			</td>
+		</tr>
+		<tr>
+			<th align="left" scope="row">
+				<strong>English</strong>
+			</th>
+			<td>
+				<?php
 
-			$url = 'https://www.pronamic.eu/pay/';
+				$url = 'https://www.pronamic.eu/pay/';
 
-			$url = add_query_arg(
-				array(
-					'reference' => $header->get_number(),
-					'amount'    => $sales_invoice->get_value_inc(),
-				),
-				$url
-			);
+				$url = add_query_arg(
+					array(
+						'reference' => $header->get_number(),
+						'amount'    => $sales_invoice->get_value_inc(),
+					),
+					$url
+				);
 
-			printf(
-				'<a href="%s">%s</a>',
-				esc_url( $url ),
-				esc_html( $url )
-			);
+				printf(
+					'<a href="%s">%s</a>',
+					esc_url( $url ),
+					esc_html( $url )
+				);
 
-			?>
-		</td>
-	</tr>
-</table>
+				?>
+			</td>
+		</tr>
+	</table>
+
+<?php endif; ?>
