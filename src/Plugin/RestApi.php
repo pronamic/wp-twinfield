@@ -58,6 +58,10 @@ class RestApi {
 	 */
 	public function setup() {
 		\add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+
+		$this->controllers = [
+			new RestProcessXmlController( $this->plugin ),
+		];
 	}
 
 	/**
@@ -66,6 +70,10 @@ class RestApi {
 	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
 	 */
 	public function rest_api_init() {
+		foreach ( $this->controllers as $controller ) {
+			$controller->rest_api_init();
+		}
+
 		$namespace = 'pronamic-twinfield/v1';
 
 		register_rest_route(
