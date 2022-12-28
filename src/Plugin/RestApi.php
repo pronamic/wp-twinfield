@@ -22,6 +22,7 @@ use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Twinfield;
 use Pronamic\WordPress\Twinfield\Transactions\DeletedTransactionsQuery;
+use WP_Error;
 use WP_HTTP_Response;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -59,9 +60,42 @@ class RestApi {
 	public function setup() {
 		\add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
 
+		\add_filter( 'rest_dispatch_request', [ $this, 'rest_dispatch_request' ], 10, 4 );
+
 		$this->controllers = [
 			new RestProcessXmlController( $this->plugin ),
+			new RestBankStatementsController( $this->plugin ),
 		];
+	}
+
+	/**
+	 * REST dispatch request.
+	 * 
+	 * @link https://github.com/WordPress/WordPress/blob/6.1/wp-includes/rest-api/class-wp-rest-server.php#L1152-L1172
+	 * @param mixed           $result  Dispatch result, will be used if not empty.
+	 * @param WP_REST_Request $request Request used to generate the response.
+	 * @param string          $route   Route matched for the request.
+	 * @param array           $handler Route handler used for the request.
+	 */
+	public function rest_dispatch_request( $result, $request, $route, $handler ) {
+		if ( ! \str_starts_with( $route, '/pronamic-twinfield/' ) ) {
+			return $result;
+		}
+
+		try {
+			$response = \call_user_func( $handler['callback'], $request );
+		} catch ( \Exception $e ) {
+			$response = new WP_Error(
+				'pronamic_twinfield_rest_exception',
+				$e->getMessage(),
+				[
+					'status'    => 500,
+					'exception' => $e,
+				]
+			);
+		}
+
+		return $response;
 	}
 
 	/**

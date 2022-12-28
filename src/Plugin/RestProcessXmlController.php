@@ -33,12 +33,14 @@ class RestProcessXmlController extends RestController {
 					return true;
 				},
 				'args'                => [
-					'xml'    => [
-						'description' => \__( 'XML.', 'pronamic-twinfield' ),
+					'authorization' => $this->get_authorization_schema(),
+					'office_code'   => [
+						'description' => \__( 'Twinfield office code.', 'pronamic' ),
 						'type'        => 'string',
+						'required'    => false,
 					],
-					'office_code' => [
-						'description' => 'Twinfield office code.',
+					'xml'           => [
+						'description' => \__( 'XML.', 'pronamic-twinfield' ),
 						'type'        => 'string',
 					],
 				]
@@ -55,7 +57,7 @@ class RestProcessXmlController extends RestController {
 	public function rest_api_process_xml( WP_REST_Request $request ) {
 		$xml = $request->get_param( 'xml' );
 
-		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
+		$post = $this->handle_authorization( $request );
 
 		$client = $this->plugin->get_client( $post );
 
