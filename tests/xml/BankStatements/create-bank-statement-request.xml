@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<statement target="electronicstatements">
+	<code>MOLLIE_2</code>
+	<date>20221201</date>
+	<statementnumber>20221201</statementnumber>
+	<transactions>
+		<transaction>
+			<contraiban>NL13TEST0123456789</contraiban>
+			<type>NMSC</type>
+			<reference/>
+			<debitcredit>debit</debitcredit>
+			<value>10.25</value>
+			<description>Test description</description>
+		</transaction>
+	</transactions>
+</statement>

@@ -1,0 +1,19 @@
+<statement target="electronicstatements" importduplicate="0" status="fail" msgtype="error" msg="Duplicate found: The statement conflicts with statement MOLLIE_2 20221130 (1) in company 11024." result="0">
+	<code name="Mollie" shortname="Mollie">MOLLIE_2</code>
+	<date>20221130</date>
+	<statementnumber>20221201</statementnumber>
+	<transactions count="1">
+		<transaction>
+			<contraiban>NL13TEST0123456789</contraiban>
+			<type>NMSC</type>
+			<reference />
+			<debitcredit>debit</debitcredit>
+			<value>10.25</value>
+			<description>Test description</description>
+		</transaction>
+	</transactions>
+	<currency></currency>
+	<startvalue></startvalue>
+	<closevalue></closevalue>
+	<office name="PRONAMIC" shortname="NL Sjabloon">11024</office>
+</statement>

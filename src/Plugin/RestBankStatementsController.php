@@ -154,7 +154,7 @@ class RestBankStatementsController extends RestController {
 			}
 
 			$element_transaction->appendChild( $document->createElement( 'type', $transaction['type'] ) );
-			$element_transaction->appendChild( $document->createElement( 'reference', $transaction['code'] ) );
+			$element_transaction->appendChild( $document->createElement( 'reference', $transaction['reference'] ) );
 			$element_transaction->appendChild( $document->createElement( 'debitcredit', $transaction['debit_credit'] ) );
 			$element_transaction->appendChild( $document->createElement( 'value', $transaction['value'] ) );
 

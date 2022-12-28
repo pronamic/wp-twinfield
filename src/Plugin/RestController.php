@@ -39,7 +39,7 @@ class RestController {
 	protected function get_authorization_schema() {
 		return [
 			'description' => \__( 'Authorization.', 'pronamic' ),
-			'type'        => [ 'int', 'string' ],
+			'type'        => [ 'integer', 'string' ],
 			'required'    => false,
 		];
 	}

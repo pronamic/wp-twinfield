@@ -1,0 +1,21 @@
+<statement target="electronicstatements" importduplicate="0" result="1">
+	<code name="Mollie" shortname="Mollie">MOLLIE_2</code>
+	<date>20221201</date>
+	<statementnumber>20221201</statementnumber>
+	<transactions count="1">
+		<transaction>
+			<contraiban>NL13TEST0123456789</contraiban>
+			<type>NMSC</type>
+			<reference />
+			<debitcredit>debit</debitcredit>
+			<value>10.25</value>
+			<description>Test description</description>
+			<dim1 name="Crediteuren" shortname="Crediteuren" dimensiontype="BAS">1600</dim1>
+			<dim2 name="Crediteur 1" shortname="" dimensiontype="CRD">2000</dim2>
+		</transaction>
+	</transactions>
+	<currency>EUR</currency>
+	<startvalue>108.7500</startvalue>
+	<closevalue>98.5000</closevalue>
+	<office name="PRONAMIC" shortname="NL Sjabloon">11024</office>
+</statement>
