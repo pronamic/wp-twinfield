@@ -63,7 +63,9 @@ class Plugin {
 			$this->cli = new CLI();
 		}
 
-		$this->authorization_post_type = new AuthorizationPostType( $this );
+		$this->authorization_post_type    = new AuthorizationPostType( $this );
+		$this->customer_post_type_support = new CustomerPostTypeSupport( $this );
+		$this->article_post_type_support  = new ArticlePostTypeSupport( $this );
 	}
 
 	/**
@@ -79,6 +81,8 @@ class Plugin {
 		}
 
 		$this->authorization_post_type->setup();
+		$this->customer_post_type_support->setup();
+		$this->article_post_type_support->setup();
 
 		\add_action( 'init', [ $this, 'init' ], 9 );
 		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
