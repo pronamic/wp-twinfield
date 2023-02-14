@@ -34,7 +34,7 @@ class CustomerPostTypeSupport {
 	 *
 	 * @return void
 	 */
-	public function setup() {add_post_type_support( 'page', 'twinfield_customer');add_post_type_support( 'page', 'twinfield_article');
+	public function setup() {
 		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 
 		\add_action( 'save_post', [ $this, 'save_post' ] );
