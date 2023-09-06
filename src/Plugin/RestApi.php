@@ -1264,16 +1264,43 @@ class RestApi {
 
 		$xml_processor->set_office( $office );
 
-		$request = new OfficeReadRequest( $office_code );
+		$office_request = new OfficeReadRequest( $office_code );
 
-		$response = $xml_processor->process_xml_string( $request->to_xml() );
+		$office_response = $xml_processor->process_xml_string( $office_request->to_xml() );
+
+		$office = \Pronamic\WordPress\Twinfield\Offices\Office::from_xml( (string) $office_response, $office );
+
+		if ( $request->get_param( 'pull' ) ) {
+			$orm = $this->get_orm();
+
+			$organisation = $office->get_organisation();
+
+			$organisation_id = $orm->first_or_create(
+				$organisation,
+				[
+					'code' => $organisation->get_code(),
+				],
+				[],
+			);
+
+			$office_id = $orm->update_or_create(
+				$office,
+				[
+					'organisation_id' => $organisation_id,
+					'code'            => $office->get_code(),
+				],
+				[
+					'xml'             => (string) $office_response,
+				]
+			);
+		}
 
 		$data = [
 			'type'      => 'office',
-			'data'      => \Pronamic\WordPress\Twinfield\Offices\Office::from_xml( (string) $response, $office ),
+			'data'      => $office,
 			'_embedded' => (object) [
-				'request'  => $request->to_xml(),
-				'response' => (string) $response,
+				'request'  => $office_request->to_xml(),
+				'response' => (string) $office_response,
 			],
 		];
 
@@ -2416,6 +2443,7 @@ class RestApi {
 				[
 					'organisation_id' => '%d',
 					'code'            => '%s',
+					'xml'             => '%s',
 				]
 			)
 		);

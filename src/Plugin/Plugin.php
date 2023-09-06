@@ -66,6 +66,7 @@ class Plugin {
 		$this->authorization_post_type    = new AuthorizationPostType( $this );
 		$this->customer_post_type_support = new CustomerPostTypeSupport( $this );
 		$this->article_post_type_support  = new ArticlePostTypeSupport( $this );
+		$this->scheduler_controller       = new SchedulerController( $this );
 	}
 
 	/**
@@ -83,6 +84,7 @@ class Plugin {
 		$this->authorization_post_type->setup();
 		$this->customer_post_type_support->setup();
 		$this->article_post_type_support->setup();
+		$this->scheduler_controller->setup();
 
 		\add_action( 'init', [ $this, 'init' ], 9 );
 		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
@@ -161,7 +163,7 @@ class Plugin {
 	private function install_tables() {
 		global $wpdb;
 
-		$version = '1.0.0';
+		$version = '1.0.2';
 
 		$db_version = \get_option( 'pronamic_twinfield_db_version' );
 
@@ -185,6 +187,7 @@ class Plugin {
 				updated_at DATETIME NOT NULL,
 				organisation_id BIGINT UNSIGNED NOT NULL,
 				code VARCHAR(80) NOT NULL,
+				xml LONGTEXT NOT NULL,
 				PRIMARY KEY  ( id ),
 				KEY organisation_id ( organisation_id ),
 				UNIQUE KEY code ( organisation_id, code )
