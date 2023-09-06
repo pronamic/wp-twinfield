@@ -110,7 +110,7 @@ class AccessTokenValidation implements JsonSerializable {
 	 * @param object $object Object.
 	 * @return self
 	 */
-	public function from_object( $object ) {
+	public static function from_object( $object ) {
 		$organisation = new Organisation( $object->{'twf.organisationCode'} );
 		$organisation->set_uuid( $object->{'twf.organisationId'} );
 

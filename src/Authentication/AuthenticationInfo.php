@@ -80,7 +80,7 @@ class AuthenticationInfo implements JsonSerializable {
 	 * @param object $object Object.
 	 * @return self
 	 */
-	public function from_object( $object ) {
+	public static function from_object( $object ) {
 		return new self(
 			AuthenticationTokens::from_object( $object->tokens ),
 			AccessTokenValidation::from_object( $object->validation )
