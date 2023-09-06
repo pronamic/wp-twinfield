@@ -243,6 +243,12 @@ class RestApi {
 						'description' => 'Embed.',
 						'type'        => 'string',
 					],
+					'pull'    => [
+						'description' => 'Pull flag to update the local repository.',
+						'type'        => 'boolean',
+						'default'     => false,
+						'required'    => false,
+					],
 				],
 			]
 		);
