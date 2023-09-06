@@ -16,14 +16,16 @@
             "roots/wordpress-core-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
+        "platform-check": false,
         "sort-packages": true
     },
     "require": {
         "php": ">=8.0",
-        "pronamic/wp-http": "^1.1",
         "mpdf/mpdf": "^8.0",
+        "pronamic/wp-http": "^1.1",
+        "pronamic/wp-money": "^2.0",
         "pronamic/wp-number": "^1.1",
-        "pronamic/wp-money": "^2.0"
+        "woocommerce/action-scheduler": "^3.6"
     },
     "require-dev": {
         "automattic/wordbless": "^0.3.1",

@@ -28,6 +28,11 @@
 require __DIR__ . '/vendor/autoload.php';
 
 /**
+ * Action Scheduler.
+ */
+require __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
+
+/**
  * Bootstrap.
  */
 $pronamic_twinfield_plugin = Pronamic\WordPress\Twinfield\Plugin\Plugin::instance( __FILE__ );
