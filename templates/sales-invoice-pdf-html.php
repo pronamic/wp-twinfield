@@ -356,7 +356,7 @@ $rows = array_filter( $rows );
 				$url = add_query_arg(
 					array(
 						'referentie' => $header->get_number(),
-						'bedrag'     => $sales_invoice->get_value_inc(),
+						'bedrag'     => \number_format( $sales_invoice->get_value_inc(), 2, ',', '.' ),
 					),
 					$url
 				);
@@ -382,7 +382,7 @@ $rows = array_filter( $rows );
 				$url = add_query_arg(
 					array(
 						'reference' => $header->get_number(),
-						'amount'    => $sales_invoice->get_value_inc(),
+						'amount'    => \number_format( $sales_invoice->get_value_inc(), 2, ',', '.' ),
 					),
 					$url
 				);
