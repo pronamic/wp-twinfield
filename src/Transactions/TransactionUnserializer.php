@@ -49,10 +49,10 @@ class TransactionUnserializer extends Unserializer {
 	/**
 	 * Unserialize the specified XML to an article.
 	 *
-	 * @param string $string The string to unserialize.
+	 * @param string $value The string to unserialize.
 	 */
-	public function unserialize_string( $string ) {
-		$simplexml = \simplexml_load_string( $string );
+	public function unserialize_string( $value ) {
+		$simplexml = \simplexml_load_string( $value );
 
 		return $this->unserialize( $simplexml );
 	}

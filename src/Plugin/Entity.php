@@ -17,6 +17,13 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
  * Entity class
  */
 class Entity {
+	/**
+	 * Construct entity.
+	 * 
+	 * @param string $table       Table.
+	 * @param string $primary_key Primary key.
+	 * @param string $format      Format.
+	 */
 	public function __construct( $table, $primary_key, $format ) {
 		$this->table       = $table;
 		$this->primary_key = $primary_key;

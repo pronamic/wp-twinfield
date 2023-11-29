@@ -59,6 +59,7 @@ class TransactionRequest {
 	public function to_dom_document() {
 		$document = $this->transaction->to_dom_document();
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 		$document->documentElement->setAttribute( 'destiny', $this->destiny );
 
 		return $document;

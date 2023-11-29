@@ -14,7 +14,7 @@ $lines = $sales_invoice->get_lines();
 
 $total = $sales_invoice->get_value_inc();
 
-$title = ( $total > 0 ) ? 'Factuur' : 'Creditfactuur';
+$invoice_title = ( $total > 0 ) ? 'Factuur' : 'Creditfactuur';
 
 $address = $customer->get_address_by_number( $header->get_invoice_address_number() );
 
@@ -86,7 +86,7 @@ $rows = array_filter( $rows );
 </style>
 
 <div style="float: left; width: 50%; padding-top: 3em;">
-	<h1 class="pronamic-title"><?php echo esc_html( $title ); ?></h1>
+	<h1 class="pronamic-title"><?php echo esc_html( $invoice_title ); ?></h1>
 
 	<br />
 

@@ -289,21 +289,21 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Convert from object.
 	 *
-	 * @param object $object Object.
+	 * @param object $item Object.
 	 * @return Hierarchy
 	 */
-	public static function from_object( $object ) {
+	public static function from_object( $item ) {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		$hierarchy = new HierarchyNode( $object->Id, $object->Code, $object->Name, $object->Description );
+		$hierarchy = new HierarchyNode( $item->Id, $item->Code, $item->Name, $item->Description );
 
 		/**
 		 * Accounts.
 		 */
 
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		if ( \property_exists( $object, 'Accounts' ) && \property_exists( $object->Accounts, 'HierarchyAccount' ) ) {
+		if ( \property_exists( $item, 'Accounts' ) && \property_exists( $item->Accounts, 'HierarchyAccount' ) ) {
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$hierarchy_accounts = $object->Accounts->HierarchyAccount;
+			$hierarchy_accounts = $item->Accounts->HierarchyAccount;
 
 			if ( \is_object( $hierarchy_accounts ) ) {
 				$hierarchy_accounts = [ $hierarchy_accounts ];
@@ -319,9 +319,9 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 		 */
 
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		if ( \property_exists( $object, 'ChildNodes' ) && \property_exists( $object->ChildNodes, 'HierarchyNode' ) ) {
+		if ( \property_exists( $item, 'ChildNodes' ) && \property_exists( $item->ChildNodes, 'HierarchyNode' ) ) {
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$child_nodes = $object->ChildNodes->HierarchyNode;
+			$child_nodes = $item->ChildNodes->HierarchyNode;
 
 			if ( \is_object( $child_nodes ) ) {
 				$child_nodes = [ $child_nodes ];

@@ -117,10 +117,10 @@ class Address {
 	/**
 	 * Set default.
 	 *
-	 * @param boolean $default Default falg.
+	 * @param boolean $value Default falg.
 	 */
-	public function set_default( $default ) {
-		$this->set_property( 'default', $default );
+	public function set_default( $value ) {
+		$this->set_property( 'default', $value );
 	}
 
 	/**

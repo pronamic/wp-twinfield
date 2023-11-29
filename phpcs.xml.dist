@@ -9,6 +9,9 @@
 	<exclude-pattern>wordpress/*</exclude-pattern>
 
 	<rule ref="PronamicWP">
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found" />
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed" />
 
+		<exclude name="WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown" />
 	</rule>
 </ruleset>

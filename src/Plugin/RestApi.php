@@ -2039,6 +2039,7 @@ class RestApi {
 		$read_element->appendChild( $document->createElement( 'office', $office_code ) );
 		$read_element->appendChild( $document->createElement( 'code', $browse_code ) );
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 		$xml = $document->saveXML( $document->documentElement );
 
 		$response = $xml_processor->process_xml_string( $xml );
@@ -2155,6 +2156,7 @@ class RestApi {
 			}
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 		$xml = $document->saveXML( $document->documentElement );
 
 		$response = $xml_processor->process_xml_string( $xml );
@@ -2330,9 +2332,15 @@ class RestApi {
 		return $bank_statements;
 	}
 
-	public function pull_object( $object ) {
-		if ( $object instanceof \Pronamic\WordPress\Twinfield\BankStatements\BankStatements ) {
-			$this->bank_statements_update_or_create( $object );
+	/**
+	 * Pull object.
+	 * 
+	 * @param object $item Object.
+	 * @return void
+	 */
+	public function pull_object( $item ) {
+		if ( $item instanceof \Pronamic\WordPress\Twinfield\BankStatements\BankStatements ) {
+			$this->bank_statements_update_or_create( $item );
 		}
 	}
 
@@ -2342,6 +2350,7 @@ class RestApi {
 	 * @link https://atymic.dev/tips/laravel-8-upserts/
 	 * @link https://laravel.com/docs/9.x/eloquent#upserts
 	 * @link https://stackoverflow.com/questions/2634152/getting-mysql-insert-id-while-using-on-duplicate-key-update-with-php
+	 * @param BankStatements $bank_statements Bank statements.
 	 */
 	public function bank_statements_update_or_create( $bank_statements ) {
 		$orm = $this->get_orm();
@@ -2418,6 +2427,11 @@ class RestApi {
 		}
 	}
 
+	/**
+	 * Get entity manager.
+	 * 
+	 * @return EntityManager
+	 */
 	public function get_orm() {
 		global $wpdb;
 

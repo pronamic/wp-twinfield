@@ -35,7 +35,7 @@ class ArticlePostTypeSupport {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
+		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 
 		\add_action( 'save_post', [ $this, 'save_post' ] );
 	}
@@ -61,7 +61,7 @@ class ArticlePostTypeSupport {
 			return;
 		}
 
-		if ( ! \wp_verify_nonce( $_POST['pronamic_twinfield_article_post_nonce'], 'pronamic_twinfield_article_post_save' ) ) {
+		if ( ! \wp_verify_nonce( \sanitize_key( $_POST['pronamic_twinfield_article_post_nonce'] ), 'pronamic_twinfield_article_post_save' ) ) {
 			return;
 		}
 
@@ -82,13 +82,13 @@ class ArticlePostTypeSupport {
 			}
 		}
 	}
+
 	/**
 	 * Add meta boxes.
 	 * 
-	 * @param string  $post_type Post type.
-	 * @param WP_Post $post      Post object.
+	 * @param string $post_type Post type.
 	 */
-	public function add_meta_boxes( $post_type, $post ) {
+	public function add_meta_boxes( $post_type ) {
 		if ( ! \post_type_supports( $post_type, 'twinfield_article' ) ) {
 			return;
 		}

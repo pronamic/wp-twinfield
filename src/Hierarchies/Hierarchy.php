@@ -144,12 +144,12 @@ class Hierarchy implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Convert from object.
 	 *
-	 * @param object $object Object.
+	 * @param object $item Object.
 	 * @return Hierarchy
 	 */
-	public static function from_object( $object ) {
+	public static function from_object( $item ) {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		$hierarchy = new Hierarchy( $object->Code, $object->Name, $object->Description, HierarchyNode::from_object( $object->RootNode ) );
+		$hierarchy = new Hierarchy( $item->Code, $item->Name, $item->Description, HierarchyNode::from_object( $item->RootNode ) );
 
 		return $hierarchy;
 	}

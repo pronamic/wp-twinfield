@@ -141,13 +141,17 @@ $twinfield = $organisation->get_twinfield();
 
 				$document = new DOMDocument();
 
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 				$document->preserveWhiteSpace = false;
-				$document->formatOutput       = true;
+
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
+				$document->formatOutput = true;
 
 				$document->loadXML( $section->xml );
 
 				printf(
 					'<textarea class="pronamic-twinfield-xml-textarea">%s</textarea>',
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 					esc_html( $document->saveXML( $document->documentElement ) )
 				);
 

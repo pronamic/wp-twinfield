@@ -109,8 +109,10 @@ class TransactionResponse {
 
 		$transaction = $transaction_unserializer->unserialize( $simplexml );
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 		$destiny = $document->documentElement->getAttribute( 'destiny' );
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API with PHP.
 		$result = ( '1' === $document->documentElement->getAttribute( 'result' ) );
 
 		$xpath = new DOMXPath( $document );

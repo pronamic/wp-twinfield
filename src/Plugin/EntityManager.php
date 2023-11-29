@@ -17,32 +17,65 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
  * Entity manager class
  */
 class EntityManager {
+	/**
+	 * Entities.
+	 * 
+	 * @var array
+	 */
 	private $entities = [];
 
+	/**
+	 * Construct entity manager.
+	 * 
+	 * @param wpdb $wpdb WordPress database access object.
+	 */
 	public function __construct( $wpdb ) {
 		$this->wpdb = $wpdb;
 	}
 
-	public function register_entity( $class, $entity ) {
-		$this->entities[ $class ] = $entity;
+	/**
+	 * Register entity.
+	 * 
+	 * @param string $class_name Class name.
+	 * @param Entity $entity     Entity.
+	 */
+	public function register_entity( $class_name, $entity ) {
+		$this->entities[ $class_name ] = $entity;
 	}
 
 	/**
+	 * Get entity for object.
 	 * 
 	 * Like `getManagerForClass`.
+	 * 
+	 * @param object $item Object.
+	 * @return Entity
+	 * @throws \Exception Throws exception if object class is unknown.
 	 */
-	public function get_entity( $object ) {
-		$class = get_class( $object );
+	public function get_entity( $item ) {
+		$class_name = \get_class( $item );
 
-		if ( ! array_key_exists( $class, $this->entities ) ) {
-			throw new \Exception( \sprintf( 'Unknow entity: %s', $class ) );
+		if ( ! \array_key_exists( $class_name, $this->entities ) ) {
+			throw new \Exception(
+				\sprintf(
+					'Unknow entity: %s',
+					\esc_html( $class_name )
+				)
+			);
 		}
 
-		return $this->entities[ $class ];
+		return $this->entities[ $class_name ];
 	}
 
-	public function first( $object, $condition ) {
-		$entity = $this->get_entity( $object );
+	/**
+	 * First.
+	 * 
+	 * @param object $item      Object.
+	 * @param array  $condition Condition.
+	 * @return int
+	 */
+	public function first( $item, $condition ) {
+		$entity = $this->get_entity( $item );
 
 		$where_condition = [];
 
@@ -50,6 +83,9 @@ class EntityManager {
 			$where_condition[] = $key . ' = ' . $entity->format[ $key ];
 		}
 
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+
+		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 		$query = $this->wpdb->prepare(
 			sprintf(
 				'SELECT %s FROM %s WHERE %s LIMIT 1;',
@@ -62,9 +98,19 @@ class EntityManager {
 
 		$id = $this->wpdb->get_var( $query );
 
+		// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+
 		return $id;
 	}
 
+	/**
+	 * Insert.
+	 * 
+	 * @param Entity $entity Entity.
+	 * @param array  $data   Data.
+	 * @return int
+	 * @throws \Exception Throws exception if insert fails.
+	 */
 	private function insert( $entity, $data ) {
 		$data['created_at'] = \current_time( 'mysql', true );
 		$data['updated_at'] = \current_time( 'mysql', true );
@@ -76,7 +122,13 @@ class EntityManager {
 		);
 
 		if ( false === $result ) {
-			throw new \Exception( \sprintf( 'Insert error: %s, data: %s.', $this->wpdb->last_error, \wp_json_encode( $data, \JSON_PRETTY_PRINT ) ) );
+			throw new \Exception(
+				\sprintf(
+					'Insert error: %s, data: %s.',
+					\esc_html( $this->wpdb->last_error ),
+					\wp_json_encode( $data, \JSON_PRETTY_PRINT )
+				)
+			);
 		}
 
 		$id = $this->wpdb->insert_id;
@@ -84,6 +136,15 @@ class EntityManager {
 		return $id;
 	}
 
+	/**
+	 * Update.
+	 * 
+	 * @param Entity $entity Entity.
+	 * @param array  $data   Data.
+	 * @param int    $id     ID.
+	 * @return int
+	 * @throws \Exception Throws exception if update fails.
+	 */
 	private function update( $entity, $data, $id ) {
 		$data['updated_at'] = \current_time( 'mysql', true );
 
@@ -96,18 +157,31 @@ class EntityManager {
 		);
 
 		if ( false === $result ) {
-			throw new \Exception( \sprintf( 'Update error: %s', $this->wpdb->last_error ) );
+			throw new \Exception(
+				\sprintf(
+					'Update error: %s',
+					\esc_html( $this->wpdb->last_error )
+				)
+			);
 		}
 
 		return $id;
 	}
 
-	public function first_or_create( $object, $condition, $values ) {
+	/**
+	 * First or create.
+	 * 
+	 * @param object $item      Object.
+	 * @param array  $condition Condition.
+	 * @param array  $values    Values.
+	 * @return int
+	 */
+	public function first_or_create( $item, $condition, $values ) {
 		global $wpdb;
 		
-		$entity = $this->get_entity( $object );
+		$entity = $this->get_entity( $item );
 
-		$id = $this->first( $object, $condition );
+		$id = $this->first( $item, $condition );
 
 		if ( null === $id ) {
 			$data = array_merge( $condition, $values );
@@ -118,12 +192,20 @@ class EntityManager {
 		return $id;
 	}
 
-	public function update_or_create( $object, $condition, $values ) {
+	/**
+	 * Update or create.
+	 * 
+	 * @param object $item      Object.
+	 * @param array  $condition Condition.
+	 * @param array  $values    Values.
+	 * @return int
+	 */
+	public function update_or_create( $item, $condition, $values ) {
 		global $wpdb;
 
-		$entity = $this->get_entity( $object );
+		$entity = $this->get_entity( $item );
 
-		$id = $this->first( $object, $condition );
+		$id = $this->first( $item, $condition );
 
 		if ( null !== $id ) {
 			$id = $this->update( $entity, $values, $id );

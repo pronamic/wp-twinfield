@@ -61,7 +61,7 @@ class CustomerPostTypeSupport {
 			return;
 		}
 
-		if ( ! \wp_verify_nonce( $_POST['pronamic_twinfield_customer_post_nonce'], 'pronamic_twinfield_customer_post_save' ) ) {
+		if ( ! \wp_verify_nonce( \sanitize_key( $_POST['pronamic_twinfield_customer_post_nonce'] ), 'pronamic_twinfield_customer_post_save' ) ) {
 			return;
 		}
 

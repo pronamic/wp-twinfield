@@ -85,11 +85,11 @@ class DeletedTransaction implements JsonSerializable {
 	/**
 	 * Create office list from XML.
 	 *
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_twinfield_object( $object ) {
-		$data = new ObjectAccess( $object );
+	public static function from_twinfield_object( $value ) {
+		$data = new ObjectAccess( $value );
 
 		$item = new self();
 

@@ -47,11 +47,11 @@ class LoadResponse implements JsonSerializable {
 	/**
 	 * Convert from object.
 	 *
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return LoadResponse
 	 */
-	public static function from_object( $object ) {
-		$hierarchy = Hierarchy::from_object( $object->hierarchy );
+	public static function from_object( $value ) {
+		$hierarchy = Hierarchy::from_object( $value->hierarchy );
 
 		$load_response = new LoadResponse( $hierarchy );
 
