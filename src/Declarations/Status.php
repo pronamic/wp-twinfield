@@ -60,11 +60,11 @@ class Status {
 	/**
 	 * Create status from Twinfield object.
 	 * 
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_twinfield_object( $object ) {
+	public static function from_twinfield_object( $value ) {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
-		return new self( $object->Description, $object->StepIndex, $object->ExtraInformation );
+		return new self( $value->Description, $value->StepIndex, $value->ExtraInformation );
 	}
 }

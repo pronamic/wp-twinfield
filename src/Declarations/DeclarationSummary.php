@@ -107,23 +107,23 @@ class DeclarationSummary {
 	 * Create declartion summary from Twinfield object.
 	 * 
 	 * @param Organisation $organisation Organiation.
-	 * @param object       $object       Object.
+	 * @param object       $value        Object.
 	 */
-	public static function from_twinfield_object( $organisation, $object ) {
+	public static function from_twinfield_object( $organisation, $value ) {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 
-		$assignee = $organisation->new_user( $object->Assignee->Code );
-		$assignee->set_name( $object->Assignee->Name );
+		$assignee = $organisation->new_user( $value->Assignee->Code );
+		$assignee->set_name( $value->Assignee->Name );
 
-		$company = $organisation->office( $object->Company->Code );
-		$company->set_name( $object->Company->Name );
+		$company = $organisation->office( $value->Company->Code );
+		$company->set_name( $value->Company->Name );
 
 		return new self(
-			$object->Id,
-			$object->DocumentCode,
-			$object->Name,
-			DocumentTimeFrame::from_twinfield_object( $object->DocumentTimeFrame ),
-			Status::from_twinfield_object( $object->Status ),
+			$value->Id,
+			$value->DocumentCode,
+			$value->Name,
+			DocumentTimeFrame::from_twinfield_object( $value->DocumentTimeFrame ),
+			Status::from_twinfield_object( $value->Status ),
 			$assignee,
 			$company
 		);

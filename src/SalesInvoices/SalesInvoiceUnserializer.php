@@ -72,7 +72,12 @@ class SalesInvoiceUnserializer extends Unserializer {
 		}
 
 		if ( 'salesinvoice' !== $simplexml->getName() ) {
-			throw new \Exception( \sprintf( 'Invalid element name: %s.', $simplexml->getName() ) );
+			throw new \Exception(
+				\sprintf(
+					'Invalid element name: %s.',
+					\esc_html( $simplexml->getName() )
+				)
+			);
 		}
 
 		/**

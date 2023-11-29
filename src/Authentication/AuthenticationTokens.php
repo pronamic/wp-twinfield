@@ -89,10 +89,10 @@ class AuthenticationTokens implements JsonSerializable {
 	/**
 	 * Create access token validation object from a plain object.
 	 *
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_object( $object ) {
-		return new self( $object->access_token, $object->token_type, $object->refresh_token );
+	public static function from_object( $value ) {
+		return new self( $value->access_token, $value->token_type, $value->refresh_token );
 	}
 }

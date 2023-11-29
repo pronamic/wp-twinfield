@@ -161,7 +161,7 @@ class OpenIdConnectClient {
 			throw new \Exception(
 				\sprintf(
 					'Unknow response from `%s` endpoint.',
-					$url
+					\esc_html( $url )
 				)
 			);
 		}
@@ -170,8 +170,8 @@ class OpenIdConnectClient {
 			throw new \Exception(
 				\sprintf(
 					'Received error from `%s` endpoint: %s.',
-					$url,
-					$data->error
+					\esc_html( $url ),
+					\esc_html( $data->error )
 				)
 			);
 		}
@@ -198,14 +198,14 @@ class OpenIdConnectClient {
 			throw new \Exception(
 				\sprintf(
 					'Unknow response from `%s` endpoint.',
-					$url
+					\esc_html( $url )
 				)
 			);
 		}
 
 		if ( \property_exists( $data, 'Message' ) ) {
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			throw new \Exception( $data->Message );
+			throw new \Exception( \esc_html( $data->Message ) );
 		}
 
 		return $data;
@@ -238,7 +238,7 @@ class OpenIdConnectClient {
 			throw new \Exception(
 				\sprintf(
 					'Unknow response from `%s` endpoint.',
-					$url
+					\esc_html( $url )
 				)
 			);
 		}

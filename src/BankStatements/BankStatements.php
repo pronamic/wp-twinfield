@@ -41,10 +41,10 @@ class BankStatements implements IteratorAggregate, JsonSerializable {
 	 * From Twinfield object.
 	 * 
 	 * @param Office $office Office.
-	 * @param object $object Object.
+	 * @param object $value  Object.
 	 */
-	public static function from_twinfield_object( $office, $object ) {
-		$data = ObjectAccess::from_object( $object );
+	public static function from_twinfield_object( $office, $value ) {
+		$data = ObjectAccess::from_object( $value );
 
 		$bank_statements = new self( $office );
 

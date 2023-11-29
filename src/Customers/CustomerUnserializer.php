@@ -43,11 +43,21 @@ class CustomerUnserializer extends Unserializer {
 	 */
 	public function unserialize( SimpleXMLElement $element ) {
 		if ( 'dimension' !== $element->getName() ) {
-			throw new \Exception( \sprintf( 'Invalid element name: %s.', $element->getName() ) );
+			throw new \Exception(
+				\sprintf(
+					'Invalid element name: %s.',
+					\esc_html( $element->getName() )
+				)
+			);
 		}
 
 		if ( DimensionTypes::DEB !== (string) $element->type ) {
-			throw new \Exception( \sprintf( 'Invalid dimension type: %s.', (string) $element->type ) );
+			throw new \Exception(
+				\sprintf(
+					'Invalid dimension type: %s.',
+					\esc_html( (string) $element->type )
+				)
+			);
 		}
 
 		$customer = new Customer( (string) $element->type, (string) $element->code );

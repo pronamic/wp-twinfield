@@ -107,18 +107,18 @@ class AccessTokenValidation implements JsonSerializable {
 	/**
 	 * Create access token validation object from a plain object.
 	 * 
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_object( $object ) {
-		$organisation = new Organisation( $object->{'twf.organisationCode'} );
-		$organisation->set_uuid( $object->{'twf.organisationId'} );
+	public static function from_object( $value ) {
+		$organisation = new Organisation( $value->{'twf.organisationCode'} );
+		$organisation->set_uuid( $value->{'twf.organisationId'} );
 
-		$user = $organisation->new_user( $object->{'twf.organisationUserCode'} );
+		$user = $organisation->new_user( $value->{'twf.organisationUserCode'} );
 
-		$cluster_url = $object->{'twf.clusterUrl'};
+		$cluster_url = $value->{'twf.clusterUrl'};
 
-		$result = new self( $object->exp, $user, $cluster_url );
+		$result = new self( $value->exp, $user, $cluster_url );
 
 		return $result;
 	}

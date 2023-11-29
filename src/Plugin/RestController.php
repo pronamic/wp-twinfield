@@ -32,8 +32,7 @@ class RestController {
 
 	/**
 	 * REST API arguments.
-	 * 
-	 * @param array $args Arguments.
+	 *
 	 * @return array
 	 */
 	protected function get_authorization_schema() {

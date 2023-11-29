@@ -46,7 +46,12 @@ class DimensionUnserializer extends Unserializer {
 	 */
 	public function unserialize( SimpleXMLElement $element ) {
 		if ( 'dimension' !== $element->getName() ) {
-			throw new \Exception( \sprintf( 'Invalid element name: %s.', $element->getName() ) );
+			throw new \Exception(
+				\sprintf(
+					'Invalid element name: %s.',
+					\esc_html( $element->getName() )
+				)
+			);
 		}
 
 		$type = (string) $element->type;

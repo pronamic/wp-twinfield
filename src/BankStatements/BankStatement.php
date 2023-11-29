@@ -142,10 +142,10 @@ class BankStatement implements JsonSerializable {
 	/**
 	 * From Twinfield object.
 	 * 
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 */
-	public static function from_twinfield_object( $object ) {
-		$data = ObjectAccess::from_object( $object );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
 
 		$bank_statement = new self(
 			$data->get_property( 'Code' ),
@@ -160,8 +160,8 @@ class BankStatement implements JsonSerializable {
 		);
 
 		$bank_statement->lines = \array_map(
-			function ( $object ) {
-				return BankStatementLine::from_twinfield_object( $object );
+			function ( $item ) {
+				return BankStatementLine::from_twinfield_object( $item );
 			},
 			$data->get_object( 'Lines' )->get_array( 'BankStatementLine' )
 		);

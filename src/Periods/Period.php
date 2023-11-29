@@ -87,11 +87,11 @@ class Period implements JsonSerializable {
 	/**
 	 * From Twinfield object.
 	 * 
-	 * @param int    $year   Year.
-	 * @param object $object Object.
+	 * @param int    $year  Year.
+	 * @param object $value Object.
 	 */
-	public static function from_twinfield_object( $year, $object ) {
-		$data = ObjectAccess::from_object( $object );
+	public static function from_twinfield_object( $year, $value ) {
+		$data = ObjectAccess::from_object( $value );
 
 		$period = new self(
 			$year,

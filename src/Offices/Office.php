@@ -135,13 +135,18 @@ class Office extends CodeName implements JsonSerializable {
 		}
 
 		if ( 'office' !== $simplexml->getName() ) {
-			throw new \Exception( \sprintf( 'Invalid element name: %s.', $simplexml->getName() ) );
+			throw new \Exception(
+				\sprintf(
+					'Invalid element name: %s.',
+					\esc_html( $simplexml->getName() )
+				)
+			);
 		}
 
 		$result = \strval( $simplexml['result'] );
 
 		if ( '1' !== $result ) {
-			throw new \Exception( \strval( $simplexml['msg'] ) );
+			throw new \Exception( \esc_html( (string) $simplexml['msg'] ) );
 		}
 
 		$office->set_status( (string) $simplexml['status'] );

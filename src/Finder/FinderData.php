@@ -110,17 +110,17 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 	/**
 	 * From Twinfield object.
 	 * 
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_twinfield_object( $object ) {
-		$data = ObjectAccess::from_object( $object );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
 
 		$columns = $data->get_object( 'Columns' )->get_array( 'string' );
 
 		$items = \array_map(
-			function ( $object ) {
-				return ObjectAccess::from_object( $object )->get_array( 'string' );
+			function ( $item ) {
+				return ObjectAccess::from_object( $item )->get_array( 'string' );
 			},
 			$data->get_object( 'Items' )->get_array( 'ArrayOfString' )
 		);

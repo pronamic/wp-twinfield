@@ -221,11 +221,11 @@ class BudgetTotalResult implements JsonSerializable {
 	/**
 	 * Create budget total result from Twinfield object.
 	 *
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_twinfield_object( $object ) {
-		$data = ObjectAccess::from_object( $object );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
 
 		$result = new self();
 
