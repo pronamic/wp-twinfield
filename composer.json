@@ -30,6 +30,7 @@
     "require-dev": {
         "automattic/wordbless": "^0.3.1",
         "deployer/deployer": "^7.0",
+        "overtrue/phplint": "^9.0",
         "php-coveralls/php-coveralls": "^2.6",
         "phpmd/phpmd": "^2.6",
         "pronamic/wp-coding-standards": "^2.0",
@@ -37,6 +38,7 @@
         "yoast/phpunit-polyfills": "^2.0"
     },
     "scripts": {
+        "phplint": "vendor/bin/phplint",
         "post-autoload-dump": "php -r \"copy('vendor/automattic/wordbless/src/dbless-wpdb.php', 'wordpress/wp-content/db.php');\"",
         "make-pot": "wp i18n make-pot . --slug=pronamic-twinfield --exclude=wordpress"
     }
