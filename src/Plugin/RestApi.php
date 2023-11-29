@@ -202,7 +202,7 @@ class RestApi {
 			'/organisation',
 			[
 				'methods'             => 'GET',
-				'callback'            => function( WP_REST_Request $request ) {
+				'callback'            => function ( WP_REST_Request $request ) {
 					return $this->redirect_authorization( 'organisation' );
 				},
 				'permission_callback' => [ $this, 'permission_callback' ],
@@ -270,7 +270,7 @@ class RestApi {
 			]
 		);
 
-		$finder_route_args = function( $callback = null, $type = null ) {
+		$finder_route_args = function ( $callback = null, $type = null ) {
 			$callback = ( null === $callback ) ? [ $this, 'rest_api_finder' ] : $callback;
 
 			$args = [
@@ -429,7 +429,7 @@ class RestApi {
 				$namespace,
 				'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/' . $slug,
 				$finder_route_args(
-					function( WP_REST_Request $request ) use ( $type, $dimtype ) {
+					function ( WP_REST_Request $request ) use ( $type, $dimtype ) {
 						$post = get_post( $request->get_param( 'post_id' ) );
 
 						$client = $this->plugin->get_client( $post );
@@ -449,7 +449,7 @@ class RestApi {
 							case 'DIM':
 								switch ( $dimtype ) {
 									case 'CRD':
-										$data = array();
+										$data = [];
 
 										foreach ( $response->get_data() as $item ) {
 											$supplier = new Supplier( $dimtype, $item[0] );
@@ -461,7 +461,7 @@ class RestApi {
 
 										return $data;
 									case 'DEB':
-										$data = array();
+										$data = [];
 
 										foreach ( $response->get_data() as $item ) {
 											$customer = new Customer( $dimtype, $item[0] );
@@ -783,7 +783,7 @@ class RestApi {
 			'/offices',
 			[
 				'methods'             => 'GET',
-				'callback'            => function( WP_REST_Request $request ) {
+				'callback'            => function ( WP_REST_Request $request ) {
 					return $this->redirect_authorization( 'offices' );
 				},
 				'permission_callback' => [ $this, 'permission_callback' ],
@@ -1155,7 +1155,7 @@ class RestApi {
 
 		$finder_types = $twinfield->get_finder_types();
 
-		$data = array();
+		$data = [];
 
 		foreach ( $finder_types as $type => $label ) {
 			$data[] = [
@@ -1203,7 +1203,7 @@ class RestApi {
 		$first_row = $request->get_param( 'first_row' );
 		$max_rows  = $request->get_param( 'max_rows' );
 
-		$options = array();
+		$options = [];
 
 		/**
 		 * Office.
@@ -1290,7 +1290,7 @@ class RestApi {
 					'code'            => $office->get_code(),
 				],
 				[
-					'xml'             => (string) $office_response,
+					'xml' => (string) $office_response,
 				]
 			);
 		}
@@ -2163,7 +2163,7 @@ class RestApi {
 
 		$transaction_lines = $unserializer->unserialize( (string) $response );
 
-		$data = array();
+		$data = [];
 
 		foreach ( $transaction_lines as $transaction_line ) {
 			$object = (array) $transaction_line->jsonSerialize();
@@ -2292,7 +2292,6 @@ class RestApi {
 		);
 
 		return \rest_do_request( $request );
-
 	}
 
 	/**

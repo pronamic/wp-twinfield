@@ -29,7 +29,7 @@ class RestProcessXmlController extends RestController {
 			[
 				'methods'             => 'POST',
 				'callback'            => [ $this, 'rest_api_process_xml' ],
-				'permission_callback' => function() {
+				'permission_callback' => function () {
 					return true;
 				},
 				'args'                => [
@@ -43,7 +43,7 @@ class RestProcessXmlController extends RestController {
 						'description' => \__( 'XML.', 'pronamic-twinfield' ),
 						'type'        => 'string',
 					],
-				]
+				],
 			]
 		);
 	}

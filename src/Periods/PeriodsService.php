@@ -120,7 +120,7 @@ class PeriodsService extends AbstractService {
 		$period_array = ObjectAccess::from_object( $result )->get_object( 'Periods' )->get_array( 'Period' );
 
 		$periods = \array_map(
-			function( $item ) use ( $year ) {
+			function ( $item ) use ( $year ) {
 				return Period::from_twinfield_object( $year, $item );
 			},
 			$period_array

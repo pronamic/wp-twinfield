@@ -61,9 +61,9 @@ class XMLProcessorTest extends TestCase {
 		$article_code  = getenv( 'TWINFIELD_ARTICLE_CODE' );
 		$customer_code = getenv( 'TWINFIELD_CUSTOMER_CODE' );
 
-		return array(
-			array( new ArticleReadRequestSerializer( new ArticleReadRequest( $office_code, $article_code ) ) ),
-			array( new CustomerReadRequestSerializer( new CustomerReadRequest( $office_code, $customer_code ) ) ),
-		);
+		return [
+			[ new ArticleReadRequestSerializer( new ArticleReadRequest( $office_code, $article_code ) ) ],
+			[ new CustomerReadRequestSerializer( new CustomerReadRequest( $office_code, $customer_code ) ) ],
+		];
 	}
 }

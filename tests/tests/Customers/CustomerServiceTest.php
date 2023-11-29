@@ -114,35 +114,35 @@ class CustomerServiceTest extends TestCase {
 		$no_mock = filter_var( getenv( 'TWINFIELD_TESTS_NO_MOCK' ), FILTER_VALIDATE_BOOLEAN );
 
 		if ( $no_mock ) {
-			return array(
-				array(
+			return [
+				[
 					'mock'   => false,
 					'office' => getenv( 'TWINFIELD_OFFICE_CODE' ),
 					'code'   => getenv( 'TWINFIELD_CUSTOMER_CODE' ),
 					'return' => true,
-				),
-			);
+				],
+			];
 		} else {
-			return array(
-				array( // Valid respone.
+			return [
+				[ // Valid respone.
 					'mock'   => 'read-dimensions-deb-response-1.xml',
 					'office' => '123456',
 					'code'   => '1002',
 					'return' => true,
-				),
-				array( // Valid respone.
+				],
+				[ // Valid respone.
 					'mock'   => 'read-dimensions-deb-response-2.xml',
 					'office' => '12345',
 					'code'   => '12345',
 					'return' => true,
-				),
-				array( // Empty response.
+				],
+				[ // Empty response.
 					'mock'   => 'read-dimensions-deb-response-empty.xml',
 					'office' => null,
 					'code'   => null,
 					'return' => false,
-				),
-			);
+				],
+			];
 		}
 	}
 
@@ -181,26 +181,26 @@ class CustomerServiceTest extends TestCase {
 		$no_mock = filter_var( getenv( 'TWINFIELD_TESTS_NO_MOCK' ), FILTER_VALIDATE_BOOLEAN );
 
 		if ( $no_mock ) {
-			return array(
-				array(
+			return [
+				[
 					'mock'   => false,
 					'office' => getenv( 'TWINFIELD_OFFICE_CODE' ),
 					'name'   => 'Test',
-				),
-			);
+				],
+			];
 		} else {
-			return array(
-				array( // Result.
+			return [
+				[ // Result.
 					'mock'   => 'insert-dimension-result-1.xml',
 					'office' => '11024',
 					'name'   => 'Test',
-				),
-				array( // No office.
+				],
+				[ // No office.
 					'mock'   => 'insert-dimension-office-no.xml',
 					'office' => null,
 					'name'   => 'Test',
-				),
-			);
+				],
+			];
 		}
 	}
 }

@@ -130,26 +130,26 @@ class TransactionServiceTest extends TestCase {
 		$no_mock = filter_var( getenv( 'TWINFIELD_TESTS_NO_MOCK' ), FILTER_VALIDATE_BOOLEAN );
 
 		if ( $no_mock ) {
-			return array(
-				array(
+			return [
+				[
 					'office' => getenv( 'TWINFIELD_OFFICE_CODE' ),
 					'code'   => 'INK',
 					'number' => '201400001',
 					'return' => true,
 					'result' => Result::SUCCESSFUL,
-				),
-			);
+				],
+			];
 		} else {
-			return array(
+			return [
 				// Valid data.
-				array(
+				[
 					'office' => '11024',
 					'code'   => 'INK',
 					'number' => '201400001',
 					'return' => true,
 					'result' => Result::SUCCESSFUL,
-				),
-			);
+				],
+			];
 		}
 	}
 }

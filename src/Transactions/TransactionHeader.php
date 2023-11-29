@@ -82,7 +82,6 @@ class TransactionHeader {
 	 * Constructs and initializes a transaction header.
 	 */
 	public function __construct() {
-
 	}
 
 	/**

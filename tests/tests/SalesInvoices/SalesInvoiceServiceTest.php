@@ -129,57 +129,57 @@ class SalesInvoiceServiceTest extends TestCase {
 		$no_mock = filter_var( getenv( 'TWINFIELD_TESTS_NO_MOCK' ), FILTER_VALIDATE_BOOLEAN );
 
 		if ( $no_mock ) {
-			return array(
-				array(
+			return [
+				[
 					'office'         => getenv( 'TWINFIELD_OFFICE_CODE' ),
 					'type'           => getenv( 'TWINFIELD_SALES_INVOICE_TYPE' ),
 					'invoice_number' => getenv( 'TWINFIELD_SALES_INVOICE_NUMBER' ),
 					'return'         => true,
-				),
-			);
+				],
+			];
 		} else {
-			return array(
+			return [
 				// Valid data.
-				array(
+				[
 					'office'         => '11024',
 					'type'           => 'FACTUUR',
 					'invoice_number' => '1',
 					'return'         => true,
 					'result'         => Result::SUCCESSFUL,
-				),
+				],
 				// Not existing invoice number.
-				array(
+				[
 					'office'         => '11024',
 					'type'           => 'FACTUUR',
 					'invoice_number' => '1234567890',
 					'return'         => true,
 					'result'         => Result::NOT_SUCCESSFUL,
-				),
+				],
 				// Invalid invoice number.
-				array(
+				[
 					'office'         => '11024',
 					'type'           => 'FACTUUR',
 					'invoice_number' => 'no',
 					'return'         => false,
 					'result'         => Result::NOT_SUCCESSFUL,
-				),
+				],
 				// Not existing type.
-				array(
+				[
 					'office'         => '11024',
 					'type'           => 'no',
 					'invoice_number' => '1',
 					'return'         => true,
 					'result'         => Result::NOT_SUCCESSFUL,
-				),
+				],
 				// Not existing office.
-				array(
+				[
 					'office'         => 'no',
 					'type'           => 'FACTUUR',
 					'invoice_number' => '1',
 					'return'         => true,
 					'result'         => Result::NOT_SUCCESSFUL,
-				),
-			);
+				],
+			];
 		}
 	}
 
@@ -250,8 +250,8 @@ class SalesInvoiceServiceTest extends TestCase {
 		$no_mock = filter_var( getenv( 'TWINFIELD_TESTS_NO_MOCK' ), FILTER_VALIDATE_BOOLEAN );
 
 		if ( $no_mock ) {
-			return array(
-				array(
+			return [
+				[
 					'mock'       => false,
 					'type'       => getenv( 'TWINFIELD_SALES_INVOICE_TYPE' ),
 					'customer'   => getenv( 'TWINFIELD_CUSTOMER_CODE' ),
@@ -260,12 +260,12 @@ class SalesInvoiceServiceTest extends TestCase {
 					'subarticle' => getenv( 'TWINFIELD_SUBARTICLE_CODE' ),
 					'return'     => true,
 					'result'     => Result::SUCCESSFUL,
-				),
-			);
+				],
+			];
 		} else {
-			return array(
+			return [
 				// Valid item, subarticle can be empty for this article.
-				array(
+				[
 					'mock'       => 'insert-sales-invoice-result-1.xml',
 					'type'       => 'FACTUUR',
 					'customer'   => '1000',
@@ -274,9 +274,9 @@ class SalesInvoiceServiceTest extends TestCase {
 					'subarticle' => '',
 					'return'     => true,
 					'result'     => Result::SUCCESSFUL,
-				),
+				],
 				// Sales invoice type is empty.
-				array(
+				[
 					'mock'       => 'insert-sales-invoice-type-empty.xml',
 					'type'       => '',
 					'customer'   => '1000',
@@ -285,9 +285,9 @@ class SalesInvoiceServiceTest extends TestCase {
 					'subarticle' => '',
 					'return'     => true,
 					'result'     => Result::NOT_SUCCESSFUL,
-				),
+				],
 				// The subcode of the article can not be empty.
-				array(
+				[
 					'mock'       => 'insert-sales-invoice-subarticle-empty.xml',
 					'type'       => 'FACTUUR',
 					'customer'   => '1000',
@@ -296,9 +296,9 @@ class SalesInvoiceServiceTest extends TestCase {
 					'subarticle' => '',
 					'return'     => true,
 					'result'     => Result::NOT_SUCCESSFUL,
-				),
+				],
 				// Sales invoice customer error.
-				array(
+				[
 					'mock'       => 'insert-sales-invoice-customer-error.xml',
 					'type'       => 'FACTUUR',
 					'customer'   => '12015',
@@ -307,8 +307,8 @@ class SalesInvoiceServiceTest extends TestCase {
 					'subarticle' => '',
 					'return'     => true,
 					'result'     => Result::NOT_SUCCESSFUL,
-				),
-			);
+				],
+			];
 		}
 	}
 }

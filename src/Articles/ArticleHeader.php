@@ -58,7 +58,6 @@ class ArticleHeader {
 	 * Constructs and initialize an Twinfield article header.
 	 */
 	public function __construct() {
-
 	}
 
 	/**

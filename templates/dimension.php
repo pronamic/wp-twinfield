@@ -106,20 +106,20 @@ $twinfield = $organisation->get_twinfield();
 
 		<?php
 
-		$xml_sections = array();
+		$xml_sections = [];
 
 		if ( $data->_embedded->request ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Request XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->request,
-			);
+			];
 		}
 
 		if ( $data->_embedded->response ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Response XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->response,
-			);
+			];
 		}
 
 		foreach ( $xml_sections as $section ) :

@@ -28,7 +28,7 @@ class ArrayOfArrayOfStringTest extends TestCase {
 		$array_of_array_string = new ArrayOfArrayOfString();
 		$array_of_array_string->add( new ArrayOfString() );
 
-		$data = array();
+		$data = [];
 
 		foreach ( $array_of_array_string as $array_of_string ) {
 			$data[] = $array_of_string;

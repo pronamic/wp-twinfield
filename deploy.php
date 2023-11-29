@@ -28,7 +28,7 @@ host( 'orbis.pronamic.nl' )
  */
 task(
 	'build',
-	function() {
+	function () {
 		/**
 		 * Copy.
 		 *
@@ -53,14 +53,14 @@ task(
 
 task(
 	'deploy:update_code',
-	function() {
+	function () {
 		upload( '{{build_path}}/', '{{release_path}}' );
 	}
 );
 
 task(
 	'deploy:symlink_plugin',
-	function() {
+	function () {
 		run( 'ln -sfn {{deploy_path}}/current {{plugins_dir}}/{{plugin_slug}}' );
 	}
 );

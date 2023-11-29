@@ -30,49 +30,49 @@ class RestBankStatementsController extends RestController {
 			[
 				'methods'             => 'POST',
 				'callback'            => [ $this, 'rest_api_create' ],
-				'permission_callback' => function() {
+				'permission_callback' => function () {
 					return true;
 				},
 				'args'                => [
-					'authorization' => $this->get_authorization_schema(),
-					'office_code'   => [
+					'authorization'    => $this->get_authorization_schema(),
+					'office_code'      => [
 						'description' => \__( 'Twinfield office code.', 'pronamic' ),
 						'type'        => 'string',
 						'required'    => true,
 					],
-					'code'  => [
+					'code'             => [
 						'description' => \__( 'Code of the corresponding bank book. Either `account` or `iban` or `code` should be set.', 'pronamic-twinfield' ),
 						'type'        => 'string',
 						'required'    => false,
 					],
-					'date'  => [
+					'date'             => [
 						'description' => \__( 'Bank statement date. Set to the current date when left empty.', 'pronamic-twinfield' ),
 						'type'        => 'string',
 						'required'    => false,
 					],
-					'statement_number'  => [
+					'statement_number' => [
 						'description' => \__( 'Number of the bank statement. When left empty, last available bank statement number increased by one.', 'pronamic-twinfield' ),
 						'type'        => 'integer',
 						'required'    => false,
 					],
-					'transactions' => [
+					'transactions'     => [
 						'description' => \__( 'Contains the bank statement transactions.', 'pronamic-twinfield' ),
 						'type'        => 'array',
 						'items'       => [
 							'type'       => 'object',
 							'properties' => [
-								'contra_iban' => [
+								'contra_iban'  => [
 									'description' => \__( 'Contra account number in IBAN format. Either use `contraaccount` or `contraiban` or leave empty.', 'pronamic-twinfield' ),
 									'type'        => 'string',
 									'required'    => false,
 								],
-								'type' => [
+								'type'         => [
 									'description' => \__( 'Contra account number in IBAN format. Either use `contraaccount` or `contraiban` or leave empty.', 'pronamic-twinfield' ),
 									'type'        => 'string',
 									'maxLength'   => 4,
 									'required'    => true,
 								],
-								'reference' => [
+								'reference'    => [
 									'description' => \__( 'Reference for own use.', 'pronamic-twinfield' ),
 									'type'        => 'string',
 									'maxLength'   => 40,
@@ -87,21 +87,21 @@ class RestBankStatementsController extends RestController {
 									],
 									'required'    => true,
 								],
-								'value' => [
+								'value'        => [
 									'description' => \__( 'Amount of the transaction.', 'pronamic-twinfield' ),
 									'type'        => 'number',
 									'required'    => true,
 								],
-								'description' => [
+								'description'  => [
 									'description' => \__( 'Description of the transaction.', 'pronamic-twinfield' ),
 									'type'        => 'string',
 									'maxLength'   => 500,
 									'required'    => true,
 								],
-							]
+							],
 						],
-					]
-				]
+					],
+				],
 			]
 		);
 	}

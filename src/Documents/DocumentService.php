@@ -42,6 +42,5 @@ class DocumentService extends AbstractService {
 	 * Query.
 	 */
 	public function query() {
-
 	}
 }

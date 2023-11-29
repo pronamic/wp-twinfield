@@ -19,7 +19,7 @@ class CLI {
 	public function __construct() {
 		\WP_CLI::add_command(
 			'twinfield office list',
-			function( $args, $assoc_args ) {
+			function ( $args, $assoc_args ) {
 				$authorization_post_id = \array_key_exists( 'authorization', $assoc_args ) ? $assoc_args['authorization'] : \get_option( 'pronamic_twinfield_authorization_post_id' );
 
 				$route = '/pronamic-twinfield/v1/authorizations/' . $authorization_post_id . '/offices';
@@ -47,13 +47,13 @@ class CLI {
 
 				$offices = \array_filter(
 					$offices,
-					function( $office ) use ( $exclude ) {
+					function ( $office ) use ( $exclude ) {
 						return ! \in_array( $office->get_code(), $exclude, true );
 					}
 				);
 
 				$items = \array_map(
-					function( $office ) {
+					function ( $office ) {
 						return [
 							'code'      => $office->get_code(),
 							'name'      => $office->get_name(),
@@ -78,7 +78,7 @@ class CLI {
 
 		\WP_CLI::add_command(
 			'twinfield bank-statement query',
-			function( $args, $assoc_args ) {
+			function ( $args, $assoc_args ) {
 				$authorization_post_id = \array_key_exists( 'authorization', $assoc_args ) ? $assoc_args['authorization'] : \get_option( 'pronamic_twinfield_authorization_post_id' );
 
 				$items = [];

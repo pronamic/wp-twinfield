@@ -84,7 +84,7 @@ class DeclarationsService extends AbstractService {
 		$organisation = $office->get_organisation();
 
 		$summaries = \array_map(
-			function( $item ) use ( $organisation ) {
+			function ( $item ) use ( $organisation ) {
 				return DeclarationSummary::from_twinfield_object( $organisation, $item );
 			},
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
@@ -140,7 +140,6 @@ class DeclarationsService extends AbstractService {
 	 */
 	public function get_vat_return_payment_reference( $document_id ) {
 		return $this->get_payment_reference( $document_id, DocumentCodes::VATTURNOVER );
-
 	}
 
 	/**
@@ -152,7 +151,6 @@ class DeclarationsService extends AbstractService {
 	 */
 	public function get_tax_group_vat_return_payment_reference( $document_id ) {
 		return $this->get_payment_reference( $document_id, DocumentCodes::TAXGROUP );
-
 	}
 
 	/**

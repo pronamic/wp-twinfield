@@ -417,15 +417,15 @@ $twinfield = $organisation->get_twinfield();
 									);
 								}
 
-								if ( \in_array( (string) $code, array( '100', '200' ), true ) ) {
+								if ( \in_array( (string) $code, [ '100', '200' ], true ) ) {
 									$from = new \DateTime( 'yesterday' );
 									$to   = new \DateTime( 'tomorrow' );
 
 									$url = \add_query_arg(
-										array(
+										[
 											'values[fin.trs.line.matchdate]'   => \sprintf( '%s..%s', $from->format( 'Y-m-d' ), $to->format( 'Y-m-d' ) ),
 											'visibles[fin.trs.line.matchdate]' => '1',
-										),
+										],
 										$url
 									);
 								}
@@ -435,10 +435,10 @@ $twinfield = $organisation->get_twinfield();
 									$to   = new \DateTime( 'tomorrow' );
 
 									$url = \add_query_arg(
-										array(
+										[
 											'values[fin.trs.head.modified]'   => \sprintf( '%s..%s', $from->format( 'YmdHis' ), $to->format( 'YmdHis' ) ),
 											'visibles[fin.trs.head.modified]' => '1',
-										),
+										],
 										$url
 									);
 								}
@@ -463,20 +463,20 @@ $twinfield = $organisation->get_twinfield();
 
 		<?php
 
-		$xml_sections = array();
+		$xml_sections = [];
 
 		if ( $data->_embedded->request ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Request XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->request,
-			);
+			];
 		}
 
 		if ( $data->_embedded->response ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Response XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->response,
-			);
+			];
 		}
 
 		foreach ( $xml_sections as $section ) :

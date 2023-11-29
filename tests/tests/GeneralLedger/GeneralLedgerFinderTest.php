@@ -72,19 +72,19 @@ class GeneralLedgerFinderTest extends TestCase {
 	 * @return array
 	 */
 	public function provider() {
-		return array(
-			array(
+		return [
+			[
 				'search' => '*',
-			),
-			array(
+			],
+			[
 				'search' => 'Pronamic',
-			),
-			array(
+			],
+			[
 				'search' => 'Remco',
-			),
-			array(
+			],
+			[
 				'search' => 'Test',
-			),
-		);
+			],
+		];
 	}
 }

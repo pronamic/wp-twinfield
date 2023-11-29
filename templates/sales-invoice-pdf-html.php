@@ -18,7 +18,7 @@ $title = ( $total > 0 ) ? 'Factuur' : 'Creditfactuur';
 
 $address = $customer->get_address_by_number( $header->get_invoice_address_number() );
 
-$rows = array();
+$rows = [];
 
 if ( null !== $address ) {
 	$rows[] = $address->get_name();
@@ -95,9 +95,9 @@ $rows = array_filter( $rows );
 
 		echo wp_kses(
 			implode( '<br />', $rows ),
-			array(
-				'br' => array(),
-			)
+			[
+				'br' => [],
+			]
 		);
 
 		?>
@@ -180,9 +180,9 @@ $rows = array_filter( $rows );
 
 	echo wp_kses(
 		nl2br( $header->get_header_text() ),
-		array(
-			'br' => array(),
-		)
+		[
+			'br' => [],
+		]
 	);
 
 	?>
@@ -292,9 +292,9 @@ $rows = array_filter( $rows );
 
 	echo wp_kses(
 		nl2br( $header->get_footer_text() ),
-		array(
-			'br' => array(),
-		)
+		[
+			'br' => [],
+		]
 	);
 
 	?>
@@ -354,10 +354,10 @@ $rows = array_filter( $rows );
 				$url = 'https://www.pronamic.nl/betaal/';
 
 				$url = add_query_arg(
-					array(
+					[
 						'referentie' => $header->get_number(),
 						'bedrag'     => \number_format( $sales_invoice->get_value_inc(), 2, ',', '.' ),
-					),
+					],
 					$url
 				);
 
@@ -380,10 +380,10 @@ $rows = array_filter( $rows );
 				$url = 'https://www.pronamic.eu/pay/';
 
 				$url = add_query_arg(
-					array(
+					[
 						'reference' => $header->get_number(),
 						'amount'    => \number_format( $sales_invoice->get_value_inc(), 2, ',', '.' ),
-					),
+					],
 					$url
 				);
 

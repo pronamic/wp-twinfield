@@ -30,7 +30,6 @@ class ArticleLine {
 	 * Constructs and initialize an Twinfield article line.
 	 */
 	public function __construct() {
-
 	}
 
 	/**

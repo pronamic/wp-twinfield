@@ -45,36 +45,36 @@ get_header();
 
 		<?php
 
-		$items = array(
-			(object) array(
+		$items = [
+			(object) [
 				'label' => __( 'Office', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_office(),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Type', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_type(),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Number', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_number(),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Invoice Date', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_date()->format( 'd-m-Y' ),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Due Date', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_due_date()->format( 'd-m-Y' ),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Customer', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_customer(),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Status', 'pronamic-twinfield' ),
 				'value' => $sales_invoice->get_header()->get_status(),
-			),
-		);
+			],
+		];
 
 		?>
 		<div class="panel">
@@ -185,20 +185,20 @@ get_header();
 
 		<?php
 
-		$xml_sections = array();
+		$xml_sections = [];
 
 		if ( $data->_embedded->request_xml ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Request XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->request_xml,
-			);
+			];
 		}
 
 		if ( $data->_embedded->response_xml ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Response XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->response_xml,
-			);
+			];
 		}
 
 		foreach ( $xml_sections as $section ) :

@@ -119,7 +119,7 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 		$columns = $data->get_object( 'Columns' )->get_array( 'string' );
 
 		$items = \array_map(
-			function( $object ) {
+			function ( $object ) {
 				return ObjectAccess::from_object( $object )->get_array( 'string' );
 			},
 			$data->get_object( 'Items' )->get_array( 'ArrayOfString' )

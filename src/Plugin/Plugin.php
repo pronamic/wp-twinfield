@@ -92,14 +92,14 @@ class Plugin {
 
 		\add_filter(
 			'pronamic_twinfield_client',
-			function() {
+			function () {
 				return $this->get_client( \get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) ) );
 			}
 		);
 
 		\add_filter(
 			'redirect_canonical',
-			function( $redirect_url, $requested_url ) {
+			function ( $redirect_url, $requested_url ) {
 				$type = \get_query_var( 'pronamic_twinfield_type', null );
 
 				if ( null === $type ) {
@@ -568,7 +568,7 @@ class Plugin {
 		$client = new Client( $openid_connect_client, $authentication );
 
 		$client->set_authentication_refresh_handler(
-			function( $client ) use ( $post ) {
+			function ( $client ) use ( $post ) {
 				$this->save_authentication( $post, $client->get_authentication() );
 			}
 		);

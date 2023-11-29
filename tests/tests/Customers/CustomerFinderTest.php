@@ -72,16 +72,16 @@ class CustomerFinderTest extends TestCase {
 	 * @return array
 	 */
 	public function provider() {
-		return array(
-			array(
+		return [
+			[
 				'search' => 'Pronamic',
-			),
-			array(
+			],
+			[
 				'search' => 'Remco',
-			),
-			array(
+			],
+			[
 				'search' => 'Test',
-			),
-		);
+			],
+		];
 	}
 }

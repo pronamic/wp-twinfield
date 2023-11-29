@@ -46,7 +46,6 @@ class CustomerFinderResult {
 	 * Constructs and initializes an customer find result.
 	 */
 	public function __construct() {
-
 	}
 
 	/**

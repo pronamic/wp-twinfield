@@ -115,7 +115,7 @@ if ( isset( $authentication ) ) {
 	$client = new Client( $openid_connect_client, $authentication );
 
 	$client->set_authentication_refresh_handler(
-		function( $client ) use ( $authentication_file ) {
+		function ( $client ) use ( $authentication_file ) {
             // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
 			\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
 		} 
@@ -348,7 +348,7 @@ if ( isset( $authentication ) ) {
 
 				\usort(
 					$summaries,
-					function( $a, $b ) {
+					function ( $a, $b ) {
 						return -\strnatcmp( $a->get_id(), $b->get_id() );
 					} 
 				);

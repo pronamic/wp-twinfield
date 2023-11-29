@@ -163,7 +163,7 @@ class Transaction implements JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		$lines = array_map(
-			function( $line ) {
+			function ( $line ) {
 				return [
 					'id'              => $line->get_id(),
 					'type'            => $line->get_type(),

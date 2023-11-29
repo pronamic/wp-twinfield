@@ -148,7 +148,7 @@ class SalesInvoice implements JsonSerializable {
 	public function get_value_excl() {
 		return array_sum(
 			array_map(
-				function( $line ) {
+				function ( $line ) {
 					return $line->get_value_excl();
 				},
 				$this->get_lines()
@@ -164,7 +164,7 @@ class SalesInvoice implements JsonSerializable {
 	public function get_vat_value() {
 		return array_sum(
 			array_map(
-				function( $line ) {
+				function ( $line ) {
 					return $line->get_vat_value();
 				},
 				$this->get_lines()
@@ -180,7 +180,7 @@ class SalesInvoice implements JsonSerializable {
 	public function get_value_inc() {
 		return array_sum(
 			array_map(
-				function( $line ) {
+				function ( $line ) {
 					return $line->get_value_inc();
 				},
 				$this->get_lines()

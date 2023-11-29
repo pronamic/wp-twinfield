@@ -89,7 +89,7 @@ class Settings {
 		add_settings_section(
 			'pronamic_twinfield_general',
 			__( 'General', 'twinfield' ),
-			function() { },
+			function () { },
 			'pronamic_twinfield'
 		);
 

@@ -56,7 +56,7 @@ class BrowseDataUnserializer {
 			foreach ( $simplexml->th->td as $td ) {
 				$this->unserialize_td( (string) $td, $tr->td[ $index ], $line );
 
-				$index++;
+				++$index;
 			}
 
 			$data[] = $line;

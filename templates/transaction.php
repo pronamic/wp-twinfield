@@ -30,16 +30,16 @@ get_header();
 
 		<?php
 
-		$items = array(
-			(object) array(
+		$items = [
+			(object) [
 				'label' => __( 'Number', 'pronamic-twinfield' ),
 				'value' => $transaction->get_number(),
-			),
-			(object) array(
+			],
+			(object) [
 				'label' => __( 'Date', 'pronamic-twinfield' ),
 				'value' => $transaction->get_header()->get_date()->format( 'd-m-Y' ),
-			),
-		);
+			],
+		];
 
 		?>
 		<div class="panel">
@@ -122,11 +122,11 @@ get_header();
 
 							<?php
 
-							$dimensions = array(
+							$dimensions = [
 								$line->get_dimension_1(),
 								$line->get_dimension_2(),
 								$line->get_dimension_3(),
-							);
+							];
 
 							foreach ( $dimensions as $dimension ) : 
 								?>
@@ -182,20 +182,20 @@ get_header();
 
 		<?php
 
-		$xml_sections = array();
+		$xml_sections = [];
 
 		if ( $data->_embedded->request ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Request XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->request,
-			);
+			];
 		}
 
 		if ( $data->_embedded->response ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Response XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->response,
-			);
+			];
 		}
 
 		foreach ( $xml_sections as $section ) :
@@ -234,20 +234,20 @@ get_header();
 
 		<?php
 
-		$xml_sections = array();
+		$xml_sections = [];
 
 		if ( $data->_embedded->request_xml ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Request XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->request_xml,
-			);
+			];
 		}
 
 		if ( $data->_embedded->response_xml ) {
-			$xml_sections[] = (object) array(
+			$xml_sections[] = (object) [
 				'label' => __( 'Response XML', 'pronamic-twinfield' ),
 				'xml'   => $data->_embedded->response_xml,
-			);
+			];
 		}
 
 		foreach ( $xml_sections as $section ) :
