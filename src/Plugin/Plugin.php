@@ -35,6 +35,7 @@ class Plugin {
 	/**
 	 * Instance.
 	 *
+	 * @param string|null $file Plugin file.
 	 * @return self
 	 */
 	public static function instance( $file = null ) {
@@ -350,29 +351,29 @@ class Plugin {
 	 * Get link for object.
 	 *
 	 * @param int    $post_id Post ID.
-	 * @param object $object  Object.
+	 * @param object $entity  Object.
 	 * @return string
 	 */
-	public function get_link( $post_id, $object ) {
-		if ( $object instanceof Office ) {
-			return \home_url( 'pronamic-twinfield/authorizations/' . $post_id . '/offices/' . $object->get_code() );
+	public function get_link( $post_id, $entity ) {
+		if ( $entity instanceof Office ) {
+			return \home_url( 'pronamic-twinfield/authorizations/' . $post_id . '/offices/' . $entity->get_code() );
 		}
 
-		if ( $object instanceof TransactionType ) {
-			$office = $object->get_office();
+		if ( $entity instanceof TransactionType ) {
+			$office = $entity->get_office();
 
-			return \home_url( 'pronamic-twinfield/authorizations/' . $post_id . '/offices/' . $office->get_code() . '/transaction-types/' . $object->get_code() );
+			return \home_url( 'pronamic-twinfield/authorizations/' . $post_id . '/offices/' . $office->get_code() . '/transaction-types/' . $entity->get_code() );
 		}
 
-		if ( $object instanceof Dimension ) {
+		if ( $entity instanceof Dimension ) {
 			return \home_url(
 				\strtr(
 					'pronamic-twinfield/v1/authorizations/:id/dimensions/:office_code/:dimension_type_code/:dimension_code',
 					[
 						':id'                  => $post_id,
-						':office_code'         => $object->get_type()->get_office()->get_code(),
-						':dimension_type_code' => $object->get_type()->get_code(),
-						':dimension_code'      => $object->get_code(),
+						':office_code'         => $entity->get_type()->get_office()->get_code(),
+						':dimension_type_code' => $entity->get_type()->get_code(),
+						':dimension_code'      => $entity->get_code(),
 					]
 				)
 			);

@@ -24,15 +24,15 @@ class ObjectAccess implements JsonSerializable {
 	/**
 	 * Construct object access.
 	 * 
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @throws \InvalidArgumentException Throws invalid argument exception when object is not an object.
 	 */
-	public function __construct( $object ) {
-		if ( ! \is_object( $object ) ) {
+	public function __construct( $value ) {
+		if ( ! \is_object( $value ) ) {
 			throw new \InvalidArgumentException( 'Object access can only handle objects.' );
 		}
 
-		$this->object = $object;
+		$this->object = $value;
 	}
 
 	/**
@@ -54,7 +54,12 @@ class ObjectAccess implements JsonSerializable {
 	 */
 	public function get_property( $property ) {
 		if ( ! \property_exists( $this->object, $property ) ) {
-			throw new \Exception( \sprintf( 'Object does not have `%s` property.', $property ) );
+			throw new \Exception(
+				\sprintf(
+					'Object does not have `%s` property.',
+					\esc_html( $property )
+				)
+			);
 		}
 
 		return $this->object->{$property};
@@ -89,11 +94,11 @@ class ObjectAccess implements JsonSerializable {
 	/**
 	 * Create object access object from object.
 	 * 
-	 * @param object $object Object.
+	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_object( $object ) {
-		return new self( $object );
+	public static function from_object( $value ) {
+		return new self( $value );
 	}
 
 	/**

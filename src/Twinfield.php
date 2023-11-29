@@ -127,10 +127,13 @@ class Twinfield {
 			'050_1' => \__( 'Annual Report (YTD)', 'pronamic-twinfield' ),
 			'060'   => \__( 'Annual Report (totals multicurrency)', 'pronamic-twinfield' ),
 			'130_1' => \__( 'Customers', 'pronamic-twinfield' ),
+			// phpcs:ignore Universal.Arrays.DuplicateArrayKey.Found -- No duplicate?
 			'130_2' => \__( 'Customers (v2)', 'pronamic-twinfield' ),
+			// phpcs:ignore Universal.Arrays.DuplicateArrayKey.Found -- No duplicate?
 			'130_3' => \__( 'Customers (v3)', 'pronamic-twinfield' ),
 			'164'   => \__( 'Credit Management', 'pronamic-twinfield' ),
 			'230_1' => \__( 'Suppliers', 'pronamic-twinfield' ),
+			// phpcs:ignore Universal.Arrays.DuplicateArrayKey.Found -- No duplicate?
 			'230_2' => \__( 'Suppliers (v2)', 'pronamic-twinfield' ),
 			'302_1' => \__( 'Fixed Assets', 'pronamic-twinfield' ),
 			'610_1' => \__( 'Time & Expenses (Totals)', 'pronamic-twinfield' ),

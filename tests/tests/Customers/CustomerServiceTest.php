@@ -77,10 +77,10 @@ class CustomerServiceTest extends TestCase {
 	 * @param boolean $mock   Flag to mock Twinfield response.
 	 * @param string  $office The office to retrive the customer from.
 	 * @param string  $code   The code of the customer to retrieve.
-	 * @param mixed   $return The expected Twinfield return.
+	 * @param mixed   $result The expected Twinfield return.
 	 * @dataProvider get_customer_provider
 	 */
-	public function test_get_customer( $mock, $office, $code, $return ) {
+	public function test_get_customer( $mock, $office, $code, $result ) {
 		// Mock.
 		if ( $mock ) {
 			$response = file_get_contents( __DIR__ . '/../../xml/Customers/' . $mock );
@@ -91,7 +91,7 @@ class CustomerServiceTest extends TestCase {
 		// Service.
 		$response = $this->service->get_customer( $office, $code );
 
-		if ( false === $return ) {
+		if ( false === $result ) {
 			$this->assertNull( $response );
 		} else {
 			$this->assertInstanceOf( __NAMESPACE__ . '\CustomerResponse', $response );
@@ -119,7 +119,7 @@ class CustomerServiceTest extends TestCase {
 					'mock'   => false,
 					'office' => getenv( 'TWINFIELD_OFFICE_CODE' ),
 					'code'   => getenv( 'TWINFIELD_CUSTOMER_CODE' ),
-					'return' => true,
+					'result' => true,
 				],
 			];
 		} else {
@@ -128,19 +128,19 @@ class CustomerServiceTest extends TestCase {
 					'mock'   => 'read-dimensions-deb-response-1.xml',
 					'office' => '123456',
 					'code'   => '1002',
-					'return' => true,
+					'result' => true,
 				],
 				[ // Valid respone.
 					'mock'   => 'read-dimensions-deb-response-2.xml',
 					'office' => '12345',
 					'code'   => '12345',
-					'return' => true,
+					'result' => true,
 				],
 				[ // Empty response.
 					'mock'   => 'read-dimensions-deb-response-empty.xml',
 					'office' => null,
 					'code'   => null,
-					'return' => false,
+					'result' => false,
 				],
 			];
 		}

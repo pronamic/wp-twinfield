@@ -62,7 +62,6 @@ class SalesInvoiceUnserializer extends Unserializer {
 	 *
 	 * @param string $xml The XML element to unserialize.
 	 * @throws \Exception Throws exception when unserialize of XML fails.
-	 * @throws \Pronamic\WordPress\Twinfield\XML\XmlPostErrors Throws XML posts errors exception when 'result' attribute is '0'.
 	 */
 	public function unserialize( string $xml ) {
 		$simplexml = \simplexml_load_string( $xml );
@@ -86,7 +85,9 @@ class SalesInvoiceUnserializer extends Unserializer {
 		 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Types/XmlWebServices#Parsing-results
 		 */
 		if ( '0' === (string) $simplexml['result'] ) {
-			throw new \Pronamic\WordPress\Twinfield\XML\XmlPostErrors( $simplexml );
+			$errors = new \Pronamic\WordPress\Twinfield\XML\XmlPostErrors( $simplexml );
+
+			throw $errors;
 		}
 
 		/**

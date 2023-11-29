@@ -34,13 +34,13 @@ class BrowseDataUnserializer {
 	/**
 	 * Unserialize.
 	 * 
-	 * @param string $string XML.
+	 * @param string $value XML.
 	 * @return array
 	 */
-	public function unserialize( $string ) {
+	public function unserialize( $value ) {
 		$data = [];
 
-		$simplexml = \simplexml_load_string( $string );
+		$simplexml = \simplexml_load_string( $value );
 
 		foreach ( $simplexml->tr as $tr ) {
 			$office = $this->organisation->office( (string) $tr->key->office );
@@ -81,7 +81,7 @@ class BrowseDataUnserializer {
 			case 'fin.trs.line.basevaluesigned':
 				return $line->set_base_value( (string) $element );
 			case 'fin.trs.line.openbasevaluesigned':
-				// return $line->set_open_base_value( (string) $element );
+				return null;
 			case 'fin.trs.line.valuesigned':
 				return $line->set_value( (string) $element );
 			case 'fin.trs.line.debitcredit':
@@ -89,9 +89,9 @@ class BrowseDataUnserializer {
 			case 'fin.trs.line.dim1':
 				return $line->set_dimension_1( (string) $element );
 			case 'fin.trs.line.dim2':
-				// return $line->set_dimension_2( (string) $element );
+				return null;
 			case 'fin.trs.line.dim3':
-				// return $line->set_dimension_3( (string) $element );
+				return null;
 			case 'fin.trs.line.description':
 				return $line->set_description( (string) $element );
 			case 'fin.trs.line.invnumber':
