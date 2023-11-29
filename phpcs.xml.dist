@@ -3,23 +3,12 @@
 <ruleset name="Pronamic Twinfield">
 	<file>.</file>
 
+	<exclude-pattern>build/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>wordpress/*</exclude-pattern>
+
 	<rule ref="PronamicWP">
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 
-		<exclude name="WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown" />
-	</rule>
-
-	<rule ref="WordPress.NamingConventions.ValidVariableName">
-		<properties>
-			<property name="customPropertiesWhitelist" type="array">
-				<element value="childNodes" />
-				<element value="documentElement" />
-				<element value="ownerDocument" />
-				<element value="nodeName" />
-				<element value="nodeValue" />
-				<element value="formatOutput" />
-				<element value="preserveWhiteSpace" />
-			</property>
-		</properties>
 	</rule>
 </ruleset>
