@@ -33,6 +33,13 @@ class Plugin {
 	protected static $instance;
 
 	/**
+	 * Admin.
+	 * 
+	 * @var Admin|null
+	 */
+	private $admin;
+
+	/**
 	 * Instance.
 	 *
 	 * @param string|null $file Plugin file.
