@@ -11,7 +11,16 @@
 # Exports
 /export/authentication-secret.json
 /export/client-secret.json
+/export/activities/*.xml
 /export/articles/*.xml
+/export/cost-centers/*.xml
+/export/customers/*.xml
+/export/fixed-assets/*.xml
+/export/general-ledger-accounts-bas/*.xml
+/export/general-ledger-accounts-pnl/*.xml
+/export/projects/*.xml
+/export/suppliers/*.xml
+/export/transactions/**/*.xml
 
 # Composer
 /vendor/
