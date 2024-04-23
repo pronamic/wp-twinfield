@@ -13,6 +13,7 @@
 /export/client-secret.json
 /export/activities/*.xml
 /export/articles/*.xml
+/export/bank-statements/**/*.json
 /export/cost-centers/*.xml
 /export/customers/*.xml
 /export/fixed-assets/*.xml
