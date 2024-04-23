@@ -158,7 +158,7 @@ function export_customer_transactions( $client, $office, $code, $period, $dir ) 
 
 	$browse_request = \sprintf(
 		'
-		<columns code="100">
+		<columns code="000">
 			<column>
 				<field>fin.trs.head.code</field>
 				<operator>equal</operator>
@@ -228,7 +228,7 @@ foreach ( $offices as $office ) {
 		$transaction_type_code = $transaction_type->get_code();
 
 		foreach ( $years as $year ) {
-			if ( $year < 2024 ) {
+			if ( $year != 2023 ) {
 				continue;
 			}
 
