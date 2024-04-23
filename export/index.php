@@ -227,6 +227,10 @@ foreach ( $offices as $office ) {
 		$transaction_type_code = $transaction_type->get_code();
 
 		foreach ( $years as $year ) {
+			if ( $year < 2005 ) {
+				continue;
+			}
+
 			$periods = $periods_service->get_periods( $office, $year );
 
 			foreach ( $periods as $period ) {
