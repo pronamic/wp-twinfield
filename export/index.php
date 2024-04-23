@@ -48,7 +48,6 @@ $finder_types = [
 	'ART' => [],
 ];
 
-
 function export_articles( $client, $office ) {
 	$finder = $client->get_finder();
 
@@ -228,10 +227,6 @@ foreach ( $offices as $office ) {
 		$transaction_type_code = $transaction_type->get_code();
 
 		foreach ( $years as $year ) {
-			if ( $year != 2023 ) {
-				continue;
-			}
-
 			$periods = $periods_service->get_periods( $office, $year );
 
 			foreach ( $periods as $period ) {
