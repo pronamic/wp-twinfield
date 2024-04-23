@@ -35,7 +35,7 @@ $organisation = $client->get_organisation();
 
 $offices = $client->get_offices();
 
-$start_date = new DateTimeImmutable( '2023-01-01' );
+$start_date = new DateTimeImmutable( '2011-01-01' );
 $end_date   = new DateTimeImmutable();
 
 $interval = new DateInterval( 'P1D' );

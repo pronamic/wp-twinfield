@@ -16,6 +16,8 @@
 /export/bank-statements/**/*.json
 /export/cost-centers/*.xml
 /export/customers/*.xml
+/export/declarations/*.json
+/export/declarations/*.xml
 /export/fixed-assets/*.xml
 /export/general-ledger-accounts-bas/*.xml
 /export/general-ledger-accounts-pnl/*.xml
