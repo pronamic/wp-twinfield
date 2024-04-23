@@ -8,9 +8,10 @@
 /examples/authentication-secret.json
 /examples/client-secret.json
 
-# Examples
+# Exports
 /export/authentication-secret.json
 /export/client-secret.json
+/export/articles/*.xml
 
 # Composer
 /vendor/

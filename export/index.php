@@ -2,6 +2,7 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+use DOMDocument;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -44,28 +45,55 @@ $dimension_types = [
 $offices = $client->get_offices();
 
 $finder_types = [
-	'ART',
+	'ART' => [],
 ];
 
-$finder = $client->get_finder();
 
-foreach ( $offices as $office ) {
+function export_articles( $client, $office ) {
+	$finder = $client->get_finder();
+
+	$xml_processor = $client->get_xml_processor();
+
 	$finder->set_office( $office );
 
-	foreach ( $finder_types as $type ) {
-		$search = new Search(
-			$type,
-			'*',
-			0,
-			1,
-			100,
-			[
-				'hidden' => '1',
-			]
+	$xml_processor->set_office( $office );
+
+	$search = new Search( 'ART', '*', 0, 1, 100, [] );
+
+	$response = $finder->search( $search );
+
+	foreach ( $response->get_data() as $item ) {
+		$filename = \sprintf(
+			__DIR__ . '/articles/article-office-%s-code-%s.xml',
+			$office->get_code(),
+			$item[0]
 		);
 
-		$response = $finder->search( $search );
+		if ( file_exists( $filename ) ) {
+			continue;
+		}
 
-		var_dump( $response );
+		$xml = \sprintf(
+			'<read><type>article</type><office>%s</office><code>%s</code></read>',
+			$office->get_code(),
+			$item[0]
+		);
+
+		$res = $xml_processor->process_xml_string( $xml );
+
+		$doc = new DOMDocument();
+
+		$doc->preserveWhitespace = false;
+		$doc->formatOutput       = true;
+
+		$doc->loadXML( $res );
+
+		$doc->save( $filename );
+
+		echo $filename, PHP_EOL;
 	}
+}
+
+foreach ( $offices as $office ) {
+	export_articles( $client, $office );
 }
