@@ -19,6 +19,7 @@
 /export/general-ledger-accounts-bas/*.xml
 /export/general-ledger-accounts-pnl/*.xml
 /export/projects/*.xml
+/export/sales-invoices/**/*.xml
 /export/suppliers/*.xml
 /export/transactions/**/*.xml
 
