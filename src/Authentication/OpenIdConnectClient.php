@@ -113,6 +113,12 @@ class OpenIdConnectClient {
 					'twf.organisation',
 					'twf.organisationUser',
 					'offline_access',
+					/**
+					 * Read fixed assets.
+					 *
+					 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#!/Fixed32Assets32Assets/GetFixedAssets
+					 */
+					'readFixedAssets',
 				]
 			),
 			'redirect_uri'  => $this->redirect_uri,
