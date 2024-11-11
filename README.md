@@ -195,6 +195,13 @@ define( 'PRONAMIC_TWINFIELD_CLIENT_SECRET', '' );
 define( 'PRONAMIC_TWINFIELD_REDIRECT_URI', '' );
 ```
 
+### PSR
+
+- PSR-7: HTTP message interfaces
+  https://www.php-fig.org/psr/psr-7/
+- PSR-16: Common Interface for Caching Libraries
+  https://www.php-fig.org/psr/psr-16/
+
 ## Other
 
 *	http://www.accountingcoach.com/blog/accounts-payable-accounts-receivable
@@ -203,5 +210,6 @@ define( 'PRONAMIC_TWINFIELD_REDIRECT_URI', '' );
 *	http://www.servicedesignpatterns.com/requestandresponsemanagement/datatransferobject
 *	http://stackoverflow.com/questions/29592216/how-should-i-store-metadata-in-an-object
 *	https://secure.php.net/soundex
+*	https://github.com/remcotolsma/ideal2
 
 [![Pronamic - Work with us](https://github.com/pronamic/brand-resources/blob/main/banners/pronamic-work-with-us-leaderboard-728x90%404x.png)](https://www.pronamic.eu/contact/)
