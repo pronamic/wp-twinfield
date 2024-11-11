@@ -119,6 +119,12 @@ class OpenIdConnectClient {
 					 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#!/Fixed32Assets32Assets/GetFixedAssets
 					 */
 					'readFixedAssets',
+					/**
+					 * Read VAT.
+					 * 
+					 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#!/VAT32Codes/GetVatCodes
+					 */
+					'readVat',
 				]
 			),
 			'redirect_uri'  => $this->redirect_uri,
