@@ -1129,7 +1129,7 @@ class RestApi {
 				strtr(
 					'pronamic-twinfield/v1/authorizations/:id/organisation',
 					[
-						':id' => $post_id,
+						':id' => $post->ID,
 					]
 				)
 			),
