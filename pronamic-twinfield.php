@@ -35,6 +35,13 @@ require __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 /**
  * Bootstrap.
  */
-$pronamic_twinfield_plugin = Pronamic\WordPress\Twinfield\Plugin\Plugin::instance( __FILE__ );
+add_action(
+	'init',
+	function () {
+		load_plugin_textdomain( 'pronamic-pay-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}
+);
+
+$pronamic_twinfield_plugin = Pronamic\WordPress\Twinfield\Plugin\Plugin::instance();
 
 $pronamic_twinfield_plugin->setup();

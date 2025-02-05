@@ -55,12 +55,8 @@ class Plugin {
 
 	/**
 	 * Construct plugin.
-	 *
-	 * @param string $file Plugin file.
 	 */
-	public function __construct( $file ) {
-		$this->file = $file;
-
+	public function __construct() {
 		$this->rest_api = new RestApi( $this );
 
 		if ( is_admin() ) {
@@ -127,9 +123,6 @@ class Plugin {
 	 * @return void
 	 */
 	public function init() {
-		\load_plugin_textdomain( 'pronamic-twinfield', false, dirname( plugin_basename( $this->file ) ) . '/languages' );
-
-		// Rewrites.
 		\add_rewrite_rule(
 			'^pronamic-twinfield/?$',
 			[
