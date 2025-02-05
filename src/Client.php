@@ -38,6 +38,20 @@ class Client {
 	private $services;
 
 	/**
+	 * Authentication refresh handler
+	 * 
+	 * @var callable|null
+	 */
+	private $authentication_refresh_handler;
+
+	/**
+	 * Cluster URL.
+	 * 
+	 * @var string
+	 */
+	private $cluster_url;
+
+	/**
 	 * Constructs and initializes a Twinfield client object.
 	 *
 	 * @param OpenIdConnectClient $openid_connect_client OpenID Connect Client.
