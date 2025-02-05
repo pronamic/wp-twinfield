@@ -25,6 +25,13 @@ class Admin {
 	public $plugin;
 
 	/**
+	 * Settings.
+	 *
+	 * @var Settings
+	 */
+	public $settings;
+
+	/**
 	 * Construct admin.
 	 *
 	 * @param Plugin $plugin Plugin.
