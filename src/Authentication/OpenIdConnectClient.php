@@ -49,6 +49,27 @@ class OpenIdConnectClient {
 	public const URL_USER_INFO = 'https://login.twinfield.com/auth/authentication/connect/userinfo';
 
 	/**
+	 * Client ID.
+	 * 
+	 * @var string
+	 */
+	private $client_id;
+
+	/**
+	 * Client secret.
+	 * 
+	 * @var string
+	 */
+	private $client_secret;
+
+	/**
+	 * Redirect URI.
+	 * 
+	 * @var string
+	 */
+	private $redirect_uri;
+
+	/**
 	 * Construct.
 	 *
 	 * @param string $client_id     Client ID.
