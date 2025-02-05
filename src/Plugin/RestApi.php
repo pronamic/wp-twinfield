@@ -44,6 +44,13 @@ class RestApi {
 	private $plugin;
 
 	/**
+	 * Controllers.
+	 * 
+	 * @var array
+	 */
+	private $controllers = [];
+
+	/**
 	 * Constructs and initialize Twinfield REST API object.
 	 * 
 	 * @param Plugin $plugin Plugin.

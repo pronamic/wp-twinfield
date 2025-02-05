@@ -21,15 +21,6 @@ use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
  */
 class ArticlePostTypeSupport {
 	/**
-	 * Construct customer post type support.
-	 *
-	 * @param Plugin $plugin Plugin.
-	 */
-	public function __construct( $plugin ) {
-		$this->plugin = $plugin;
-	}
-
-	/**
 	 * Setup.
 	 *
 	 * @return void

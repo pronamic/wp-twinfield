@@ -68,8 +68,8 @@ class Plugin {
 		}
 
 		$this->controllers[] = new AuthorizationPostType( $this );
-		$this->controllers[] = new CustomerPostTypeSupport( $this );
-		$this->controllers[] = new ArticlePostTypeSupport( $this );
+		$this->controllers[] = new CustomerPostTypeSupport();
+		$this->controllers[] = new ArticlePostTypeSupport();
 		$this->controllers[] = new SchedulerController( $this );
 	}
 
@@ -80,7 +80,9 @@ class Plugin {
 	 */
 	public function setup() {
 		foreach ( $this->controllers as $controller ) {
-			$controller->setup();
+			if ( \method_exists( $controller, 'setup' ) ) {
+				$controller->setup();
+			}
 		}
 
 		\add_action( 'init', [ $this, 'init' ], 9 );

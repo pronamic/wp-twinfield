@@ -23,6 +23,13 @@ class AuthorizationPostType {
 	public const KEY = 'pronamic_twf_auth';
 
 	/**
+	 * Plugin.
+	 * 
+	 * @var Plugin
+	 */
+	public $plugin;
+
+	/**
 	 * Construct authorization post type.
 	 *
 	 * @param Plugin $plugin Plugin.
