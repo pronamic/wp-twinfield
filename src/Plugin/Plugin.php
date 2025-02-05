@@ -33,11 +33,11 @@ class Plugin {
 	protected static $instance;
 
 	/**
-	 * Admin.
+	 * Controllers.
 	 * 
-	 * @var Admin|null
+	 * @var array
 	 */
-	private $admin;
+	private $controllers = [];
 
 	/**
 	 * Instance.
@@ -45,9 +45,9 @@ class Plugin {
 	 * @param string|null $file Plugin file.
 	 * @return self
 	 */
-	public static function instance( $file = null ) {
+	public static function instance() {
 		if ( null === self::$instance ) {
-			self::$instance = new self( $file );
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -57,20 +57,20 @@ class Plugin {
 	 * Construct plugin.
 	 */
 	public function __construct() {
-		$this->rest_api = new RestApi( $this );
+		$this->controllers[] = new RestApi( $this );
 
 		if ( is_admin() ) {
-			$this->admin = new Admin( $this );
+			$this->controllers[] = new Admin( $this );
 		}
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			$this->cli = new CLI();
+			$this->controllers[] = new CLI();
 		}
 
-		$this->authorization_post_type    = new AuthorizationPostType( $this );
-		$this->customer_post_type_support = new CustomerPostTypeSupport( $this );
-		$this->article_post_type_support  = new ArticlePostTypeSupport( $this );
-		$this->scheduler_controller       = new SchedulerController( $this );
+		$this->controllers[] = new AuthorizationPostType( $this );
+		$this->controllers[] = new CustomerPostTypeSupport( $this );
+		$this->controllers[] = new ArticlePostTypeSupport( $this );
+		$this->controllers[] = new SchedulerController( $this );
 	}
 
 	/**
@@ -79,16 +79,9 @@ class Plugin {
 	 * @return void
 	 */
 	public function setup() {
-		$this->rest_api->setup();
-
-		if ( null !== $this->admin ) {
-			$this->admin->setup();
+		foreach ( $this->controllers as $controller ) {
+			$controller->setup();
 		}
-
-		$this->authorization_post_type->setup();
-		$this->customer_post_type_support->setup();
-		$this->article_post_type_support->setup();
-		$this->scheduler_controller->setup();
 
 		\add_action( 'init', [ $this, 'init' ], 9 );
 		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
