@@ -31,6 +31,13 @@ use SoapClient;
  */
 class Client {
 	/**
+	 * OpenID connect client.
+	 * 
+	 * @var OpenIdConnectClient
+	 */
+	private $openid_connect_client;
+
+	/**
 	 * Services.
 	 *
 	 * @var array
