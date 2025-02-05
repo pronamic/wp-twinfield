@@ -21,6 +21,13 @@ use XMLReader;
  */
 class OfficesXmlReader {
 	/**
+	 * Organisation.
+	 * 
+	 * @var Organisation
+	 */
+	private $organisation;
+
+	/**
 	 * Construct offices XML reader.
 	 *
 	 * @param Organisation $organisation Organisation.
@@ -28,6 +35,7 @@ class OfficesXmlReader {
 	public function __construct( Organisation $organisation ) {
 		$this->organisation = $organisation;
 	}
+
 	/**
 	 * Create office list from XML.
 	 *
