@@ -75,4 +75,18 @@ class Browser {
 
 		return $data;
 	}
+
+	/**
+	 * Get browse data.
+	 *
+	 * @param BrowseRequest $browse_request Browse request.
+	 * @return BrowseResponse
+	 */
+	public function get_browse_data( BrowseRequest $browse_request ) {
+		$response = $this->xml_processor->process_xml_string( $browse_request->to_xml() );
+
+		$browse_response = BrowseResponse::from_xml( $response );
+
+		return $browse_response;
+	}
 }

@@ -31,16 +31,39 @@ class AccessTokenValidation implements JsonSerializable {
 	private $expiration;
 
 	/**
+	 * Organisation.
+	 * 
+	 * @var Organisation
+	 */
+	public Organisation $organisation;
+
+	/**
+	 * User.
+	 * 
+	 * @var User
+	 */
+	public User $user;
+
+	/**
+	 * Cluster URL.
+	 * 
+	 * @var string
+	 */
+	public string $cluster_url;
+
+	/**
 	 * Construct access token validation object.
 	 * 
-	 * @param int    $expiration  Expiration timestamp.
-	 * @param User   $user        User.
-	 * @param string $cluster_url Cluster URL.
+	 * @param int          $expiration   Expiration timestamp.
+	 * @param Organisation $organisation Organisation.
+	 * @param User         $user         User.
+	 * @param string       $cluster_url  Cluster URL.
 	 */
-	public function __construct( $expiration, User $user, $cluster_url ) {
-		$this->expiration  = $expiration;
-		$this->user        = $user;
-		$this->cluster_url = $cluster_url;
+	public function __construct( $expiration, Organisation $organisation, User $user, $cluster_url ) {
+		$this->expiration   = $expiration;
+		$this->organisation = $organisation;
+		$this->user         = $user;
+		$this->cluster_url  = $cluster_url;
 	}
 
 	/**
@@ -72,24 +95,6 @@ class AccessTokenValidation implements JsonSerializable {
 	}
 
 	/**
-	 * Get user.
-	 * 
-	 * @return User
-	 */
-	public function get_user() {
-		return $this->user;
-	}
-
-	/**
-	 * Get cluster URL.
-	 * 
-	 * @return User
-	 */
-	public function get_cluster_url() {
-		return $this->cluster_url;
-	}
-
-	/**
 	 * JSON serialize.
 	 * 
 	 * @return object
@@ -97,8 +102,8 @@ class AccessTokenValidation implements JsonSerializable {
 	public function jsonSerialize() {
 		return (object) [
 			'exp'                      => $this->expiration,
-			'twf.organisationCode'     => $this->user->get_organisation()->get_code(),
-			'twf.organisationId'       => $this->user->get_organisation()->get_uuid(),
+			'twf.organisationCode'     => $this->organisation->get_code(),
+			'twf.organisationId'       => $this->organisation->get_uuid(),
 			'twf.organisationUserCode' => $this->user->get_code(),
 			'twf.clusterUrl'           => $this->cluster_url,
 		];
@@ -118,7 +123,7 @@ class AccessTokenValidation implements JsonSerializable {
 
 		$cluster_url = $value->{'twf.clusterUrl'};
 
-		$result = new self( $value->exp, $user, $cluster_url );
+		$result = new self( $value->exp, $organisation, $user, $cluster_url );
 
 		return $result;
 	}

@@ -541,8 +541,8 @@ class Plugin {
 				'post_status'    => 'publish',
 				'post_title'     => \sprintf(
 					'%s - %s',
-					$authentication->get_validation()->get_user()->get_organisation()->get_code(),
-					$authentication->get_validation()->get_user()->get_code(),
+					$authentication->get_validation()->organisation->get_code(),
+					$authentication->get_validation()->user->get_code(),
 				),
 				'post_content'   => \wp_json_encode( $authentication, \JSON_PRETTY_PRINT ),
 				'post_mime_type' => 'application/json',

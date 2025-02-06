@@ -90,11 +90,11 @@ class Client {
 	public function set_authentication( AuthenticationInfo $authentication ) {
 		$this->authentication = $authentication;
 
-		$this->user = $this->authentication->get_validation()->get_user();
+		$validation = $this->authentication->get_validation();
 
-		$this->organisation = $this->user->get_organisation();
-
-		$this->cluster_url = $this->authentication->get_validation()->get_cluster_url();
+		$this->organisation = $validation->organisation;
+		$this->user         = $validation->user;
+		$this->cluster_url  = $validation->cluster_url;
 	}
 
 	/**

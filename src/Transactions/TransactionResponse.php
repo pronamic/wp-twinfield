@@ -11,7 +11,6 @@ namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use DOMDocument;
 use DOMXPath;
-use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer;
 
 /**
  * Transaction Response
@@ -33,7 +32,7 @@ class TransactionResponse {
 	 *
 	 * @var Transaction
 	 */
-	private $transaction;
+	public Transaction $transaction;
 
 	/**
 	 * Destiny.

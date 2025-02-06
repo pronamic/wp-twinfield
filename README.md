@@ -7,6 +7,11 @@
 
 *	[Twinfield API](https://www.twinfield.nl/api)
 
+## Timezone
+
+> **Good to know:** The API only uses universal time (UTC). You can check the current time in UTC here: https://time.is/utc
+
+https://wktaaeu.my.site.com/nlcommunity/s/article/API-Best-Practices-Keeping-a-shadow-database-with-customers-and-suppliers?language=en_US
 
 ## Examples
 

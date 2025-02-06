@@ -12,7 +12,6 @@ namespace Pronamic\WordPress\Twinfield\Transactions;
 use Pronamic\WordPress\Twinfield\XMLProcessor;
 use Pronamic\WordPress\Twinfield\Browse\Browser;
 use Pronamic\WordPress\Twinfield\Browse\BrowseReadRequest;
-use Pronamic\WordPress\Twinfield\XML\Transactions\TransactionUnserializer;
 use Pronamic\WordPress\Twinfield\XML\Transactions\BrowseTransactionsUnserializer;
 
 /**
@@ -96,12 +95,12 @@ class TransactionService {
 	}
 
 	/**
-	 * Get the specified transaction.
+	 * Get transaction.
 	 *
 	 * @param string $office The office to get the transaction from.
 	 * @param string $code   The code of the transaction to retrieve.
 	 * @param string $number The number of the transaction to retrieve.
-	 * @return Transaction
+	 * @return TransactionResponse
 	 */
 	public function get_transaction( $office, $code, $number ) {
 		$result = null;
@@ -110,14 +109,10 @@ class TransactionService {
 
 		$response = $this->xml_processor->process_xml_string( $request->to_xml() );
 
-		$xml = simplexml_load_string( $response );
+		$transaction_response = TransactionResponse::from_xml( $response );
 
-		if ( false !== $xml ) {
-			$unserializer = new TransactionUnserializer();
+		$transaction_response->transaction->get_header()->get_office()->organisation = $this->xml_processor->client->organisation;
 
-			$result = $unserializer->unserialize( $xml );
-		}
-
-		return $result;
+		return $transaction_response;
 	}
 }

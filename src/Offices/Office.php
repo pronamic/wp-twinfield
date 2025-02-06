@@ -19,7 +19,6 @@ use Pronamic\WordPress\Twinfield\Traits\ModifiedTrait;
 use Pronamic\WordPress\Twinfield\Traits\CreatedTrait;
 use Pronamic\WordPress\Twinfield\Traits\TouchedTrait;
 use Pronamic\WordPress\Twinfield\Traits\UserTrait;
-use Pronamic\WordPress\Twinfield\Traits\OrganisationTrait;
 
 /**
  * Office
@@ -31,7 +30,12 @@ use Pronamic\WordPress\Twinfield\Traits\OrganisationTrait;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
 class Office extends CodeName implements JsonSerializable {
-	use OrganisationTrait;
+	/**
+	 * Organisation.
+	 *
+	 * @var Organisation|null
+	 */
+	public ?Organisation $organisation;
 
 	use StatusTrait;
 
@@ -67,12 +71,10 @@ class Office extends CodeName implements JsonSerializable {
 	/**
 	 * Construct office.
 	 *
-	 * @param Organisation $organisation Organisation.
-	 * @param string       $code         Office code.
+	 * @param string $code Code.
 	 */
-	public function __construct( Organisation $organisation, $code ) {
-		$this->organisation = $organisation;
-		$this->code         = $code;
+	public function __construct( $code ) {
+		$this->code = $code;
 	}
 
 	/**

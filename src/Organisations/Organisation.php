@@ -91,7 +91,9 @@ class Organisation extends CodeName {
 	 */
 	public function new_user( $code ) {
 		if ( ! \array_key_exists( $code, $this->users ) ) {
-			$user = new User( $this, $code );
+			$user = new User( $code );
+
+			$user->organisation = $this;
 
 			$this->users[ $code ] = $user;
 		}
@@ -107,7 +109,11 @@ class Organisation extends CodeName {
 	 */
 	public function office( $code ) {
 		if ( ! \array_key_exists( $code, $this->offices ) ) {
-			$this->offices[ $code ] = new Office( $this, $code );
+			$office = new Office( $code );
+
+			$office->organisation = $this;
+
+			$this->offices[ $code ] = $office;
 		}
 
 		return $this->offices[ $code ];

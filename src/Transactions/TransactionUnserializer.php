@@ -68,7 +68,7 @@ class TransactionUnserializer extends Unserializer {
 			throw new \Exception( 'No `<transaction>` element.' );
 		}
 
-		$office = $this->organisation->office( (string) $element->header->office );
+		$office = new Office( (string) $element->header->office );
 		$office->set_name( (string) $element->header->office['name'] );
 		$office->set_shortname( (string) $element->header->office['shortname'] );
 
@@ -151,10 +151,7 @@ class TransactionUnserializer extends Unserializer {
 
 		// User.
 		if ( $element->header->user ) {
-			$user = new User(
-				$this->organisation,
-				Security::filter( $element->header->user )
-			);
+			$user = new User( Security::filter( $element->header->user ) );
 
 			$user->set_name( $element->header->user['name'] );
 			$user->set_shortname( $element->header->user['shortname'] );
@@ -294,14 +291,14 @@ class TransactionUnserializer extends Unserializer {
 					$line->matches = [];
 
 					foreach ( $element_line->matches->set as $element_set ) {
-						$match_set = new \Pronamic\WP\Twinfield\Transactions\MatchSet();
+						$match_set = new MatchSet();
 
 						$match_set->status      = Security::filter( $element_set['status'] );
 						$match_set->match_date  = Security::filter( $element_set->matchdate );
 						$match_set->match_value = Security::filter( $element_set->matchvalue, FILTER_VALIDATE_FLOAT );
 
 						foreach ( $element_set->lines->line as $element_set_line ) {
-							$match_set_line = new \Pronamic\WP\Twinfield\Transactions\MatchSetLine();
+							$match_set_line = new MatchSetLine();
 
 							$match_set_line->code        = Security::filter( $element_set_line->code );
 							$match_set_line->number      = Security::filter( $element_set_line->number );
