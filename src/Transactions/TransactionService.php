@@ -95,6 +95,20 @@ class TransactionService {
 	}
 
 	/**
+	 * Get transaction XML.
+	 *
+	 * @param string $office The office to get the transaction from.
+	 * @param string $code   The code of the transaction to retrieve.
+	 * @param string $number The number of the transaction to retrieve.
+	 * @return TransactionResponse
+	 */
+	public function get_transaction_xml( $office, $code, $number ) {
+		$request = new TransactionReadRequest( $office, $code, $number );
+
+		return $this->xml_processor->process_xml_string( $request->to_xml() );
+	}
+
+	/**
 	 * Get transaction.
 	 *
 	 * @param string $office The office to get the transaction from.
@@ -103,11 +117,7 @@ class TransactionService {
 	 * @return TransactionResponse
 	 */
 	public function get_transaction( $office, $code, $number ) {
-		$result = null;
-
-		$request = new TransactionReadRequest( $office, $code, $number );
-
-		$response = $this->xml_processor->process_xml_string( $request->to_xml() );
+		$response = $this->get_transaction_xml( $office, $code, $number );
 
 		$transaction_response = TransactionResponse::from_xml( $response );
 
