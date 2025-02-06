@@ -79,6 +79,20 @@ class TransactionHeader {
 	private $user;
 
 	/**
+	 * Relation.
+	 * 
+	 * @var Relation|null
+	 */
+	public $relation;
+
+	/**
+	 * Status.
+	 * 
+	 * @var string|null
+	 */
+	public $status;
+
+	/**
 	 * Constructs and initializes a transaction header.
 	 */
 	public function __construct() {

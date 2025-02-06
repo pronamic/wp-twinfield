@@ -234,6 +234,55 @@ class TransactionLine implements JsonSerializable {
 	private $destination_office;
 
 	/**
+	 * Dimension 1.
+	 * 
+	 * @var Dimension|null
+	 */
+	public $dimension_1;
+
+	/**
+	 * Dimension 2.
+	 * 
+	 * @var Dimension|null
+	 */
+	public $dimension_2;
+
+	/**
+	 * Dimension 3.
+	 * 
+	 * @var Dimension|null
+	 */
+	public $dimension_3;
+
+	/**
+	 * Free text 1.
+	 * 
+	 * @var string|null
+	 */
+	public $free_text_1;
+
+	/**
+	 * Free text 2.
+	 * 
+	 * @var string|null
+	 */
+	public $free_text_2;
+
+	/**
+	 * Free text 3.
+	 * 
+	 * @var string|null
+	 */
+	public $free_text_3;
+
+	/**
+	 * Invoice nubmer.
+	 * 
+	 * @var string|null
+	 */
+	public $invoice_number;
+
+	/**
 	 * Constructs and initialize a Twinfield transaction line.
 	 *
 	 * @param Transaction $transaction Transaction.
