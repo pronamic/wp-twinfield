@@ -35,7 +35,7 @@ class Office extends CodeName implements JsonSerializable {
 	 *
 	 * @var Organisation|null
 	 */
-	public ?Organisation $organisation;
+	public ?Organisation $organisation = null;
 
 	use StatusTrait;
 
