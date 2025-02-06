@@ -9,6 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
+use DateTimeInterface;
 use Pronamic\WordPress\Twinfield\Currency;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Relations\Relation;
@@ -91,6 +92,13 @@ class TransactionHeader {
 	 * @var string|null
 	 */
 	public $status;
+
+	/**
+	 * Due date.
+	 * 
+	 * @var DateTimeInterface|null
+	 */
+	public $due_date;
 
 	/**
 	 * Constructs and initializes a transaction header.
