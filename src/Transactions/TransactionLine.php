@@ -283,6 +283,20 @@ class TransactionLine implements JsonSerializable {
 	public $invoice_number;
 
 	/**
+	 * VAT code.
+	 * 
+	 * @var VatCode|null
+	 */
+	public $vat_code;
+
+	/**
+	 * Base value open.
+	 * 
+	 * @var string|null
+	 */
+	public $base_value_open;
+
+	/**
 	 * Constructs and initialize a Twinfield transaction line.
 	 *
 	 * @param Transaction $transaction Transaction.
