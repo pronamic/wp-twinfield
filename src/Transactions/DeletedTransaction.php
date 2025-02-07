@@ -29,42 +29,54 @@ class DeletedTransaction implements JsonSerializable {
 	 * 
 	 * @var string
 	 */
-	private $daybook;
+	public $daybook;
 
 	/**
 	 * Deletion date.
 	 * 
 	 * @var DateTimeInterface
 	 */
-	private $deletion_date;
+	public $deletion_date;
 
 	/**
 	 * Reason for deletion.
 	 * 
 	 * @var string
 	 */
-	private $reason_for_deletion;
+	public $reason_for_deletion;
 
 	/**
 	 * Transaction date.
 	 * 
 	 * @var DateTimeInterface
 	 */
-	private $transaction_date;
+	public $transaction_date;
 
 	/**
 	 * Transaction number.
 	 * 
 	 * @var string
 	 */
-	private $transaction_number;
+	public $transaction_number;
 
 	/**
 	 * User.
 	 * 
 	 * @var string
 	 */
-	private $user;
+	public $user;
+
+	/**
+	 * Construct.
+	 */
+	public function __construct( $daybook, $deletion_date, $reason_for_deletion, $transaction_date, $transaction_number, $user ) {
+		$this->daybook             = $daybook;
+		$this->deletion_date       = $deletion_date;
+		$this->reason_for_deletion = $reason_for_deletion;
+		$this->transaction_date    = $transaction_date;
+		$this->transaction_number  = $transaction_number;
+		$this->user                = $user;
+	}
 
 	/**
 	 * Serialize to JSON.
@@ -91,14 +103,14 @@ class DeletedTransaction implements JsonSerializable {
 	public static function from_twinfield_object( $value ) {
 		$data = new ObjectAccess( $value );
 
-		$item = new self();
-
-		$item->daybook             = $data->get_property( 'Daybook' );
-		$item->deletion_date       = new DateTimeImmutable( $data->get_property( 'DeletionDate' ), new DateTimeZone( 'UTC' ) );
-		$item->reason_for_deletion = $data->get_property( 'ReasonForDeletion' );
-		$item->transaction_date    = new DateTimeImmutable( $data->get_property( 'TransactionDate' ), new DateTimeZone( 'UTC' ) );
-		$item->transaction_number  = $data->get_property( 'TransactionNumber' );
-		$item->user                = $data->get_property( 'User' );
+		$item = new self(
+			$data->get_property( 'Daybook' ),
+			new DateTimeImmutable( $data->get_property( 'DeletionDate' ), new DateTimeZone( 'UTC' ) ),
+			$data->get_property( 'ReasonForDeletion' ),
+			new DateTimeImmutable( $data->get_property( 'TransactionDate' ), new DateTimeZone( 'UTC' ) ),
+			$data->get_property( 'TransactionNumber' ),
+			$data->get_property( 'User' )
+		);
 
 		return $item;
 	}
