@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Transactions;
 
 use ArrayIterator;
+use Countable;
 use IteratorAggregate;
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
@@ -21,13 +22,22 @@ use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class DeletedTransactions implements IteratorAggregate, JsonSerializable {
+class DeletedTransactions implements Countable, IteratorAggregate, JsonSerializable {
 	/**
 	 * Items.
 	 *
 	 * @var DeletedTransaction[]
 	 */
 	private $items = [];
+
+	/**
+	 * Count.
+	 * 
+	 * @return int
+	 */
+	public function count(): int {
+		return \count( $this->items );
+	}
 
 	/**
 	 * Get iterator.
@@ -58,12 +68,14 @@ class DeletedTransactions implements IteratorAggregate, JsonSerializable {
 
 		$deleted_transactions_data = new ObjectAccess( $data->get_property( 'DeletedTransactions' ) );
 
-		$items = $deleted_transactions_data->get_array( 'DeletedTransaction' );
-
 		$list = new self();
 
-		foreach ( $items as $item ) {
-			$list->items[] = DeletedTransaction::from_twinfield_object( $item );
+		if ( $deleted_transactions_data->has_property( 'DeletedTransaction' ) ) {
+			$items = $deleted_transactions_data->get_array( 'DeletedTransaction' );
+
+			foreach ( $items as $item ) {
+				$list->items[] = DeletedTransaction::from_twinfield_object( $item );
+			}
 		}
 
 		return $list;
