@@ -26,14 +26,98 @@ class BudgetTotalResult implements JsonSerializable {
 	 *
 	 * @var int
 	 */
-	private $year;
+	public $year;
 
 	/**
 	 * Period.
 	 *
 	 * @var int
 	 */
-	private $period;
+	public $period;
+
+	/**
+	 * Dimension 1 code.
+	 * 
+	 * @var string
+	 */
+	public $dimension_1_code;
+
+	/**
+	 * Dimension 2 code.
+	 * 
+	 * @var string
+	 */
+	public $dimension_2_code;
+
+	/**
+	 * Dimension 3 code.
+	 * 
+	 * @var string
+	 */
+	public $dimension_3_code;
+
+	/**
+	 * Dimension 1 code.
+	 * 
+	 * @var string
+	 */
+	public $group_1_code;
+
+	/**
+	 * Dimension 2 code.
+	 * 
+	 * @var string
+	 */
+	public $group_2_code;
+
+	/**
+	 * Dimension 3 code.
+	 * 
+	 * @var string
+	 */
+	public $group_3_code;
+
+	/**
+	 * The actual credit amount.
+	 * 
+	 * @var numeric-string
+	 */
+	public $actual_credit;
+
+	/**
+	 * The actual debit amount.
+	 * 
+	 * @var numeric-string
+	 */
+	public $actual_debit;
+
+	/**
+	 * The actual total amount.
+	 * 
+	 * @var numeric-string
+	 */
+	public $actual_total;
+
+	/**
+	 * The budget credit amount.
+	 * 
+	 * @var numeric-string
+	 */
+	public $budget_credit;
+
+	/**
+	 * The budget debit amount.
+	 * 
+	 * @var numeric-string
+	 */
+	public $budget_debit;
+
+	/**
+	 * The budget total amount.
+	 * 
+	 * @var numeric-string
+	 */
+	public $budget_total;
 
 	/**
 	 * Get year.

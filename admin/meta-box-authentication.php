@@ -19,11 +19,11 @@ $validation = $authentication->get_validation();
 <table class="form-table">
 	<tr>
 		<th scope="row"><?php \esc_html_e( 'Organisation', 'pronamic-twinfield' ); ?></th>
-		<td><?php echo \esc_html( $validation->get_user()->get_organisation()->get_code() ); ?></td>
+		<td><?php echo \esc_html( $validation->organisation->get_code() ); ?></td>
 	</tr>
 	<tr>
 		<th scope="row"><?php \esc_html_e( 'User', 'pronamic-twinfield' ); ?></th>
-		<td><?php echo \esc_html( $validation->get_user()->get_code() ); ?></td>
+		<td><?php echo \esc_html( $validation->user->get_code() ); ?></td>
 	</tr>
 	<tr>
 		<th scope="row"><?php \esc_html_e( 'Expiration', 'pronamic-twinfield' ); ?></th>

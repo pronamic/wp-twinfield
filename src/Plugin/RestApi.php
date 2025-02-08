@@ -540,6 +540,57 @@ class RestApi {
 			]
 		);
 
+		$budget_args = [
+			'post_id'             => [
+				'description'       => 'Authorization post ID.',
+				'type'              => 'integer',
+				'sanitize_callback' => 'absint',
+				'required'          => true,
+				'default'           => \get_option( 'pronamic_twinfield_authorization_post_id' ),
+			],
+			'office_code'         => [
+				'description' => 'Twinfield office code.',
+				'type'        => 'string',
+				'required'    => true,
+			],
+			'budget_code'         => [
+				'description' => 'Twinfield budget code.',
+				'type'        => 'string',
+				'required'    => true,
+				'default'     => '001',
+			],
+			'year'                => [
+				'description' => 'Year to be retrieved.',
+				'type'        => 'int',
+				'required'    => true,
+				'default'     => \wp_date( 'Y' ),
+			],
+			'period_from'         => [
+				'description' => 'Start period to be retrieved.',
+				'type'        => 'int',
+				'required'    => true,
+				'default'     => 0,
+			],
+			'period_to'         => [
+				'description' => 'End period to be retrieved.',
+				'type'        => 'int',
+				'required'    => true,
+				'default'     => 56,
+			],
+			'include_provisional' => [
+				'description' => 'Include provisional transactions.',
+				'type'        => 'bool',
+				'required'    => true,
+				'default'     => true,
+			],
+			'include_final'       => [
+				'description' => 'Include final transactions.',
+				'type'        => 'bool',
+				'required'    => true,
+				'default'     => true,
+			],
+		];
+
 		register_rest_route(
 			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget/(?P<budget_code>[a-zA-Z0-9_-]+)',
@@ -547,43 +598,18 @@ class RestApi {
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_budget' ],
 				'permission_callback' => [ $this, 'permission_callback' ],
-				'args'                => [
-					'post_id'             => [
-						'description'       => 'Authorization post ID.',
-						'type'              => 'integer',
-						'sanitize_callback' => 'absint',
-						'required'          => true,
-					],
-					'office_code'         => [
-						'description' => 'Twinfield office code.',
-						'type'        => 'string',
-						'required'    => true,
-					],
-					'budget_code'         => [
-						'description' => 'Twinfield budget code.',
-						'type'        => 'string',
-						'required'    => true,
-						'default'     => '001',
-					],
-					'year'                => [
-						'description' => 'Year to be retrieved.',
-						'type'        => 'int',
-						'required'    => true,
-						'default'     => \wp_date( 'Y' ),
-					],
-					'include_provisional' => [
-						'description' => 'Include provisional transactions.',
-						'type'        => 'bool',
-						'required'    => true,
-						'default'     => true,
-					],
-					'include_final'       => [
-						'description' => 'Include final transactions.',
-						'type'        => 'bool',
-						'required'    => true,
-						'default'     => true,
-					],
-				],
+				'args'                => $budget_args,
+			]
+		);
+
+		register_rest_route(
+			$namespace,
+			'/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget/(?P<budget_code>[a-zA-Z0-9_-]+)',
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'rest_api_budget' ],
+				'permission_callback' => [ $this, 'permission_callback' ],
+				'args'                => $budget_args,
 			]
 		);
 
@@ -1413,8 +1439,8 @@ class RestApi {
 
 		$code                = $request->get_param( 'budget_code' );
 		$year                = $request->get_param( 'year' );
-		$period_from         = null;
-		$period_to           = null;
+		$period_from         = $request->get_param( 'period_from' );
+		$period_to           = $request->get_param( 'period_to' );
 		$include_provisional = $request->get_param( 'include_provisional' );
 		$include_final       = $request->get_param( 'include_final' );
 
