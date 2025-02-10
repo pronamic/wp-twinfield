@@ -489,28 +489,39 @@ class RestApi {
 			);
 		}
 
+		$hierarchies_args = [
+			'post_id'        => [
+				'description'       => 'Authorization post ID.',
+				'type'              => 'integer',
+				'sanitize_callback' => 'absint',
+				'default'           => \get_option( 'pronamic_twinfield_authorization_post_id' ),
+			],
+			'office_code'    => [
+				'description' => 'Twinfield office code.',
+				'type'        => 'string',
+			],
+			'hierarchy_code' => [
+				'description' => 'Twinfield hierarchy code.',
+				'type'        => 'string',
+			],
+		];
+
+		$hierarchies_permission_callback = function() {
+			if ( \current_user_can( 'pronamic_twinfield_read_hierarchies' ) ) {
+				return true;
+			}
+
+			return $this->permission_callback();
+		};
+
 		register_rest_route(
 			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/hierarchies/(?P<hierarchy_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
-				'args'                => [
-					'post_id'        => [
-						'description'       => 'Authorization post ID.',
-						'type'              => 'integer',
-						'sanitize_callback' => 'absint',
-					],
-					'office_code'    => [
-						'description' => 'Twinfield office code.',
-						'type'        => 'string',
-					],
-					'hierarchy_code' => [
-						'description' => 'Twinfield hierarchy code.',
-						'type'        => 'string',
-					],
-				],
+				'permission_callback' => $hierarchies_permission_callback,
+				'args'                => $hierarchies_args
 			]
 		);
 
@@ -520,23 +531,8 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
-				'args'                => [
-					'post_id'        => [
-						'description'       => 'Authorization post ID.',
-						'type'              => 'integer',
-						'sanitize_callback' => 'absint',
-						'default'           => \get_option( 'pronamic_twinfield_authorization_post_id' ),
-					],
-					'office_code'    => [
-						'description' => 'Twinfield office code.',
-						'type'        => 'string',
-					],
-					'hierarchy_code' => [
-						'description' => 'Twinfield hierarchy code.',
-						'type'        => 'string',
-					],
-				],
+				'permission_callback' => $hierarchies_permission_callback,
+				'args'                => $hierarchies_args,
 			]
 		);
 
@@ -591,13 +587,21 @@ class RestApi {
 			],
 		];
 
+		$budget_permission_callback = function () {
+			if ( \current_user_can( 'pronamic_twinfield_read_budget' ) ) {
+				return true;
+			}
+
+			return $this->permission_callback();
+		};
+
 		register_rest_route(
 			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget/(?P<budget_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_budget' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'permission_callback' => $budget_permission_callback,
 				'args'                => $budget_args,
 			]
 		);
@@ -608,7 +612,7 @@ class RestApi {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_budget' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'permission_callback' => $budget_permission_callback,
 				'args'                => $budget_args,
 			]
 		);
