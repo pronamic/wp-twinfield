@@ -78,6 +78,15 @@ class Office extends CodeName implements JsonSerializable {
 	}
 
 	/**
+	 * Get organisation.
+	 * 
+	 * @return Organisation|null
+	 */
+	public function get_organisation() {
+		return $this->organisation;
+	}
+
+	/**
 	 * New transaction type.
 	 *
 	 * @param string $code Code.
