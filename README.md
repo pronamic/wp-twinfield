@@ -209,6 +209,7 @@ define( 'PRONAMIC_TWINFIELD_REDIRECT_URI', '' );
 
 ## Other
 
+*	https://github.com/saloonphp/saloon
 *	http://www.accountingcoach.com/blog/accounts-payable-accounts-receivable
 *	http://blog.fedecarg.com/2009/03/12/domain-driven-design-and-data-access-strategies/
 *	http://stackoverflow.com/questions/3056447/design-pattern-for-loading-multiple-message-types
