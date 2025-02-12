@@ -118,12 +118,19 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 
 		$columns = $data->get_object( 'Columns' )->get_array( 'string' );
 
-		$items = \array_map(
-			function ( $item ) {
-				return ObjectAccess::from_object( $item )->get_array( 'string' );
-			},
-			$data->get_object( 'Items' )->get_array( 'ArrayOfString' )
-		);
+		$items = [];
+
+		/**
+		 * If there are no rows there will also be no `Items` property.
+		 */
+		if ( $data->has_property( 'Items' ) ) {
+			$items = \array_map(
+				function ( $item ) {
+					return ObjectAccess::from_object( $item )->get_array( 'string' );
+				},
+				$data->get_object( 'Items' )->get_array( 'ArrayOfString' )
+			);
+		}
 
 		return new self(
 			$data->get_property( 'TotalRows' ),

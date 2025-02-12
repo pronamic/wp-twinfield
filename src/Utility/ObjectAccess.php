@@ -56,8 +56,9 @@ class ObjectAccess implements JsonSerializable {
 		if ( ! \property_exists( $this->object, $property ) ) {
 			throw new \Exception(
 				\sprintf(
-					'Object does not have `%s` property.',
-					\esc_html( $property )
+					'Object does not have `%s` property: `%s`.',
+					\esc_html( $property ),
+					\esc_html( \wp_json_encode( $this->object ) )
 				)
 			);
 		}

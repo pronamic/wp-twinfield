@@ -90,11 +90,11 @@ class Dimension extends CodeName implements JsonSerializable {
 	/**
 	 * Create dimension from XML.
 	 *
-	 * @param string $xml    XML.
-	 * @param Office $office Office.
+	 * @param string       $xml          XML.
+	 * @param Organisation $organisation Organisation.
 	 */
-	public static function from_xml( $xml, $office ) {
-		$unserializer = new DimensionUnserializer( $office->get_organisation() );
+	public static function from_xml( $xml, $organisation ) {
+		$unserializer = new DimensionUnserializer( $organisation );
 
 		$simplexml = \simplexml_load_string( $xml );
 

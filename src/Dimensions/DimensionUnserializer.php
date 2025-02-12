@@ -27,11 +27,20 @@ use SimpleXMLElement;
  */
 class DimensionUnserializer extends Unserializer {
 	/**
+	 * Organisation.
+	 * 
+	 * @var Organisation
+	 */
+	public $organisation;
+
+	/**
 	 * Construct dimension unserializer.
 	 * 
 	 * @param Organisation $organisation Organisation.
 	 */
 	public function __construct( Organisation $organisation ) {
+		$this->organisation = $organisation;
+
 		$this->unserializers = [
 			DimensionTypes::DEB => new CustomerUnserializer( $organisation ),
 			DimensionTypes::CRD => new SupplierUnserializer( $organisation ),
@@ -54,12 +63,23 @@ class DimensionUnserializer extends Unserializer {
 			);
 		}
 
-		$type = (string) $element->type;
-
-		if ( isset( $this->unserializers[ $type ] ) ) {
-			$unserializer = $this->unserializers[ $type ];
-
-			return $unserializer->unserialize( $element );
+		if ( '1' !== (string) $element['result'] ) {
+			throw new \Exception( 'Dimension result error: ' . $element->asXML() );
 		}
+
+		$office = $this->organisation->office( (string) $element->office );
+
+		$dimension_type = $office->new_dimension_type( (string) $element->type );
+
+		$dimension = $dimension_type->new_dimension( (string) $element->code );
+
+		$dimension->set_office( $office );
+
+		$dimension->set_status( (string) $element['status'] );
+		$dimension->set_uid( (string) $element->uid );
+		$dimension->set_name( (string) $element->name );
+		$dimension->set_shortname( (string) $element->shortname );
+
+		return $dimension;
 	}
 }

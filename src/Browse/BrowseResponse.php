@@ -54,9 +54,9 @@ class BrowseResponse {
 	 * Rows.
 	 * 
 	 * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr
-	 * @var array
+	 * @var BrowseRow[]
 	 */
-	public $rows;
+	public $rows = [];
 
 	/**
 	 * From XML.
