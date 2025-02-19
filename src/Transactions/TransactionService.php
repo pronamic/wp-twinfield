@@ -125,4 +125,24 @@ class TransactionService {
 
 		return $transaction_response;
 	}
+
+	/**
+	 * Get transaction v2.
+	 *
+	 * @param string $office The office to get the transaction from.
+	 * @param string $code   The code of the transaction to retrieve.
+	 * @param string $number The number of the transaction to retrieve.
+	 * @return Transaction
+	 */
+	public function get_transaction_v2( $office, $code, $number ) {
+		$xml = $this->get_transaction_xml( $office, $code, $number );
+
+		$response = new TransactionReadResponse( $xml );
+
+		$transaction = $response->transaction();
+
+		$transaction->get_header()->get_office()->organisation = $this->xml_processor->client->organisation;
+
+		return $transaction;
+	}
 }
