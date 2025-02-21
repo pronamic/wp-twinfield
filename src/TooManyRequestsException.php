@@ -9,6 +9,8 @@ namespace Pronamic\WordPress\Twinfield;
 
 /**
  * Too Many Requests Exception class
+ * 
+ * @link https://docs.saloon.dev/installable-plugins/handling-rate-limits#handling-rate-limits-being-exceeded
  */
 class TooManyRequestsException extends \RuntimeException {
 	/**
