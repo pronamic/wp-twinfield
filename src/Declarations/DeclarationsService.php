@@ -122,7 +122,9 @@ return $result;
 
 		$parameters->documentId = $document_id;
 
-		$response = $this->soap_client->__soapCall( $function, [ $parameters ] );
+		$soap_client = $this->get_soap_client();
+
+		$response = $soap_client->__soapCall( $function, [ $parameters ] );
 
 		if ( isset( $response->paymentReference ) ) {
 			return $response->paymentReference;
