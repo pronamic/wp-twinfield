@@ -22,7 +22,7 @@ class SoapClient extends \SoapClient {
 	 * @param bool   $one_way  If `one_way` is set to `true`, this method returns nothing. Use this where a response is not expected.
 	 * @return The XML SOAP response.
 	 */
-	public function __doRequest( $request, $location, $action, $version, $one_way = false ) {
+	public function __doRequest( string $request, string $location, string $action, int $version, bool $one_way = false ): ?string {
 		try {
 			return parent::__doRequest( $request, $location, $action, $version, $one_way );
 		} catch ( \SoapFault $soap_fault ) {
