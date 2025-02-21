@@ -23,6 +23,5 @@ class FixedAssetsService {
 	 * @return array
 	 */
 	public function get_assets( $organisation_id, $company_id ) {
-		
 	}
 }

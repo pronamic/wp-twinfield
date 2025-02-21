@@ -56,7 +56,7 @@ class DeclarationsService extends AbstractService {
 		$soap_client = $this->get_soap_client( $office );
 
 		$result = $soap_client->GetAllSummaries( $parameters );
-return $result;
+		return $result;
 		if ( ! is_object( $result ) ) {
 			throw new \Exception(
 				\sprintf(
@@ -245,7 +245,7 @@ return $result;
 		$parameters->documentId = $document_id;
 
 		$response = $soap_client->__soapCall( $function, [ $parameters ] );
-return $response;
+		return $response;
 		if ( isset( $response->vatReturn, $response->vatReturn->any ) ) {
 			return $response->vatReturn->any;           
 		}

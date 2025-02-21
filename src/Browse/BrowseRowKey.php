@@ -63,8 +63,8 @@ class BrowseRowKey {
 	 * @param DOMElement $element Element.
 	 * @return self
 	 */
-	public static function from_dom_element( DOMElement $element ):self {
-		if (  'key' !== $element->tagName ) {
+	public static function from_dom_element( DOMElement $element ): self {
+		if ( 'key' !== $element->tagName ) {
 			throw new \Exception( 'No key element.' );
 		}
 

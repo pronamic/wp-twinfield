@@ -39,7 +39,7 @@ $start_date = new DateTimeImmutable( '2011-01-01' );
 $end_date   = new DateTimeImmutable();
 
 $interval = new DateInterval( 'P1D' );
-$period = new DatePeriod( $start_date, $interval, $end_date );
+$period   = new DatePeriod( $start_date, $interval, $end_date );
 
 $bank_statements_service = new BankStatements\BankStatementsService( $client );
 

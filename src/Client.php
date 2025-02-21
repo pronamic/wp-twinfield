@@ -18,7 +18,6 @@ use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Offices\OfficeService;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Finder\Finder;
-use SoapClient;
 
 /**
  * Client

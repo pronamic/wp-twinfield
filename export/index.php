@@ -32,14 +32,14 @@ $client->set_authentication_refresh_handler(
 $organisation = $client->get_organisation();
 
 $dimension_types = [
-	'BAS'=> 'Balancesheet',
-	'PNL'=> 'Profit and Loss',
-	'CRD'=> 'Accounts Payable',
-	'DEB'=> 'Accounts Receivable',
-	'KPL'=> 'Cost centers',
-	'AST'=> 'Assets',
-	'PRJ'=> 'Projects',
-	'ACT'=> 'Activities',
+	'BAS' => 'Balancesheet',
+	'PNL' => 'Profit and Loss',
+	'CRD' => 'Accounts Payable',
+	'DEB' => 'Accounts Receivable',
+	'KPL' => 'Cost centers',
+	'AST' => 'Assets',
+	'PRJ' => 'Projects',
+	'ACT' => 'Activities',
 ];
 
 $offices = $client->get_offices();
@@ -106,7 +106,17 @@ function export_dimensions( $client, $office, $dimtype, $path, $options = [] ) {
 	$max_rows  = 100;
 
 	do {
-		$search = new Search( 'DIM', '*', 0, $first_row, $max_rows, [ 'dimtype' => $dimtype, ...$options ] );
+		$search = new Search(
+			'DIM',
+			'*',
+			0,
+			$first_row,
+			$max_rows,
+			[
+				'dimtype' => $dimtype,
+				...$options,
+			] 
+		);
 		
 		$response = $finder->search( $search );
 
@@ -248,8 +258,7 @@ foreach ( $offices as $office ) {
 
 				export_customer_transactions( $client, $office, $transaction_type_code, $period_string, $dir );
 			}
-		}
-
+		}   
 	}
 
 	// export_customer_transactions( $client, $office );

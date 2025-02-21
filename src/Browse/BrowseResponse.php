@@ -64,7 +64,7 @@ class BrowseResponse {
 	 * @param string $xml XML.
 	 * @return self
 	 */
-	public static function from_xml( $xml ):self {
+	public static function from_xml( $xml ): self {
 		$document = new DOMDocument();
 
 		$result = $document->loadXML( $xml );
@@ -82,7 +82,7 @@ class BrowseResponse {
 	 * @param DOMDocument $document Document.
 	 * @return self
 	 */
-	public static function from_dom_document( DOMDocument $document ):self {
+	public static function from_dom_document( DOMDocument $document ): self {
 		if ( null === $document->documentElement ) {
 			throw new \Exception( 'No first document element.' );
 		}
@@ -96,8 +96,8 @@ class BrowseResponse {
 	 * @param DOMElement $element Element.
 	 * @return self
 	 */
-	public static function from_dom_element( DOMElement $element ):self {
-		if (  'browse' !== $element->tagName ) {
+	public static function from_dom_element( DOMElement $element ): self {
+		if ( 'browse' !== $element->tagName ) {
 			throw new \Exception( 'No browse element.' );
 		}
 

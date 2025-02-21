@@ -506,7 +506,7 @@ class RestApi {
 			],
 		];
 
-		$hierarchies_permission_callback = function() {
+		$hierarchies_permission_callback = function () {
 			if ( \current_user_can( 'pronamic_twinfield_read_hierarchies' ) ) {
 				return true;
 			}
@@ -521,7 +521,7 @@ class RestApi {
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_hierarchy' ],
 				'permission_callback' => $hierarchies_permission_callback,
-				'args'                => $hierarchies_args
+				'args'                => $hierarchies_args,
 			]
 		);
 
@@ -567,7 +567,7 @@ class RestApi {
 				'required'    => true,
 				'default'     => 0,
 			],
-			'period_to'         => [
+			'period_to'           => [
 				'description' => 'End period to be retrieved.',
 				'type'        => 'int',
 				'required'    => true,

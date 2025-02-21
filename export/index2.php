@@ -41,7 +41,7 @@ $invoice_types = [
 		'2014' => range( '145001', '145013' ),
 		'2015' => range( '155001', '155003' ),
 	],
-	'FACTUUR'   => [
+	'FACTUUR'    => [
 		'2011' => array_merge(
 			range( '7', '12' ),
 			range( '110015', '110579' )
@@ -106,4 +106,3 @@ foreach ( $offices as $office ) {
 		}
 	}
 }
-

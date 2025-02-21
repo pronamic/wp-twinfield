@@ -43,8 +43,8 @@ class BrowseRow {
 	 * @param DOMElement $element Element.
 	 * @return self
 	 */
-	public static function from_dom_element( DOMElement $element ):self {
-		if (  'tr' !== $element->tagName ) {
+	public static function from_dom_element( DOMElement $element ): self {
+		if ( 'tr' !== $element->tagName ) {
 			throw new \Exception( 'No tr element.' );
 		}
 
