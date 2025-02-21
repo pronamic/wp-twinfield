@@ -19,7 +19,7 @@ class TooManyRequestsException extends \RuntimeException {
 	 */
 	public function from_soap_client_fault( SoapClient $soap_client, \SoapFault $soap_fault ) {
 		$message = \sprintf(
-			'SOAP Fault: %s' . "\n",
+			'SOAP Fault: %s' . "\n" .
 			'SOAP Response Headers: %s',
 			$soap_fault->getMessage(),
 			$soap_client->__getLastResponseHeaders()
