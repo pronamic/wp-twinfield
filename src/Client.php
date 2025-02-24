@@ -321,12 +321,28 @@ class Client {
 	private function get_soap_client_options() {
 		return [
 			'connection_timeout' => 30,
-			'trace'              => true,
 			'compression'        => \SOAP_COMPRESSION_ACCEPT | \SOAP_COMPRESSION_GZIP,
-			// https://github.com/php-twinfield/twinfield/issues/50.
-			'cache_wsdl'         => \WSDL_CACHE_MEMORY,
-			// Disable HTTP Keep Alive to prevent 'error fetching HTTP headers'.
-			'keep_alive'         => false,
+			/**
+			 * The `trace` option must be set to `true` to use the `SoapClient::__getLastResponseHeaders` function to
+			 * retrieve the rate limiting headers for 'Too Many Requests' errors.
+			 * 
+			 * @link https://www.php.net/manual/en/soapclient.getlastresponseheaders.php
+			 */
+			'trace'              => true,
+			/**
+			 * In the linked issue `WSDL_CACHE_MEMORY` was recommended, but `WSDL_CACHE_BOTH` may be the better option
+			 * in newer PHP versions.
+			 * 
+			 * @link https://github.com/php-twinfield/twinfield/issues/50
+			 */
+			'cache_wsdl'         => \WSDL_CACHE_BOTH,
+			/**
+			 * Previously `keep_alive` was set to `false` to prevent 'error fetching HTTP headers' errors, we are
+			 * testing if `keep_alive` can now be turned on by default again.
+			 *
+			 * @link https://github.com/php-twinfield/twinfield/issues/50
+			 */
+			'keep_alive'         => true,
 		];
 	}
 }
