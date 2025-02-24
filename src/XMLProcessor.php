@@ -52,7 +52,11 @@ class XMLProcessor extends AbstractService {
 			'xmlRequest' => $xml,
 		];
 
-		$response = $soap_client->__soapCall( 'ProcessXmlString', [ $data ] );
+		try {
+			$response = $soap_client->__soapCall( 'ProcessXmlString', [ $data ] );
+		} catch ( \SoapFault $soap_fault ) {
+			$soap_client->handle_soap_fault( $soap_fault );
+		}
 
 		return ObjectAccess::from_object( $response )->get_property( 'ProcessXmlStringResult' );
 	}
