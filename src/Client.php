@@ -330,19 +330,17 @@ class Client {
 			 */
 			'trace'              => true,
 			/**
-			 * In the linked issue `WSDL_CACHE_MEMORY` was recommended, but `WSDL_CACHE_BOTH` may be the better option
-			 * in newer PHP versions.
+			 * In the linked issue `WSDL_CACHE_MEMORY` was recommended, but `WSDL_CACHE_BOTH` may be the better option in newer PHP versions.
 			 * 
 			 * @link https://github.com/php-twinfield/twinfield/issues/50
 			 */
 			'cache_wsdl'         => \WSDL_CACHE_BOTH,
 			/**
-			 * Previously `keep_alive` was set to `false` to prevent 'error fetching HTTP headers' errors, we are
-			 * testing if `keep_alive` can now be turned on by default again.
+			 * The `keep_alive` is set to `false` to prevent 'error fetching HTTP headers' and 'Could not connect to host' errors.
 			 *
 			 * @link https://github.com/php-twinfield/twinfield/issues/50
 			 */
-			'keep_alive'         => true,
+			'keep_alive'         => false,
 		];
 	}
 }
