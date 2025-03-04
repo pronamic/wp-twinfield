@@ -9,7 +9,7 @@ namespace Pronamic\WordPress\Twinfield\Daybooks;
 
 use Pronamic\WordPress\Twinfield\Client;
 use Pronamic\WordPress\Twinfield\Finder\Search;
-use Pronamic\WordPress\Twinfield\Finder\SearchResponse;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Daybook service class
@@ -40,7 +40,7 @@ class DaybookService {
 	 * @param int    $first_row First row.
 	 * @param int    $max_rows  Max rows.
 	 * @param array  $options   Options.
-	 * @return SearchResponse
+	 * @return DaybookSearchResponse
 	 */
 	public function search_daybooks(
 		Office $office,
@@ -58,6 +58,6 @@ class DaybookService {
 
 		$response = $finder->search( $search );
 
-		return $response;
+		return new DaybookSearchResponse( $office, $response );
 	}
 }
