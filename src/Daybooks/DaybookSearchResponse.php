@@ -47,6 +47,21 @@ class DaybookSearchResponse {
 	 * @return Daybook[]
 	 */
 	public function to_daybooks() {
+		$office = $this->office;
 
+		$data = $this->response->get_data();
+
+		$daybooks = \array_map(
+			function ( $item ) use ( $office ) {
+				$daybook = new Daybook( $office, $item[0] );
+
+				$daybook->name = $item[1];
+
+				return $daybook;
+			},
+			$data->get_items()
+		);
+
+		return $daybooks;
 	}
 }

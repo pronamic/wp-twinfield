@@ -34,6 +34,20 @@ class Daybook implements JsonSerializable, Stringable {
 	public string $code;
 
 	/**
+	 * Name.
+	 * 
+	 * @var string|null
+	 */
+	public ?string $name = null;
+
+	/**
+	 * Shortname.
+	 * 
+	 * @var string|null
+	 */
+	public ?string $shortname = null;
+
+	/**
 	 * Construct daybook.
 	 * 
 	 * @param Office $office Office.
@@ -45,14 +59,46 @@ class Daybook implements JsonSerializable, Stringable {
 	}
 
 	/**
+	 * Get code.
+	 * 
+	 * @deprecated
+	 * @return string
+	 */
+	public function get_code(): string {
+		return $this->code;
+	}
+
+	/**
+	 * Get name.
+	 * 
+	 * @deprecated
+	 * @return string|null
+	 */
+	public function get_name(): ?string {
+		return $this->name;
+	}
+
+	/**
+	 * Get shortname.
+	 * 
+	 * @deprecated
+	 * @return string|null
+	 */
+	public function get_shortname(): ?string {
+		return $this->shortname;
+	}
+
+	/**
 	 * Serialize to JSON.
 	 * 
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
 		return [
-			'office' => $this->office,
-			'code'   => $this->code,
+			'office'    => $this->office,
+			'code'      => $this->code,
+			'name'      => $this->name,
+			'shortname' => $this->shortname,
 		];
 	}
 
