@@ -34,21 +34,27 @@ class DaybookService {
 	/**
 	 * Search daybooks
 	 * 
+	 * @param Office $office    Office.
+	 * @param string $pattern   Pattern.
+	 * @param int    $field     Field.
+	 * @param int    $first_row First row.
+	 * @param int    $max_rows  Max rows.
+	 * @param array  $options   Options.
 	 * @return SearchResponse
 	 */
-	public function search_daybooks() {
+	public function search_daybooks(
+		Office $office,
+		string $pattern = '*', 
+		int $field = 0, 
+		int $first_row = 1, 
+		int $max_rows = 100, 
+		array $options = [] 
+	) {
 		$finder = $this->client->get_finder();
 
-		$search = new Search(
-			'TRS',
-			'*',
-			0,
-			1,
-			100,
-			[
-				'hidden' => '1',
-			]
-		);
+		$finder->set_office( $office );
+
+		$search = new Search( 'TRS', $pattern, $field, $first_row, $max_rows, $options );
 
 		$response = $finder->search( $search );
 
