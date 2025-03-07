@@ -23,15 +23,50 @@ use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
  */
 class Period implements JsonSerializable {
 	/**
+	 * Year.
+	 * 
+	 * @var int
+	 */
+	public $year;
+
+	/**
+	 * Number.
+	 * 
+	 * @var int
+	 */
+	public $number;
+
+	/**
+	 * Name.
+	 * 
+	 * @var string|null
+	 */
+	public ?string $name;
+
+	/**
+	 * Is open.
+	 * 
+	 * @var bool|null
+	 */
+	public ?bool $is_open;
+
+	/**
+	 * Name.
+	 * 
+	 * @var string|null
+	 */
+	public ?DateTimeInterface $end_date;
+
+	/**
 	 * Construct period.
 	 * 
-	 * @param int               $year    Year.
-	 * @param int               $number  Number.
-	 * @param string            $name    Name.
-	 * @param bool              $is_open Is open.
-	 * @param DateTimeInterface $end_date End date.
+	 * @param int                    $year     Year.
+	 * @param int                    $number   Number.
+	 * @param string|null            $name     Name.
+	 * @param bool|null              $is_open  Is open.
+	 * @param DateTimeInterface|null $end_date End date.
 	 */
-	public function __construct( $year, $number, $name, $is_open, DateTimeInterface $end_date = null ) {
+	public function __construct( $year, $number, $name = null, $is_open = null, DateTimeInterface $end_date = null ) {
 		$this->year     = $year;
 		$this->number   = $number;
 		$this->name     = $name;
@@ -103,7 +138,13 @@ class Period implements JsonSerializable {
 		$end_date_string = $data->get_property( 'EndDate' );
 
 		if ( null !== $end_date_string ) {
-			$period->end_date = new DateTimeImmutable( $end_date_string );
+			$result = DateTimeImmutable::createFromFormat( 'Y-m-d\TH:i:s', $end_date_string, new DateTimeZone( 'UTC' ) );
+
+			if ( false === $result ) {
+				throw new \Exception( 'Unknown period end date format: ' . $end_date_string );
+			}
+
+			$period->end_date = $result;
 		}
 
 		return $period;
