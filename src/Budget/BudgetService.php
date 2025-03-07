@@ -48,7 +48,7 @@ class BudgetService extends AbstractService {
 	 * 
 	 * @param Office                     $office Office.
 	 * @param BudgetByProfitAndLossQuery $query  Query.
-	 * @return mixed
+	 * @return BudgetTotalResult[]
 	 */
 	public function get_budget_by_profit_and_loss_query( Office $office, BudgetByProfitAndLossQuery $query ) {
 		$soap_client = $this->get_soap_client( $office );
@@ -71,11 +71,17 @@ class BudgetService extends AbstractService {
 			)
 		);
 
+		$budget_totals = ObjectAccess::from_object( $result )->get_object( 'BudgetTotals' );
+
+		if ( ! $budget_totals->has_property( 'GetBudgetTotalResult' ) ) {
+			return [];
+		}
+
 		$totals = \array_map(
 			function ( $value ) {
 				return BudgetTotalResult::from_twinfield_object( $value );
 			},
-			ObjectAccess::from_object( $result )->get_object( 'BudgetTotals' )->get_array( 'GetBudgetTotalResult' )
+			$budget_totals->get_array( 'GetBudgetTotalResult' )
 		);
 
 		return $totals;
