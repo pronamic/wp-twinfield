@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Periods;
 
 use DateTimeInterface;
 use DateTimeImmutable;
+use DateTimeZone;
 use JsonSerializable;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
