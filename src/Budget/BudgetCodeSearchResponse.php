@@ -7,8 +7,6 @@
 
 namespace Pronamic\WordPress\Twinfield\Budget;
 
-use JsonSerializable;
-use Stringable;
 use Pronamic\WordPress\Twinfield\Finder\SearchResponse;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 
@@ -31,7 +29,7 @@ class BudgetCodeSearchResponse {
 	public SearchResponse $response;
 
 	/**
-	 * Construct daybook search response.
+	 * Construct budget code search response.
 	 * 
 	 * @param Office         $office   Office.
 	 * @param SearchResponse $response Response.
