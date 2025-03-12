@@ -22,13 +22,13 @@ namespace Pronamic\WordPress\Twinfield;
 		<tr>
 			<th scope="row"><?php \esc_html_e( 'Offices', 'pronamic-twinfield' ); ?></th>
 			<td>
-
+				<input type="text" name="_pronamic_twinfield_save_offices_schedule" value="" />
 			</td>
 		</tr>
 		<tr>
 			<th scope="row"><?php \esc_html_e( 'Hierarchies', 'pronamic-twinfield' ); ?></th>
 			<td>
-
+				<input type="text" name="_pronamic_twinfield_save_hierarchies_schedule" value="" />
 			</td>
 		</tr>
 	</tbody>
