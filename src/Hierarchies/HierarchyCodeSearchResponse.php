@@ -5,7 +5,7 @@
  * @package Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield\Budget;
+namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 use Pronamic\WordPress\Twinfield\Finder\SearchResponse;
 
