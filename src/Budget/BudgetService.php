@@ -44,6 +44,36 @@ class BudgetService extends AbstractService {
 	}
 
 	/**
+	 * Search budget codes.
+	 * 
+	 * @param Office $office    Office.
+	 * @param string $pattern   Pattern.
+	 * @param int    $field     Field.
+	 * @param int    $first_row First row.
+	 * @param int    $max_rows  Max rows.
+	 * @param array  $options   Options.
+	 * @return DaybookSearchResponse
+	 */
+	public function search_budget_codes(
+		Office $office,
+		string $pattern = '*', 
+		int $field = 0, 
+		int $first_row = 1, 
+		int $max_rows = 100, 
+		array $options = [] 
+	) {
+		$finder = $this->client->get_finder();
+
+		$finder->set_office( $office );
+
+		$search = new Search( 'BDS', $pattern, $field, $first_row, $max_rows, $options );
+
+		$response = $finder->search( $search );
+
+		return new BudgetCodeSearchResponse( $office, $response );
+	}
+
+	/**
 	 * Get budget by profit and loss query.
 	 * 
 	 * @param Office                     $office Office.
