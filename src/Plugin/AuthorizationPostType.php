@@ -120,7 +120,7 @@ class AuthorizationPostType {
 		}
 
 		/**
-		 * Authentication/
+		 * Authentication.
 		 */
 		$object = \json_decode( $post->post_content );
 
@@ -161,6 +161,15 @@ class AuthorizationPostType {
 			'pronamic_twinfield_menu',
 			\__( 'Menu', 'twinfield' ),
 			[ $this, 'meta_box_menu' ],
+			$post_type,
+			'normal',
+			'high'
+		);
+
+		\add_meta_box(
+			'pronamic_twinfield_menu',
+			\__( 'Save schedule', 'pronamic-twinfield' ),
+			[ $this, 'meta_box_save_schedule' ],
 			$post_type,
 			'normal',
 			'high'
@@ -250,6 +259,19 @@ class AuthorizationPostType {
 		$plugin = $this->plugin;
 
 		include __DIR__ . '/../../admin/meta-box-menu.php';
+	}
+
+	/**
+	 * Meta box save schedule.
+	 * 
+	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
+	 * @param WP_Post $post Post.
+	 * @param array   $box  Box.
+	 */
+	public function meta_box_save_schedule( $post, $box ) {
+		$plugin = $this->plugin;
+
+		include __DIR__ . '/../../admin/meta-box-save-schedule.php';
 	}
 
 	/**
