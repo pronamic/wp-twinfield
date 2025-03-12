@@ -174,7 +174,7 @@ class Client {
 			case 'periods':
 				return new Periods\PeriodsService( $this );
 			case 'hierarchies':
-				return new Hierarchies\HierarchiesService( $this );
+				return new Hierarchies\HierarchyService( $this );
 			case 'budget':
 				return new Budget\BudgetService( $this );
 			default:

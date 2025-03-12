@@ -18,7 +18,7 @@ use JsonSerializable;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class LoadResponse implements JsonSerializable {
+class HierarchyLoadResponse implements JsonSerializable {
 	/**
 	 * Hierarchy.
 	 *
@@ -48,12 +48,12 @@ class LoadResponse implements JsonSerializable {
 	 * Convert from object.
 	 *
 	 * @param object $value Object.
-	 * @return LoadResponse
+	 * @return self
 	 */
 	public static function from_object( $value ) {
 		$hierarchy = Hierarchy::from_object( $value->hierarchy );
 
-		$load_response = new LoadResponse( $hierarchy );
+		$load_response = new self( $hierarchy );
 
 		return $load_response;
 	}

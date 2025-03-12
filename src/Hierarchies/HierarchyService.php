@@ -1,10 +1,8 @@
 <?php
 /**
- * Hierarchy
+ * Hierarchy service
  *
- * @since      1.0.0
- *
- * @package    Pronamic/WordPress/Twinfield
+ * @package Pronamic/WordPress/Twinfield
  */
 
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
@@ -13,15 +11,9 @@ use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
 
 /**
- * Hierarchy
- *
- * This class connects to the Twinfield hierarchy Webservices.
- *
- * @since      1.0.0
- * @package    Pronamic/WordPress/Twinfield
- * @author     Remco Tolsma <info@remcotolsma.nl>
+ * Hierarchy service class
  */
-class HierarchiesService extends AbstractService {
+class HierarchyService extends AbstractService {
 	/**
 	 * The Twinfield finder WSDL URL.
 	 *
@@ -42,7 +34,7 @@ class HierarchiesService extends AbstractService {
 	 * Get hierarchy by code.
 	 *
 	 * @param string $hierarchy_code Hierarchy code.
-	 * @return LoadResponse
+	 * @return HierarchyLoadResponse
 	 */
 	public function get_hierarchy( $hierarchy_code ) {
 		$soap_client = $this->get_soap_client();
@@ -53,6 +45,6 @@ class HierarchiesService extends AbstractService {
 			]
 		);
 
-		return LoadResponse::from_object( $result );
+		return HierarchyLoadResponse::from_object( $result );
 	}
 }
