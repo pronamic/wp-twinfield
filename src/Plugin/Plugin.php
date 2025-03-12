@@ -234,6 +234,18 @@ class Plugin {
 				KEY bank_statement_id ( bank_statement_id ),
 				UNIQUE KEY bank_statement_line ( bank_statement_id, line_id )
 			);
+
+			CREATE TABLE {$wpdb->prefix}twinfield_hierarchies (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
+				organisation_id BIGINT UNSIGNED NOT NULL,
+				code VARCHAR(80) NOT NULL,
+				json LONGTEXT NOT NULL,
+				PRIMARY KEY  ( id ),
+				KEY organisation_id ( organisation_id ),
+				UNIQUE KEY code ( organisation_id, code )
+			);
 		";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -270,6 +282,18 @@ class Plugin {
 			ADD CONSTRAINT fk_bank_statement_line_bank_stament_id
 			FOREIGN KEY ( bank_statement_id )
 			REFERENCES {$wpdb->prefix}twinfield_bank_statements ( id )
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+			;
+		" 
+		);
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->prefix}twinfield_hierarchies
+			ADD CONSTRAINT fk_hierarchy_organisation_id
+			FOREIGN KEY ( organisation_id )
+			REFERENCES {$wpdb->prefix}twinfield_organisations ( id )
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
