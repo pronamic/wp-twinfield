@@ -31,6 +31,32 @@ class HierarchyService extends AbstractService {
 	}
 
 	/**
+	 * Search hierarchy (reporting structure) codes.
+	 *
+	 * @param string $pattern   Pattern.
+	 * @param int    $field     Field.
+	 * @param int    $first_row First row.
+	 * @param int    $max_rows  Max rows.
+	 * @param array  $options   Options.
+	 * @return HierarchyCodeSearchResponse
+	 */
+	public function search_hierarchies(
+		string $pattern = '*', 
+		int $field = 0, 
+		int $first_row = 1, 
+		int $max_rows = 100, 
+		array $options = [] 
+	) {
+		$finder = $this->client->get_finder();
+
+		$search = new Search( 'HIE', $pattern, $field, $first_row, $max_rows, $options );
+
+		$response = $finder->search( $search );
+
+		return new HierarchyCodeSearchResponse( $response );
+	}
+
+	/**
 	 * Get hierarchy by code.
 	 *
 	 * @param string $hierarchy_code Hierarchy code.
