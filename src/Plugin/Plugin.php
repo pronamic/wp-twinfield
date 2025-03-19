@@ -588,7 +588,7 @@ class Plugin {
 		$client = new Client( $openid_connect_client, $authentication );
 
 		$client->set_authentication_refresh_handler(
-			function ( $client ) use ( $post ) {
+			function ( $client ) use ( $post ): void {
 				$this->save_authentication( $post, $client->get_authentication() );
 			}
 		);

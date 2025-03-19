@@ -24,7 +24,7 @@ $authentication = Authentication\AuthenticationInfo::from_object( \json_decode( 
 $client = new Client( $openid_connect_client, $authentication );
 
 $client->set_authentication_refresh_handler(
-	function ( $client ) use ( $authentication_file ) {
+	function ( $client ) use ( $authentication_file ): void {
 		\file_put_contents( $authentication_file, \wp_json_encode( $client->get_authentication(), \JSON_PRETTY_PRINT ) );
 	} 
 );
@@ -156,7 +156,7 @@ function export_dimensions( $client, $office, $dimtype, $path, $options = [] ) {
 			echo $filename, PHP_EOL;
 		}
 
-		$first_row = $first_row + $max_rows;
+		$first_row += $max_rows;
 	} while ( count( $items ) > 0 );
 }
 

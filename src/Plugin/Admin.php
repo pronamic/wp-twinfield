@@ -125,7 +125,7 @@ class Admin {
 			\__( 'Twinfield', 'pronamic-twinfield' ),
 			'manage_options',
 			'pronamic-twinfield',
-			function () {
+			function (): void {
 				include __DIR__ . '/../../admin/page-dashboard.php';
 			},
 			$menu_icon_url
@@ -147,7 +147,7 @@ class Admin {
 			\__( 'Settings', 'twinfield' ),
 			'manage_options',
 			'pronamic-twinfield-settings',
-			function () {
+			function (): void {
 				include __DIR__ . '/../../admin/page-settings.php';
 			},
 			20
