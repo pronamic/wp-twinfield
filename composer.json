@@ -1,47 +1,49 @@
 {
-    "name": "pronamic/wp-twinfield",
-    "description": "Twinfield library for WordPress.",
-    "license": "GPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "Pronamic",
-            "email": "info@pronamic.eu"
-        }
-    ],
-    "autoload": {
-        "psr-4": {"Pronamic\\WordPress\\Twinfield\\": "src/"}
-    },
-    "config": {
-        "allow-plugins": {
-            "roots/wordpress-core-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        },
-        "platform-check": false,
-        "sort-packages": true
-    },
-    "require": {
-        "php": ">=8.0",
-        "mpdf/mpdf": "^8.0",
-        "pronamic/wp-http": "^1.1",
-        "pronamic/wp-money": "^2.0",
-        "pronamic/wp-number": "^1.1",
-        "woocommerce/action-scheduler": "^3.6"
-    },
-    "require-dev": {
-        "automattic/wordbless": "^0.4.1",
-        "deployer/deployer": "^7.0",
-        "overtrue/phplint": "^9.0",
-        "php-coveralls/php-coveralls": "^2.6",
-        "phpmd/phpmd": "^2.6",
-        "pronamic/wp-coding-standards": "^2.0",
-        "sensiolabs/security-checker": "^6.0",
-        "yoast/phpunit-polyfills": "^2.0"
-    },
-    "scripts": {
-        "phpcs": "vendor/bin/phpcs -s -v",
-        "phplint": "vendor/bin/phplint",
-        "make-pot": "wp i18n make-pot . --slug=pronamic-twinfield --exclude=wordpress",
-        "post-install-cmd": "WorDBless\\Composer\\InstallDropin::copy",
-        "post-update-cmd": "WorDBless\\Composer\\InstallDropin::copy"
-    }
+	"name": "pronamic/wp-twinfield",
+	"description": "Twinfield library for WordPress.",
+	"license": "GPL-3.0-or-later",
+	"authors": [
+		{
+			"name": "Pronamic",
+			"email": "info@pronamic.eu"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Pronamic\\WordPress\\Twinfield\\": "src/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"roots/wordpress-core-installer": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"platform-check": false,
+		"sort-packages": true
+	},
+	"require": {
+		"php": ">=8.0",
+		"mpdf/mpdf": "^8.0",
+		"pronamic/wp-http": "^1.1",
+		"pronamic/wp-money": "^2.0",
+		"pronamic/wp-number": "^1.1",
+		"woocommerce/action-scheduler": "^3.6"
+	},
+	"require-dev": {
+		"automattic/wordbless": "^0.4.1",
+		"deployer/deployer": "^7.0",
+		"overtrue/phplint": "^9.0",
+		"php-coveralls/php-coveralls": "^2.6",
+		"phpmd/phpmd": "^2.6",
+		"pronamic/wp-coding-standards": "^2.0",
+		"sensiolabs/security-checker": "^6.0",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"scripts": {
+		"phpcs": "vendor/bin/phpcs -s -v",
+		"phplint": "vendor/bin/phplint",
+		"make-pot": "wp i18n make-pot . --slug=pronamic-twinfield --exclude=wordpress",
+		"post-install-cmd": "WorDBless\\Composer\\InstallDropin::copy",
+		"post-update-cmd": "WorDBless\\Composer\\InstallDropin::copy"
+	}
 }
