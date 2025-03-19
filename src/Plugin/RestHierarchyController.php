@@ -45,8 +45,8 @@ class RestHierarchyController extends RestController {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/hierarchies/(?P<hierarchy_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => $this->permission_callback( ... ),
+				'callback'            => $this->get_hierarchy( ... ),
+				'permission_callback' => $this->check_permission( ... ),
 				'args'                => $hierarchies_args,
 			]
 		);
@@ -56,19 +56,19 @@ class RestHierarchyController extends RestController {
 			'/offices/(?P<office_code>[a-zA-Z0-9_-]+)/hierarchies/(?P<hierarchy_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => $this->permission_callback( ... ),
+				'callback'            => $this->get_hierarchy( ... ),
+				'permission_callback' => $this->check_permission( ... ),
 				'args'                => $hierarchies_args,
 			]
 		);
 	}
 
 	/**
-	 * Permission callback.
+	 * Check permission.
 	 * 
 	 * @return bool True if permission, false otherwise.
 	 */
-	public function permission_callback() {
+	private function check_permission() {
 		if ( \current_user_can( 'pronamic_twinfield_read_hierarchies' ) ) {
 			return true;
 		}
@@ -90,7 +90,7 @@ class RestHierarchyController extends RestController {
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
-	public function rest_api_hierarchy( WP_REST_Request $request ) {
+	private function get_hierarchy( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
 
 		$post = get_post( $post_id );

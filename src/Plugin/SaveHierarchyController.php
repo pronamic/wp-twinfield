@@ -46,6 +46,25 @@ class SaveHierarchyController {
 	 * @return void
 	 */
 	private function save_hierarchies( $authorization ) {
-		
+		$request = new WP_REST_Request( 'GET', '/pronamic-twinfield/v1/authorizations/' . $authorization . '/offices' );
+
+		$request->set_param( 'authorization', $authorization );
+
+		$response = \rest_do_request( $request );
+
+		$data = (object) $response->get_data();
+
+		foreach ( $data->data as $item ) {
+			\as_enqueue_async_action(
+				'pronamic_twinfield_save_office_hierarchies',
+				[
+					'authorization' => $authorization,
+					'office_code'   => $item->get_code(),
+				],
+				'pronamic-twinfield'
+			);
+
+			break;
+		}
 	}
 }
