@@ -1201,7 +1201,7 @@ class RestApi {
 		$office = \Pronamic\WordPress\Twinfield\Offices\Office::from_xml( (string) $office_response, $office );
 
 		if ( $request->get_param( 'pull' ) ) {
-			$orm = $this->get_orm();
+			$orm = $this->plugin->get_orm();
 
 			$organisation = $office->get_organisation();
 
@@ -2253,7 +2253,7 @@ class RestApi {
 	 * @param BankStatements $bank_statements Bank statements.
 	 */
 	public function bank_statements_update_or_create( $bank_statements ) {
-		$orm = $this->get_orm();
+		$orm = $this->plugin->get_orm();
 
 		$office = $bank_statements->get_office();
 
@@ -2325,86 +2325,5 @@ class RestApi {
 				);
 			}
 		}
-	}
-
-	/**
-	 * Get entity manager.
-	 * 
-	 * @return EntityManager
-	 */
-	public function get_orm() {
-		global $wpdb;
-
-		$orm = new EntityManager( $wpdb );
-
-		$orm->register_entity(
-			\Pronamic\WordPress\Twinfield\Organisations\Organisation::class,
-			new Entity(
-				$wpdb->prefix . 'twinfield_organisations',
-				'id',
-				[
-					'code' => '%s',
-				]
-			)
-		);
-
-		$orm->register_entity(
-			\Pronamic\WordPress\Twinfield\Offices\Office::class,
-			new Entity(
-				$wpdb->prefix . 'twinfield_offices',
-				'id',
-				[
-					'organisation_id' => '%d',
-					'code'            => '%s',
-					'xml'             => '%s',
-				]
-			)
-		);
-
-		$orm->register_entity(
-			\Pronamic\WordPress\Twinfield\BankStatements\BankStatement::class,
-			new Entity(
-				$wpdb->prefix . 'twinfield_bank_statements',
-				'id',
-				[
-					'office_id'          => '%d',
-					'code'               => '%s',
-					'number'             => '%d',
-					'sub_id'             => '%d',
-					'account_number'     => '%s',
-					'iban'               => '%s',
-					'date'               => '%s',
-					'currency'           => '%s',
-					'opening_balance'    => '%f',
-					'closing_balance'    => '%f',
-					'transaction_number' => '%s',
-				]
-			)
-		);
-
-		$orm->register_entity(
-			\Pronamic\WordPress\Twinfield\BankStatements\BankStatementLine::class,
-			new Entity(
-				$wpdb->prefix . 'twinfield_bank_statement_lines',
-				'id',
-				[
-					'bank_statement_id'     => '%d',
-					'line_id'               => '%d',
-					'contra_account_number' => '%s',
-					'contra_iban'           => '%s',
-					'contra_account_name'   => '%s',
-					'payment_reference'     => '%s',
-					'amount'                => '%s',
-					'base_amount'           => '%f',
-					'description'           => '%s',
-					'transaction_type_id'   => '%s',
-					'reference'             => '%s',
-					'end_to_end_id'         => '%s',
-					'return_reason'         => '%s',
-				]
-			)
-		);
-
-		return $orm;
 	}
 }

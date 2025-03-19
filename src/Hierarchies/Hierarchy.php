@@ -25,28 +25,28 @@ class Hierarchy implements IteratorAggregate, JsonSerializable {
 	 *
 	 * @var string
 	 */
-	private $code;
+	public string $code;
 
 	/**
 	 * The name of the hierarchy.
 	 *
 	 * @var string
 	 */
-	private $name;
+	public string $name;
 
 	/**
 	 * The description of the hierarchy.
 	 *
 	 * @var string
 	 */
-	private $description;
+	public string $description;
 
 	/**
 	 * The root node of the hierarchy.
 	 *
 	 * @var HierarchyNode
 	 */
-	private $root_node;
+	public HierarchyNode $root_node;
 
 	/**
 	 * The access rights to the hierarchy.

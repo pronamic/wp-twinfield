@@ -25,7 +25,7 @@ class HierarchyCodeSearchResponse {
 	 * 
 	 * @param SearchResponse $response Response.
 	 */
-	public function __construct(  SearchResponse $response ) {
+	public function __construct( SearchResponse $response ) {
 		$this->response = $response;
 	}
 

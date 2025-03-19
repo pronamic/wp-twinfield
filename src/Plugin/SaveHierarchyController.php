@@ -40,8 +40,8 @@ class SaveHierarchyController {
 		\add_action( 'cli_init', [ $this, 'cli_init' ] );
 
 		\add_action( 'pronamic_twinfield_save_hierarchies', $this->save_hierarchies( ... ) );
-		\add_action( 'pronamic_twinfield_save_office_hierarchies', $this->save_office_hierarchies( ... ) );
-		\add_action( 'pronamic_twinfield_save_office_hierarchy', $this->save_office_hierarchy( ... ) );
+		\add_action( 'pronamic_twinfield_save_office_hierarchies', $this->save_office_hierarchies( ... ), 10, 2 );
+		\add_action( 'pronamic_twinfield_save_office_hierarchy', $this->save_office_hierarchy( ... ), 10, 3 );
 	}
 
 	/**
@@ -218,8 +218,32 @@ class SaveHierarchyController {
 
 		$hierarchy_load_response = $hierarchy_service->get_hierarchy( $office, $hierarchy_code );
 
+		$hierarchy = $hierarchy_load_response->hierarchy;
+
 		$this->log( \wp_json_encode( $hierarchy_load_response ) );
-		$this->log( 'Not implemented' );
+
+		$orm = $this->plugin->get_orm();
+
+		$organisation_id = $orm->first_or_create(
+			$organisation,
+			[
+				'code' => $organisation->get_code(),
+			],
+			[],
+		);
+
+		$hierarchy_id = $orm->update_or_create(
+			$hierarchy,
+			[
+				'organisation_id' => $organisation_id,
+				'code'            => $hierarchy->code,
+			],
+			[
+				'name'        => $hierarchy->name,
+				'description' => $hierarchy->description,
+				'json'        => \wp_json_encode( $hierarchy ),
+			]
+		);
 	}
 
 	/**
