@@ -50,6 +50,8 @@ class AuthorizationPostType {
 
 		\add_action( 'save_post_' . self::KEY, [ $this, 'maybe_set_default_authorization' ] );
 
+		\add_action( 'save_post_' . self::KEY, [ $this, 'maybe_save_schedule' ] );
+
 		\add_action( 'display_post_states', [ $this, 'display_post_states' ], 10, 2 );
 	}
 
@@ -262,6 +264,41 @@ class AuthorizationPostType {
 	}
 
 	/**
+	 * Maybe save schedule.
+	 * 
+	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L42
+	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L103-L124
+	 * @param int $post_id Post ID.
+	 * @return void
+	 */
+	public function maybe_save_schedule( $post_id ) {
+		if ( ! \array_key_exists( 'pronamic_twinfield_authorization_save_schedule_nonce', $_POST ) ) {
+			return;
+		}
+
+		if ( ! \wp_verify_nonce( \sanitize_key( $_POST['pronamic_twinfield_authorization_save_schedule_nonce'] ), 'pronamic_twinfield_authorization_save_schedule' ) ) {
+			return;
+		}
+
+		$map = [
+			'_pronamic_twinfield_save_offices_schedule',
+			'_pronamic_twinfield_save_hierarchies_schedule',
+		];
+
+		foreach ( $map as $key ) {
+			if ( \array_key_exists( $key, $_POST ) ) {
+				$meta_value = \sanitize_text_field( \wp_unslash( $_POST[ $key ] ) );
+
+				if ( empty( $meta_value ) ) {
+					\delete_post_meta( $post_id, $key );
+				} else {
+					\update_post_meta( $post_id, $key, $meta_value );
+				}
+			}
+		}
+	}
+
+	/**
 	 * Meta box save schedule.
 	 * 
 	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
@@ -270,6 +307,8 @@ class AuthorizationPostType {
 	 */
 	public function meta_box_save_schedule( $post, $box ) {
 		$plugin = $this->plugin;
+
+		\wp_nonce_field( 'pronamic_twinfield_authorization_save_schedule', 'pronamic_twinfield_authorization_save_schedule_nonce' );
 
 		include __DIR__ . '/../../admin/meta-box-save-schedule.php';
 	}
