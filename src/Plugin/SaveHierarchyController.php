@@ -36,6 +36,16 @@ class SaveHierarchyController {
 	 * @return void
 	 */
 	public function setup() {
+		\add_action( 'pronamic_twinfield_save_hierarchies', $this->save_hierarchies( ... ) );
+	}
+
+	/**
+	 * Save hierarchies.
+	 * 
+	 * @param string|int $authorization Authorization.
+	 * @return void
+	 */
+	private function save_hierarchies( $authorization ) {
 		
 	}
 }
