@@ -293,8 +293,8 @@ final class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	 * @param object $item Object.
 	 * @return self
 	 */
-	public static function from_twinfield_object( $value ) {
-		$data = ObjectAccess::from_object( $value );
+	public static function from_twinfield_object( $item ) {
+		$data = ObjectAccess::from_object( $item );
 
 		$hierarchy = new self(
 			$data->get_property( 'Id' ),
