@@ -34,7 +34,7 @@ class HierarchyCode implements JsonSerializable, Stringable {
 	 * @param string $code   Code.
 	 */
 	public function __construct( string $code ) {
-		$this->code   = $code;
+		$this->code = $code;
 	}
 
 	/**
@@ -44,8 +44,8 @@ class HierarchyCode implements JsonSerializable, Stringable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'code'      => $this->code,
-			'name'      => $this->name,
+			'code' => $this->code,
+			'name' => $this->name,
 		];
 	}
 

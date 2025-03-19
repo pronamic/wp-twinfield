@@ -54,9 +54,9 @@ class BudgetCode implements JsonSerializable, Stringable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'office'    => $this->office,
-			'code'      => $this->code,
-			'name'      => $this->name,
+			'office' => $this->office,
+			'code'   => $this->code,
+			'name'   => $this->name,
 		];
 	}
 
