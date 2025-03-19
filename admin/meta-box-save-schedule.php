@@ -9,6 +9,17 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
+$fields = [
+	[
+		'meta_key' => '_pronamic_twinfield_save_offices_schedule',
+		'label'    => \__( 'Offices', 'pronamic-twinfield' ),
+	],
+	[
+		'meta_key' => '_pronamic_twinfield_save_hierarchies_schedule',
+		'label'    => \__( 'Hierarchies', 'pronamic-twinfield' ),
+	],
+];
+
 ?>
 <table>
 	<thead>
@@ -19,17 +30,28 @@ namespace Pronamic\WordPress\Twinfield;
 	</thead>
 
 	<tbody>
-		<tr>
-			<th scope="row"><?php \esc_html_e( 'Offices', 'pronamic-twinfield' ); ?></th>
-			<td>
-				<input type="text" name="_pronamic_twinfield_save_offices_schedule" value="" />
-			</td>
-		</tr>
-		<tr>
-			<th scope="row"><?php \esc_html_e( 'Hierarchies', 'pronamic-twinfield' ); ?></th>
-			<td>
-				<input type="text" name="_pronamic_twinfield_save_hierarchies_schedule" value="" />
-			</td>
-		</tr>
+
+		<?php foreach ( $fields as $field ) : ?>
+
+			<tr>
+				<th scope="row"><?php echo \esc_html( $field['label'] ); ?></th>
+				<td>
+					<?php
+
+					$name  = $field['meta_key'];
+					$value = \get_post_meta( $post->ID, $name, true );
+
+					printf(
+						'<input type="text" name="%s" value="%s" />',
+						\esc_attr( $name ),
+						\esc_attr( $value ),
+					);
+
+					?>					
+				</td>
+			</tr>
+
+		<?php endforeach; ?>
+
 	</tbody>
 </table>
