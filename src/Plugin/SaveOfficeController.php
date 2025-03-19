@@ -1,6 +1,6 @@
 <?php
 /**
- * Scheduler controller
+ * Save office controller
  *
  * @package Pronamic/WordPress/Twinfield
  */
@@ -11,9 +11,9 @@ use WP_Query;
 use WP_REST_Request;
 
 /**
- * Scheduler controller class
+ * Save office controller class
  */
-class SchedulerController {
+class SaveOfficeController {
 	/**
 	 * Plugin.
 	 * 
@@ -36,51 +36,8 @@ class SchedulerController {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'init', [ $this, 'schedule_actions' ] );
-
-		\add_action( 'pronamic_twinfield_pull', [ $this, 'pull' ] );
-
 		\add_action( 'pronamic_twinfield_pull_offices', [ $this, 'pull_offices' ], 10, 1 );
 		\add_action( 'pronamic_twinfield_pull_office', [ $this, 'pull_office' ], 10, 2 );
-	}
-
-	/**
-	 * Schedule actions.
-	 *
-	 * @return void
-	 */
-	public function schedule_actions() {
-		if ( false === \as_has_scheduled_action( 'pronamic_twinfield_pull' ) ) {
-			\as_schedule_recurring_action( \time(), \DAY_IN_SECONDS, 'pronamic_twinfield_pull', [], 'pronamic-twinfield' );
-		}
-	}
-
-	/**
-	 * Pull.
-	 *
-	 * @return void
-	 */
-	public function pull() {
-		$query = new WP_Query(
-			[
-				'post_type'      => 'pronamic_twf_auth',
-				'posts_per_page' => -1,
-			]
-		);
-
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-
-				\as_enqueue_async_action(
-					'pronamic_twinfield_pull_offices',
-					[
-						'authorization' => \get_the_ID(),
-					],
-					'pronamic-twinfield'
-				);
-			}
-		}
 	}
 
 	/**

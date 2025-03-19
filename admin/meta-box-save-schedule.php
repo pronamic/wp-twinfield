@@ -9,16 +9,7 @@
 
 namespace Pronamic\WordPress\Twinfield;
 
-$fields = [
-	[
-		'meta_key' => '_pronamic_twinfield_save_offices_schedule',
-		'label'    => \__( 'Offices', 'pronamic-twinfield' ),
-	],
-	[
-		'meta_key' => '_pronamic_twinfield_save_hierarchies_schedule',
-		'label'    => \__( 'Hierarchies', 'pronamic-twinfield' ),
-	],
-];
+$data = $this->get_schedule_data();
 
 ?>
 <table>
@@ -31,14 +22,14 @@ $fields = [
 
 	<tbody>
 
-		<?php foreach ( $fields as $field ) : ?>
+		<?php foreach ( $data as $item ) : ?>
 
 			<tr>
-				<th scope="row"><?php echo \esc_html( $field['label'] ); ?></th>
+				<th scope="row"><?php echo \esc_html( $item['label'] ); ?></th>
 				<td>
 					<?php
 
-					$name  = $field['meta_key'];
+					$name  = $item['meta_key'];
 					$value = \get_post_meta( $post->ID, $name, true );
 
 					printf(

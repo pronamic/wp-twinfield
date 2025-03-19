@@ -264,6 +264,31 @@ class AuthorizationPostType {
 	}
 
 	/**
+	 * Get schedule data.
+	 * 
+	 * @return []
+	 */
+	private function get_schedule_data() {
+		return [
+			[
+				'meta_key' => '_pronamic_twinfield_save_offices_schedule',
+				'label'    => \__( 'Offices', 'pronamic-twinfield' ),
+				'hook'     => 'pronamic_twinfield_pull_offices',
+			],
+			[
+				'meta_key' => '_pronamic_twinfield_save_hierarchies_schedule',
+				'label'    => \__( 'Hierarchies', 'pronamic-twinfield' ),
+				'hook'     => 'pronamic_twinfield_save_hierarchies',
+			],
+			[
+				'meta_key' => '_pronamic_twinfield_save_bank_statements_schedule',
+				'label'    => \__( 'Bank statements', 'pronamic-twinfield' ),
+				'hook'     => 'pronamic_twinfield_save_bank_statements',
+			],
+		];
+	}
+
+	/**
 	 * Maybe save schedule.
 	 * 
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L42
@@ -280,19 +305,36 @@ class AuthorizationPostType {
 			return;
 		}
 
-		$map = [
-			'_pronamic_twinfield_save_offices_schedule',
-			'_pronamic_twinfield_save_hierarchies_schedule',
-		];
+		$data = $this->get_schedule_data();
 
-		foreach ( $map as $key ) {
-			if ( \array_key_exists( $key, $_POST ) ) {
-				$meta_value = \sanitize_text_field( \wp_unslash( $_POST[ $key ] ) );
+		foreach ( $data as $item ) {
+			$meta_key = $item['meta_key'];
+
+			if ( \array_key_exists( $meta_key, $_POST ) ) {
+				$meta_value = \sanitize_text_field( \wp_unslash( $_POST[ $meta_key ] ) );
+
+				\as_unschedule_action(
+					$item['hook'],
+					[
+						'authorization' => $post_id
+					],
+					'pronamic-twinfield'
+				);
 
 				if ( empty( $meta_value ) ) {
-					\delete_post_meta( $post_id, $key );
+					\delete_post_meta( $post_id, $meta_key );
 				} else {
-					\update_post_meta( $post_id, $key, $meta_value );
+					\update_post_meta( $post_id, $meta_key, $meta_value );
+
+					\as_schedule_cron_action(
+						\time(),
+						$meta_value,
+						$item['hook'],
+						[
+							'authorization' => $post_id
+						],
+						'pronamic-twinfield'
+					);
 				}
 			}
 		}

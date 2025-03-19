@@ -70,7 +70,9 @@ class Plugin {
 		$this->controllers[] = new AuthorizationPostType( $this );
 		$this->controllers[] = new CustomerPostTypeSupport();
 		$this->controllers[] = new ArticlePostTypeSupport();
-		$this->controllers[] = new SchedulerController( $this );
+		$this->controllers[] = new SaveBankStatementController( $this );
+		$this->controllers[] = new SaveOfficeController( $this );
+		$this->controllers[] = new SaveHierarchyController( $this );
 	}
 
 	/**
