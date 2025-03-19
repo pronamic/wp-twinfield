@@ -40,21 +40,13 @@ class RestHierarchyController extends RestController {
 			],
 		];
 
-		$hierarchies_permission_callback = function () {
-			if ( \current_user_can( 'pronamic_twinfield_read_hierarchies' ) ) {
-				return true;
-			}
-
-			return $this->permission_callback();
-		};
-
 		register_rest_route(
 			$namespace,
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/hierarchies/(?P<hierarchy_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => $hierarchies_permission_callback,
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => $hierarchies_args,
 			]
 		);
@@ -65,10 +57,31 @@ class RestHierarchyController extends RestController {
 			[
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'rest_api_hierarchy' ],
-				'permission_callback' => $hierarchies_permission_callback,
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => $hierarchies_args,
 			]
 		);
+	}
+
+	/**
+	 * Permission callback.
+	 * 
+	 * @return bool True if permission, false otherwise.
+	 */
+	public function permission_callback() {
+		if ( \current_user_can( 'pronamic_twinfield_read_hierarchies' ) ) {
+			return true;
+		}
+
+		if ( \current_user_can( 'manage_options' ) ) {
+			return true;
+		}
+
+		if ( \defined( 'WP_CLI' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
