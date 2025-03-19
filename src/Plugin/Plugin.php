@@ -241,12 +241,12 @@ class Plugin {
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				created_at DATETIME NOT NULL,
 				updated_at DATETIME NOT NULL,
-				organisation_id BIGINT UNSIGNED NOT NULL,
+				office_id BIGINT UNSIGNED NOT NULL,
 				code VARCHAR(80) NOT NULL,
 				json LONGTEXT NOT NULL,
 				PRIMARY KEY  ( id ),
-				KEY organisation_id ( organisation_id ),
-				UNIQUE KEY code ( organisation_id, code )
+				KEY office_id ( office_id ),
+				UNIQUE KEY code ( office_id, code )
 			);
 		";
 
@@ -293,9 +293,9 @@ class Plugin {
 		$wpdb->query(
 			"
 			ALTER TABLE {$wpdb->prefix}twinfield_hierarchies
-			ADD CONSTRAINT fk_hierarchy_organisation_id
-			FOREIGN KEY ( organisation_id )
-			REFERENCES {$wpdb->prefix}twinfield_organisations ( id )
+			ADD CONSTRAINT fk_hierarchy_office_id
+			FOREIGN KEY ( office_id )
+			REFERENCES {$wpdb->prefix}twinfield_offices ( id )
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
@@ -682,11 +682,11 @@ class Plugin {
 				$wpdb->prefix . 'twinfield_hierarchies',
 				'id',
 				[
-					'organisation_id' => '%d',
-					'code'            => '%s',
-					'name'            => '%s',
-					'description'     => '%s',
-					'json'            => '%s',
+					'office_id'   => '%d',
+					'code'        => '%s',
+					'name'        => '%s',
+					'description' => '%s',
+					'json'        => '%s',
 				]
 			)
 		);

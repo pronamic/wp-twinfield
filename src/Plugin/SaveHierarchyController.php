@@ -149,8 +149,6 @@ class SaveHierarchyController {
 					$action_id
 				)
 			);
-
-			break;
 		}
 	}
 
@@ -232,11 +230,20 @@ class SaveHierarchyController {
 			[],
 		);
 
+		$office_id = $orm->first_or_create(
+			$office,
+			[
+				'organisation_id' => $organisation_id,
+				'code'            => $office->get_code(),
+			],
+			[]
+		);
+
 		$hierarchy_id = $orm->update_or_create(
 			$hierarchy,
 			[
-				'organisation_id' => $organisation_id,
-				'code'            => $hierarchy->code,
+				'office_id' => $office_id,
+				'code'      => $hierarchy->code,
 			],
 			[
 				'name'        => $hierarchy->name,
