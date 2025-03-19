@@ -15,5 +15,7 @@
 		"url": "https://github.com/pronamic/wp-twinfield/issues"
 	},
 	"homepage": "https://github.com/pronamic/wp-twinfield",
-	"devDependencies": {}
+	"devDependencies": {
+		"@wordpress/env": "^10.20.0"
+	}
 }
