@@ -1,10 +1,10 @@
 {
-  "name": "twinfield",
+  "name": "@pronamic/wp-twinfield",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wp-twinfield/twinfield"
+    "url": "https://github.com/pronamic/wp-twinfield"
   },
   "keywords": [
     "twinfield"
@@ -12,16 +12,10 @@
   "author": "Pronamic",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/wp-twinfield/twinfield/issues"
+    "url": "https://github.com/pronamic/wp-twinfield/issues"
   },
-  "homepage": "https://github.com/wp-twinfield/twinfield",
+  "homepage": "https://github.com/pronamic/wp-twinfield",
   "devDependencies": {
-    "grunt": "~1.0.1",
-    "grunt-phpcs": "^0.4.0",
-    "grunt-phplint": "0.1.0",
-    "grunt-phpmd": "^0.1.1",
-    "grunt-phpunit": "~0.3.6",
-    "grunt-shell": "^2.1.0",
-    "load-grunt-tasks": "^3.5.2"
+
   }
 }
