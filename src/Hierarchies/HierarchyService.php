@@ -9,6 +9,8 @@ namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
+use Pronamic\WordPress\Twinfield\Finder\Search;
+use Pronamic\WordPress\Twinfield\Offices\Office;
 
 /**
  * Hierarchy service class
@@ -41,6 +43,7 @@ class HierarchyService extends AbstractService {
 	 * @return HierarchyCodeSearchResponse
 	 */
 	public function search_hierarchies(
+		Office $office,
 		string $pattern = '*', 
 		int $field = 0, 
 		int $first_row = 1, 
@@ -48,6 +51,8 @@ class HierarchyService extends AbstractService {
 		array $options = [] 
 	) {
 		$finder = $this->client->get_finder();
+
+		$finder->set_office( $office );
 
 		$search = new Search( 'HIE', $pattern, $field, $first_row, $max_rows, $options );
 
@@ -62,8 +67,8 @@ class HierarchyService extends AbstractService {
 	 * @param string $hierarchy_code Hierarchy code.
 	 * @return HierarchyLoadResponse
 	 */
-	public function get_hierarchy( $hierarchy_code ) {
-		$soap_client = $this->get_soap_client();
+	public function get_hierarchy( Office $office, $hierarchy_code ) {
+		$soap_client = $this->get_soap_client( $office );
 
 		$result = $soap_client->Load(
 			(object) [

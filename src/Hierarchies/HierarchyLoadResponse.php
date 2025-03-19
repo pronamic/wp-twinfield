@@ -24,14 +24,14 @@ class HierarchyLoadResponse implements JsonSerializable {
 	 *
 	 * @var Hierarchy
 	 */
-	private $hierarchy;
+	public Hierarchy $hierarchy;
 
 	/**
 	 * Construct load response.
 	 *
 	 * @param Hierarchy $hierarchy Hierarchy.
 	 */
-	public function __construct( $hierarchy ) {
+	public function __construct( Hierarchy $hierarchy ) {
 		$this->hierarchy = $hierarchy;
 	}
 

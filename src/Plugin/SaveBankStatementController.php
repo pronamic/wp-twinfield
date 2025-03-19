@@ -36,6 +36,5 @@ class SaveBankStatementController {
 	 * @return void
 	 */
 	public function setup() {
-		
 	}
 }

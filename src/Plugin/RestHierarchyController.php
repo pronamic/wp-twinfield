@@ -105,11 +105,9 @@ class RestHierarchyController extends RestController {
 
 		$hierarchies_service = $client->get_service( 'hierarchies' );
 
-		$hierarchies_service->set_office( $office );
-
 		$hierarchy_code = $request->get_param( 'hierarchy_code' );
 
-		$hierarchy = $hierarchies_service->get_hierarchy( $hierarchy_code );
+		$hierarchy = $hierarchies_service->get_hierarchy( $office, $hierarchy_code );
 
 		return $hierarchy;
 	}

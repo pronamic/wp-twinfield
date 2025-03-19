@@ -25,7 +25,7 @@ class HierarchyCodeSearchResponse {
 	 * 
 	 * @param SearchResponse $response Response.
 	 */
-	public function __construct( SearchResponse $response ) {
+	public function __construct(  SearchResponse $response ) {
 		$this->response = $response;
 	}
 
@@ -38,8 +38,8 @@ class HierarchyCodeSearchResponse {
 		$data = $this->response->get_data();
 
 		$hierarchy_codes = \array_map(
-			function ( $item ) use ( $office ) {
-				$hierarchy_code = new HierarchyCode( $office, $item[0] );
+			function ( $item ) {
+				$hierarchy_code = new HierarchyCode( $item[0] );
 
 				$hierarchy_code->name = $item[1];
 

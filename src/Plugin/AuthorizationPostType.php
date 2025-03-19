@@ -316,7 +316,7 @@ class AuthorizationPostType {
 				\as_unschedule_action(
 					$item['hook'],
 					[
-						'authorization' => $post_id
+						'authorization' => $post_id,
 					],
 					'pronamic-twinfield'
 				);
@@ -331,7 +331,7 @@ class AuthorizationPostType {
 						$meta_value,
 						$item['hook'],
 						[
-							'authorization' => $post_id
+							'authorization' => $post_id,
 						],
 						'pronamic-twinfield'
 					);
