@@ -169,7 +169,7 @@ class AuthorizationPostType {
 		);
 
 		\add_meta_box(
-			'pronamic_twinfield_menu',
+			'pronamic_twinfield_save_schedule',
 			\__( 'Save schedule', 'pronamic-twinfield' ),
 			[ $this, 'meta_box_save_schedule' ],
 			$post_type,
