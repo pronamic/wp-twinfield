@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
  * Load Response
@@ -18,7 +19,7 @@ use JsonSerializable;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class HierarchyLoadResponse implements JsonSerializable {
+final class HierarchyLoadResponse implements JsonSerializable {
 	/**
 	 * Hierarchy.
 	 *
@@ -45,13 +46,15 @@ class HierarchyLoadResponse implements JsonSerializable {
 	}
 
 	/**
-	 * Convert from object.
+	 * Convert from Twinfield object.
 	 *
 	 * @param object $value Object.
 	 * @return self
 	 */
-	public static function from_object( $value ) {
-		$hierarchy = Hierarchy::from_object( $value->hierarchy );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$hierarchy = Hierarchy::from_twinfield_object( $data->get_property( 'hierarchy' ) );
 
 		$load_response = new self( $hierarchy );
 

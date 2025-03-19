@@ -2,24 +2,19 @@
 /**
  * Hierarchy
  *
- * @since      1.0.0
- *
- * @package    Pronamic/WordPress/Twinfield
+ * @package Pronamic/WordPress/Twinfield
  */
 
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 use IteratorAggregate;
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
- * Hierarchy
- *
- * @since      1.0.0
- * @package    Pronamic/WordPress/Twinfield
- * @author     Remco Tolsma <info@remcotolsma.nl>
+ * Hierarchy class
  */
-class Hierarchy implements IteratorAggregate, JsonSerializable {
+final class Hierarchy implements IteratorAggregate, JsonSerializable {
 	/**
 	 * The code of the hierarchy.
 	 *
@@ -142,16 +137,53 @@ class Hierarchy implements IteratorAggregate, JsonSerializable {
 	}
 
 	/**
-	 * Convert from object.
+	 * Convert from Twinfield object.
 	 *
-	 * @param object $item Object.
-	 * @return Hierarchy
+	 * @param object $value Object.
+	 * @return self
 	 */
-	public static function from_object( $item ) {
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		$hierarchy = new Hierarchy( $item->Code, $item->Name, $item->Description, HierarchyNode::from_object( $item->RootNode ) );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$hierarchy = new self(
+			$data->get_property( 'Code' ),
+			$data->get_property( 'Name' ),
+			$data->get_property( 'Description' ),
+			HierarchyNode::from_twinfield_object( $data->get_property( 'RootNode' ) )
+		);
 
 		return $hierarchy;
+	}
+
+	/**
+	 * From JSON object.
+	 *
+	 * @param object $value Object.
+	 * @return self
+	 */
+	public static function from_json_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$hierarchy = new self(
+			$data->get_property( 'code' ),
+			$data->get_property( 'name' ),
+			$data->get_property( 'description' ),
+			HierarchyNode::from_json_object( $data->get_property( 'root_node' ) )
+		);
+
+		return $hierarchy;
+	}
+
+	/**
+	 * From JSON.
+	 *
+	 * @param string $value JSON.
+	 * @return self
+	 */
+	public static function from_json( string $value ) {
+		$data = \json_decode( $value );
+
+		return self::from_json_object( $data );
 	}
 
 	/**

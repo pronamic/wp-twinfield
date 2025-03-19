@@ -13,7 +13,7 @@ use Stringable;
 /**
  * Hierarchy code class
  */
-class HierarchyCode implements JsonSerializable, Stringable {
+final class HierarchyCode implements JsonSerializable, Stringable {
 	/**
 	 * Code.
 	 * 

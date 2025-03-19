@@ -11,6 +11,7 @@ namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 use IteratorAggregate;
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
  * Hierarchy Node
@@ -19,7 +20,7 @@ use JsonSerializable;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class HierarchyNode implements IteratorAggregate, JsonSerializable {
+final class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	/**
 	 * Internal id.
 	 *
@@ -287,14 +288,20 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	}
 
 	/**
-	 * Convert from object.
+	 * Convert from Twinfield object.
 	 *
 	 * @param object $item Object.
-	 * @return Hierarchy
+	 * @return self
 	 */
-	public static function from_object( $item ) {
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		$hierarchy = new HierarchyNode( $item->Id, $item->Code, $item->Name, $item->Description );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$hierarchy = new self(
+			$data->get_property( 'Id' ),
+			$data->get_property( 'Code' ),
+			$data->get_property( 'Name' ),
+			$data->get_property( 'Description' )
+		);
 
 		/**
 		 * Accounts.
@@ -310,7 +317,7 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 			}
 
 			foreach ( $hierarchy_accounts as $o ) {
-				$hierarchy->add_account( HierarchyAccount::from_object( $o ) );
+				$hierarchy->add_account( HierarchyAccount::from_twinfield_object( $o ) );
 			}
 		}
 
@@ -328,13 +335,40 @@ class HierarchyNode implements IteratorAggregate, JsonSerializable {
 			}
 
 			foreach ( $child_nodes as $o ) {
-				$hierarchy->add_child_node( self::from_object( $o ) );
+				$hierarchy->add_child_node( self::from_twinfield_object( $o ) );
 			}
 		}
 
 		/**
 		 * Done.
 		 */
+		return $hierarchy;
+	}
+
+	/**
+	 * From JSON object.
+	 *
+	 * @param object $value Object.
+	 * @return self
+	 */
+	public static function from_json_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$hierarchy = new self(
+			$data->get_property( 'id' ),
+			$data->get_property( 'code' ),
+			$data->get_property( 'name' ),
+			$data->get_property( 'description' )
+		);
+
+		foreach ( $data->get_property( 'accounts' ) as $item ) {
+			$hierarchy->add_account( HierarchyAccount::from_json_object( $item ) );
+		}
+
+		foreach ( $data->get_property( 'child_nodes' ) as $item ) {
+			$hierarchy->add_child_node( self::from_json_object( $item ) );
+		}
+
 		return $hierarchy;
 	}
 

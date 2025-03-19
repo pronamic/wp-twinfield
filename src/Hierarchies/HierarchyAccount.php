@@ -10,6 +10,7 @@
 namespace Pronamic\WordPress\Twinfield\Hierarchies;
 
 use JsonSerializable;
+use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 
 /**
  * Hierarchy Account
@@ -18,7 +19,7 @@ use JsonSerializable;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class HierarchyAccount implements JsonSerializable {
+final class HierarchyAccount implements JsonSerializable {
 	/**
 	 * The dimension type.
 	 *
@@ -86,14 +87,37 @@ class HierarchyAccount implements JsonSerializable {
 	}
 
 	/**
-	 * Convert from object.
+	 * Convert from Twinfield object.
 	 *
-	 * @param object $item Object.
-	 * @return Hierarchy
+	 * @param object $value Object.
+	 * @return self
 	 */
-	public static function from_object( $item ) {
-		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		$account = new HierarchyAccount( $item->Type, $item->Code, $item->BalanceType );
+	public static function from_twinfield_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$account = new self(
+			$data->get_property( 'Type' ),
+			$data->get_property( 'Code' ),
+			$data->get_property( 'BalanceType' )
+		);
+
+		return $account;
+	}
+
+	/**
+	 * From JSON object.
+	 *
+	 * @param object $value Object.
+	 * @return self
+	 */
+	public static function from_json_object( $value ) {
+		$data = ObjectAccess::from_object( $value );
+
+		$account = new HierarchyAccount(
+			$data->get_property( 'type' ),
+			$data->get_property( 'code' ),
+			$data->get_property( 'balance_type' )
+		);
 
 		return $account;
 	}

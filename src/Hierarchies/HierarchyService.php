@@ -15,7 +15,7 @@ use Pronamic\WordPress\Twinfield\Offices\Office;
 /**
  * Hierarchy service class
  */
-class HierarchyService extends AbstractService {
+final class HierarchyService extends AbstractService {
 	/**
 	 * The Twinfield finder WSDL URL.
 	 *
@@ -76,6 +76,6 @@ class HierarchyService extends AbstractService {
 			]
 		);
 
-		return HierarchyLoadResponse::from_object( $result );
+		return HierarchyLoadResponse::from_twinfield_object( $result );
 	}
 }

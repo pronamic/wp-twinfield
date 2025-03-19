@@ -20,7 +20,7 @@ use RecursiveIterator;
  * @author     Remco Tolsma <info@remcotolsma.nl>
  * @link       https://github.com/scotteh/php-dom-wrapper/blob/1.2.0/src/Collections/NodeCollection.php
  */
-class HierarchyNodeIterator extends ArrayIterator implements RecursiveIterator {
+final class HierarchyNodeIterator extends ArrayIterator implements RecursiveIterator {
 	/**
 	 * Get childeren.
 	 *

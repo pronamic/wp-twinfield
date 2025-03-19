@@ -12,7 +12,7 @@ use Pronamic\WordPress\Twinfield\Finder\SearchResponse;
 /**
  * Hierarchy code search response class
  */
-class HierarchyCodeSearchResponse {
+final class HierarchyCodeSearchResponse {
 	/**
 	 * Search response.
 	 * 
