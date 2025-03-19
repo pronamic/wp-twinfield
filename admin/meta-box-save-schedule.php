@@ -47,7 +47,7 @@ $fields = [
 						\esc_attr( $value ),
 					);
 
-					?>					
+					?>
 				</td>
 			</tr>
 
