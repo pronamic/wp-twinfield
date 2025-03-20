@@ -141,7 +141,7 @@ class Admin {
 			10
 		);
 
-		add_submenu_page(
+		\add_submenu_page(
 			'pronamic-twinfield',
 			\__( 'Twinfield Settings', 'twinfield' ),
 			\__( 'Settings', 'twinfield' ),
