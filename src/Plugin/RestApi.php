@@ -884,12 +884,6 @@ class RestApi {
 						'default'     => true,
 						'required'    => true,
 					],
-					'pull'           => [
-						'description' => 'Pull flag to update the local repository.',
-						'type'        => 'boolean',
-						'default'     => false,
-						'required'    => false,
-					],
 				],
 			]
 		);
@@ -2225,105 +2219,6 @@ class RestApi {
 
 		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
 
-		if ( $request->get_param( 'pull' ) ) {
-			$this->pull_object( $bank_statements );
-		}
-
 		return $bank_statements;
-	}
-
-	/**
-	 * Pull object.
-	 * 
-	 * @param object $item Object.
-	 * @return void
-	 */
-	public function pull_object( $item ) {
-		if ( $item instanceof \Pronamic\WordPress\Twinfield\BankStatements\BankStatements ) {
-			$this->bank_statements_update_or_create( $item );
-		}
-	}
-
-	/**
-	 * Upsert.
-	 * 
-	 * @link https://atymic.dev/tips/laravel-8-upserts/
-	 * @link https://laravel.com/docs/9.x/eloquent#upserts
-	 * @link https://stackoverflow.com/questions/2634152/getting-mysql-insert-id-while-using-on-duplicate-key-update-with-php
-	 * @param BankStatements $bank_statements Bank statements.
-	 */
-	public function bank_statements_update_or_create( $bank_statements ) {
-		$orm = $this->plugin->get_orm();
-
-		$office = $bank_statements->get_office();
-
-		$organisation = $office->get_organisation();
-
-		$organisation_id = $orm->first_or_create(
-			$organisation,
-			[
-				'code' => $organisation->get_code(),
-			],
-			[],
-		);
-
-		$office_id = $orm->first_or_create(
-			$office,
-			[
-				'organisation_id' => $organisation_id,
-				'code'            => $office->get_code(),
-			],
-			[]
-		);
-
-		foreach ( $bank_statements as $bank_statement ) {
-			$data = $bank_statement->jsonSerialize();
-
-			$bank_statement_id = $orm->update_or_create(
-				$bank_statement,
-				[
-					'office_id' => $office_id,
-					'code'      => $data->code,
-					'number'    => $data->number,
-					'sub_id'    => $data->sub_id,
-				],
-				[
-					'account_number'     => $data->account_number,
-					'iban'               => $data->iban,
-					'date'               => $bank_statement->get_date()->format( 'Y-m-d' ),
-					'currency'           => $data->currency,
-					'opening_balance'    => $data->opening_balance,
-					'closing_balance'    => $data->closing_balance,
-					'transaction_number' => $data->transaction_number,
-				],
-				true
-			);
-
-			foreach ( $bank_statement->get_lines() as $line ) {
-				$data = $line->jsonSerialize();
-
-				$bank_statement_line_id = $orm->update_or_create(
-					$line,
-					[
-						'bank_statement_id' => $bank_statement_id,
-						'line_id'           => $line->get_id(),
-					],
-					[
-						'contra_account_number' => $data->contra_account_number,
-						'contra_iban'           => $data->contra_iban,
-						'contra_account_name'   => $data->contra_account_name,
-						'payment_reference'     => $data->payment_reference,
-						'amount'                => $data->amount,
-						'base_amount'           => $data->base_amount,
-						'description'           => $data->description,
-						'transaction_type_id'   => $data->transaction_type_id,
-						'reference'             => $data->reference,
-						'end_to_end_id'         => $data->end_to_end_id,
-						'return_reason'         => $data->return_reason,
-					],
-					true
-				);
-			}
-		}
 	}
 }
