@@ -74,10 +74,10 @@ class SaveBankStatementController {
 		 * Save office bank statements.
 		 * 
 		 * Example:
-		 * wp pronamic-twinfield save-office-bank-statements --authorization=5337 --office_code=1000
+		 * wp pronamic-twinfield save-office-bank-statements --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
 		 */
 		WP_CLI::add_command(
-			'pronamic-twinfield save-office-hierarchies',
+			'pronamic-twinfield save-office-bank-statements',
 			function ( $args, $assoc_args ): void {
 				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
 					WP_CLI::error( 'Authorization argument missing.' );
