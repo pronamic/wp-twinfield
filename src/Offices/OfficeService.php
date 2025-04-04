@@ -38,7 +38,7 @@ class OfficeService {
 	/**
 	 * Get offices.
 	 *
-	 * @return OfficesXmlReader
+	 * @return Office[]
 	 */
 	public function get_offices() {
 		$xml_processor = $this->client->get_xml_processor();

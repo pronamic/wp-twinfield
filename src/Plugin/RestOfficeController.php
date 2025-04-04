@@ -7,8 +7,6 @@
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
-use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
-use Pronamic\WordPress\Twinfield\Offices\OfficesXmlReader;
 use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use WP_REST_Request;
 use WP_REST_Response;
