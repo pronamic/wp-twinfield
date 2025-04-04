@@ -7,8 +7,9 @@
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
-use WP_Query;
+use Pronamic\WordPress\Twinfield\Offices\OfficeService;
 use WP_REST_Request;
+use WP_CLI;
 
 /**
  * Save office controller class
@@ -57,13 +58,22 @@ class SaveOfficeController {
 		$data = (object) $response->get_data();
 
 		foreach ( $data->data as $item ) {
-			\as_enqueue_async_action(
+			$action_id = \as_enqueue_async_action(
 				'pronamic_twinfield_pull_office',
 				[
 					'authorization' => $authorization,
 					'office_code'   => $item->get_code(),
 				],
 				'pronamic-twinfield'
+			);
+
+			$this->log(
+				\sprintf(
+					'Saving office details is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
+					$authorization,
+					$item->get_code(),
+					$action_id
+				)
 			);
 		}
 	}
@@ -82,5 +92,17 @@ class SaveOfficeController {
 		$request->set_param( 'pull', true );
 
 		$response = \rest_do_request( $request );
+	}
+
+	/**
+	 * Log.
+	 * 
+	 * @param string $message Message.
+	 * @return void
+	 */
+	private function log( $message ) {
+		if ( \method_exists( WP_CLI::class, 'log' ) ) {
+			WP_CLI::log( $message );
+		}
 	}
 }
