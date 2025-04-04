@@ -7,6 +7,9 @@
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+use Pronamic\WordPress\Twinfield\Offices\OfficesListRequest;
+use Pronamic\WordPress\Twinfield\Offices\OfficesListResponse;
+use Pronamic\WordPress\Twinfield\Offices\OfficesXmlReader;
 use Pronamic\WordPress\Twinfield\Offices\OfficeReadRequest;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -110,9 +113,15 @@ class RestOfficeController extends RestController {
 
 		$client = $this->plugin->get_client( $post );
 
-		$office_service = $client->get_service( 'office' );
+		$xml_processor = $client->get_xml_processor();
 
-		$offices = $office_service->get_offices();
+		$offices_list_request = new OfficesListRequest();
+
+		$response_xml = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
+
+		$offices_list_response = new OfficesListResponse( $this->client->get_organisation(), $response_xml );
+
+		$offices = $offices_list_response->to_offices();
 
 		/**
 		 * Envelope.
@@ -126,7 +135,7 @@ class RestOfficeController extends RestController {
 				'data'      => $offices,
 				'_embedded' => (object) [
 					'request'  => (string) $offices_list_request,
-					'response' => (string) $offices_list_response,
+					'response' => (string) $response_xml,
 				],
 			]
 		);

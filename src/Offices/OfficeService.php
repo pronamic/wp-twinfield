@@ -38,7 +38,7 @@ class OfficeService {
 	/**
 	 * Get offices.
 	 *
-	 * @return Office[]
+	 * @return OfficesListResponse
 	 */
 	public function get_offices() {
 		$xml_processor = $this->client->get_xml_processor();
@@ -49,7 +49,7 @@ class OfficeService {
 
 		$offices_list_response = new OfficesListResponse( $this->client->get_organisation(), $xml );
 
-		return $offices_list_response->to_offices();
+		return $offices_list_response;
 	}
 
 	/**

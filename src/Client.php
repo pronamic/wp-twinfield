@@ -238,7 +238,7 @@ class Client {
 	public function get_offices() {
 		$office_service = new OfficeService( $this );
 
-		return $office_service->get_offices();
+		return $office_service->get_offices()->to_offices();
 	}
 
 	/**
