@@ -45,11 +45,11 @@ class OfficeService {
 
 		$offices_list_request = new OfficesListRequest();
 
-		$offices_list_response = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
+		$xml = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
 
-		$offices_xml_reader = new OfficesXmlReader( $this->client->get_organisation() );
+		$offices_list_response = new OfficesListResponse( $this->client->get_organisation(), $xml );
 
-		return $offices_xml_reader->read( $offices_list_response );
+		return $offices_list_response->to_offices();
 	}
 
 	/**
