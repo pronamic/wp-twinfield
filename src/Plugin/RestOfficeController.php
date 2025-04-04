@@ -112,15 +112,9 @@ class RestOfficeController extends RestController {
 
 		$client = $this->plugin->get_client( $post );
 
-		$xml_processor = $client->get_xml_processor();
+		$office_service = $client->get_service( 'office' );
 
-		$offices_list_request = new OfficesListRequest();
-
-		$offices_list_response = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
-
-		$offices_xml_reader = new OfficesXmlReader( $client->get_organisation() );
-
-		$offices = $offices_xml_reader->read( $offices_list_response );
+		$offices = $office_service->get_offices();
 
 		/**
 		 * Envelope.
