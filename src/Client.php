@@ -169,6 +169,8 @@ class Client {
 				return new Documents\DocumentService( $this );
 			case 'finder':
 				return new Finder( $this );
+			case 'office':
+				return new Offices\OfficeService( $this );
 			case 'processxml':
 				return new XMLProcessor( $this );
 			case 'periods':
