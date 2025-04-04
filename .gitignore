@@ -51,3 +51,6 @@
 
 # PHPUnit
 /.phpunit.result.cache
+
+# Visual Studio Code
+/.vscode
