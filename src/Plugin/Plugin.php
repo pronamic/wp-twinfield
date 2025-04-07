@@ -87,15 +87,13 @@ class Plugin {
 			}
 		}
 
-		\add_action( 'init', [ $this, 'init' ], 9 );
-		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
-		\add_filter( 'template_include', [ $this, 'template_include' ] );
+		\add_action( 'init', $this->init( ... ), 9 );
+		\add_filter( 'query_vars', $this->query_vars( ... ) );
+		\add_filter( 'template_include', $this->template_include( ... ) );
 
 		\add_filter(
 			'pronamic_twinfield_client',
-			function () {
-				return $this->get_client( \get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) ) );
-			}
+			fn() => $this->get_client( \get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) ) )
 		);
 
 		\add_filter(
@@ -323,7 +321,7 @@ class Plugin {
 			return;
 		}
 
-		$state_decoded = \base64_decode( $data['state'], true );
+		$state_decoded = \base64_decode( (string) $data['state'], true );
 
 		if ( false === $state_decoded ) {
 			return;
@@ -589,7 +587,7 @@ class Plugin {
 	public function get_client( $post ) {
 		$openid_connect_client = $this->get_openid_connect_client();
 
-		$authentication = AuthenticationInfo::from_object( \json_decode( $post->post_content ) );
+		$authentication = AuthenticationInfo::from_object( \json_decode( (string) $post->post_content ) );
 
 		$client = new Client( $openid_connect_client, $authentication );
 

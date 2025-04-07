@@ -23,7 +23,7 @@ use Pronamic\WordPress\Twinfield\Traits\ShortnameTrait;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class CodeName implements JsonSerializable {
+class CodeName implements JsonSerializable, \Stringable {
 	use CodeTrait;
 
 	use NameTrait;
@@ -73,7 +73,7 @@ class CodeName implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->get_code();
 	}
 

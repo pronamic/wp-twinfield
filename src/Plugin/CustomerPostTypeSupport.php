@@ -26,9 +26,9 @@ class CustomerPostTypeSupport {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
+		\add_action( 'add_meta_boxes', $this->add_meta_boxes( ... ), 10, 2 );
 
-		\add_action( 'save_post', [ $this, 'save_post' ] );
+		\add_action( 'save_post', $this->save_post( ... ) );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class CustomerPostTypeSupport {
 		\add_meta_box(
 			'pronamic_twinfield_customer',
 			\__( 'Twinfield Customer', 'twinfield' ),
-			[ $this, 'meta_box_customer' ],
+			$this->meta_box_customer( ... ),
 			$post_type,
 			'normal',
 			'default'

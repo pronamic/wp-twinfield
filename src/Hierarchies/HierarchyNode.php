@@ -20,7 +20,7 @@ use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-final class HierarchyNode implements IteratorAggregate, JsonSerializable {
+final class HierarchyNode implements IteratorAggregate, JsonSerializable, \Stringable {
 	/**
 	 * Internal id.
 	 *
@@ -279,7 +279,7 @@ final class HierarchyNode implements IteratorAggregate, JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return \sprintf(
 			'%s - %s',
 			$this->code,

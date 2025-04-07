@@ -53,7 +53,7 @@ class EntityManager {
 	 * @throws \Exception Throws exception if object class is unknown.
 	 */
 	public function get_entity( $item ) {
-		$class_name = \get_class( $item );
+		$class_name = $item::class;
 
 		if ( ! \array_key_exists( $class_name, $this->entities ) ) {
 			throw new \Exception(

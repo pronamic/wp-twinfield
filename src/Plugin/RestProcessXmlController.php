@@ -28,10 +28,8 @@ class RestProcessXmlController extends RestController {
 			'process-xml',
 			[
 				'methods'             => 'POST',
-				'callback'            => [ $this, 'rest_api_process_xml' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'callback'            => $this->rest_api_process_xml( ... ),
+				'permission_callback' => fn() => true,
 				'args'                => [
 					'authorization' => $this->get_authorization_schema(),
 					'office_code'   => [

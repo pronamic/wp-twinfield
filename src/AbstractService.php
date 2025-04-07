@@ -90,7 +90,7 @@ abstract class AbstractService {
 			'AccessToken' => $authentication->get_tokens()->get_access_token(),
 		];
 
-		$office = ( null === $office ) ? $this->office : $office;
+		$office ??= $this->office;
 
 		if ( null !== $office ) {
 			$data['CompanyCode'] = $office->get_code();

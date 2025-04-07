@@ -26,9 +26,9 @@ class ArticlePostTypeSupport {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+		\add_action( 'add_meta_boxes', $this->add_meta_boxes( ... ) );
 
-		\add_action( 'save_post', [ $this, 'save_post' ] );
+		\add_action( 'save_post', $this->save_post( ... ) );
 	}
 
 	/**
@@ -87,7 +87,7 @@ class ArticlePostTypeSupport {
 		\add_meta_box(
 			'pronamic_twinfield_article',
 			\__( 'Twinfield Article', 'twinfield' ),
-			[ $this, 'meta_box_article' ],
+			$this->meta_box_article( ... ),
 			$post_type,
 			'normal',
 			'default'

@@ -19,7 +19,7 @@ use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-final class HierarchyAccount implements JsonSerializable {
+final class HierarchyAccount implements JsonSerializable, \Stringable {
 	/**
 	 * The dimension type.
 	 *
@@ -77,7 +77,7 @@ final class HierarchyAccount implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return \sprintf(
 			'%s - %s - %s',
 			$this->type,

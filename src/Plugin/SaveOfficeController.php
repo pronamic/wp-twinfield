@@ -37,8 +37,8 @@ class SaveOfficeController {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'pronamic_twinfield_pull_offices', [ $this, 'pull_offices' ], 10, 1 );
-		\add_action( 'pronamic_twinfield_pull_office', [ $this, 'pull_office' ], 10, 2 );
+		\add_action( 'pronamic_twinfield_pull_offices', $this->pull_offices( ... ), 10, 1 );
+		\add_action( 'pronamic_twinfield_pull_office', $this->pull_office( ... ), 10, 2 );
 	}
 
 	/**

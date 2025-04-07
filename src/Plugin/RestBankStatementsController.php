@@ -29,10 +29,8 @@ class RestBankStatementsController extends RestController {
 			'bank-statements',
 			[
 				'methods'             => 'POST',
-				'callback'            => [ $this, 'rest_api_create' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'callback'            => $this->rest_api_create( ... ),
+				'permission_callback' => fn() => true,
 				'args'                => [
 					'authorization'    => $this->get_authorization_schema(),
 					'office_code'      => [

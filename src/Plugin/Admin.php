@@ -46,7 +46,7 @@ class Admin {
 	 * Setup.
 	 */
 	public function setup() {
-		\add_action( 'admin_menu', [ $this, 'admin_menu' ] );
+		\add_action( 'admin_menu', $this->admin_menu( ... ) );
 
 		$this->settings->setup();
 	}

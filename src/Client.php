@@ -160,28 +160,18 @@ class Client {
 	 * @return mixed
 	 */
 	private function new_service( $name ) {
-		switch ( $name ) {
-			case 'declarations':
-				return new Declarations\DeclarationsService( $this );
-			case 'deleted-transactions':
-				return new Transactions\DeletedTransactionsService( $this );
-			case 'document':
-				return new Documents\DocumentService( $this );
-			case 'finder':
-				return new Finder( $this );
-			case 'office':
-				return new Offices\OfficeService( $this );
-			case 'processxml':
-				return new XMLProcessor( $this );
-			case 'periods':
-				return new Periods\PeriodsService( $this );
-			case 'hierarchies':
-				return new Hierarchies\HierarchyService( $this );
-			case 'budget':
-				return new Budget\BudgetService( $this );
-			default:
-				return false;
-		}
+		return match ( $name ) {
+			'declarations' => new Declarations\DeclarationsService( $this ),
+			'deleted-transactions' => new Transactions\DeletedTransactionsService( $this ),
+			'document' => new Documents\DocumentService( $this ),
+			'finder' => new Finder( $this ),
+			'office' => new Offices\OfficeService( $this ),
+			'processxml' => new XMLProcessor( $this ),
+			'periods' => new Periods\PeriodsService( $this ),
+			'hierarchies' => new Hierarchies\HierarchyService( $this ),
+			'budget' => new Budget\BudgetService( $this ),
+			default => false,
+		};
 	}
 
 	/**

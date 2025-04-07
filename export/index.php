@@ -186,7 +186,7 @@ function export_customer_transactions( $client, $office, $code, $period, $dir ) 
 
 	$res = $xml_processor->process_xml_string( $browse_request );
 
-	$simple_xml = simplexml_load_string( $res );
+	$simple_xml = simplexml_load_string( (string) $res );
 
 	foreach ( $simple_xml->tr as $row ) {
 		$office_code        = (string) $row->key->office;

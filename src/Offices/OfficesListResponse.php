@@ -12,7 +12,7 @@ use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 /**
  * Offices list repsone class
  */
-final class OfficesListResponse {
+final readonly class OfficesListResponse {
 	/**
 	 * Organisation.
 	 * 

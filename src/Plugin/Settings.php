@@ -39,7 +39,7 @@ class Settings {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'admin_init', [ $this, 'admin_init' ] );
+		\add_action( 'admin_init', $this->admin_init( ... ) );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Settings {
 		add_settings_section(
 			'pronamic_twinfield_openid_connect_authentication',
 			__( 'OpenID Connect Authentication', 'twinfield' ),
-			[ $this, 'section_openid_connect_authentication' ],
+			$this->section_openid_connect_authentication( ... ),
 			'pronamic_twinfield'
 		);
 
@@ -99,7 +99,7 @@ class Settings {
 		add_settings_field(
 			'pronamic_twinfield_authorization_post_id',
 			__( 'Default Authorization', 'pronamic-twinfield' ),
-			[ $this, 'input_page' ],
+			$this->input_page( ... ),
 			'pronamic_twinfield',
 			'pronamic_twinfield_general',
 			[

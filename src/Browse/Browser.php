@@ -39,7 +39,7 @@ class Browser {
 	public function get_browse_definition( BrowseReadRequest $request ) {
 		$response = $this->xml_processor->process_xml_string( $request->to_xml() );
 
-		$xml = \simplexml_load_string( $response );
+		$xml = \simplexml_load_string( (string) $response );
 
 		$browse_definition = new BrowseDefinition( $xml );
 

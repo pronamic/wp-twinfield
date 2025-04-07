@@ -20,7 +20,7 @@ use DOMDocument;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class ReadRequest {
+class ReadRequest implements \Stringable {
 	/**
 	 * Specify from wich office to read.
 	 *
@@ -70,7 +70,7 @@ class ReadRequest {
 	 * 
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->to_xml();
 	}
 }

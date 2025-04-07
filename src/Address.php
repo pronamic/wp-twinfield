@@ -454,7 +454,7 @@ class Address {
 			$value1 = $address1->get_property( $property );
 			$value2 = $address2->get_property( $property );
 
-			$matching_chars[ $property ]    = similar_text( $value1, $value2, $percent );
+			$matching_chars[ $property ]    = similar_text( (string) $value1, (string) $value2, $percent );
 			$matching_percents[ $property ] = $percent;
 		}
 

@@ -18,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield\Browse;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class BrowseDefinition {
+class BrowseDefinition implements \Stringable {
 	/**
 	 * XML definition.
 	 *
@@ -65,11 +65,7 @@ class BrowseDefinition {
 	 * @return ColumnDefinition
 	 */
 	public function get_column( $field ) {
-		if ( isset( $this->columns[ $field ] ) ) {
-			return $this->columns[ $field ];
-		}
-
-		return new ColumnDefinition( new \SimpleXMLElement( '<column />' ) );
+		return $this->columns[ $field ] ?? new ColumnDefinition( new \SimpleXMLElement( '<column />' ) );
 	}
 
 	/**
@@ -77,7 +73,7 @@ class BrowseDefinition {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
-		return $this->xml_definition->asXML();
+	public function __toString(): string {
+		return (string) $this->xml_definition->asXML();
 	}
 }

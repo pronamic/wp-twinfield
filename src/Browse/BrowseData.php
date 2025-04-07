@@ -18,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield\Browse;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class BrowseData {
+class BrowseData implements \Stringable {
 	/**
 	 * XML definition.
 	 *
@@ -70,7 +70,7 @@ class BrowseData {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
-		return $this->xml_definition->asXML();
+	public function __toString(): string {
+		return (string) $this->xml_definition->asXML();
 	}
 }

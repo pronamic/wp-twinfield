@@ -12,7 +12,7 @@ use DOMDocument;
 /**
  * Browse request class
  */
-class BrowseRequest {
+class BrowseRequest implements \Stringable {
 	/**
 	 * Code.
 	 * 
@@ -146,7 +146,7 @@ class BrowseRequest {
 	 * 
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->to_xml();
 	}
 }

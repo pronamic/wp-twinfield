@@ -107,6 +107,8 @@ class SaveBankStatementController {
 	 * @return void
 	 */
 	private function save_bank_statements( $authorization ) {
+		global $wpdb;
+
 		$request = new WP_REST_Request( 'GET', '/pronamic-twinfield/v1/authorizations/' . $authorization . '/offices' );
 
 		$request->set_param( 'authorization', $authorization );
@@ -224,8 +226,7 @@ class SaveBankStatementController {
 					'opening_balance'    => $data->opening_balance,
 					'closing_balance'    => $data->closing_balance,
 					'transaction_number' => $data->transaction_number,
-				],
-				true
+				]
 			);
 
 			foreach ( $bank_statement->get_lines() as $line ) {
@@ -249,8 +250,7 @@ class SaveBankStatementController {
 						'reference'             => $data->reference,
 						'end_to_end_id'         => $data->end_to_end_id,
 						'return_reason'         => $data->return_reason,
-					],
-					true
+					]
 				);
 			}
 		}

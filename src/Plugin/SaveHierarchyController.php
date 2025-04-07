@@ -37,7 +37,7 @@ class SaveHierarchyController {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'cli_init', [ $this, 'cli_init' ] );
+		\add_action( 'cli_init', $this->cli_init( ... ) );
 
 		\add_action( 'pronamic_twinfield_save_hierarchies', $this->save_hierarchies( ... ) );
 		\add_action( 'pronamic_twinfield_save_office_hierarchies', $this->save_office_hierarchies( ... ), 10, 2 );

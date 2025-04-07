@@ -84,9 +84,7 @@ class DeclarationsService extends AbstractService {
 		$organisation = $office->get_organisation();
 
 		$summaries = \array_map(
-			function ( $item ) use ( $organisation ) {
-				return DeclarationSummary::from_twinfield_object( $organisation, $item );
-			},
+			fn( $item ) => DeclarationSummary::from_twinfield_object( $organisation, $item ),
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Twinfield vaiable name.
 			$this->force_array( $result->vatReturn->DeclarationSummary )
 		);

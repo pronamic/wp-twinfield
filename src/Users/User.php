@@ -27,7 +27,7 @@ class User extends CodeName {
 	 *
 	 * @var Organisation|null
 	 */
-	public ?Organisation $organisation;
+	public ?Organisation $organisation = null;
 
 	/**
 	 * Construct user.

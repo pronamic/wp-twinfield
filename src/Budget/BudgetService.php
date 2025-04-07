@@ -108,9 +108,7 @@ class BudgetService extends AbstractService {
 		}
 
 		$totals = \array_map(
-			function ( $value ) {
-				return BudgetTotalResult::from_twinfield_object( $value );
-			},
+			fn( $value ) => BudgetTotalResult::from_twinfield_object( $value ),
 			$budget_totals->get_array( 'GetBudgetTotalResult' )
 		);
 

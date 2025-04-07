@@ -170,11 +170,11 @@ class TransactionUnserializer extends Unserializer {
 
 		$year_period = Security::filter( $element->header->period );
 
-		$seperator_position = strpos( $year_period, '/' );
+		$seperator_position = strpos( (string) $year_period, '/' );
 
 		if ( false !== $seperator_position ) {
-			$year   = substr( $year_period, 0, $seperator_position );
-			$period = substr( $year_period, $seperator_position + 1 );
+			$year   = substr( (string) $year_period, 0, $seperator_position );
+			$period = substr( (string) $year_period, $seperator_position + 1 );
 		}
 
 		$header->set_year( $year );

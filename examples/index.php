@@ -348,9 +348,7 @@ if ( isset( $authentication ) ) {
 
 				\usort(
 					$summaries,
-					function ( $a, $b ) {
-						return -\strnatcmp( $a->get_id(), $b->get_id() );
-					} 
+					fn( $a, $b ) => -\strnatcmp( (string) $a->get_id(), (string) $b->get_id() ) 
 				);
 
 				?>
@@ -527,7 +525,7 @@ if ( isset( $authentication ) ) {
 				 * 
 				 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseData#Fill-in-the-selection-criteria
 				 */
-				$browse_definition = new Browse\BrowseDefinition( \simplexml_load_string( $browse_read_response ) );
+				$browse_definition = new Browse\BrowseDefinition( \simplexml_load_string( (string) $browse_read_response ) );
 
 				$browse_definition->get_column( 'fin.trs.head.yearperiod' )->between( '198501', '202201' );
 
@@ -599,7 +597,7 @@ if ( isset( $authentication ) ) {
 
 			$state = \bin2hex( \openssl_random_pseudo_bytes( 32 ) );
 
-			$url = $openid_connect_client->get_authorize_url( $state );
+			$url = $openid_connect_client->get_authorize_url();
 
 			\printf(
 				'<a href="%s">Connect with Twinfield</a>',

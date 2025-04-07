@@ -160,9 +160,7 @@ class BankStatement implements JsonSerializable {
 		);
 
 		$bank_statement->lines = \array_map(
-			function ( $item ) {
-				return BankStatementLine::from_twinfield_object( $item );
-			},
+			fn( $item ) => BankStatementLine::from_twinfield_object( $item ),
 			$data->get_object( 'Lines' )->get_array( 'BankStatementLine' )
 		);
 

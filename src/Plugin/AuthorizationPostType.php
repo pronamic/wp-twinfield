@@ -44,15 +44,15 @@ class AuthorizationPostType {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'init', [ $this, 'init' ] );
+		\add_action( 'init', $this->init( ... ) );
 
-		\add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
+		\add_action( 'add_meta_boxes', $this->add_meta_boxes( ... ), 10, 2 );
 
-		\add_action( 'save_post_' . self::KEY, [ $this, 'maybe_set_default_authorization' ] );
+		\add_action( 'save_post_' . self::KEY, $this->maybe_set_default_authorization( ... ) );
 
-		\add_action( 'save_post_' . self::KEY, [ $this, 'maybe_save_schedule' ] );
+		\add_action( 'save_post_' . self::KEY, $this->maybe_save_schedule( ... ) );
 
-		\add_action( 'display_post_states', [ $this, 'display_post_states' ], 10, 2 );
+		\add_action( 'display_post_states', $this->display_post_states( ... ), 10, 2 );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class AuthorizationPostType {
 		/**
 		 * Authentication.
 		 */
-		$object = \json_decode( $post->post_content );
+		$object = \json_decode( (string) $post->post_content );
 
 		if ( ! empty( $object ) ) {
 			$authentication = AuthenticationInfo::from_object( $object );
@@ -133,7 +133,7 @@ class AuthorizationPostType {
 				\add_meta_box(
 					'pronamic_twinfield_authentication',
 					\__( 'Authentication', 'twinfield' ),
-					[ $this, 'meta_box_authentication' ],
+					$this->meta_box_authentication( ... ),
 					$post_type,
 					'normal',
 					'high'
@@ -142,7 +142,7 @@ class AuthorizationPostType {
 				\add_meta_box(
 					'pronamic_twinfield_offices',
 					\__( 'Offices', 'twinfield' ),
-					[ $this, 'meta_box_offices' ],
+					$this->meta_box_offices( ... ),
 					$post_type,
 					'normal',
 					'high'
@@ -153,7 +153,7 @@ class AuthorizationPostType {
 		\add_meta_box(
 			'pronamic_twinfield_authorize',
 			\__( 'Authorize', 'twinfield' ),
-			[ $this, 'meta_box_authorize' ],
+			$this->meta_box_authorize( ... ),
 			$post_type,
 			'normal',
 			'high'
@@ -162,7 +162,7 @@ class AuthorizationPostType {
 		\add_meta_box(
 			'pronamic_twinfield_menu',
 			\__( 'Menu', 'twinfield' ),
-			[ $this, 'meta_box_menu' ],
+			$this->meta_box_menu( ... ),
 			$post_type,
 			'normal',
 			'high'
@@ -171,7 +171,7 @@ class AuthorizationPostType {
 		\add_meta_box(
 			'pronamic_twinfield_save_schedule',
 			\__( 'Save schedule', 'pronamic-twinfield' ),
-			[ $this, 'meta_box_save_schedule' ],
+			$this->meta_box_save_schedule( ... ),
 			$post_type,
 			'normal',
 			'high'

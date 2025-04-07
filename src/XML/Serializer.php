@@ -17,7 +17,7 @@ namespace Pronamic\WordPress\Twinfield\XML;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-abstract class Serializer {
+abstract class Serializer implements \Stringable {
 	/**
 	 * DOM Document
 	 *
@@ -40,7 +40,7 @@ abstract class Serializer {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
-		return $this->document->saveXML();
+	public function __toString(): string {
+		return (string) $this->document->saveXML();
 	}
 }

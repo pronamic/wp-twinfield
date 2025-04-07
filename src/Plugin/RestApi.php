@@ -60,9 +60,9 @@ class RestApi {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+		\add_action( 'rest_api_init', $this->rest_api_init( ... ) );
 
-		\add_filter( 'rest_dispatch_request', [ $this, 'rest_dispatch_request' ], 10, 4 );
+		\add_filter( 'rest_dispatch_request', $this->rest_dispatch_request( ... ), 10, 4 );
 
 		$this->controllers = [
 			new RestHierarchyController( $this->plugin ),
@@ -119,10 +119,8 @@ class RestApi {
 			'/authorize/(?P<post_id>\d+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_authorize' ],
-				'permission_callback' => function () {
-					return true;
-				},
+				'callback'            => $this->rest_api_authorize( ... ),
+				'permission_callback' => fn() => true,
 				'args'                => [
 					'post_id' => [
 						'description' => \__( 'Post ID.', 'pronamic-twinfield' ),
@@ -143,8 +141,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/browse/(?P<browse_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_browse_fields' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_browse_fields( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -184,8 +182,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/browse/(?P<browse_code>[a-zA-Z0-9_-]+)/query',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_browse_query' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_browse_query( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => $browse_query_args,
 			]
 		);
@@ -195,8 +193,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/browse/query/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<browse_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_browse_query' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_browse_query( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => $browse_query_args,
 			]
 		);
@@ -206,10 +204,8 @@ class RestApi {
 			'/organisation',
 			[
 				'methods'             => 'GET',
-				'callback'            => function ( WP_REST_Request $request ) {
-					return $this->redirect_authorization( 'organisation' );
-				},
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => fn( WP_REST_Request $request ) => $this->redirect_authorization( 'organisation' ),
+				'permission_callback' => $this->permission_callback( ... ),
 			]
 		);
 
@@ -218,8 +214,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/organisation',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_organisation' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_organisation( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id' => [
 						'description'       => 'Authorization post ID.',
@@ -235,8 +231,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/finder-types',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_finder_types' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_finder_types( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id' => [
 						'description'       => 'Authorization post ID.',
@@ -248,7 +244,7 @@ class RestApi {
 		);
 
 		$finder_route_args = function ( $callback = null, $type = null ) {
-			$callback = ( null === $callback ) ? [ $this, 'rest_api_finder' ] : $callback;
+			$callback ??= $this->rest_api_finder( ... );
 
 			$args = [
 				'post_id'     => [
@@ -297,7 +293,7 @@ class RestApi {
 			return [
 				'methods'             => 'GET',
 				'callback'            => $callback,
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => $args,
 			];
 		};
@@ -523,7 +519,7 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget/(?P<budget_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_budget' ],
+				'callback'            => $this->rest_api_budget( ... ),
 				'permission_callback' => $budget_permission_callback,
 				'args'                => $budget_args,
 			]
@@ -534,7 +530,7 @@ class RestApi {
 			'/offices/(?P<office_code>[a-zA-Z0-9_-]+)/budget/(?P<budget_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_budget' ],
+				'callback'            => $this->rest_api_budget( ... ),
 				'permission_callback' => $budget_permission_callback,
 				'args'                => $budget_args,
 			]
@@ -545,8 +541,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/deleted-transactions',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_deleted_transactions' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_deleted_transactions( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -580,8 +576,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/years',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_years' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_years( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -603,8 +599,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/periods/(?P<year>\d{4})',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_periods' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_periods( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -631,8 +627,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/declarations',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_declarations' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_declarations( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -652,8 +648,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/transactions/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<transaction_type_code>[a-zA-Z0-9_-]+)/(?P<transaction_number>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_transaction' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_transaction( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'               => [
 						'description'       => 'Authorization post ID.',
@@ -681,8 +677,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/sales-invoices/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<invoice_type_code>[a-zA-Z0-9_-]+)/(?P<invoice_number>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_sales_invoice' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_sales_invoice( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'           => [
 						'description'       => 'Authorization post ID.',
@@ -710,8 +706,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/dimensions/(?P<office_code>[a-zA-Z0-9_-]+)/(?P<dimension_type_code>[a-zA-Z0-9_-]+)/(?P<dimension_code>[a-zA-Z0-9_-]+)',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_dimension' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_dimension( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'             => [
 						'description'       => 'Authorization post ID.',
@@ -739,10 +735,8 @@ class RestApi {
 			'/offices',
 			[
 				'methods'             => 'GET',
-				'callback'            => function ( WP_REST_Request $request ) {
-					return $this->redirect_authorization( 'offices' );
-				},
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => fn( WP_REST_Request $request ) => $this->redirect_authorization( 'offices' ),
+				'permission_callback' => $this->permission_callback( ... ),
 			]
 		);
 
@@ -751,8 +745,8 @@ class RestApi {
 			'/customers/list',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_customers_list' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_customers_list( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 			]
 		);
 
@@ -761,8 +755,8 @@ class RestApi {
 			'/customers',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_customers' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_customers( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'page'     => [
 						'description'       => 'Current page of the collection.',
@@ -790,8 +784,8 @@ class RestApi {
 			'/articles',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_articles' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_articles( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'page'     => [
 						'description'       => 'Current page of the collection.',
@@ -819,8 +813,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/bank-statements',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_bank_statements' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_bank_statements( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'        => [
 						'description'       => 'Authorization post ID.',
@@ -860,8 +854,8 @@ class RestApi {
 			'/authorizations/(?P<post_id>\d+)/offices/(?P<office_code>[a-zA-Z0-9_-]+)/reports/(?P<report_code>[a-zA-Z0-9_-]+)/',
 			[
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'rest_api_report' ],
-				'permission_callback' => [ $this, 'permission_callback' ],
+				'callback'            => $this->rest_api_report( ... ),
+				'permission_callback' => $this->permission_callback( ... ),
 				'args'                => [
 					'post_id'     => [
 						'description'       => 'Authorization post ID.',
@@ -1894,12 +1888,12 @@ class RestApi {
 				 *
 				 * @link https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-values-between-a-range
 				 */
-				$between_position = \mb_strpos( $value, '..' );
+				$between_position = \mb_strpos( (string) $value, '..' );
 
 				if ( false !== $between_position ) {
 					$operator = 'between';
-					$from     = \mb_substr( $value, 0, $between_position );
-					$to       = \mb_substr( $value, $between_position + 2 );
+					$from     = \mb_substr( (string) $value, 0, $between_position );
+					$to       = \mb_substr( (string) $value, $between_position + 2 );
 				}
 
 				$from_date = \DateTimeImmutable::createFromFormat( 'Y-m-d', $from );

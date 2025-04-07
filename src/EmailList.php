@@ -18,7 +18,7 @@ namespace Pronamic\WordPress\Twinfield;
  * @package    Pronamic/WordPress/Twinfield
  * @author     Remco Tolsma <info@remcotolsma.nl>
  */
-class EmailList implements \IteratorAggregate {
+class EmailList implements \IteratorAggregate, \Stringable {
 	/**
 	 * Twinfield delimter for emails in a list.
 	 *
@@ -64,7 +64,7 @@ class EmailList implements \IteratorAggregate {
 	 *
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return implode( self::DELIMITER, $this->data );
 	}
 }

@@ -125,9 +125,7 @@ class FinderData implements IteratorAggregate, JsonSerializable {
 		 */
 		if ( $data->has_property( 'Items' ) ) {
 			$items = \array_map(
-				function ( $item ) {
-					return ObjectAccess::from_object( $item )->get_array( 'string' );
-				},
+				fn( $item ) => ObjectAccess::from_object( $item )->get_array( 'string' ),
 				$data->get_object( 'Items' )->get_array( 'ArrayOfString' )
 			);
 		}

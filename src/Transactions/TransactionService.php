@@ -65,7 +65,7 @@ class TransactionService {
 	public function get_transactions( $browse_definition ) {
 		$string = $this->browser->get_xml_string( $browse_definition );
 
-		$xml = simplexml_load_string( $string );
+		$xml = simplexml_load_string( (string) $string );
 
 		$unserializer = new BrowseTransactionsUnserializer( $browse_definition );
 
@@ -85,7 +85,7 @@ class TransactionService {
 
 		$string = $this->browser->get_xml_string( $browse_definition );
 
-		$xml = simplexml_load_string( $string );
+		$xml = simplexml_load_string( (string) $string );
 
 		$unserializer = new BrowseTransactionsUnserializer();
 

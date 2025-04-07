@@ -47,19 +47,15 @@ class CLI {
 
 				$offices = \array_filter(
 					$offices,
-					function ( $office ) use ( $exclude ) {
-						return ! \in_array( $office->get_code(), $exclude, true );
-					}
+					fn( $office ) => ! \in_array( $office->get_code(), $exclude, true )
 				);
 
 				$items = \array_map(
-					function ( $office ) {
-						return [
-							'code'      => $office->get_code(),
-							'name'      => $office->get_name(),
-							'shortname' => $office->get_shortname(),
-						];
-					},
+					fn( $office ) => [
+						'code'      => $office->get_code(),
+						'name'      => $office->get_name(),
+						'shortname' => $office->get_shortname(),
+					],
 					$offices
 				);
 
