@@ -117,13 +117,29 @@ class SaveBankStatementController {
 
 		$data = (object) $response->get_data();
 
+		/**
+		 * Template offices.
+		 * 
+		 * Bank statements cannot be requested from template administrations.
+		 */
+		$offices_table = $wpdb->prefix . 'twinfield_offices';
+
+		$codes = $wpdb->get_col( "SELECT code FROM $offices_table WHERE is_template = TRUE;" );
+
+		$offices = $data->data;
+
+		$offices = \array_filter(
+			$offices,
+			fn( $office ) => ! \in_array( $office->get_code(), $codes, true )
+		);
+
 		$timezone = new DateTimeZone( 'UTC' );
 
 		$date_from = new DateTimeImmutable( 'midnight -2 days', $timezone );
 		$date_to   = new DateTimeImmutable( 'midnight', $timezone );
 
-		foreach ( $data->data as $item ) {
-			$office_code = $item->get_code();
+		foreach ( $offices as $office ) {
+			$office_code = $office->get_code();
 
 			$action_id = \as_enqueue_async_action(
 				'pronamic_twinfield_save_office_bank_statements',

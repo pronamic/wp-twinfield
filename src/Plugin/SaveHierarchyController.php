@@ -8,7 +8,6 @@
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use WP_CLI;
-use WP_Query;
 use WP_REST_Request;
 
 /**
@@ -121,6 +120,8 @@ class SaveHierarchyController {
 	 * @return void
 	 */
 	private function save_hierarchies( $authorization ) {
+		global $wpdb;
+
 		$request = new WP_REST_Request( 'GET', '/pronamic-twinfield/v1/authorizations/' . $authorization . '/offices' );
 
 		$request->set_param( 'authorization', $authorization );
@@ -129,8 +130,24 @@ class SaveHierarchyController {
 
 		$data = (object) $response->get_data();
 
-		foreach ( $data->data as $item ) {
-			$office_code = $item->get_code();
+		/**
+		 * Template offices.
+		 * 
+		 * Bank statements cannot be requested from template administrations.
+		 */
+		$offices_table = $wpdb->prefix . 'twinfield_offices';
+
+		$codes = $wpdb->get_col( "SELECT code FROM $offices_table WHERE is_template = TRUE;" );
+
+		$offices = $data->data;
+
+		$offices = \array_filter(
+			$offices,
+			fn( $office ) => ! \in_array( $office->get_code(), $codes, true )
+		);
+
+		foreach ( $offices as $office ) {
+			$office_code = $office->get_code();
 
 			$action_id = \as_enqueue_async_action(
 				'pronamic_twinfield_save_office_hierarchies',
