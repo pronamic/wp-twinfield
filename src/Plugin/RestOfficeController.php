@@ -50,6 +50,12 @@ class RestOfficeController extends RestController {
 						'default'     => false,
 						'required'    => false,
 					],
+					'save'    => [
+						'description' => 'Save flag to update the local repository.',
+						'type'        => 'boolean',
+						'default'     => false,
+						'required'    => false,
+					],
 				],
 			]
 		);
@@ -119,9 +125,40 @@ class RestOfficeController extends RestController {
 
 		$response_xml = $xml_processor->process_xml_string( $offices_list_request->to_xml() );
 
-		$offices_list_response = new OfficesListResponse( $this->client->get_organisation(), $response_xml );
+		$offices_list_response = new OfficesListResponse( $client->get_organisation(), $response_xml );
 
 		$offices = $offices_list_response->to_offices();
+
+		/**
+		 * Save.
+		 */
+		if ( $request->get_param( 'save' ) ) {
+			$orm = $this->plugin->get_orm();
+
+			$organisation = $client->get_organisation();
+
+			$organisation_id = $orm->first_or_create(
+				$organisation,
+				[
+					'code' => $organisation->get_code(),
+				],
+				[],
+			);
+
+			foreach ( $offices as $office ) {
+				$orm->update_or_create(
+					$office,
+					[
+						'organisation_id' => $organisation_id,
+						'code'            => $office->get_code(),
+					],
+					[
+						'name'      => $office->get_name(),
+						'shortname' => $office->get_shortname(),
+					]
+				);
+			}
+		}
 
 		/**
 		 * Envelope.
