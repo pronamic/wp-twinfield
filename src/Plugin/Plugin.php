@@ -185,6 +185,8 @@ class Plugin {
 				updated_at DATETIME NOT NULL,
 				organisation_id BIGINT UNSIGNED NOT NULL,
 				code VARCHAR(80) NOT NULL,
+				name VARCHAR(80) DEFAULT NULL,
+				shortname VARCHAR(20) DEFAULT NULL,
 				is_demo TINYINT(1) DEFAULT NULL,
 				is_template TINYINT(1) DEFAULT NULL,
 				xml LONGTEXT NOT NULL,
