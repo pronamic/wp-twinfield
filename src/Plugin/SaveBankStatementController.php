@@ -10,9 +10,8 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
 use DateTimeImmutable;
 use DateTimeZone;
 use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsService;
-use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsQuery;
+use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsByCreationDateQuery;
 use WP_CLI;
-use WP_Query;
 use WP_REST_Request;
 
 /**
@@ -66,7 +65,18 @@ class SaveBankStatementController {
 					WP_CLI::error( 'Authorization argument missing.' );
 				}
 
-				$this->save_bank_statements( $assoc_args['authorization'] );    
+				$date_from_string = 'midnight -2 days';
+				$date_to_string   = 'midnight';
+
+				if ( \array_key_exists( 'date_from', $assoc_args ) ) {
+					$date_from_string = $assoc_args['date_from'];
+				}
+
+				if ( \array_key_exists( 'date_to', $assoc_args ) ) {
+					$date_to_string = $assoc_args['date_to'];
+				}
+
+				$this->save_bank_statements( $assoc_args['authorization'], $date_from_string, $date_to_string );    
 			}
 		);
 
@@ -103,10 +113,12 @@ class SaveBankStatementController {
 	/**
 	 * Save bank statements.
 	 * 
-	 * @param string|int $authorization Authorization.
+	 * @param string|int $authorization    Authorization.
+	 * @param string     $date_from_string Date from string.
+	 * @param string     $date_to_string   Date to string.
 	 * @return void
 	 */
-	private function save_bank_statements( $authorization ) {
+	private function save_bank_statements( $authorization, $date_from_string = 'midnight -2 days', $date_to_string = 'midnight' ) {
 		global $wpdb;
 
 		$request = new WP_REST_Request( 'GET', '/pronamic-twinfield/v1/authorizations/' . $authorization . '/offices' );
@@ -135,8 +147,8 @@ class SaveBankStatementController {
 
 		$timezone = new DateTimeZone( 'UTC' );
 
-		$date_from = new DateTimeImmutable( 'midnight -2 days', $timezone );
-		$date_to   = new DateTimeImmutable( 'midnight', $timezone );
+		$date_from = new DateTimeImmutable( $date_from_string, $timezone );
+		$date_to   = new DateTimeImmutable( $date_to_string, $timezone );
 
 		foreach ( $offices as $office ) {
 			$office_code = $office->get_code();
@@ -184,9 +196,9 @@ class SaveBankStatementController {
 		$date_from = new DateTimeImmutable( $date_from_string, $timezone );
 		$date_to   = new DateTimeImmutable( $date_to_string, $timezone );
 
-		$query = new BankStatementsQuery( $date_from, $date_to, true );
+		$query = new BankStatementsByCreationDateQuery( $date_from, $date_to, true );
 
-		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
+		$bank_statements = $bank_statements_service->get_bank_statements_by_creation_date( $office, $query );
 
 		$this->bank_statements_update_or_create( $bank_statements );
 	}

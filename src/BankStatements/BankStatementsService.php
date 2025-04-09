@@ -77,4 +77,40 @@ class BankStatementsService extends AbstractService {
 			ObjectAccess::from_object( $result )->get_property( 'BankStatements' )
 		);
 	}
+
+	/**
+	 * Get bank statements by creation date.
+	 *
+	 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Request/BrowseBankStatements
+	 * @param Office                            $office The office for which the returns should be retrieved. Mandatory.
+	 * @param BankStatementsByCreationDateQuery $query  The get bank statements query.
+	 * @return BankStatements
+	 * @throws \Exception When no summaries could be found for the specified office.
+	 */
+	public function get_bank_statements_by_creation_date( Office $office, BankStatementsByCreationDateQuery $query ) {
+		$soap_client = $this->get_soap_client( $office );
+
+		$authentication = $this->client->authenticate();
+
+		$result = $soap_client->__soapCall(
+			'Query',
+			[
+				$query->get_soap_var(),
+			],
+			null,
+			new SoapHeader(
+				'http://www.twinfield.com/',
+				'Authentication',
+				[
+					'AccessToken' => $authentication->get_tokens()->get_access_token(),
+					'CompanyCode' => $office->get_code(),
+				]
+			)
+		);
+
+		return BankStatements::from_twinfield_object(
+			$office,
+			ObjectAccess::from_object( $result )->get_property( 'BankStatements' )
+		);
+	}
 }
