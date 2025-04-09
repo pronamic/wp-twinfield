@@ -56,7 +56,7 @@ class BankStatementsByCreationDateQuery {
 	 */
 	private function get_soap_data() {
 		return [
-			'CreationDateFrom '       => $this->date_from->format( \DATE_ATOM ),
+			'CreationDateFrom'        => $this->date_from->format( \DATE_ATOM ),
 			'CreationDateTo'          => $this->date_to->format( \DATE_ATOM ),
 			'IncludePostedStatements' => $this->include_posted_statements,
 		];
