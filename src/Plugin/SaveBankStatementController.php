@@ -236,6 +236,14 @@ class SaveBankStatementController {
 		);
 
 		foreach ( $bank_statements as $bank_statement ) {
+			$this->log(
+				\sprintf(
+					'Saving administration bank statement, office code: %s, date: %s.',
+					$office->get_code(),
+					$bank_statement->get_date()->format( 'Y-m-d' )
+				)
+			);
+
 			$data = $bank_statement->jsonSerialize();
 
 			$bank_statement_id = $orm->update_or_create(
@@ -258,6 +266,13 @@ class SaveBankStatementController {
 			);
 
 			foreach ( $bank_statement->get_lines() as $line ) {
+				$this->log(
+					\sprintf(
+						'- Saving administration bank statement line, ID: %s.',
+						$line->get_id()
+					)
+				);
+
 				$data = $line->jsonSerialize();
 
 				$bank_statement_line_id = $orm->update_or_create(
