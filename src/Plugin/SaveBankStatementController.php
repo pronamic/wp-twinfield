@@ -220,8 +220,12 @@ class SaveBankStatementController {
 
 		$timezone = new DateTimeZone( 'UTC' );
 
+		$now = new DateTimeImmutable( 'now', $timezone );
+
 		$date_from = new DateTimeImmutable( $date_from_string, $timezone );
 		$date_to   = new DateTimeImmutable( $date_to_string, $timezone );
+
+		$date_to = \min( $now, $date_to );
 
 		$query = new BankStatementsByCreationDateQuery( $date_from, $date_to, true );
 
