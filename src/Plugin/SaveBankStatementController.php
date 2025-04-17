@@ -56,7 +56,7 @@ class SaveBankStatementController {
 		 * Save office hierarchies.
 		 * 
 		 * Example:
-		 * wp pronamic-twinfield save-bank-statements --authorization=5337
+		 * wp pronamic-twinfield save-bank-statements --authorization=5337 --date_from=2025-04-01 --date_to=2025-04-17
 		 */
 		WP_CLI::add_command(
 			'pronamic-twinfield save-bank-statements',
@@ -65,18 +65,10 @@ class SaveBankStatementController {
 					WP_CLI::error( 'Authorization argument missing.' );
 				}
 
-				$date_from_string = 'midnight -2 days';
-				$date_to_string   = 'midnight';
+				$assoc_args['date_from'] ??= '';
+				$assoc_args['date_to']   ??= '';
 
-				if ( \array_key_exists( 'date_from', $assoc_args ) ) {
-					$date_from_string = $assoc_args['date_from'];
-				}
-
-				if ( \array_key_exists( 'date_to', $assoc_args ) ) {
-					$date_to_string = $assoc_args['date_to'];
-				}
-
-				$this->save_bank_statements( $assoc_args['authorization'], $date_from_string, $date_to_string );    
+				$this->save_bank_statements( $assoc_args['authorization'], $assoc_args['date_from'], $assoc_args['date_to'] );    
 			}
 		);
 
@@ -97,13 +89,8 @@ class SaveBankStatementController {
 					WP_CLI::error( 'Office code argument missing.' );
 				}
 
-				if ( ! \array_key_exists( 'date_from', $assoc_args ) ) {
-					WP_CLI::error( 'Date from argument missing.' );
-				}
-
-				if ( ! \array_key_exists( 'date_to', $assoc_args ) ) {
-					WP_CLI::error( 'Date to argument missing.' );
-				}
+				$assoc_args['date_from'] ??= 'midnight -2 days';
+				$assoc_args['date_to']   ??= 'midnight';
 
 				$this->save_office_bank_statements( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
@@ -118,7 +105,7 @@ class SaveBankStatementController {
 	 * @param string     $date_to_string   Date to string.
 	 * @return void
 	 */
-	private function save_bank_statements( $authorization, $date_from_string = 'midnight -2 days', $date_to_string = 'midnight' ) {
+	private function save_bank_statements( $authorization, $date_from_string = '', $date_to_string = '' ) {
 		global $wpdb;
 
 		$client = $this->plugin->get_client( \get_post( $authorization ) );
@@ -145,17 +132,17 @@ class SaveBankStatementController {
 			$data->data
 		);
 
-		$where .= $wpdb->prepare( "office.is_template = %d", false );
+		$where .= $wpdb->prepare( " AND office.is_template = %d", false );
+
 		$where .= $wpdb->prepare(
-			sprintf(
+			\sprintf(
 				' AND office.code IN ( %s )',
-				implode( ',', array_fill( 0, count( $offices_codes ), '%s' ) )
+				\implode( ', ', \array_fill( 0, \count( $offices_codes ), '%s' ) )
 			),
 			$offices_codes
 		);
 
-		$results = $wpdb->get_results(
-			"
+		$query = "
 			SELECT
 				office.code,
 				IFNULL( save_state.saved_at, NOW() - INTERVAL 1 WEEK ) AS saved_at
@@ -172,22 +159,22 @@ class SaveBankStatementController {
 							save_state.entity = 'bank-statements'
 						)
 			WHERE
-				organisation.code = %s
-					AND
-				office.code IN ( '1000' )
-					AND
-				office.is_template = FALSE
+				$where
 			;
-			"
-		);
+		";
+
+		$results = $wpdb->get_results( $query );
 
 		$timezone = new DateTimeZone( 'UTC' );
 
 		$now = new DateTimeImmutable( 'now', $timezone );
 
+		$input_date_from = ( '' === $date_from_string ) ? null : new DateTimeImmutable( $date_from_string, $timezone );
+		$input_date_to   = ( '' === $date_to_string ) ? null : new DateTimeImmutable( $date_to_string, $timezone );
+
 		foreach ( $results as $item ) {
-			$date_from = new DateTimeImmutable( $item->save_at, $timezone );
-			$date_to   = \min( $now, $date_from->modify( '+1 week' ) );
+			$date_from = $input_date_from ?? new DateTimeImmutable( $item->saved_at, $timezone );
+			$date_to   = $input_date_to ?? \min( $now, $date_from->modify( '+1 week' ) );
 
 			$action_id = \as_enqueue_async_action(
 				'pronamic_twinfield_save_office_bank_statements',
@@ -214,8 +201,10 @@ class SaveBankStatementController {
 	/**
 	 * Save office bank statements.
 	 * 
-	 * @param string|int $authorization Authorization.
-	 * @param string     $office_code   Office code.
+	 * @param string|int $authorization    Authorization.
+	 * @param string     $office_code      Office code.
+	 * @param string     $date_from_string Date from.
+	 * @param string     $date_to_string   Date to.
 	 * @return void
 	 */
 	private function save_office_bank_statements( $authorization, $office_code, $date_from_string, $date_to_string ) {
@@ -261,7 +250,7 @@ class SaveBankStatementController {
 					office.code = %s
 			) ON DUPLICATE KEY UPDATE
 					updated_at = VALUES( updated_at ),
-					saved_at = MAX( saved_at, VALUES( saved_at ) )
+					saved_at = GREATEST( saved_at, VALUES( saved_at ) )
 			;
 			",
 			$date_to->format( 'Y-m-d H:i:s' ),
@@ -269,7 +258,17 @@ class SaveBankStatementController {
 			$office_code
 		);
 
-		$wpdb->query( $query );
+		$result = $wpdb->query( $query );
+
+		if ( false === $result ) {
+			throw new \Exception(
+				\sprintf(
+					'Error query %s: %s.',
+					$query,
+					$wpdb->last_error
+				)
+			);
+		}
 	}
 
 	/**
