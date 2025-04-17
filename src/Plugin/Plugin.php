@@ -250,6 +250,17 @@ class Plugin {
 				KEY office_id ( office_id ),
 				UNIQUE KEY code ( office_id, code )
 			);
+
+			CREATE TABLE {$wpdb->prefix}twinfield_save_state (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
+				office_id BIGINT UNSIGNED NOT NULL,
+				entity VARCHAR(80) NOT NULL,
+				saved_at DATETIME NOT NULL,
+				PRIMARY KEY  ( id ),
+				UNIQUE KEY unique_office_entity (office_id, entity)
+			);
 		";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -296,6 +307,18 @@ class Plugin {
 			"
 			ALTER TABLE {$wpdb->prefix}twinfield_hierarchies
 			ADD CONSTRAINT fk_hierarchy_office_id
+			FOREIGN KEY ( office_id )
+			REFERENCES {$wpdb->prefix}twinfield_offices ( id )
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+			;
+		" 
+		);
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->prefix}twinfield_save_state
+			ADD CONSTRAINT fk_save_state_office_id
 			FOREIGN KEY ( office_id )
 			REFERENCES {$wpdb->prefix}twinfield_offices ( id )
 			ON DELETE RESTRICT

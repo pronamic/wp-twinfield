@@ -121,6 +121,10 @@ class SaveBankStatementController {
 	private function save_bank_statements( $authorization, $date_from_string = 'midnight -2 days', $date_to_string = 'midnight' ) {
 		global $wpdb;
 
+		$client = $this->plugin->get_client( \get_post( $authorization ) );
+
+		$organisation = $client->get_organisation();
+
 		$request = new WP_REST_Request( 'GET', '/pronamic-twinfield/v1/authorizations/' . $authorization . '/offices' );
 
 		$request->set_param( 'authorization', $authorization );
@@ -134,30 +138,62 @@ class SaveBankStatementController {
 		 * 
 		 * Bank statements cannot be requested from template administrations.
 		 */
-		$offices_table = $wpdb->prefix . 'twinfield_offices';
+		$where = $wpdb->prepare( "organisation.code = %s", $organisation->get_code() );
 
-		$codes = $wpdb->get_col( "SELECT code FROM $offices_table WHERE is_template = TRUE;" );
+		$offices_codes = \array_map(
+			fn( $office ) => $office->get_code(),
+			$data->data
+		);
 
-		$offices = $data->data;
+		$where .= $wpdb->prepare( "office.is_template = %d", false );
+		$where .= $wpdb->prepare(
+			sprintf(
+				' AND office.code IN ( %s )',
+				implode( ',', array_fill( 0, count( $offices_codes ), '%s' ) )
+			),
+			$offices_codes
+		);
 
-		$offices = \array_filter(
-			$offices,
-			fn( $office ) => ! \in_array( $office->get_code(), $codes, true )
+		$results = $wpdb->get_results(
+			"
+			SELECT
+				office.code,
+				IFNULL( save_state.saved_at, NOW() - INTERVAL 1 WEEK ) AS saved_at
+			FROM
+				{$wpdb->prefix}twinfield_offices AS office
+					INNER JOIN
+				{$wpdb->prefix}twinfield_organisations AS organisation
+						ON office.organisation_id = organisation.id
+					LEFT JOIN
+				{$wpdb->prefix}twinfield_save_state AS save_state
+						ON (
+							save_state.office_id = office.id
+								AND
+							save_state.entity = 'bank-statements'
+						)
+			WHERE
+				organisation.code = %s
+					AND
+				office.code IN ( '1000' )
+					AND
+				office.is_template = FALSE
+			;
+			"
 		);
 
 		$timezone = new DateTimeZone( 'UTC' );
 
-		$date_from = new DateTimeImmutable( $date_from_string, $timezone );
-		$date_to   = new DateTimeImmutable( $date_to_string, $timezone );
+		$now = new DateTimeImmutable( 'now', $timezone );
 
-		foreach ( $offices as $office ) {
-			$office_code = $office->get_code();
+		foreach ( $results as $item ) {
+			$date_from = new DateTimeImmutable( $item->save_at, $timezone );
+			$date_to   = \min( $now, $date_from->modify( '+1 week' ) );
 
 			$action_id = \as_enqueue_async_action(
 				'pronamic_twinfield_save_office_bank_statements',
 				[
 					'authorization' => $authorization,
-					'office_code'   => $office_code,
+					'office_code'   => $item->code,
 					'date_from'     => $date_from->format( 'Y-m-d H:i:s' ),
 					'date_to'       => $date_to->format( 'Y-m-d H:i:s' ),
 				],
@@ -168,7 +204,7 @@ class SaveBankStatementController {
 				\sprintf(
 					'Saving administration bank statements is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
 					$authorization,
-					$office_code,
+					$item->code,
 					$action_id
 				)
 			);
@@ -183,6 +219,8 @@ class SaveBankStatementController {
 	 * @return void
 	 */
 	private function save_office_bank_statements( $authorization, $office_code, $date_from_string, $date_to_string ) {
+		global $wpdb;
+
 		$client = $this->plugin->get_client( \get_post( $authorization ) );
 
 		$organisation = $client->get_organisation();
@@ -201,6 +239,37 @@ class SaveBankStatementController {
 		$bank_statements = $bank_statements_service->get_bank_statements_by_creation_date( $office, $query );
 
 		$this->bank_statements_update_or_create( $bank_statements );
+
+		$query = $wpdb->prepare(
+			"
+			INSERT INTO {$wpdb->prefix}twinfield_save_state ( created_at, updated_at, office_id, entity, saved_at )
+			(
+				SELECT
+					NOW() AS created_at,
+					NOW() AS updated_at,
+					office.id AS office_id,
+					'bank-statements' AS entity,
+					%s AS saved_at
+				FROM
+					{$wpdb->prefix}twinfield_offices AS office
+						INNER JOIN
+					{$wpdb->prefix}twinfield_organisations AS organisation
+							ON office.organisation_id = organisation.id
+				WHERE
+					organisation.code = %s
+						AND
+					office.code = %s
+			) ON DUPLICATE KEY UPDATE
+					updated_at = VALUES( updated_at ),
+					saved_at = MAX( saved_at, VALUES( saved_at ) )
+			;
+			",
+			$date_to->format( 'Y-m-d H:i:s' ),
+			$organisation->get_code(),
+			$office_code
+		);
+
+		$wpdb->query( $query );
 	}
 
 	/**
