@@ -90,7 +90,7 @@ class SaveBankStatementController {
 				}
 
 				$assoc_args['date_from'] ??= 'midnight -2 days';
-				$assoc_args['date_to']   ??= 'midnight';
+				$assoc_args['date_to']   ??= 'now';
 
 				$this->save_office_bank_statements( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
