@@ -1,0 +1,5 @@
+<dimension result="0">
+    <office name="Spar demo" shortname="">SPAR_DEMO</office>
+    <type msgtype="error" msg="Dimension type BAT does not exist." result="0">BAT</type>
+    <code>00590</code>
+</dimension>

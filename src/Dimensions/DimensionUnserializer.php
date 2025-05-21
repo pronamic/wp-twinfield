@@ -63,7 +63,52 @@ class DimensionUnserializer extends Unserializer {
 			);
 		}
 
-		if ( '1' !== (string) $element['result'] ) {
+		if ( '0' === (string) $element['result'] ) {
+			if ( '0' === (string) $element->type['result'] ) {
+				$dimension_type_code = (string) $element->type;
+
+				$message_type = (string) $element->type['msgtype'];
+
+				if ( 'error' === $message_type ) {
+					$messages = [
+						'en-GB' => "Dimension type $dimension_type_code does not exist.",
+						'nl-NL' => "Dimensietype $dimension_type_code bestaat niet.",
+					];
+
+					$message = (string) $element->type['msg'];
+
+					if ( \in_array( $message, $messages, true ) ) {
+						throw new DimensionTypeNotFoundException(
+							(string) $element->office,
+							(string) $element->type
+						);
+					}
+				}
+			}
+
+			if ( '0' === (string) $element->code['result'] ) {
+				$dimension_code = (string) $element->code;
+
+				$message_type = (string) $element->code['msgtype'];
+
+				if ( 'error' === $message_type ) {
+					$messages = [
+						'en-GB' => "Dimension $dimension_code does not exist.",
+						'nl-NL' => "Dimensie $dimension_code bestaat niet.",
+					];
+
+					$message = (string) $element->code['msg'];
+
+					if ( \in_array( $message, $messages, true ) ) {
+						throw new DimensionNotFoundException(
+							(string) $element->office,
+							(string) $element->type,
+							(string) $element->code
+						);
+					}
+				}
+			}
+
 			throw new \Exception( 'Dimension result error: ' . $element->asXML() );
 		}
 

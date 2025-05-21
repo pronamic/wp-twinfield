@@ -1,0 +1,5 @@
+<dimension result="0">
+    <office name="Spar demo" shortname="">SPAR_DEMO</office>
+    <type name="Balans" shortname="Balans">BAS</type>
+    <code msgtype="error" msg="Dimensie 00590 bestaat niet." result="0">00590</code>
+</dimension>
