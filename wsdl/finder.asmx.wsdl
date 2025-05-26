@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.twinfield.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Finder web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="Search">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pattern" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="field" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="firstRow" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRows" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:ArrayOfMessageOfErrorCodes" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:FinderData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfErrorCodes">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfErrorCodes" nillable="true" type="tns:MessageOfErrorCodes" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfErrorCodes">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:ErrorCodes" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MessageType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Error" />
+          <s:enumeration value="Warning" />
+          <s:enumeration value="Informational" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="ErrorCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoAccessToOffice" />
+          <s:enumeration value="OptionNotAllowed" />
+          <s:enumeration value="InvalidBooleanOptionValue" />
+          <s:enumeration value="InvalidIntegerOptionValue" />
+          <s:enumeration value="InvalidDecimalOptionValue" />
+          <s:enumeration value="InvalidEnumerationOptionValue" />
+          <s:enumeration value="OptionValueOutOfRange" />
+          <s:enumeration value="ParameterOutOfRange" />
+          <s:enumeration value="InvalidFinderType" />
+          <s:enumeration value="ParameterTooSmall" />
+          <s:enumeration value="OptionLevelMandatoryForSectionTeq" />
+          <s:enumeration value="OptionIcIncompatibleWithOptionHidden" />
+          <s:enumeration value="InvalidDateTimeOptionLength" />
+          <s:enumeration value="InvalidDateTimeOptionValue" />
+          <s:enumeration value="InvalidDateTimeOptionOutOfRange" />
+          <s:enumeration value="OptionMandatory" />
+          <s:enumeration value="AccessDenied" />
+          <s:enumeration value="DisableAccessRulesNotAllowed" />
+          <s:enumeration value="Option1MandatoryIfOption2IsUsed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="FinderData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRows" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Columns" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header" />
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s1:guid" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchSoapIn">
+    <wsdl:part name="parameters" element="tns:Search" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:portType name="FinderSoap">
+    <wsdl:operation name="Search">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Searches for different types of data based on the given finder type and search pattern.</wsdl:documentation>
+      <wsdl:input message="tns:SearchSoapIn" />
+      <wsdl:output message="tns:SearchSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FinderSoap" type="tns:FinderSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Search">
+      <soap:operation soapAction="http://www.twinfield.com/Search" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FinderSoap12" type="tns:FinderSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Search">
+      <soap12:operation soapAction="http://www.twinfield.com/Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Finder">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Finder web service methods.</wsdl:documentation>
+    <wsdl:port name="FinderSoap" binding="tns:FinderSoap">
+      <soap:address location="https://accounting.twinfield.com/webservices/finder.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FinderSoap12" binding="tns:FinderSoap12">
+      <soap12:address location="https://accounting.twinfield.com/webservices/finder.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
