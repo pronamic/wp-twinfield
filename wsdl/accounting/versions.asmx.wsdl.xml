@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.twinfield.com/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Versions web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:element name="GetTwinfieldVersion">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetTwinfieldVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTwinfieldVersionResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTwinfieldVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTwinfieldVersion"/>
+  </wsdl:message>
+  <wsdl:message name="GetTwinfieldVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTwinfieldVersionResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="VersionsSoap">
+    <wsdl:operation name="GetTwinfieldVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the Twinfield version.</wsdl:documentation>
+      <wsdl:input message="tns:GetTwinfieldVersionSoapIn"/>
+      <wsdl:output message="tns:GetTwinfieldVersionSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VersionsSoap" type="tns:VersionsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetTwinfieldVersion">
+      <soap:operation soapAction="http://www.twinfield.com/GetTwinfieldVersion" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VersionsSoap12" type="tns:VersionsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetTwinfieldVersion">
+      <soap12:operation soapAction="http://www.twinfield.com/GetTwinfieldVersion" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Versions">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Versions web service methods.</wsdl:documentation>
+    <wsdl:port name="VersionsSoap" binding="tns:VersionsSoap">
+      <soap:address location="https://accounting.twinfield.com/webservices/versions.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="VersionsSoap12" binding="tns:VersionsSoap12">
+      <soap12:address location="https://accounting.twinfield.com/webservices/versions.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

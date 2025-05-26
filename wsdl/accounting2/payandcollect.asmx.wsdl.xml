@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.twinfield.com/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Pay and Collect web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/"/>
+      <s:element name="GetRuns">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRunsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRunsResult" type="tns:ArrayOfPayOverview"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPayOverview">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PayOverview" nillable="true" type="tns:PayOverview"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PayOverview">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Office" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Touched" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RunType" type="tns:RunType"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Phase" type="tns:Phase"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:PhaseStatus"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Bank" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PayDate" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DirectRemove" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomSettings" type="tns:ArrayOfArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RunType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Payment"/>
+          <s:enumeration value="DirectDebit"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="Phase">
+        <s:restriction base="s:string">
+          <s:enumeration value="Select"/>
+          <s:enumeration value="Manipulate"/>
+          <s:enumeration value="Authorise"/>
+          <s:enumeration value="Post"/>
+          <s:enumeration value="Pay"/>
+          <s:enumeration value="Finalise"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PhaseStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Started"/>
+          <s:enumeration value="Done"/>
+          <s:enumeration value="DoneWithErrors"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header"/>
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s1:guid"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+      <s:element name="GetRunInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRunInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRunInfoResult" type="tns:PayRun"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PayRun">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PayOverview">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Summaries" type="tns:ArrayOfSummaryInfo"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSummaryInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SummaryInfo" nillable="true" type="tns:SummaryInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SummaryInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Relation" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RelationName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RelationBank" type="tns:Bank"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Reference" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Included" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="tns:ArrayOfDetailInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Bank">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ascription" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Iban" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NationalCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InternationalCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Branch" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDetailInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetailInfo" nillable="true" type="tns:DetailInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DetailInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Transaction" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionNumber" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionLine" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InvoiceDate" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="InvoiceDueDate" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Value" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OriginalValue" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BaseValue" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OriginalBaseValue" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Included" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountAmount" type="s:decimal"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateRun">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="payDate" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="period" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="method" nillable="true" type="tns:Method"/>
+            <s:element minOccurs="1" maxOccurs="1" name="directRemove" nillable="true" type="s:boolean"/>
+            <s:element minOccurs="0" maxOccurs="1" name="bankCode" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="dimensionFrom" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="dimensionTo" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="maxDuedate" nillable="true" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="invoiceNumber" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="customSettings" type="tns:ArrayOfArrayOfString"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="Method">
+        <s:restriction base="s:string">
+          <s:enumeration value="Detailed"/>
+          <s:enumeration value="Summarise"/>
+          <s:enumeration value="SummariseAndDeduct"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateRunResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateRunResult" type="tns:ArrayOfMessageOfCreateRunResult"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payRun" type="tns:PayRun"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfCreateRunResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfCreateRunResult" nillable="true" type="tns:MessageOfCreateRunResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfCreateRunResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:CreateRunResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MessageType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Error"/>
+          <s:enumeration value="Warning"/>
+          <s:enumeration value="Informational"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CreateRunResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateRunAsync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createRunAsyncRequest" type="tns:CreateRunAsyncRequest"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CreateRunAsyncRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Office" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PayDate" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Period" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Method" nillable="true" type="tns:Method"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DirectRemove" nillable="true" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BankCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DimensionFrom" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DimensionTo" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="MaxDuedate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountDaysTolerance" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomSettings" type="tns:ArrayOfArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateRunAsyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateRunAsyncResult" type="tns:ArrayOfMessageOfCreateRunResult"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payRun" type="tns:PayRun"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateRun2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createRunRequest" type="tns:CreateRunRequest"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CreateRunRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Office" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PayType" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PayDate" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Period" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Method" nillable="true" type="tns:Method"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DirectRemove" nillable="true" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="BankCode" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DimensionFrom" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="DimensionTo" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="MaxDuedate" nillable="true" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountDaysTolerance" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomSettings" type="tns:ArrayOfArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateRun2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateRun2Result" type="tns:ArrayOfMessageOfCreateRunResult"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payRun" type="tns:PayRun"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Modify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="newSummaries" type="tns:ArrayOfSummarySettings"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSummarySettings">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SummarySettings" nillable="true" type="tns:SummarySettings"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SummarySettings">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Relation" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Included" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="tns:ArrayOfDetailSettings"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDetailSettings">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetailSettings" nillable="true" type="tns:DetailSettings"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DetailSettings">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Value" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Included" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" default="0" name="DiscountAmount" type="s:decimal"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ModifyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModifyResult" type="tns:ArrayOfMessageOfModifyResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfModifyResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfModifyResult" nillable="true" type="tns:MessageOfModifyResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfModifyResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:ModifyResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ModifyResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Authorize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthorizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthorizeResult" type="tns:ArrayOfMessageOfAuthoriseResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfAuthoriseResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfAuthoriseResult" nillable="true" type="tns:MessageOfAuthoriseResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfAuthoriseResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:AuthoriseResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AuthoriseResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Post">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostResult" type="tns:ArrayOfMessageOfPostResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfPostResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfPostResult" nillable="true" type="tns:MessageOfPostResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfPostResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:PostResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PostResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PostAsync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostAsyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostAsyncResult" type="tns:ArrayOfMessageOfPostResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="exportSettings" type="tns:ArrayOfArrayOfString"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateFileResult" type="tns:ArrayOfMessageOfCreateFileResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payFile" type="s:base64Binary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfCreateFileResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfCreateFileResult" nillable="true" type="tns:MessageOfCreateFileResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfCreateFileResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:CreateFileResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CreateFileResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateFiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payType" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="exportSettings" type="tns:ArrayOfArrayOfString"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateFilesResult" type="tns:ArrayOfMessageOfCreateFilesResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payFiles" type="tns:ArrayOfBase64Binary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfCreateFilesResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfCreateFilesResult" nillable="true" type="tns:MessageOfCreateFilesResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfCreateFilesResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:CreateFilesResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CreateFilesResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfBase64Binary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="base64Binary" nillable="true" type="s:base64Binary"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Finish">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="payRunCode" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="runId" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="touched" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modified" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FinishResult" type="tns:ArrayOfMessageOfFinishResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfFinishResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfFinishResult" nillable="true" type="tns:MessageOfFinishResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfFinishResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:FinishResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="FinishResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="UnknownTextualMessage"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetRunsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRuns"/>
+  </wsdl:message>
+  <wsdl:message name="GetRunsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRunsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetRunsHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetRunInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRunInfo"/>
+  </wsdl:message>
+  <wsdl:message name="GetRunInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRunInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetRunInfoHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRunSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateRun"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRunSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateRunResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRunHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRunAsyncSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateRunAsync"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRunAsyncSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateRunAsyncResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRunAsyncHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRun2SoapIn">
+    <wsdl:part name="parameters" element="tns:CreateRun2"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRun2SoapOut">
+    <wsdl:part name="parameters" element="tns:CreateRun2Response"/>
+  </wsdl:message>
+  <wsdl:message name="CreateRun2Header">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="ModifySoapIn">
+    <wsdl:part name="parameters" element="tns:Modify"/>
+  </wsdl:message>
+  <wsdl:message name="ModifySoapOut">
+    <wsdl:part name="parameters" element="tns:ModifyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ModifyHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="AuthorizeSoapIn">
+    <wsdl:part name="parameters" element="tns:Authorize"/>
+  </wsdl:message>
+  <wsdl:message name="AuthorizeSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthorizeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AuthorizeHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="PostSoapIn">
+    <wsdl:part name="parameters" element="tns:Post"/>
+  </wsdl:message>
+  <wsdl:message name="PostSoapOut">
+    <wsdl:part name="parameters" element="tns:PostResponse"/>
+  </wsdl:message>
+  <wsdl:message name="PostHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="PostAsyncSoapIn">
+    <wsdl:part name="parameters" element="tns:PostAsync"/>
+  </wsdl:message>
+  <wsdl:message name="PostAsyncSoapOut">
+    <wsdl:part name="parameters" element="tns:PostAsyncResponse"/>
+  </wsdl:message>
+  <wsdl:message name="PostAsyncHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="CreateFileSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateFile"/>
+  </wsdl:message>
+  <wsdl:message name="CreateFileSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateFileResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateFileHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="CreateFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateFiles"/>
+  </wsdl:message>
+  <wsdl:message name="CreateFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateFilesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateFilesHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="FinishSoapIn">
+    <wsdl:part name="parameters" element="tns:Finish"/>
+  </wsdl:message>
+  <wsdl:message name="FinishSoapOut">
+    <wsdl:part name="parameters" element="tns:FinishResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FinishHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:portType name="PayAndCollectSoap">
+    <wsdl:operation name="GetRuns">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reads the existing pay runs from one office.</wsdl:documentation>
+      <wsdl:input message="tns:GetRunsSoapIn"/>
+      <wsdl:output message="tns:GetRunsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reads detailed data of a single pay run.</wsdl:documentation>
+      <wsdl:input message="tns:GetRunInfoSoapIn"/>
+      <wsdl:output message="tns:GetRunInfoSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRun">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creates a new pay run in an office.</wsdl:documentation>
+      <wsdl:input message="tns:CreateRunSoapIn"/>
+      <wsdl:output message="tns:CreateRunSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRunAsync">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creates a new pay run asynchronously in an office.</wsdl:documentation>
+      <wsdl:input message="tns:CreateRunAsyncSoapIn"/>
+      <wsdl:output message="tns:CreateRunAsyncSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRun2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creates a new pay run in an office.</wsdl:documentation>
+      <wsdl:input message="tns:CreateRun2SoapIn"/>
+      <wsdl:output message="tns:CreateRun2SoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Modify">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Changes payment values of an existing pay run.</wsdl:documentation>
+      <wsdl:input message="tns:ModifySoapIn"/>
+      <wsdl:output message="tns:ModifySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Authorize">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Authorises a pay run.</wsdl:documentation>
+      <wsdl:input message="tns:AuthorizeSoapIn"/>
+      <wsdl:output message="tns:AuthorizeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Post">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Posts payments of a pay run to the 'in-transfer' ledger.</wsdl:documentation>
+      <wsdl:input message="tns:PostSoapIn"/>
+      <wsdl:output message="tns:PostSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="PostAsync">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Posts a pay run asynchronously in an office.</wsdl:documentation>
+      <wsdl:input message="tns:PostAsyncSoapIn"/>
+      <wsdl:output message="tns:PostAsyncSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creates a pay file from a pay run.</wsdl:documentation>
+      <wsdl:input message="tns:CreateFileSoapIn"/>
+      <wsdl:output message="tns:CreateFileSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFiles">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creates pay file(s) from a pay run.</wsdl:documentation>
+      <wsdl:input message="tns:CreateFilesSoapIn"/>
+      <wsdl:output message="tns:CreateFilesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Finish">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Closes a pay run.</wsdl:documentation>
+      <wsdl:input message="tns:FinishSoapIn"/>
+      <wsdl:output message="tns:FinishSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PayAndCollectSoap" type="tns:PayAndCollectSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetRuns">
+      <soap:operation soapAction="http://www.twinfield.com/GetRuns" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetRunsHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunInfo">
+      <soap:operation soapAction="http://www.twinfield.com/GetRunInfo" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetRunInfoHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRun">
+      <soap:operation soapAction="http://www.twinfield.com/CreateRun" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CreateRunHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRunAsync">
+      <soap:operation soapAction="http://www.twinfield.com/CreateRunAsync" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CreateRunAsyncHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRun2">
+      <soap:operation soapAction="http://www.twinfield.com/CreateRun2" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CreateRun2Header" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Modify">
+      <soap:operation soapAction="http://www.twinfield.com/Modify" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:ModifyHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authorize">
+      <soap:operation soapAction="http://www.twinfield.com/Authorize" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:AuthorizeHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Post">
+      <soap:operation soapAction="http://www.twinfield.com/Post" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:PostHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostAsync">
+      <soap:operation soapAction="http://www.twinfield.com/PostAsync" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:PostAsyncHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFile">
+      <soap:operation soapAction="http://www.twinfield.com/CreateFile" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CreateFileHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFiles">
+      <soap:operation soapAction="http://www.twinfield.com/CreateFiles" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CreateFilesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Finish">
+      <soap:operation soapAction="http://www.twinfield.com/Finish" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:FinishHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PayAndCollectSoap12" type="tns:PayAndCollectSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetRuns">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRuns" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetRunsHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunInfo">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRunInfo" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetRunInfoHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRun">
+      <soap12:operation soapAction="http://www.twinfield.com/CreateRun" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CreateRunHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRunAsync">
+      <soap12:operation soapAction="http://www.twinfield.com/CreateRunAsync" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CreateRunAsyncHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRun2">
+      <soap12:operation soapAction="http://www.twinfield.com/CreateRun2" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CreateRun2Header" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Modify">
+      <soap12:operation soapAction="http://www.twinfield.com/Modify" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ModifyHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authorize">
+      <soap12:operation soapAction="http://www.twinfield.com/Authorize" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:AuthorizeHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Post">
+      <soap12:operation soapAction="http://www.twinfield.com/Post" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:PostHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostAsync">
+      <soap12:operation soapAction="http://www.twinfield.com/PostAsync" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:PostAsyncHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFile">
+      <soap12:operation soapAction="http://www.twinfield.com/CreateFile" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CreateFileHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFiles">
+      <soap12:operation soapAction="http://www.twinfield.com/CreateFiles" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CreateFilesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Finish">
+      <soap12:operation soapAction="http://www.twinfield.com/Finish" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:FinishHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PayAndCollect">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Pay and Collect web service methods.</wsdl:documentation>
+    <wsdl:port name="PayAndCollectSoap" binding="tns:PayAndCollectSoap">
+      <soap:address location="https://accounting2.twinfield.com/webservices/payandcollect.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="PayAndCollectSoap12" binding="tns:PayAndCollectSoap12">
+      <soap12:address location="https://accounting2.twinfield.com/webservices/payandcollect.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

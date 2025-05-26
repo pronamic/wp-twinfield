@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.twinfield.com/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Process XML web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/"/>
+      <s:element name="ProcessXmlString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlRequest" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessXmlStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessXmlStringResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Header" type="tns:Header"/>
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s1:guid"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+      <s:element name="ProcessXmlDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlRequest">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessXmlDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessXmlDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessXmlCompressed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlRequest" type="s:base64Binary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessXmlCompressedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessXmlCompressedResult" type="s:base64Binary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ProcessXmlStringSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessXmlString"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlStringSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessXmlStringResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlStringHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessXmlDocument"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessXmlDocumentResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlDocumentHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlCompressedSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessXmlCompressed"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlCompressedSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessXmlCompressedResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ProcessXmlCompressedHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:portType name="ProcessXmlSoap">
+    <wsdl:operation name="ProcessXmlString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Processes xml in string format.</wsdl:documentation>
+      <wsdl:input message="tns:ProcessXmlStringSoapIn"/>
+      <wsdl:output message="tns:ProcessXmlStringSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessXmlDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Processes xml in document object model format.</wsdl:documentation>
+      <wsdl:input message="tns:ProcessXmlDocumentSoapIn"/>
+      <wsdl:output message="tns:ProcessXmlDocumentSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessXmlCompressed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Processes a G-zipped UTF-8 XML string and returns a G-zipped UTF-8 result.</wsdl:documentation>
+      <wsdl:input message="tns:ProcessXmlCompressedSoapIn"/>
+      <wsdl:output message="tns:ProcessXmlCompressedSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProcessXmlSoap" type="tns:ProcessXmlSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ProcessXmlString">
+      <soap:operation soapAction="http://www.twinfield.com/ProcessXmlString" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:ProcessXmlStringHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessXmlDocument">
+      <soap:operation soapAction="http://www.twinfield.com/ProcessXmlDocument" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:ProcessXmlDocumentHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessXmlCompressed">
+      <soap:operation soapAction="http://www.twinfield.com/ProcessXmlCompressed" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:ProcessXmlCompressedHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProcessXmlSoap12" type="tns:ProcessXmlSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ProcessXmlString">
+      <soap12:operation soapAction="http://www.twinfield.com/ProcessXmlString" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ProcessXmlStringHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessXmlDocument">
+      <soap12:operation soapAction="http://www.twinfield.com/ProcessXmlDocument" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ProcessXmlDocumentHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessXmlCompressed">
+      <soap12:operation soapAction="http://www.twinfield.com/ProcessXmlCompressed" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ProcessXmlCompressedHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProcessXml">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Process XML web service methods.</wsdl:documentation>
+    <wsdl:port name="ProcessXmlSoap" binding="tns:ProcessXmlSoap">
+      <soap:address location="https://accounting.twinfield.com/webservices/processxml.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="ProcessXmlSoap12" binding="tns:ProcessXmlSoap12">
+      <soap12:address location="https://accounting.twinfield.com/webservices/processxml.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

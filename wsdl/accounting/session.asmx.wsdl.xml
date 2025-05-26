@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.twinfield.com/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield session web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/"/>
+      <s:element name="Logon">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="organisation" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogonResult" type="tns:LogonResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="nextAction" type="tns:LogonAction"/>
+            <s:element minOccurs="0" maxOccurs="1" name="cluster" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="LogonResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="Blocked"/>
+          <s:enumeration value="Untrusted"/>
+          <s:enumeration value="Invalid"/>
+          <s:enumeration value="Deleted"/>
+          <s:enumeration value="Disabled"/>
+          <s:enumeration value="OrganisationInactive"/>
+          <s:enumeration value="ClientInvalid"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="LogonAction">
+        <s:restriction base="s:string">
+          <s:enumeration value="None"/>
+          <s:enumeration value="SMSLogon"/>
+          <s:enumeration value="ChangePassword"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Header" type="tns:Header"/>
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s1:guid"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+      <s:element name="SmsLogon">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="smsCode" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SmsLogonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SmsLogonResult" type="tns:SMSLogonResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="nextAction" type="tns:LogonAction"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="SMSLogonResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="Invalid"/>
+          <s:enumeration value="TimeOut"/>
+          <s:enumeration value="Disabled"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SmsSendCode">
+        <s:complexType/>
+      </s:element>
+      <s:element name="SmsSendCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SmsSendCodeResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="currentPassword" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="newPassword" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChangePasswordResult" type="tns:ChangePasswordResult"/>
+            <s:element minOccurs="1" maxOccurs="1" name="nextAction" type="tns:LogonAction"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="ChangePasswordResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="Invalid"/>
+          <s:enumeration value="NotDifferent"/>
+          <s:enumeration value="NotSecure"/>
+          <s:enumeration value="Disabled"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SelectCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SelectCompanyResult" type="tns:SelectCompanyResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="SelectCompanyResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="Invalid"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="KeepAlive">
+        <s:complexType/>
+      </s:element>
+      <s:element name="KeepAliveResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="Abandon">
+        <s:complexType/>
+      </s:element>
+      <s:element name="AbandonResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetRole">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoleResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LogonSoapIn">
+    <wsdl:part name="parameters" element="tns:Logon"/>
+  </wsdl:message>
+  <wsdl:message name="LogonSoapOut">
+    <wsdl:part name="parameters" element="tns:LogonResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LogonHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="SmsLogonSoapIn">
+    <wsdl:part name="parameters" element="tns:SmsLogon"/>
+  </wsdl:message>
+  <wsdl:message name="SmsLogonSoapOut">
+    <wsdl:part name="parameters" element="tns:SmsLogonResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SmsLogonHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="SmsSendCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SmsSendCode"/>
+  </wsdl:message>
+  <wsdl:message name="SmsSendCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SmsSendCodeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SmsSendCodeHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePassword"/>
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="SelectCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:SelectCompany"/>
+  </wsdl:message>
+  <wsdl:message name="SelectCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:SelectCompanyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SelectCompanyHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="KeepAliveSoapIn">
+    <wsdl:part name="parameters" element="tns:KeepAlive"/>
+  </wsdl:message>
+  <wsdl:message name="KeepAliveSoapOut">
+    <wsdl:part name="parameters" element="tns:KeepAliveResponse"/>
+  </wsdl:message>
+  <wsdl:message name="KeepAliveHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="AbandonSoapIn">
+    <wsdl:part name="parameters" element="tns:Abandon"/>
+  </wsdl:message>
+  <wsdl:message name="AbandonSoapOut">
+    <wsdl:part name="parameters" element="tns:AbandonResponse"/>
+  </wsdl:message>
+  <wsdl:message name="AbandonHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRole"/>
+  </wsdl:message>
+  <wsdl:message name="GetRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoleResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetRoleHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:portType name="SessionSoap">
+    <wsdl:operation name="Logon">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Logs on with the user credentials.</wsdl:documentation>
+      <wsdl:input message="tns:LogonSoapIn"/>
+      <wsdl:output message="tns:LogonSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="SmsLogon">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Logs on with the sms code.</wsdl:documentation>
+      <wsdl:input message="tns:SmsLogonSoapIn"/>
+      <wsdl:output message="tns:SmsLogonSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="SmsSendCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sends the sms code.</wsdl:documentation>
+      <wsdl:input message="tns:SmsSendCodeSoapIn"/>
+      <wsdl:output message="tns:SmsSendCodeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Changes the password.</wsdl:documentation>
+      <wsdl:input message="tns:ChangePasswordSoapIn"/>
+      <wsdl:output message="tns:ChangePasswordSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCompany">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Selects a company.</wsdl:documentation>
+      <wsdl:input message="tns:SelectCompanySoapIn"/>
+      <wsdl:output message="tns:SelectCompanySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="KeepAlive">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Keeps the session alive.</wsdl:documentation>
+      <wsdl:input message="tns:KeepAliveSoapIn"/>
+      <wsdl:output message="tns:KeepAliveSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Abandon">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Abandons the session.</wsdl:documentation>
+      <wsdl:input message="tns:AbandonSoapIn"/>
+      <wsdl:output message="tns:AbandonSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the session's user role.</wsdl:documentation>
+      <wsdl:input message="tns:GetRoleSoapIn"/>
+      <wsdl:output message="tns:GetRoleSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SessionSoap" type="tns:SessionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Logon">
+      <soap:operation soapAction="http://www.twinfield.com/Logon" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LogonHeader" part="Header" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SmsLogon">
+      <soap:operation soapAction="http://www.twinfield.com/SmsLogon" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SmsLogonHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SmsSendCode">
+      <soap:operation soapAction="http://www.twinfield.com/SmsSendCode" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SmsSendCodeHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://www.twinfield.com/ChangePassword" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:ChangePasswordHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCompany">
+      <soap:operation soapAction="http://www.twinfield.com/SelectCompany" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:SelectCompanyHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KeepAlive">
+      <soap:operation soapAction="http://www.twinfield.com/KeepAlive" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:KeepAliveHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Abandon">
+      <soap:operation soapAction="http://www.twinfield.com/Abandon" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:AbandonHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRole">
+      <soap:operation soapAction="http://www.twinfield.com/GetRole" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetRoleHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SessionSoap12" type="tns:SessionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Logon">
+      <soap12:operation soapAction="http://www.twinfield.com/Logon" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LogonHeader" part="Header" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SmsLogon">
+      <soap12:operation soapAction="http://www.twinfield.com/SmsLogon" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:SmsLogonHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SmsSendCode">
+      <soap12:operation soapAction="http://www.twinfield.com/SmsSendCode" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:SmsSendCodeHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap12:operation soapAction="http://www.twinfield.com/ChangePassword" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ChangePasswordHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCompany">
+      <soap12:operation soapAction="http://www.twinfield.com/SelectCompany" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:SelectCompanyHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KeepAlive">
+      <soap12:operation soapAction="http://www.twinfield.com/KeepAlive" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:KeepAliveHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Abandon">
+      <soap12:operation soapAction="http://www.twinfield.com/Abandon" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:AbandonHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRole">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRole" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetRoleHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Session">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield session web service methods.</wsdl:documentation>
+    <wsdl:port name="SessionSoap" binding="tns:SessionSoap">
+      <soap:address location="https://accounting.twinfield.com/webservices/session.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="SessionSoap12" binding="tns:SessionSoap12">
+      <soap12:address location="https://accounting.twinfield.com/webservices/session.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

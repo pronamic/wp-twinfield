@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.twinfield.com/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Matching web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/"/>
+      <s:element name="UndoMatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="office" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="dimensionType" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="dimension" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="matchNumber" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UndoMatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UndoMatchResult" type="tns:ArrayOfMessageOfUndoSetByTypeResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfUndoSetByTypeResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfUndoSetByTypeResult" nillable="true" type="tns:MessageOfUndoSetByTypeResult"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfUndoSetByTypeResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:UndoSetByTypeResult"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MessageType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Error"/>
+          <s:enumeration value="Warning"/>
+          <s:enumeration value="Informational"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="UndoSetByTypeResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="DimensionNotFoundByType"/>
+          <s:enumeration value="DimensionDeleted"/>
+          <s:enumeration value="DimensionNotFoundByLevel"/>
+          <s:enumeration value="MatchNotFound"/>
+          <s:enumeration value="MatchingTransactionsCouldNotBeDeleted"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header"/>
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s1:guid"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UndoMatchSoapIn">
+    <wsdl:part name="parameters" element="tns:UndoMatch"/>
+  </wsdl:message>
+  <wsdl:message name="UndoMatchSoapOut">
+    <wsdl:part name="parameters" element="tns:UndoMatchResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UndoMatchHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:portType name="MatchingSoap">
+    <wsdl:operation name="UndoMatch">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reverts a match based on dimension and match number.</wsdl:documentation>
+      <wsdl:input message="tns:UndoMatchSoapIn"/>
+      <wsdl:output message="tns:UndoMatchSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MatchingSoap" type="tns:MatchingSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="UndoMatch">
+      <soap:operation soapAction="http://www.twinfield.com/UndoMatch" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:UndoMatchHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MatchingSoap12" type="tns:MatchingSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="UndoMatch">
+      <soap12:operation soapAction="http://www.twinfield.com/UndoMatch" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:UndoMatchHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Matching">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Matching web service methods.</wsdl:documentation>
+    <wsdl:port name="MatchingSoap" binding="tns:MatchingSoap">
+      <soap:address location="https://accounting.twinfield.com/webservices/matching.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="MatchingSoap12" binding="tns:MatchingSoap12">
+      <soap12:address location="https://accounting.twinfield.com/webservices/matching.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
