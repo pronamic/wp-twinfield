@@ -14,24 +14,48 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download WSDL files
+      - name: Download and format all Twinfield WSDLs
         run: |
-          mkdir -p wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/BankBookService.svc?wsdl" --output wsdl/BankBookService.svc.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/BankStatementService.svc?wsdl" --output wsdl/BankStatementService.svc.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/CashBookService.svc?wsdl" --output wsdl/CashBookService.svc.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/declarations.asmx?wsdl" --output wsdl/declarations.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/DocumentService.svc?wsdl" --output wsdl/DocumentService.svc.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/ebankstatements.asmx?wsdl" --output wsdl/ebankstatements.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/finder.asmx?wsdl" --output wsdl/finder.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/hierarchies.asmx?wsdl" --output wsdl/hierarchies.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/matching.asmx?wsdl" --output wsdl/matching.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/payandcollect.asmx?wsdl" --output wsdl/payandcollect.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/PeriodService.svc?wsdl" --output wsdl/PeriodService.svc.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/processxml.asmx?wsdl" --output wsdl/processxml.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/sbr.asmx?wsdl" --output wsdl/sbr.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/session.asmx?wsdl" --output wsdl/session.asmx.wsdl
-          curl --fail "https://accounting.twinfield.com/webservices/versions.asmx?wsdl" --output wsdl/versions.asmx.wsdl
+          set -e
+
+          services=(
+            "BankBookService.svc",
+            "BankStatementService.svc",
+            "CashBookService.svc",
+            "declarations.asmx",
+            "DocumentService.svc",
+            "ebankstatements.asmx",
+            "finder.asmx",
+            "hierarchies.asmx",
+            "matching.asmx",
+            "payandcollect.asmx",
+            "PeriodService.svc",
+            "processxml.asmx",
+            "sbr.asmx",
+            "session.asmx",
+            "versions.asmx"
+          )
+
+          hosts=(
+            "accounting"
+            "accounting2"
+          )
+
+          for host in "${hosts[@]}"; do
+            for service in "${services[@]}"; do
+              dir="wsdl/${host}"
+              mkdir -p "${dir}"
+
+              file="wsdl/${host}/${service}.wsdl.xml"
+              url="https://${host}.twinfield.com/webservices/${service}?wsdl"
+
+              echo "Downloading: ${url}"
+              curl --fail "${url}" --output "${file}"
+
+              echo "Formatting: ${file}"
+              xmllint --format "${file}" --output "${file}"
+            done
+          done
 
       - name: Configure Git
         run: |
