@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.twinfield.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.twinfield.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Documents web service methods.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.twinfield.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetAllSummaries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="declarationYear" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSummariesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllSummariesResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn" type="tns:ArrayOfDeclarationSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfLoadMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfLoadMessage" nillable="true" type="tns:MessageOfLoadMessage" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfLoadMessage">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:LoadMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MessageType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Error" />
+          <s:enumeration value="Warning" />
+          <s:enumeration value="Informational" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="LoadMessage">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoAccess" />
+          <s:enumeration value="InvalidCode" />
+          <s:enumeration value="InvalidParameter" />
+          <s:enumeration value="NotSupported" />
+          <s:enumeration value="InvalidDocumentType" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeclarationSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DeclarationSummary" nillable="true" type="tns:DeclarationSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DeclarationSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentTimeFrame" type="tns:DocumentTimeFrame" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:DocumentStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Assignee" type="tns:CodeName" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="tns:CodeName" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentTimeFrame">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Period" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StepIndex" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtraInformation" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CodeName">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header" />
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyId" nillable="true" type="s1:guid" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetRangeOfSummaries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="startIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRangeOfSummariesResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn" type="tns:ArrayOfDeclarationSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNumberOfDeclarations">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNumberOfDeclarationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNumberOfDeclarationsResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="1" maxOccurs="1" name="numberOfVatReturns" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVatReturnAsXbrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isMessageIdRequired" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVatReturnAsXbrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVatReturnAsXbrlResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVatReturnAsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVatReturnAsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVatReturnAsXmlResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVatReturnPaymentReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVatReturnPaymentReferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVatReturnPaymentReferenceResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentReference" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIctReturnAsXbrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isMessageIdRequired" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIctReturnAsXbrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIctReturnAsXbrlResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIctReturnAsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIctReturnAsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIctReturnAsXmlResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaxGroupVatReturnAsXbrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isMessageIdRequired" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaxGroupVatReturnAsXbrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTaxGroupVatReturnAsXbrlResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaxGroupVatReturnAsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaxGroupVatReturnAsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTaxGroupVatReturnAsXmlResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaxGroupVatReturnPaymentReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaxGroupVatReturnPaymentReferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTaxGroupVatReturnPaymentReferenceResult" type="tns:ArrayOfMessageOfLoadMessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentReference" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetToSent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetToSentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetToSentResult" type="tns:ArrayOfMessageOfSetStatusMessages" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMessageOfSetStatusMessages">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageOfSetStatusMessages" nillable="true" type="tns:MessageOfSetStatusMessages" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageOfSetStatusMessages">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:MessageType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="tns:SetStatusMessages" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="SetStatusMessages">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoAccess" />
+          <s:enumeration value="DocumentDoesNotExist" />
+          <s:enumeration value="StartStatusInCorrectForTransition" />
+          <s:enumeration value="UnableToPerformTransition" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SetToApproved">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetToApprovedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetToApprovedResult" type="tns:ArrayOfMessageOfSetStatusMessages" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetToRejected">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="reason" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetToRejectedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetToRejectedResult" type="tns:ArrayOfMessageOfSetStatusMessages" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAllSummariesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllSummaries" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSummariesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllSummariesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSummariesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummaries" />
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetNumberOfDeclarationsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNumberOfDeclarations" />
+  </wsdl:message>
+  <wsdl:message name="GetNumberOfDeclarationsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNumberOfDeclarationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNumberOfDeclarationsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnAsXbrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVatReturnAsXbrl" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnAsXbrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVatReturnAsXbrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnAsXbrlHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnAsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVatReturnAsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnAsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVatReturnAsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnAsXmlHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnPaymentReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVatReturnPaymentReference" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnPaymentReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVatReturnPaymentReferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVatReturnPaymentReferenceHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetIctReturnAsXbrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIctReturnAsXbrl" />
+  </wsdl:message>
+  <wsdl:message name="GetIctReturnAsXbrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIctReturnAsXbrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIctReturnAsXbrlHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetIctReturnAsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIctReturnAsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetIctReturnAsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIctReturnAsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIctReturnAsXmlHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnAsXbrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTaxGroupVatReturnAsXbrl" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnAsXbrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTaxGroupVatReturnAsXbrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnAsXbrlHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnAsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTaxGroupVatReturnAsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnAsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTaxGroupVatReturnAsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnAsXmlHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnPaymentReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTaxGroupVatReturnPaymentReference" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnPaymentReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTaxGroupVatReturnPaymentReferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTaxGroupVatReturnPaymentReferenceHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="SetToSentSoapIn">
+    <wsdl:part name="parameters" element="tns:SetToSent" />
+  </wsdl:message>
+  <wsdl:message name="SetToSentSoapOut">
+    <wsdl:part name="parameters" element="tns:SetToSentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetToSentHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="SetToApprovedSoapIn">
+    <wsdl:part name="parameters" element="tns:SetToApproved" />
+  </wsdl:message>
+  <wsdl:message name="SetToApprovedSoapOut">
+    <wsdl:part name="parameters" element="tns:SetToApprovedResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetToApprovedHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="SetToRejectedSoapIn">
+    <wsdl:part name="parameters" element="tns:SetToRejected" />
+  </wsdl:message>
+  <wsdl:message name="SetToRejectedSoapOut">
+    <wsdl:part name="parameters" element="tns:SetToRejectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetToRejectedHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:portType name="DeclarationsSoap">
+    <wsdl:operation name="GetAllSummaries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns all the declaration summaries for a given company.</wsdl:documentation>
+      <wsdl:input message="tns:GetAllSummariesSoapIn" />
+      <wsdl:output message="tns:GetAllSummariesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummaries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a range of declaration summaries for a given company.</wsdl:documentation>
+      <wsdl:input message="tns:GetRangeOfSummariesSoapIn" />
+      <wsdl:output message="tns:GetRangeOfSummariesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNumberOfDeclarations">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns number of declarations for the given company.</wsdl:documentation>
+      <wsdl:input message="tns:GetNumberOfDeclarationsSoapIn" />
+      <wsdl:output message="tns:GetNumberOfDeclarationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnAsXbrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Vat return declaration details in Xbrl format.</wsdl:documentation>
+      <wsdl:input message="tns:GetVatReturnAsXbrlSoapIn" />
+      <wsdl:output message="tns:GetVatReturnAsXbrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnAsXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Vat return declaration details in Xml format.</wsdl:documentation>
+      <wsdl:input message="tns:GetVatReturnAsXmlSoapIn" />
+      <wsdl:output message="tns:GetVatReturnAsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnPaymentReference">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Vat return declaration payment reference.</wsdl:documentation>
+      <wsdl:input message="tns:GetVatReturnPaymentReferenceSoapIn" />
+      <wsdl:output message="tns:GetVatReturnPaymentReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIctReturnAsXbrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Ict return declaration details in Xbrl format.</wsdl:documentation>
+      <wsdl:input message="tns:GetIctReturnAsXbrlSoapIn" />
+      <wsdl:output message="tns:GetIctReturnAsXbrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIctReturnAsXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Ict return declaration details in Xml format.</wsdl:documentation>
+      <wsdl:input message="tns:GetIctReturnAsXmlSoapIn" />
+      <wsdl:output message="tns:GetIctReturnAsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnAsXbrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns tax group vat return declaration details in Xbrl format.</wsdl:documentation>
+      <wsdl:input message="tns:GetTaxGroupVatReturnAsXbrlSoapIn" />
+      <wsdl:output message="tns:GetTaxGroupVatReturnAsXbrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnAsXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns tax group vat return declaration details in Xml format.</wsdl:documentation>
+      <wsdl:input message="tns:GetTaxGroupVatReturnAsXmlSoapIn" />
+      <wsdl:output message="tns:GetTaxGroupVatReturnAsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnPaymentReference">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns tax group vat return declaration payment reference.</wsdl:documentation>
+      <wsdl:input message="tns:GetTaxGroupVatReturnPaymentReferenceSoapIn" />
+      <wsdl:output message="tns:GetTaxGroupVatReturnPaymentReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetToSent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets the declaration status to Sent.</wsdl:documentation>
+      <wsdl:input message="tns:SetToSentSoapIn" />
+      <wsdl:output message="tns:SetToSentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetToApproved">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets the declaration status to Approved.</wsdl:documentation>
+      <wsdl:input message="tns:SetToApprovedSoapIn" />
+      <wsdl:output message="tns:SetToApprovedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetToRejected">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets the declaration status to Rejected.</wsdl:documentation>
+      <wsdl:input message="tns:SetToRejectedSoapIn" />
+      <wsdl:output message="tns:SetToRejectedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeclarationsSoap" type="tns:DeclarationsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllSummaries">
+      <soap:operation soapAction="http://www.twinfield.com/GetAllSummaries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAllSummariesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummaries">
+      <soap:operation soapAction="http://www.twinfield.com/GetRangeOfSummaries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRangeOfSummariesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNumberOfDeclarations">
+      <soap:operation soapAction="http://www.twinfield.com/GetNumberOfDeclarations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetNumberOfDeclarationsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnAsXbrl">
+      <soap:operation soapAction="http://www.twinfield.com/GetVatReturnAsXbrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetVatReturnAsXbrlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnAsXml">
+      <soap:operation soapAction="http://www.twinfield.com/GetVatReturnAsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetVatReturnAsXmlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnPaymentReference">
+      <soap:operation soapAction="http://www.twinfield.com/GetVatReturnPaymentReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetVatReturnPaymentReferenceHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIctReturnAsXbrl">
+      <soap:operation soapAction="http://www.twinfield.com/GetIctReturnAsXbrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetIctReturnAsXbrlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIctReturnAsXml">
+      <soap:operation soapAction="http://www.twinfield.com/GetIctReturnAsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetIctReturnAsXmlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnAsXbrl">
+      <soap:operation soapAction="http://www.twinfield.com/GetTaxGroupVatReturnAsXbrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTaxGroupVatReturnAsXbrlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnAsXml">
+      <soap:operation soapAction="http://www.twinfield.com/GetTaxGroupVatReturnAsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTaxGroupVatReturnAsXmlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnPaymentReference">
+      <soap:operation soapAction="http://www.twinfield.com/GetTaxGroupVatReturnPaymentReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTaxGroupVatReturnPaymentReferenceHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetToSent">
+      <soap:operation soapAction="http://www.twinfield.com/SetToSent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetToSentHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetToApproved">
+      <soap:operation soapAction="http://www.twinfield.com/SetToApproved" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetToApprovedHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetToRejected">
+      <soap:operation soapAction="http://www.twinfield.com/SetToRejected" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetToRejectedHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DeclarationsSoap12" type="tns:DeclarationsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllSummaries">
+      <soap12:operation soapAction="http://www.twinfield.com/GetAllSummaries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAllSummariesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummaries">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRangeOfSummaries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRangeOfSummariesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNumberOfDeclarations">
+      <soap12:operation soapAction="http://www.twinfield.com/GetNumberOfDeclarations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetNumberOfDeclarationsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnAsXbrl">
+      <soap12:operation soapAction="http://www.twinfield.com/GetVatReturnAsXbrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetVatReturnAsXbrlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnAsXml">
+      <soap12:operation soapAction="http://www.twinfield.com/GetVatReturnAsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetVatReturnAsXmlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVatReturnPaymentReference">
+      <soap12:operation soapAction="http://www.twinfield.com/GetVatReturnPaymentReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetVatReturnPaymentReferenceHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIctReturnAsXbrl">
+      <soap12:operation soapAction="http://www.twinfield.com/GetIctReturnAsXbrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetIctReturnAsXbrlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIctReturnAsXml">
+      <soap12:operation soapAction="http://www.twinfield.com/GetIctReturnAsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetIctReturnAsXmlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnAsXbrl">
+      <soap12:operation soapAction="http://www.twinfield.com/GetTaxGroupVatReturnAsXbrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTaxGroupVatReturnAsXbrlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnAsXml">
+      <soap12:operation soapAction="http://www.twinfield.com/GetTaxGroupVatReturnAsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTaxGroupVatReturnAsXmlHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaxGroupVatReturnPaymentReference">
+      <soap12:operation soapAction="http://www.twinfield.com/GetTaxGroupVatReturnPaymentReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTaxGroupVatReturnPaymentReferenceHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetToSent">
+      <soap12:operation soapAction="http://www.twinfield.com/SetToSent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetToSentHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetToApproved">
+      <soap12:operation soapAction="http://www.twinfield.com/SetToApproved" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetToApprovedHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetToRejected">
+      <soap12:operation soapAction="http://www.twinfield.com/SetToRejected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetToRejectedHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Declarations">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Twinfield Documents web service methods.</wsdl:documentation>
+    <wsdl:port name="DeclarationsSoap" binding="tns:DeclarationsSoap">
+      <soap:address location="https://accounting.twinfield.com/webservices/declarations.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DeclarationsSoap12" binding="tns:DeclarationsSoap12">
+      <soap12:address location="https://accounting.twinfield.com/webservices/declarations.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
