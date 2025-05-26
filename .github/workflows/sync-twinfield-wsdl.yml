@@ -18,27 +18,27 @@ jobs:
         run: |
           set -e
 
-          services=(
-            "BankBookService.svc",
-            "BankStatementService.svc",
-            "CashBookService.svc",
-            "declarations.asmx",
-            "DocumentService.svc",
-            "ebankstatements.asmx",
-            "finder.asmx",
-            "hierarchies.asmx",
-            "matching.asmx",
-            "payandcollect.asmx",
-            "PeriodService.svc",
-            "processxml.asmx",
-            "sbr.asmx",
-            "session.asmx",
-            "versions.asmx"
-          )
-
           hosts=(
             "accounting"
             "accounting2"
+          )
+
+          services=(
+            "BankBookService.svc"
+            "BankStatementService.svc"
+            "CashBookService.svc"
+            "declarations.asmx"
+            "DocumentService.svc"
+            "ebankstatements.asmx"
+            "finder.asmx"
+            "hierarchies.asmx"
+            "matching.asmx"
+            "payandcollect.asmx"
+            "PeriodService.svc"
+            "processxml.asmx"
+            "sbr.asmx"
+            "session.asmx"
+            "versions.asmx"
           )
 
           for host in "${hosts[@]}"; do
