@@ -156,7 +156,7 @@ class SaveBankStatementController {
 			SELECT
 				office.code AS office_code,
 				MIN( bank_statement.date ) AS start_date,
-				LEAST( DATE_ADD( MIN( bank_statement.date ), INTERVAL 1 MONTH ), MAX( bank_statement.date ) ) AS end_date
+				LEAST( DATE_ADD( MIN( bank_statement.date ), INTERVAL 3 MONTH ), MAX( bank_statement.date ) ) AS end_date
 			FROM
 				wp_twinfield_bank_statements AS bank_statement
 					INNER JOIN
