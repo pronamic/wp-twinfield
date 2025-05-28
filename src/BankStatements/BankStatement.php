@@ -19,63 +19,63 @@ use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
 class BankStatement implements JsonSerializable {
 	/**
 	 * Bank code.
-	 * 
+	 *
 	 * @var string
 	 */
 	private $code;
 
 	/**
 	 * Statement number.
-	 * 
+	 *
 	 * @var int
 	 */
 	private $number;
 
 	/**
 	 * Sub identifier in case the same statement number is imported twice.
-	 * 
+	 *
 	 * @var int
 	 */
 	private $sub_id;
 
 	/**
 	 * Basic bank account number (BBAN).
-	 * 
+	 *
 	 * @var string
 	 */
 	private $account_number;
 
 	/**
 	 * International bank account number (IBAN).
-	 * 
+	 *
 	 * @var string
 	 */
 	private $iban;
 
 	/**
 	 * Statement date.
-	 * 
+	 *
 	 * @var DateTimeInterface
 	 */
 	private $date;
 
 	/**
 	 * Currency of the amounts. For instance "EUR".
-	 * 
+	 *
 	 * @var string
 	 */
 	private $currency;
 
 	/**
 	 * Opening balance amount.
-	 * 
+	 *
 	 * @var string
 	 */
 	private $opening_balance;
 
 	/**
 	 * Closing balance amount.
-	 * 
+	 *
 	 * @var string
 	 */
 	private $closing_balance;
@@ -89,14 +89,14 @@ class BankStatement implements JsonSerializable {
 
 	/**
 	 * Transaction number in case the statement is posted, else value will be null.
-	 * 
+	 *
 	 * @var float|null
 	 */
-	private $transaction_number;
+	public $transaction_number;
 
 	/**
 	 * Construct bank statement.
-	 * 
+	 *
 	 * @param string            $code            Code.
 	 * @param int               $number          Number.
 	 * @param int               $sub_id          Sub ID.
@@ -123,7 +123,7 @@ class BankStatement implements JsonSerializable {
 
 	/**
 	 * Get bank statement date.
-	 * 
+	 *
 	 * @return DateTimeInterface
 	 */
 	public function get_date() {
@@ -132,7 +132,7 @@ class BankStatement implements JsonSerializable {
 
 	/**
 	 * Get bank statement lines.
-	 * 
+	 *
 	 * @return BankStatementLine[]
 	 */
 	public function get_lines() {
@@ -141,7 +141,7 @@ class BankStatement implements JsonSerializable {
 
 	/**
 	 * From Twinfield object.
-	 * 
+	 *
 	 * @param object $value Object.
 	 */
 	public static function from_twinfield_object( $value ) {

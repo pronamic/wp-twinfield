@@ -34,7 +34,7 @@ class Plugin {
 
 	/**
 	 * Controllers.
-	 * 
+	 *
 	 * @var array
 	 */
 	private $controllers = [];
@@ -188,6 +188,7 @@ class Plugin {
 				is_demo TINYINT(1) DEFAULT NULL,
 				is_template TINYINT(1) DEFAULT NULL,
 				xml LONGTEXT NOT NULL,
+				local_status VARCHAR(20) DEFAULT '',
 				PRIMARY KEY  ( id ),
 				KEY organisation_id ( organisation_id ),
 				UNIQUE KEY code ( organisation_id, code )
@@ -208,6 +209,7 @@ class Plugin {
 				opening_balance DECIMAL(15,2) NOT NULL,
 				closing_balance DECIMAL(15,2) NOT NULL,
 				transaction_number VARCHAR(16),
+				local_status VARCHAR(20) DEFAULT '',
 				PRIMARY KEY  (id),
 				KEY office_id ( office_id ),
 				KEY code ( office_id, code ),
@@ -276,7 +278,7 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" 
+		"
 		);
 
 		$wpdb->query(
@@ -288,7 +290,7 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" 
+		"
 		);
 
 		$wpdb->query(
@@ -300,7 +302,7 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" 
+		"
 		);
 
 		$wpdb->query(
@@ -312,7 +314,7 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" 
+		"
 		);
 
 		$wpdb->query(
@@ -324,7 +326,7 @@ class Plugin {
 			ON DELETE RESTRICT
 			ON UPDATE RESTRICT
 			;
-		" 
+		"
 		);
 
 		\update_option( 'pronamic_twinfield_db_version', $version );
@@ -557,7 +559,7 @@ class Plugin {
 				}
 
 				include __DIR__ . '/../../templates/index.php';
-				
+
 				break;
 		}
 
@@ -625,7 +627,7 @@ class Plugin {
 
 	/**
 	 * Get entity manager.
-	 * 
+	 *
 	 * @return EntityManager
 	 */
 	public function get_orm() {

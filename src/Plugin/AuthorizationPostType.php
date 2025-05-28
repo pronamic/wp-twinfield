@@ -24,7 +24,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Plugin.
-	 * 
+	 *
 	 * @var Plugin
 	 */
 	public $plugin;
@@ -97,7 +97,7 @@ class AuthorizationPostType {
 				'public'       => true,
 				/**
 				 * Hierarchical is required for usage in `wp_dropdown_pages`.
-				 * 
+				 *
 				 * @link https://developer.wordpress.org/reference/functions/register_post_type/#hierarchical
 				 * @link https://developer.wordpress.org/reference/functions/wp_dropdown_pages/
 				 */
@@ -112,7 +112,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Add meta boxes.
-	 * 
+	 *
 	 * @param string  $post_type Post type.
 	 * @param WP_Post $post      Post object.
 	 */
@@ -180,7 +180,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Maybe set default authorization.
-	 * 
+	 *
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L42
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L103-L124
 	 * @param int $post_id Post ID.
@@ -226,7 +226,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Meta box authorize.
-	 * 
+	 *
 	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
 	 * @param WP_Post $post Post.
 	 * @param array   $box  Box.
@@ -239,7 +239,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Meta box authentication.
-	 * 
+	 *
 	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
 	 * @param WP_Post $post Post.
 	 * @param array   $box  Box.
@@ -252,7 +252,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Meta box menu.
-	 * 
+	 *
 	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
 	 * @param WP_Post $post Post.
 	 * @param array   $box  Box.
@@ -265,7 +265,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Get schedule data.
-	 * 
+	 *
 	 * @return []
 	 */
 	private function get_schedule_data() {
@@ -285,12 +285,17 @@ class AuthorizationPostType {
 				'label'    => \__( 'Bank statements', 'pronamic-twinfield' ),
 				'hook'     => 'pronamic_twinfield_save_bank_statements',
 			],
+			[
+				'meta_key' => '_pronamic_twinfield_save_unposted_bank_statements_schedule',
+				'label'    => \__( 'Unposted bank statements', 'pronamic-twinfield' ),
+				'hook'     => 'pronamic_twinfield_save_unposted_bank_statements',
+			],
 		];
 	}
 
 	/**
 	 * Maybe save schedule.
-	 * 
+	 *
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L42
 	 * @link https://github.com/pronamic/wp-pay-core/blob/3.2.0/src/GatewayPostType.php#L103-L124
 	 * @param int $post_id Post ID.
@@ -342,7 +347,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Meta box save schedule.
-	 * 
+	 *
 	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
 	 * @param WP_Post $post Post.
 	 * @param array   $box  Box.
@@ -357,7 +362,7 @@ class AuthorizationPostType {
 
 	/**
 	 * Meta box offices.
-	 * 
+	 *
 	 * @link https://github.com/WordPress/WordPress/blob/5.8/wp-admin/includes/template.php#L1395
 	 * @param WP_Post $post Post.
 	 * @param array   $box  Box.

@@ -11,6 +11,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsService;
 use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsByCreationDateQuery;
+use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsQuery;
 use WP_CLI;
 use WP_REST_Request;
 
@@ -20,14 +21,14 @@ use WP_REST_Request;
 class SaveBankStatementController {
 	/**
 	 * Plugin.
-	 * 
+	 *
 	 * @var Plugin
 	 */
 	protected $plugin;
 
 	/**
 	 * Construct REST controller.
-	 * 
+	 *
 	 * @param Plugin $plugin Plugin.
 	 */
 	public function __construct( Plugin $plugin ) {
@@ -36,7 +37,7 @@ class SaveBankStatementController {
 
 	/**
 	 * Setup.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function setup() {
@@ -44,17 +45,19 @@ class SaveBankStatementController {
 
 		\add_action( 'pronamic_twinfield_save_bank_statements', $this->save_bank_statements( ... ) );
 		\add_action( 'pronamic_twinfield_save_office_bank_statements', $this->save_office_bank_statements( ... ), 10, 4 );
+
+		\add_action( 'pronamic_twinfield_save_unposted_bank_statements', $this->save_unposted_bank_statements( ... ) );
 	}
 
 	/**
 	 * CLI intialize.
-	 * 
+	 *
 	 * @return void
 	 */
 	private function cli_init() {
 		/**
-		 * Save office hierarchies.
-		 * 
+		 * Save bank statements.
+		 *
 		 * Example:
 		 * wp pronamic-twinfield save-bank-statements --authorization=5337 --date_from=2025-04-01 --date_to=2025-04-17
 		 */
@@ -68,13 +71,13 @@ class SaveBankStatementController {
 				$assoc_args['date_from'] ??= '';
 				$assoc_args['date_to']   ??= '';
 
-				$this->save_bank_statements( $assoc_args['authorization'], $assoc_args['date_from'], $assoc_args['date_to'] );    
+				$this->save_bank_statements( $assoc_args['authorization'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
 		);
 
 		/**
 		 * Save office bank statements.
-		 * 
+		 *
 		 * Example:
 		 * wp pronamic-twinfield save-office-bank-statements --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
 		 */
@@ -95,11 +98,112 @@ class SaveBankStatementController {
 				$this->save_office_bank_statements( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
 		);
+
+		/**
+		 * Save office bank statements by statement date.
+		 *
+		 * Example:
+		 * wp pronamic-twinfield save-office-bank-statements-by-statement-date --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
+		 */
+		WP_CLI::add_command(
+			'pronamic-twinfield save-office-bank-statements-by-statement-date',
+			function ( $args, $assoc_args ): void {
+				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
+					WP_CLI::error( 'Authorization argument missing.' );
+				}
+
+				if ( ! \array_key_exists( 'office_code', $assoc_args ) ) {
+					WP_CLI::error( 'Office code argument missing.' );
+				}
+
+				$assoc_args['date_from'] ??= 'midnight -2 days';
+				$assoc_args['date_to']   ??= 'now';
+
+				$this->save_office_bank_statements_by_statement_date( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
+			}
+		);
+
+		/**
+		 * Save unposted bank statements.
+		 *
+		 * Example:
+		 * wp pronamic-twinfield save-unposted-bank-statements --authorization=5337
+		 */
+		WP_CLI::add_command(
+			'pronamic-twinfield save-unposted-bank-statements',
+			function ( $args, $assoc_args ): void {
+				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
+					WP_CLI::error( 'Authorization argument missing.' );
+				}
+
+				$this->save_unposted_bank_statements( $assoc_args['authorization'] );
+			}
+		);
+	}
+
+	/**
+	 * Save unposted bank statements.
+	 *
+	 * @param string|int $authorization Authorization.
+	 * @return void
+	 */
+	private function save_unposted_bank_statements( $authorization ) {
+		global $wpdb;
+
+		$timezone = new DateTimeZone( 'UTC' );
+
+		$query = "
+			SELECT
+				office.code AS office_code,
+				MIN( bank_statement.date ) AS start_date,
+				LEAST( DATE_ADD( MIN( bank_statement.date ), INTERVAL 1 MONTH ), MAX( bank_statement.date ) ) AS end_date
+			FROM
+				wp_twinfield_bank_statements AS bank_statement
+					INNER JOIN
+				wp_twinfield_offices AS office
+						ON bank_statement.office_id = office.id
+			WHERE
+				bank_statement.local_status NOT IN ( 'disappeared' )
+					AND
+				office.local_status NOT IN ( 'disappeared' )
+					AND
+				transaction_number IS NULL
+			GROUP BY
+				bank_statement.office_id
+			;
+		";
+
+		$results = $wpdb->get_results( $query );
+
+		foreach ( $results as $item ) {
+			$date_from = new DateTimeImmutable( $item->start_date, $timezone );
+			$date_to   = new DateTimeImmutable( $item->end_date, $timezone );
+
+			$action_id = \as_enqueue_async_action(
+				'pronamic_twinfield_save_office_bank_statements',
+				[
+					'authorization' => $authorization,
+					'office_code'   => $item->office_code,
+					'date_from'     => $date_from->format( 'Y-m-d H:i:s' ),
+					'date_to'       => $date_to->format( 'Y-m-d H:i:s' ),
+				],
+				'pronamic-twinfield'
+			);
+
+			$this->log(
+				\sprintf(
+					'Saving administration unposted bank statements is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
+					$authorization,
+					$item->code,
+					$action_id
+				)
+			);
+		}
 	}
 
 	/**
 	 * Save bank statements.
-	 * 
+	 *
 	 * @param string|int $authorization    Authorization.
 	 * @param string     $date_from_string Date from string.
 	 * @param string     $date_to_string   Date to string.
@@ -122,7 +226,7 @@ class SaveBankStatementController {
 
 		/**
 		 * Template offices.
-		 * 
+		 *
 		 * Bank statements cannot be requested from template administrations.
 		 */
 		$where = $wpdb->prepare( "organisation.code = %s", $organisation->get_code() );
@@ -200,7 +304,7 @@ class SaveBankStatementController {
 
 	/**
 	 * Save office bank statements.
-	 * 
+	 *
 	 * @param string|int $authorization    Authorization.
 	 * @param string     $office_code      Office code.
 	 * @param string     $date_from_string Date from.
@@ -276,8 +380,38 @@ class SaveBankStatementController {
 	}
 
 	/**
+	 * Save office bank statements by statement date.
+	 *
+	 * @param string|int $authorization    Authorization.
+	 * @param string     $office_code      Office code.
+	 * @param string     $date_from_string Date from.
+	 * @param string     $date_to_string   Date to.
+	 * @return void
+	 */
+	private function save_office_bank_statements_by_statement_date( $authorization, $office_code, $date_from_string, $date_to_string ) {
+		$client = $this->plugin->get_client( \get_post( $authorization ) );
+
+		$organisation = $client->get_organisation();
+
+		$office = $organisation->office( $office_code );
+
+		$bank_statements_service = new BankStatementsService( $client );
+
+		$timezone = new DateTimeZone( 'UTC' );
+
+		$date_from = new DateTimeImmutable( $date_from_string, $timezone );
+		$date_to   = new DateTimeImmutable( $date_to_string, $timezone );
+
+		$query = new BankStatementsQuery( $date_from, $date_to, true );
+
+		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
+
+		$this->bank_statements_update_or_create( $bank_statements );
+	}
+
+	/**
 	 * Upsert.
-	 * 
+	 *
 	 * @link https://atymic.dev/tips/laravel-8-upserts/
 	 * @link https://laravel.com/docs/9.x/eloquent#upserts
 	 * @link https://stackoverflow.com/questions/2634152/getting-mysql-insert-id-while-using-on-duplicate-key-update-with-php
@@ -310,9 +444,10 @@ class SaveBankStatementController {
 		foreach ( $bank_statements as $bank_statement ) {
 			$this->log(
 				\sprintf(
-					'Saving administration bank statement, office code: %s, date: %s.',
+					'Saving administration bank statement, office code: %s, date: %s, transaction number: %s.',
 					$office->get_code(),
-					$bank_statement->get_date()->format( 'Y-m-d' )
+					$bank_statement->get_date()->format( 'Y-m-d' ),
+					$bank_statement->transaction_number
 				)
 			);
 
@@ -373,7 +508,7 @@ class SaveBankStatementController {
 
 	/**
 	 * Log.
-	 * 
+	 *
 	 * @param string $message Message.
 	 * @return void
 	 */
