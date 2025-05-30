@@ -194,7 +194,7 @@ class SaveBankStatementController {
 				\sprintf(
 					'Saving administration unposted bank statements is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
 					$authorization,
-					$item->code,
+					$item->office_code,
 					$action_id
 				)
 			);
