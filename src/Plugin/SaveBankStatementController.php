@@ -43,10 +43,12 @@ class SaveBankStatementController {
 	public function setup() {
 		\add_action( 'cli_init', $this->cli_init( ... ) );
 
-		\add_action( 'pronamic_twinfield_save_bank_statements', $this->save_bank_statements( ... ) );
-		\add_action( 'pronamic_twinfield_save_office_bank_statements', $this->save_office_bank_statements( ... ), 10, 4 );
+		\add_action( 'pronamic_twinfield_save_bank_statements', $this->schedule_save_office_bank_statements( ... ) );
 
-		\add_action( 'pronamic_twinfield_save_unposted_bank_statements', $this->save_unposted_bank_statements( ... ) );
+		\add_action( 'pronamic_twinfield_process_office_bank_statements_by_creation_date', $this->process_office_bank_statements_by_creation_date( ... ), 10, 4 );
+		\add_action( 'pronamic_twinfield_process_office_bank_statements_by_statement_date', $this->process_office_bank_statements_by_statement_date( ... ), 10, 4 );
+
+		\add_action( 'pronamic_twinfield_save_unposted_bank_statements', $this->schedule_save_unposted_bank_statements( ... ) );
 	}
 
 	/**
@@ -56,13 +58,13 @@ class SaveBankStatementController {
 	 */
 	private function cli_init() {
 		/**
-		 * Save bank statements.
+		 * Schedule save bank statements.
 		 *
 		 * Example:
-		 * wp pronamic-twinfield save-bank-statements --authorization=5337 --date_from=2025-04-01 --date_to=2025-04-17
+		 * wp pronamic-twinfield schedule-bank-statements --authorization=5337 --date_from=2025-04-01 --date_to=2025-04-17
 		 */
 		WP_CLI::add_command(
-			'pronamic-twinfield save-bank-statements',
+			'pronamic-twinfield schedule-save-bank-statements',
 			function ( $args, $assoc_args ): void {
 				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
 					WP_CLI::error( 'Authorization argument missing.' );
@@ -71,18 +73,18 @@ class SaveBankStatementController {
 				$assoc_args['date_from'] ??= '';
 				$assoc_args['date_to']   ??= '';
 
-				$this->save_bank_statements( $assoc_args['authorization'], $assoc_args['date_from'], $assoc_args['date_to'] );
+				$this->schedule_save_office_bank_statements( $assoc_args['authorization'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
 		);
 
 		/**
-		 * Save office bank statements.
+		 * Process office bank statements by creation date.
 		 *
 		 * Example:
-		 * wp pronamic-twinfield save-office-bank-statements --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
+		 * wp pronamic-twinfield proess-office-bank-stcatements-by-creation-date --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
 		 */
 		WP_CLI::add_command(
-			'pronamic-twinfield save-office-bank-statements',
+			'pronamic-twinfield proess-office-bank-stcatements-by-creation-date',
 			function ( $args, $assoc_args ): void {
 				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
 					WP_CLI::error( 'Authorization argument missing.' );
@@ -95,18 +97,18 @@ class SaveBankStatementController {
 				$assoc_args['date_from'] ??= 'midnight -2 days';
 				$assoc_args['date_to']   ??= 'now';
 
-				$this->save_office_bank_statements( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
+				$this->process_office_bank_statements_by_creation_date( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
 		);
 
 		/**
-		 * Save office bank statements by statement date.
+		 * Process office bank statements by statement date.
 		 *
 		 * Example:
-		 * wp pronamic-twinfield save-office-bank-statements-by-statement-date --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
+		 * wp pronamic-twinfield process-office-bank-statements-by-statement-date --authorization=5337 --office_code=1368 --date_from=2025-03-01 --date_to=2025-04-01
 		 */
 		WP_CLI::add_command(
-			'pronamic-twinfield save-office-bank-statements-by-statement-date',
+			'pronamic-twinfield process-office-bank-statements-by-statement-date',
 			function ( $args, $assoc_args ): void {
 				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
 					WP_CLI::error( 'Authorization argument missing.' );
@@ -119,7 +121,7 @@ class SaveBankStatementController {
 				$assoc_args['date_from'] ??= 'midnight -2 days';
 				$assoc_args['date_to']   ??= 'now';
 
-				$this->save_office_bank_statements_by_statement_date( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
+				$this->process_office_bank_statements_by_statement_date( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['date_from'], $assoc_args['date_to'] );
 			}
 		);
 
@@ -127,27 +129,27 @@ class SaveBankStatementController {
 		 * Save unposted bank statements.
 		 *
 		 * Example:
-		 * wp pronamic-twinfield save-unposted-bank-statements --authorization=5337
+		 * wp pronamic-twinfield schedule-save-unposted-bank-statements --authorization=5337
 		 */
 		WP_CLI::add_command(
-			'pronamic-twinfield save-unposted-bank-statements',
+			'pronamic-twinfield schedule-save-unposted-bank-statements',
 			function ( $args, $assoc_args ): void {
 				if ( ! \array_key_exists( 'authorization', $assoc_args ) ) {
 					WP_CLI::error( 'Authorization argument missing.' );
 				}
 
-				$this->save_unposted_bank_statements( $assoc_args['authorization'] );
+				$this->schedule_save_unposted_bank_statements( $assoc_args['authorization'] );
 			}
 		);
 	}
 
 	/**
-	 * Save unposted bank statements.
+	 * Schedule save unposted bank statements.
 	 *
 	 * @param string|int $authorization Authorization.
 	 * @return void
 	 */
-	private function save_unposted_bank_statements( $authorization ) {
+	private function schedule_save_unposted_bank_statements( $authorization ) {
 		global $wpdb;
 
 		$timezone = new DateTimeZone( 'UTC' );
@@ -180,7 +182,7 @@ class SaveBankStatementController {
 			$date_to   = new DateTimeImmutable( $item->end_date, $timezone );
 
 			$action_id = \as_enqueue_async_action(
-				'pronamic_twinfield_save_office_bank_statements',
+				'pronamic_twinfield_process_office_bank_statements_by_statement_date',
 				[
 					'authorization' => $authorization,
 					'office_code'   => $item->office_code,
@@ -192,7 +194,7 @@ class SaveBankStatementController {
 
 			$this->log(
 				\sprintf(
-					'Saving administration unposted bank statements is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
+					'Processing administration unposted bank statements is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
 					$authorization,
 					$item->office_code,
 					$action_id
@@ -202,14 +204,14 @@ class SaveBankStatementController {
 	}
 
 	/**
-	 * Save bank statements.
+	 * Schedule save office bank statements.
 	 *
 	 * @param string|int $authorization    Authorization.
 	 * @param string     $date_from_string Date from string.
 	 * @param string     $date_to_string   Date to string.
 	 * @return void
 	 */
-	private function save_bank_statements( $authorization, $date_from_string = '', $date_to_string = '' ) {
+	private function schedule_save_office_bank_statements( $authorization, $date_from_string = '', $date_to_string = '' ) {
 		global $wpdb;
 
 		$client = $this->plugin->get_client( \get_post( $authorization ) );
@@ -281,7 +283,7 @@ class SaveBankStatementController {
 			$date_to   = $input_date_to ?? \min( $now, $date_from->modify( '+1 week' ) );
 
 			$action_id = \as_enqueue_async_action(
-				'pronamic_twinfield_save_office_bank_statements',
+				'pronamic_twinfield_process_office_bank_statements_by_creation_date',
 				[
 					'authorization' => $authorization,
 					'office_code'   => $item->code,
@@ -293,7 +295,7 @@ class SaveBankStatementController {
 
 			$this->log(
 				\sprintf(
-					'Saving administration bank statements is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
+					'Processing administration bank statements by creation date is scheduled, authorization post ID: %s, office code: %s, action ID: %s.',
 					$authorization,
 					$item->code,
 					$action_id
@@ -311,7 +313,7 @@ class SaveBankStatementController {
 	 * @param string     $date_to_string   Date to.
 	 * @return void
 	 */
-	private function save_office_bank_statements( $authorization, $office_code, $date_from_string, $date_to_string ) {
+	private function process_office_bank_statements_by_creation_date( $authorization, $office_code, $date_from_string, $date_to_string ) {
 		global $wpdb;
 
 		$client = $this->plugin->get_client( \get_post( $authorization ) );
@@ -388,7 +390,7 @@ class SaveBankStatementController {
 	 * @param string     $date_to_string   Date to.
 	 * @return void
 	 */
-	private function save_office_bank_statements_by_statement_date( $authorization, $office_code, $date_from_string, $date_to_string ) {
+	private function process_office_bank_statements_by_statement_date( $authorization, $office_code, $date_from_string, $date_to_string ) {
 		$client = $this->plugin->get_client( \get_post( $authorization ) );
 
 		$organisation = $client->get_organisation();
