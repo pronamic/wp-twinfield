@@ -61,7 +61,7 @@ class SaveBankStatementController {
 		 * Schedule save bank statements.
 		 *
 		 * Example:
-		 * wp pronamic-twinfield schedule-bank-statements --authorization=5337 --date_from=2025-04-01 --date_to=2025-04-17
+		 * wp pronamic-twinfield schedule-save-bank-statements --authorization=5337 --date_from=2025-01-01 --date_to=2025-07-01
 		 */
 		WP_CLI::add_command(
 			'pronamic-twinfield schedule-save-bank-statements',
