@@ -46,6 +46,8 @@
           <s:enumeration value="InvalidParameter"/>
           <s:enumeration value="NotSupported"/>
           <s:enumeration value="InvalidDocumentType"/>
+          <s:enumeration value="ParameterIsRequired"/>
+          <s:enumeration value="ParametersAreRequired"/>
         </s:restriction>
       </s:simpleType>
       <s:complexType name="ArrayOfString">
@@ -111,6 +113,61 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetRangeOfSummariesResult" type="tns:ArrayOfMessageOfLoadMessage"/>
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn" type="tns:ArrayOfDeclarationSummary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesSinceModified">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="startIndex" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modifiedSince" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesSinceModifiedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRangeOfSummariesSinceModifiedResult" type="tns:ArrayOfMessageOfLoadMessage"/>
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn" type="tns:ArrayOfDeclarationSummary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesByDeclarationYear">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="declarationYear" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="startIndex" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesByDeclarationYearResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRangeOfSummariesByDeclarationYearResult" type="tns:ArrayOfMessageOfLoadMessage"/>
+            <s:element minOccurs="0" maxOccurs="1" name="vatReturn" type="tns:ArrayOfDeclarationSummary"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesByDeclarationYearAndSinceModified">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="declarationYear" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="startIndex" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="modifiedSince" type="s:dateTime"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRangeOfSummariesByDeclarationYearAndSinceModifiedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRangeOfSummariesByDeclarationYearAndSinceModifiedResult" type="tns:ArrayOfMessageOfLoadMessage"/>
             <s:element minOccurs="0" maxOccurs="1" name="vatReturn" type="tns:ArrayOfDeclarationSummary"/>
           </s:sequence>
         </s:complexType>
@@ -380,6 +437,33 @@
   <wsdl:message name="GetRangeOfSummariesHeader">
     <wsdl:part name="Header" element="tns:Header"/>
   </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesSinceModifiedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesSinceModified"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesSinceModifiedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesSinceModifiedResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesSinceModifiedHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesByDeclarationYearSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesByDeclarationYear"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesByDeclarationYearSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesByDeclarationYearResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesByDeclarationYearHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesByDeclarationYearAndSinceModifiedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesByDeclarationYearAndSinceModified"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesByDeclarationYearAndSinceModifiedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRangeOfSummariesByDeclarationYearAndSinceModifiedResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetRangeOfSummariesByDeclarationYearAndSinceModifiedHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
   <wsdl:message name="GetNumberOfDeclarationsSoapIn">
     <wsdl:part name="parameters" element="tns:GetNumberOfDeclarations"/>
   </wsdl:message>
@@ -499,6 +583,21 @@
       <wsdl:input message="tns:GetRangeOfSummariesSoapIn"/>
       <wsdl:output message="tns:GetRangeOfSummariesSoapOut"/>
     </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesSinceModified">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a range of declaration summaries for a given company and SinceModified.</wsdl:documentation>
+      <wsdl:input message="tns:GetRangeOfSummariesSinceModifiedSoapIn"/>
+      <wsdl:output message="tns:GetRangeOfSummariesSinceModifiedSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesByDeclarationYear">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a range of declaration summaries for a given company and DeclarationYear.</wsdl:documentation>
+      <wsdl:input message="tns:GetRangeOfSummariesByDeclarationYearSoapIn"/>
+      <wsdl:output message="tns:GetRangeOfSummariesByDeclarationYearSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesByDeclarationYearAndSinceModified">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a range of declaration summaries for a given company, DeclarationYear and ModifiedSince.</wsdl:documentation>
+      <wsdl:input message="tns:GetRangeOfSummariesByDeclarationYearAndSinceModifiedSoapIn"/>
+      <wsdl:output message="tns:GetRangeOfSummariesByDeclarationYearAndSinceModifiedSoapOut"/>
+    </wsdl:operation>
     <wsdl:operation name="GetNumberOfDeclarations">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns number of declarations for the given company.</wsdl:documentation>
       <wsdl:input message="tns:GetNumberOfDeclarationsSoapIn"/>
@@ -577,6 +676,36 @@
       <wsdl:input>
         <soap:body use="literal"/>
         <soap:header message="tns:GetRangeOfSummariesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesSinceModified">
+      <soap:operation soapAction="http://www.twinfield.com/GetRangeOfSummariesSinceModified" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetRangeOfSummariesSinceModifiedHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesByDeclarationYear">
+      <soap:operation soapAction="http://www.twinfield.com/GetRangeOfSummariesByDeclarationYear" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetRangeOfSummariesByDeclarationYearHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesByDeclarationYearAndSinceModified">
+      <soap:operation soapAction="http://www.twinfield.com/GetRangeOfSummariesByDeclarationYearAndSinceModified" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetRangeOfSummariesByDeclarationYearAndSinceModifiedHeader" part="Header" use="literal"/>
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal"/>
@@ -720,6 +849,36 @@
       <wsdl:input>
         <soap12:body use="literal"/>
         <soap12:header message="tns:GetRangeOfSummariesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesSinceModified">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRangeOfSummariesSinceModified" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetRangeOfSummariesSinceModifiedHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesByDeclarationYear">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRangeOfSummariesByDeclarationYear" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetRangeOfSummariesByDeclarationYearHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRangeOfSummariesByDeclarationYearAndSinceModified">
+      <soap12:operation soapAction="http://www.twinfield.com/GetRangeOfSummariesByDeclarationYearAndSinceModified" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetRangeOfSummariesByDeclarationYearAndSinceModifiedHeader" part="Header" use="literal"/>
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal"/>
