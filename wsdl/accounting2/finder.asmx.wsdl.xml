@@ -75,6 +75,7 @@
           <s:enumeration value="AccessDenied"/>
           <s:enumeration value="DisableAccessRulesNotAllowed"/>
           <s:enumeration value="Option1MandatoryIfOption2IsUsed"/>
+          <s:enumeration value="OptionAvailableForAbnAmroSignUpOnlyIsIncompatibleWithOfficeWildCard"/>
         </s:restriction>
       </s:simpleType>
       <s:complexType name="FinderData">
