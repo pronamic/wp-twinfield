@@ -12,8 +12,8 @@ use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
+use Pronamic\WordPress\Twinfield\Finder\Search;
 use SoapHeader;
-use SoapVar;
 
 /**
  * Budget service
@@ -45,7 +45,7 @@ class BudgetService extends AbstractService {
 
 	/**
 	 * Search budget codes.
-	 * 
+	 *
 	 * @param Office $office    Office.
 	 * @param string $pattern   Pattern.
 	 * @param int    $field     Field.
@@ -56,11 +56,11 @@ class BudgetService extends AbstractService {
 	 */
 	public function search_budget_codes(
 		Office $office,
-		string $pattern = '*', 
-		int $field = 0, 
-		int $first_row = 1, 
-		int $max_rows = 100, 
-		array $options = [] 
+		string $pattern = '*',
+		int $field = 0,
+		int $first_row = 1,
+		int $max_rows = 100,
+		array $options = []
 	) {
 		$finder = $this->client->get_finder();
 
@@ -75,7 +75,7 @@ class BudgetService extends AbstractService {
 
 	/**
 	 * Get budget by profit and loss query.
-	 * 
+	 *
 	 * @param Office                     $office Office.
 	 * @param BudgetByProfitAndLossQuery $query  Query.
 	 * @return BudgetTotalResult[]
