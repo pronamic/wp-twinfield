@@ -13,10 +13,10 @@ use Pronamic\WordPress\Twinfield\Authentication\AccessTokenValidation;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationInfo;
 use Pronamic\WordPress\Twinfield\Authentication\AuthenticationTokens;
 use Pronamic\WordPress\Twinfield\Authentication\OpenIdConnectClient;
-use Pronamic\WordPress\Twinfield\Authentication\InvalidTokenException;
 use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Offices\OfficeService;
 use Pronamic\WordPress\Twinfield\Offices\Office;
+use Pronamic\WordPress\Twinfield\Organisations\Organisation;
 use Pronamic\WordPress\Twinfield\Finder\Finder;
 use Pronamic\WordPress\Twinfield\FixedAssets\FixedAssetsService;
 
