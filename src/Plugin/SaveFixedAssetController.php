@@ -7,6 +7,7 @@
 
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
+use Pronamic\WordPress\Twinfield\FixedAssets\FixedAssetsService;
 use WP_CLI;
 use WP_REST_Request;
 
@@ -176,9 +177,9 @@ class SaveFixedAssetController {
 			[]
 		);
 
-		$fixed_assets_service = $client->get_service( 'fixed-assets' );
+		$fixed_assets_service = new FixedAssetsService( $client );
 
-		$response = $fixed_assets_service->get_assets( $office );
+		$response = $fixed_assets_service->get_assets( $organisation->get_uuid(), $office->get_code() );
 
 		$fixed_assets = $response->to_fixed_assets();
 
