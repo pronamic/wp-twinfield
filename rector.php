@@ -15,12 +15,11 @@ return RectorConfig::configure()
 			__DIR__ . '/tests',
 		]
 	)
-	// uncomment to reach your current PHP version
 	->withPhpSets()
 	->withSkip(
 		[
 			ClassPropertyAssignToConstructorPromotionRector::class,
-		] 
+		]
 	)
 	->withTypeCoverageLevel( 0 )
 	->withDeadCodeLevel( 0 )
