@@ -71,6 +71,7 @@ class Plugin {
 		$this->controllers[] = new CustomerPostTypeSupport();
 		$this->controllers[] = new ArticlePostTypeSupport();
 		$this->controllers[] = new SaveBankStatementController( $this );
+		$this->controllers[] = new SaveFixedAssetController( $this );
 		$this->controllers[] = new SaveOfficeController( $this );
 		$this->controllers[] = new SaveHierarchyController( $this );
 	}
