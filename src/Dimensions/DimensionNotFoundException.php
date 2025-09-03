@@ -62,5 +62,5 @@ class DimensionNotFoundException extends \Exception {
 		);
 
 		parent::__construct( $message, $exception_code, $previous );
-    }
+	}
 }
