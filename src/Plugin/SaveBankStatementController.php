@@ -231,14 +231,14 @@ class SaveBankStatementController {
 		 *
 		 * Bank statements cannot be requested from template administrations.
 		 */
-		$where = $wpdb->prepare( "organisation.code = %s", $organisation->get_code() );
+		$where = $wpdb->prepare( 'organisation.code = %s', $organisation->get_code() );
 
 		$offices_codes = \array_map(
 			fn( $office ) => $office->get_code(),
 			$data->data
 		);
 
-		$where .= $wpdb->prepare( " AND office.is_template = %d", false );
+		$where .= $wpdb->prepare( ' AND office.is_template = %d', false );
 
 		$where .= $wpdb->prepare(
 			\sprintf(
