@@ -18,6 +18,7 @@ use Pronamic\WordPress\Twinfield\Finder\Search;
 use Pronamic\WordPress\Twinfield\Offices\OfficeService;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Finder\Finder;
+use Pronamic\WordPress\Twinfield\FixedAssets\FixedAssetsService;
 
 /**
  * Client
@@ -31,7 +32,7 @@ use Pronamic\WordPress\Twinfield\Finder\Finder;
 class Client {
 	/**
 	 * OpenID connect client.
-	 * 
+	 *
 	 * @var OpenIdConnectClient
 	 */
 	private $openid_connect_client;
@@ -45,14 +46,14 @@ class Client {
 
 	/**
 	 * Authentication refresh handler
-	 * 
+	 *
 	 * @var callable|null
 	 */
 	private $authentication_refresh_handler;
 
 	/**
 	 * Cluster URL.
-	 * 
+	 *
 	 * @var string
 	 */
 	private $cluster_url;
@@ -73,7 +74,7 @@ class Client {
 
 	/**
 	 * Get authentication.
-	 * 
+	 *
 	 * @return AuthenticationInfo
 	 */
 	public function get_authentication() {
@@ -82,7 +83,7 @@ class Client {
 
 	/**
 	 * Set authentication.
-	 * 
+	 *
 	 * @param AuthenticationInfo $authentication Authentication.
 	 * @return void
 	 */
@@ -98,7 +99,7 @@ class Client {
 
 	/**
 	 * Set authentication refresh handler.
-	 * 
+	 *
 	 * @param callback $callback Callback.
 	 * @return void
 	 */
@@ -108,13 +109,13 @@ class Client {
 
 	/**
 	 * Authenticate.
-	 * 
+	 *
 	 * @return AuthenticationInfo
 	 */
 	public function authenticate() {
 		if ( $this->authentication->get_validation()->expires_in( 5 * \MINUTE_IN_SECONDS ) ) {
 			$response = $this->openid_connect_client->refresh_token( $this->authentication->get_tokens()->get_refresh_token() );
-			
+
 			$tokens = AuthenticationTokens::from_object( $response );
 
 			$response = $this->openid_connect_client->get_access_token_validation( $tokens->get_access_token() );
@@ -165,6 +166,7 @@ class Client {
 			'deleted-transactions' => new Transactions\DeletedTransactionsService( $this ),
 			'document' => new Documents\DocumentService( $this ),
 			'finder' => new Finder( $this ),
+			'fixed-assets' => new FixedAssetsService( $this ),
 			'office' => new Offices\OfficeService( $this ),
 			'processxml' => new XMLProcessor( $this ),
 			'periods' => new Periods\PeriodsService( $this ),
@@ -204,7 +206,7 @@ class Client {
 
 	/**
 	 * Get organisation.
-	 * 
+	 *
 	 * @return Organisation
 	 */
 	public function get_organisation() {
@@ -213,7 +215,7 @@ class Client {
 
 	/**
 	 * Get user.
-	 * 
+	 *
 	 * @return User
 	 */
 	public function get_user() {
@@ -222,7 +224,7 @@ class Client {
 
 	/**
 	 * Get offices.
-	 * 
+	 *
 	 * @return Office[]
 	 */
 	public function get_offices() {
@@ -233,7 +235,7 @@ class Client {
 
 	/**
 	 * Get office.
-	 * 
+	 *
 	 * @param Office $office Office.
 	 * @return Office
 	 */
@@ -245,7 +247,7 @@ class Client {
 
 	/**
 	 * Get transaction types.
-	 * 
+	 *
 	 * @param Office $office Office.
 	 * @return array
 	 */
@@ -287,7 +289,7 @@ class Client {
 
 	/**
 	 * Get WSDL URL.
-	 * 
+	 *
 	 * @param string $wsdl_file WSDL file.
 	 * @return string
 	 */
@@ -297,7 +299,7 @@ class Client {
 
 	/**
 	 * New SOAP client.
-	 * 
+	 *
 	 * @param string $wsdl_file WSDL file.
 	 * @return SoapClient
 	 */
@@ -317,13 +319,13 @@ class Client {
 			/**
 			 * The `trace` option must be set to `true` to use the `SoapClient::__getLastResponseHeaders` function to
 			 * retrieve the rate limiting headers for 'Too Many Requests' errors.
-			 * 
+			 *
 			 * @link https://www.php.net/manual/en/soapclient.getlastresponseheaders.php
 			 */
 			'trace'              => true,
 			/**
 			 * In the linked issue `WSDL_CACHE_MEMORY` was recommended, but `WSDL_CACHE_BOTH` may be the better option in newer PHP versions.
-			 * 
+			 *
 			 * @link https://github.com/php-twinfield/twinfield/issues/50
 			 */
 			'cache_wsdl'         => \WSDL_CACHE_BOTH,

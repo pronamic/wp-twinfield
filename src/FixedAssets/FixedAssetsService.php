@@ -5,7 +5,7 @@
  * @package Pronamic/WordPress/Twinfield
  */
 
-namespace Pronamic\WordPress\Twinfield\Documents;
+namespace Pronamic\WordPress\Twinfield\FixedAssets;
 
 use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
@@ -16,7 +16,7 @@ use Pronamic\WordPress\Twinfield\Client;
 class FixedAssetsService {
 	/**
 	 * Get assets.
-	 * 
+	 *
 	 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#/
 	 * @param string $organisation_id Organisation ID.
 	 * @param string $company_id      Company ID.

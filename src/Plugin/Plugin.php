@@ -159,7 +159,7 @@ class Plugin {
 	private function install_tables() {
 		global $wpdb;
 
-		$version = '1.0.2';
+		$version = '1.0.3';
 
 		$db_version = \get_option( 'pronamic_twinfield_db_version' );
 
@@ -253,6 +253,21 @@ class Plugin {
 				UNIQUE KEY code ( office_id, code )
 			);
 
+			CREATE TABLE {$wpdb->prefix}twinfield_fixed_assets (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
+				office_id BIGINT UNSIGNED NOT NULL,
+				twinfield_id VARCHAR(80) NOT NULL,
+				status VARCHAR(80) NOT NULL,
+				code VARCHAR(80) NOT NULL,
+				description TEXT NOT NULL,
+				PRIMARY KEY  ( id ),
+				KEY office_id ( office_id ),
+				UNIQUE KEY twinfield_id ( office_id, twinfield_id ),
+				UNIQUE KEY code ( office_id, code )
+			);
+
 			CREATE TABLE {$wpdb->prefix}twinfield_save_state (
 				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				created_at DATETIME NOT NULL,
@@ -309,6 +324,18 @@ class Plugin {
 			"
 			ALTER TABLE {$wpdb->prefix}twinfield_hierarchies
 			ADD CONSTRAINT fk_hierarchy_office_id
+			FOREIGN KEY ( office_id )
+			REFERENCES {$wpdb->prefix}twinfield_offices ( id )
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+			;
+		"
+		);
+
+		$wpdb->query(
+			"
+			ALTER TABLE {$wpdb->prefix}twinfield_fixed_assets
+			ADD CONSTRAINT fk_fixed_asset_office_id
 			FOREIGN KEY ( office_id )
 			REFERENCES {$wpdb->prefix}twinfield_offices ( id )
 			ON DELETE RESTRICT
@@ -712,6 +739,22 @@ class Plugin {
 					'office_id'   => '%d',
 					'code'        => '%s',
 					'name'        => '%s',
+					'description' => '%s',
+					'json'        => '%s',
+				]
+			)
+		);
+
+		$orm->register_entity(
+			\Pronamic\WordPress\Twinfield\FixedAssets\FixedAsset::class,
+			new Entity(
+				$wpdb->prefix . 'twinfield_fixed_assets',
+				'id',
+				[
+					'office_id'   => '%d',
+					'id'          => '%s',
+					'status'      => '%s',
+					'code'        => '%s',
 					'description' => '%s',
 					'json'        => '%s',
 				]
