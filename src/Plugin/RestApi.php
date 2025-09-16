@@ -65,6 +65,7 @@ class RestApi {
 		\add_filter( 'rest_dispatch_request', $this->rest_dispatch_request( ... ), 10, 4 );
 
 		$this->controllers = [
+			new RestFinderController( $this->plugin ),
 			new RestHierarchyController( $this->plugin ),
 			new RestOfficeController( $this->plugin ),
 			new RestPeriodsController( $this->plugin ),

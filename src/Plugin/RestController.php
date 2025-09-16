@@ -8,7 +8,6 @@
 namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use WP_REST_Request;
-use WP_REST_Response;
 
 /**
  * REST controller class
@@ -16,14 +15,14 @@ use WP_REST_Response;
 class RestController {
 	/**
 	 * Plugin.
-	 * 
+	 *
 	 * @var Plugin
 	 */
 	protected $plugin;
 
 	/**
 	 * Construct REST controller.
-	 * 
+	 *
 	 * @param Plugin $plugin Plugin.
 	 */
 	public function __construct( Plugin $plugin ) {
@@ -45,7 +44,7 @@ class RestController {
 
 	/**
 	 * Handle authorization.
-	 * 
+	 *
 	 * @link https://github.com/wp-cli/wp-cli/blob/c651e20c00096b4c7fb7543dfa7559ed0667e7dc/php/WP_CLI/Runner.php#L1608-L1624
 	 * @param WP_REST_Request $request WordPress REST request object.
 	 * @return WP_Post
