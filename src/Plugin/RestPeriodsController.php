@@ -102,7 +102,11 @@ class RestPeriodsController extends RestController {
 		$periods = [];
 
 		foreach ( $years as $year ) {
-			$year_periods = $periods_service->get_periods( $office, $year );
+			try {
+				$year_periods = $periods_service->get_periods( $office, $year );
+			} catch ( \Pronamic\WordPress\Twinfield\Periods\YearNotFoundException ) {
+				continue;
+			}
 
 			foreach ( $year_periods as $period ) {
 				$periods[] = $period;

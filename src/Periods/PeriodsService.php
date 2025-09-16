@@ -13,6 +13,7 @@ use Pronamic\WordPress\Twinfield\AbstractService;
 use Pronamic\WordPress\Twinfield\Client;
 use Pronamic\WordPress\Twinfield\Offices\Office;
 use Pronamic\WordPress\Twinfield\Utility\ObjectAccess;
+use SoapFault;
 use SoapHeader;
 use SoapVar;
 
@@ -94,28 +95,40 @@ class PeriodsService extends AbstractService {
 
 		$authentication = $this->client->authenticate();
 
-		$result = $soap_client->__soapCall(
-			'Query',
-			[
-				new SoapVar(
-					[
-						'Year' => $year,
-					],
-					\SOAP_ENC_OBJECT,
-					'GetPeriods',
-					'http://schemas.datacontract.org/2004/07/Twinfield.WebServices.PeriodService'
-				),
-			],
-			null,
-			new SoapHeader(
-				'http://www.twinfield.com/',
-				'Authentication',
+		try {
+			$result = $soap_client->__soapCall(
+				'Query',
 				[
-					'AccessToken' => $authentication->get_tokens()->get_access_token(),
-					'CompanyCode' => $office->get_code(),
-				]
-			)
-		);
+					new SoapVar(
+						[
+							'Year' => $year,
+						],
+						\SOAP_ENC_OBJECT,
+						'GetPeriods',
+						'http://schemas.datacontract.org/2004/07/Twinfield.WebServices.PeriodService'
+					),
+				],
+				null,
+				new SoapHeader(
+					'http://www.twinfield.com/',
+					'Authentication',
+					[
+						'AccessToken' => $authentication->get_tokens()->get_access_token(),
+						'CompanyCode' => $office->get_code(),
+					]
+				)
+			);
+		} catch ( \SoapFault $soap_fault ) {
+			if ( isset( $soap_fault->detail->PeriodServiceFault ) ) {
+				$detail = $soap_fault->detail->PeriodServiceFault;
+
+				if ( $detail->Code === 'YearNotFound' ) {
+					throw new YearNotFoundException( $detail->Message, $soap_fault->getCode(), $soap_fault );
+				}
+			}
+
+			throw $soap_fault;
+		}
 
 		$period_array = ObjectAccess::from_object( $result )->get_object( 'Periods' )->get_array( 'Period' );
 
