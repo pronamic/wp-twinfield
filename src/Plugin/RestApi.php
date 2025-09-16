@@ -40,14 +40,14 @@ class RestApi {
 
 	/**
 	 * Controllers.
-	 * 
+	 *
 	 * @var array
 	 */
 	private $controllers = [];
 
 	/**
 	 * Constructs and initialize Twinfield REST API object.
-	 * 
+	 *
 	 * @param Plugin $plugin Plugin.
 	 */
 	public function __construct( $plugin ) {
@@ -56,7 +56,7 @@ class RestApi {
 
 	/**
 	 * Setup.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function setup() {
@@ -67,6 +67,7 @@ class RestApi {
 		$this->controllers = [
 			new RestHierarchyController( $this->plugin ),
 			new RestOfficeController( $this->plugin ),
+			new RestPeriodsController( $this->plugin ),
 			new RestProcessXmlController( $this->plugin ),
 			new RestBankStatementsController( $this->plugin ),
 		];
@@ -74,7 +75,7 @@ class RestApi {
 
 	/**
 	 * REST dispatch request.
-	 * 
+	 *
 	 * @link https://github.com/WordPress/WordPress/blob/6.1/wp-includes/rest-api/class-wp-rest-server.php#L1152-L1172
 	 * @param mixed           $result  Dispatch result, will be used if not empty.
 	 * @param WP_REST_Request $request Request used to generate the response.
@@ -880,7 +881,7 @@ class RestApi {
 
 	/**
 	 * Permission callback.
-	 * 
+	 *
 	 * @return bool True if permission, false otherwise.
 	 */
 	public function permission_callback() {
@@ -897,7 +898,7 @@ class RestApi {
 
 	/**
 	 * Add links to collection item.
-	 * 
+	 *
 	 * @param string $prefix Prefix.
 	 * @param mixed  $item   Item.
 	 * @return array
@@ -929,7 +930,7 @@ class RestApi {
 
 	/**
 	 * Redirect authorizations.
-	 * 
+	 *
 	 * @param string $route Route.
 	 * @return WP_REST_Response
 	 */
@@ -948,7 +949,7 @@ class RestApi {
 
 	/**
 	 * REST API authorize.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -956,7 +957,7 @@ class RestApi {
 		$post_id = $request->get_param( 'post_id' );
 		$code    = $request->get_param( 'code' );
 
-		$openid_connect_client = $this->plugin->get_openid_connect_client(); 
+		$openid_connect_client = $this->plugin->get_openid_connect_client();
 
 		$response = $openid_connect_client->get_access_token( $code );
 
@@ -988,13 +989,13 @@ class RestApi {
 
 	/**
 	 * REST API organisation.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
 	public function rest_api_organisation( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
-		
+
 		$post = \get_post( $post_id );
 
 		$client = $this->plugin->get_client( $post );
@@ -1029,7 +1030,7 @@ class RestApi {
 
 	/**
 	 * REST API finder types.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1047,7 +1048,7 @@ class RestApi {
 				'type'   => $type,
 				'label'  => $label,
 				'_links' => [
-					'self' => [ 
+					'self' => [
 						[
 							'href' => rest_url(
 								strtr(
@@ -1069,7 +1070,7 @@ class RestApi {
 
 	/**
 	 * REST API finder.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1092,12 +1093,12 @@ class RestApi {
 
 		/**
 		 * Office.
-		 * 
+		 *
 		 * Since it is not possible to add the company code
 		 * to the finder, make sure the correct company is
 		 * set by using either the SelectCompany function
 		 * or adding the office option.
-		 * 
+		 *
 		 * @link https://accounting.twinfield.com/webservices/documentation/#/ApiReference/Miscellaneous/Finder
 		 */
 		$office_code = $request->get_param( 'office_code' );
@@ -1128,7 +1129,7 @@ class RestApi {
 
 	/**
 	 * REST API budget.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1165,7 +1166,7 @@ class RestApi {
 
 	/**
 	 * REST API deleted transactions.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1195,7 +1196,7 @@ class RestApi {
 
 	/**
 	 * REST API years.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1226,7 +1227,7 @@ class RestApi {
 				'_links' => [
 					'self' => [
 						[
-							'href' => \rest_url( 
+							'href' => \rest_url(
 								\strtr(
 									'pronamic-twinfield/v1/authorizations/:auth_post_id/offices/:office_code/periods/:year',
 									[
@@ -1247,7 +1248,7 @@ class RestApi {
 
 	/**
 	 * REST API periods.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1277,7 +1278,7 @@ class RestApi {
 
 	/**
 	 * REST API declarations.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1303,7 +1304,7 @@ class RestApi {
 
 	/**
 	 * REST API transaction.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1420,7 +1421,7 @@ class RestApi {
 
 	/**
 	 * REST API sales invoice.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1569,7 +1570,7 @@ class RestApi {
 
 	/**
 	 * REST API dimension.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1669,7 +1670,7 @@ class RestApi {
 
 	/**
 	 * REST API customers list.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1695,7 +1696,7 @@ class RestApi {
 
 	/**
 	 * REST API customers.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1738,7 +1739,7 @@ class RestApi {
 
 	/**
 	 * REST API articles.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1781,7 +1782,7 @@ class RestApi {
 
 	/**
 	 * REST API browse fields.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -1828,12 +1829,12 @@ class RestApi {
 
 		$rest_response->add_link( 'self', \rest_url( $request->get_route() ) );
 
-		return $rest_response;      
+		return $rest_response;
 	}
 
 	/**
 	 * REST API browse query.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -2001,7 +2002,7 @@ class RestApi {
 
 	/**
 	 * REST API report.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
@@ -2069,7 +2070,7 @@ class RestApi {
 
 	/**
 	 * REST API bank statements.
-	 * 
+	 *
 	 * @param WP_REST_Request $request WordPress REST API request object.
 	 * @return WP_REST_Response
 	 */
