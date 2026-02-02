@@ -67,5 +67,12 @@ final class FixedAssetsService {
 		);
 
 		var_dump( $response );
+
+		echo PHP_EOL;
+		echo $url, PHP_EOL;
+		echo PHP_EOL;
+		echo $authentication->get_tokens()->get_access_token(), PHP_EOL;
+		echo PHP_EOL;
+		exit;
 	}
 }

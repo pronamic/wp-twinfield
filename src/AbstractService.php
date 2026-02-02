@@ -40,14 +40,14 @@ abstract class AbstractService {
 
 	/**
 	 * SOAP Header Authenication Name.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $soap_header_authenication_name;
 
 	/**
 	 * Office.
-	 * 
+	 *
 	 * @var Office|null
 	 */
 	private $office;
@@ -70,7 +70,7 @@ abstract class AbstractService {
 
 	/**
 	 * Set office.
-	 * 
+	 *
 	 * @param Office|null $office Office.
 	 */
 	public function set_office( Office $office = null ) {
@@ -109,7 +109,7 @@ abstract class AbstractService {
 
 	/**
 	 * Force array.
-	 * 
+	 *
 	 * @param mixed $value Value.
 	 * @return array
 	 */

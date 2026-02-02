@@ -70,7 +70,7 @@ class SaveFixedAssetController {
 		 * Save office fixed assets.
 		 *
 		 * Example:
-		 * wp pronamic-twinfield save-office-fixed-assets --authorization=5337 --office_code=1000
+		 * wp pronamic-twinfield save-office-fixed-assets --authorization=5337 --office_code=1000 --company_id=ffe2c8b3-e7f0-4793-a059-ffbfe3c154a9
 		 */
 		WP_CLI::add_command(
 			'pronamic-twinfield save-office-fixed-assets',
@@ -83,7 +83,11 @@ class SaveFixedAssetController {
 					WP_CLI::error( 'Office code argument missing.' );
 				}
 
-				$this->save_office_fixed_assets( $assoc_args['authorization'], $assoc_args['office_code'] );
+				if ( ! \array_key_exists( 'company_id', $assoc_args ) ) {
+					WP_CLI::error( 'Company ID argument missing.' );
+				}
+
+				$this->save_office_fixed_assets( $assoc_args['authorization'], $assoc_args['office_code'], $assoc_args['company_id'] );
 			}
 		);
 	}
@@ -151,7 +155,7 @@ class SaveFixedAssetController {
 	 * @param string     $office_code   Office code.
 	 * @return void
 	 */
-	private function save_office_fixed_assets( $authorization, $office_code ) {
+	private function save_office_fixed_assets( $authorization, $office_code, $company_id ) {
 		$client = $this->plugin->get_client( \get_post( $authorization ) );
 
 		$organisation = $client->get_organisation();
@@ -179,7 +183,7 @@ class SaveFixedAssetController {
 
 		$fixed_assets_service = new FixedAssetsService( $client );
 
-		$response = $fixed_assets_service->get_assets( $organisation->get_uuid(), $office->get_code() );
+		$response = $fixed_assets_service->get_assets( $organisation->get_uuid(), $company_id );
 
 		$fixed_assets = $response->to_fixed_assets();
 
