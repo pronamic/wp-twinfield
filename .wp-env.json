@@ -12,5 +12,8 @@
 	],
 	"mappings": {
 		"wp-content/plugins/pronamic-twinfield-dev": "./"
+	},
+	"lifecycleScripts": {
+		"afterStart": "bash .wp-env-after-start.sh"
 	}
 }
