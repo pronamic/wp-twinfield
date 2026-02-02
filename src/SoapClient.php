@@ -13,7 +13,7 @@ namespace Pronamic\WordPress\Twinfield;
 class SoapClient extends \SoapClient {
 	/**
 	 * Construct SOAP client.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/soapclient.construct.php
 	 * @param ?string $wsdl URI of a WSDL file describing the service, which is used to automatically configure the client. If not provided, the client will operate in non-WSDL mode.
 	 * @param array   $options An associative array specifying additional options for the SOAP client. If `wsdl` is provided, this is optional; otherwise, at least location and url must be provided.
@@ -28,7 +28,7 @@ class SoapClient extends \SoapClient {
 
 	/**
 	 * Performs a SOAP request.
-	 * 
+	 *
 	 * @link https://www.php.net/manual/en/soapclient.dorequest.php
 	 * @param string $request  The XML SOAP request.
 	 * @param string $location The URL to request.
@@ -37,9 +37,9 @@ class SoapClient extends \SoapClient {
 	 * @param bool   $one_way  If `one_way` is set to `true`, this method returns nothing. Use this where a response is not expected.
 	 * @return The XML SOAP response.
 	 */
-	public function __doRequest( string $request, string $location, string $action, int $version, bool $one_way = false ): ?string {
+	public function __doRequest( string $request, string $location, string $action, int $version, bool $one_way = false, ?string $uri_parser_class = null ): ?string {
 		try {
-			return parent::__doRequest( $request, $location, $action, $version, $one_way );
+			return parent::__doRequest( $request, $location, $action, $version, $one_way, $uri_parser_class );
 		} catch ( \SoapFault $soap_fault ) {
 			$this->handle_soap_fault( $soap_fault );
 		}
@@ -62,7 +62,7 @@ class SoapClient extends \SoapClient {
 
 	/**
 	 * Is too many requests.
-	 * 
+	 *
 	 * @param \SoapFault $e SOAP fault exception.
 	 * @return bool
 	 */
