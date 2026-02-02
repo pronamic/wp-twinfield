@@ -39,6 +39,10 @@ class SoapClient extends \SoapClient {
 	 */
 	public function __doRequest( string $request, string $location, string $action, int $version, bool $one_way = false, ?string $uri_parser_class = null ): ?string {
 		try {
+			if ( \version_compare( PHP_VERSION, '8.5.0', '<' ) ) {
+				return parent::__doRequest( $request, $location, $action, $version, $one_way );
+			}
+
 			return parent::__doRequest( $request, $location, $action, $version, $one_way, $uri_parser_class );
 		} catch ( \SoapFault $soap_fault ) {
 			$this->handle_soap_fault( $soap_fault );
