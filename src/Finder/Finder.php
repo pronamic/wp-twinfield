@@ -51,4 +51,50 @@ class Finder extends AbstractService {
 
 		return SearchResponse::from_twinfield_object( $response );
 	}
+
+	/**
+	 * Create a query builder for offices.
+	 *
+	 * @return OfficeQueryBuilder
+	 */
+	public function offices(): OfficeQueryBuilder {
+		return new OfficeQueryBuilder( $this );
+	}
+
+	/**
+	 * Create a query builder for dimensions.
+	 *
+	 * @return DimensionQueryBuilder
+	 */
+	public function dimensions(): DimensionQueryBuilder {
+		return new DimensionQueryBuilder( $this );
+	}
+
+	/**
+	 * Create a query builder for articles/items.
+	 *
+	 * @return ArticleQueryBuilder
+	 */
+	public function articles(): ArticleQueryBuilder {
+		return new ArticleQueryBuilder( $this );
+	}
+
+	/**
+	 * Create a query builder for general ledger accounts.
+	 *
+	 * @return GeneralLedgerQueryBuilder
+	 */
+	public function generalLedger(): GeneralLedgerQueryBuilder {
+		return new GeneralLedgerQueryBuilder( $this );
+	}
+
+	/**
+	 * Create a generic query builder for any finder type.
+	 *
+	 * @param string $type Finder type constant from FinderTypes.
+	 * @return FinderQueryBuilder
+	 */
+	public function query( string $type ): FinderQueryBuilder {
+		return new class( $this, $type ) extends FinderQueryBuilder {};
+	}
 }

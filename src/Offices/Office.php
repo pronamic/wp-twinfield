@@ -37,6 +37,17 @@ class Office extends CodeName implements JsonSerializable {
 	 */
 	public ?Organisation $organisation = null;
 
+	/**
+	 * ID (GUID/Company ID).
+	 *
+	 * A unique identifier (GUID format) for the company/office and should not be
+	 * confused with the office code (stored in the 'code' property), which is the
+	 * administration code used within Twinfield.
+	 *
+	 * @var string|null
+	 */
+	public ?string $id = null;
+
 	use StatusTrait;
 
 	use ModifiedTrait;
@@ -79,7 +90,7 @@ class Office extends CodeName implements JsonSerializable {
 
 	/**
 	 * Get organisation.
-	 * 
+	 *
 	 * @return Organisation|null
 	 */
 	public function get_organisation() {
@@ -173,11 +184,12 @@ class Office extends CodeName implements JsonSerializable {
 
 	/**
 	 * Serialize to JSON.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
 		return [
+			'id'          => $this->id,
 			'status'      => $this->get_status(),
 			'code'        => $this->get_code(),
 			'name'        => $this->get_name(),
