@@ -11,7 +11,7 @@
 
 set -euo pipefail
 
-cd $(wp-env install-path)
+cd "$(wp-env install-path)"
 
 # Install SOAP extension in the web container (Debian-based)
 if [[ $(docker-compose exec -T -u root wordpress php -m | grep -w soap) != "soap" ]]; then
@@ -32,7 +32,7 @@ if [[ $(docker-compose exec -T cli php -m | grep -w soap) != "soap" ]]; then
         echo "Warning: Could not detect PHP version in CLI container. SOAP extension not installed in CLI container."
     else
         echo "Detected PHP version: $PHP_VERSION"
-        if docker-compose exec -T -u root cli apk add --no-cache php${PHP_VERSION}-soap; then
+        if docker-compose exec -T -u root cli apk add --no-cache "php${PHP_VERSION}-soap"; then
             echo "SOAP Extension: Installed in CLI container."
         else
             echo "Warning: Failed to install php${PHP_VERSION}-soap package. SOAP extension not installed in CLI container."
