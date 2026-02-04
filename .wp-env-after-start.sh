@@ -29,14 +29,13 @@ if [[ $(docker-compose exec -T cli php -m | grep -w soap) != "soap" ]]; then
     # Detect PHP version
     PHP_VERSION=$(docker-compose exec -T cli php -r "echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;" | tr -d '\n\r')
     if [[ -z "$PHP_VERSION" ]]; then
-        echo "Error: Could not detect PHP version in CLI container."
-        exit 1
-    fi
-    echo "Detected PHP version: $PHP_VERSION"
-    if docker-compose exec -T -u root cli apk add --no-cache php${PHP_VERSION}-soap; then
-        echo "SOAP Extension: Installed in CLI container."
+        echo "Warning: Could not detect PHP version in CLI container. SOAP extension not installed in CLI container."
     else
-        echo "Error: Failed to install php${PHP_VERSION}-soap package."
-        exit 1
+        echo "Detected PHP version: $PHP_VERSION"
+        if docker-compose exec -T -u root cli apk add --no-cache php${PHP_VERSION}-soap; then
+            echo "SOAP Extension: Installed in CLI container."
+        else
+            echo "Warning: Failed to install php${PHP_VERSION}-soap package. SOAP extension not installed in CLI container."
+        fi
     fi
 fi
