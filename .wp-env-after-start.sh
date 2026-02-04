@@ -13,23 +13,11 @@ set -euo pipefail
 
 cd $(wp-env install-path)
 
-install_soap() {
-    local container="$1"
-    local reload_server="${2:-}"
-    
-    if ! docker-compose exec -T -u root "$container" php -m | grep -q -w "soap"; then
-        echo "Installing: SOAP Extension in $container container."
-        docker-compose exec -T -u root "$container" apt-get update
-        docker-compose exec -T -u root "$container" apt-get install -y libxml2-dev
-        docker-compose exec -T -u root "$container" docker-php-ext-install soap
-        
-        if [[ "$reload_server" = "true" ]]; then
-            docker-compose exec -T -u root "$container" service apache2 reload
-        fi
-        
-        echo "SOAP Extension: Installed in $container container."
-    fi
-}
-
-install_soap "wordpress" true
-install_soap "cli"
+if [[ $(docker-compose exec -T -u root wordpress php -m | grep soap) != "soap" ]]; then
+    echo "Installing: SOAP Extension."
+    docker-compose exec -T -u root wordpress apt-get update
+    docker-compose exec -T -u root wordpress apt-get install -y libxml2-dev
+    docker-compose exec -T -u root wordpress docker-php-ext-install soap
+    docker-compose exec -T -u root wordpress service apache2 reload
+    echo "SOAP Extension: Installed."
+fi
