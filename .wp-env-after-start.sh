@@ -15,7 +15,7 @@ cd $(wp-env install-path)
 
 install_soap() {
     local container="$1"
-    local reload_server=${2:-false}
+    local reload_server="${2:-false}"
     
     if ! docker-compose exec -T -u root "$container" php -m | grep -q -w "soap"; then
         echo "Installing: SOAP Extension in $container container."
@@ -23,7 +23,7 @@ install_soap() {
         docker-compose exec -T -u root "$container" apt-get install -y libxml2-dev
         docker-compose exec -T -u root "$container" docker-php-ext-install soap
         
-        if [[ "$reload_server" == true ]]; then
+        if [[ "$reload_server" = true ]]; then
             docker-compose exec -T -u root "$container" service apache2 reload
         fi
         
