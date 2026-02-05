@@ -23,7 +23,7 @@ use JsonSerializable;
 class ObjectAccess implements JsonSerializable {
 	/**
 	 * Construct object access.
-	 * 
+	 *
 	 * @param object $value Object.
 	 * @throws \InvalidArgumentException Throws invalid argument exception when object is not an object.
 	 */
@@ -47,7 +47,7 @@ class ObjectAccess implements JsonSerializable {
 
 	/**
 	 * Get property.
-	 * 
+	 *
 	 * @param string $property Property.
 	 * @return mixed
 	 * @throws \Exception Throws exception when property does not exists.
@@ -68,7 +68,7 @@ class ObjectAccess implements JsonSerializable {
 
 	/**
 	 * Get object.
-	 * 
+	 *
 	 * @param string $property Property.
 	 * @return self
 	 */
@@ -78,7 +78,7 @@ class ObjectAccess implements JsonSerializable {
 
 	/**
 	 * Get array.
-	 * 
+	 *
 	 * @param string $property Property.
 	 * @return array
 	 */
@@ -93,8 +93,22 @@ class ObjectAccess implements JsonSerializable {
 	}
 
 	/**
+	 * Get optional property.
+	 *
+	 * @param string $property Property.
+	 * @return mixed|null
+	 */
+	public function get_optional( $property ) {
+		if ( ! \property_exists( $this->object, $property ) ) {
+			return null;
+		}
+
+		return $this->object->{$property};
+	}
+
+	/**
 	 * Create object access object from object.
-	 * 
+	 *
 	 * @param object $value Object.
 	 * @return self
 	 */

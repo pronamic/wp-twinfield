@@ -35,7 +35,7 @@ final class FixedAssetsService {
 	 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#/
 	 * @param string $organisation_id Organisation ID.
 	 * @param string $company_id      Company ID.
-	 * @return array
+	 * @return FixedAsset[]
 	 */
 	public function get_assets( $organisation_id, $company_id ) {
 		$base_url = '/Api';
@@ -66,13 +66,24 @@ final class FixedAssetsService {
 			]
 		);
 
-		var_dump( $response );
+		if ( \is_wp_error( $response ) ) {
+			throw new \Exception( $response->get_error_message() );
+		}
 
-		echo PHP_EOL;
-		echo $url, PHP_EOL;
-		echo PHP_EOL;
-		echo $authentication->get_tokens()->get_access_token(), PHP_EOL;
-		echo PHP_EOL;
-		exit;
+		$body = \wp_remote_retrieve_body( $response );
+		$data = \json_decode( $body );
+
+		if ( ! \is_object( $data ) || ! isset( $data->items ) ) {
+			var_dump( $data );
+			throw new \Exception( 'Invalid response from Twinfield API.' );
+		}
+
+		$assets = [];
+
+		foreach ( $data->items as $asset_data ) {
+			$assets[] = FixedAsset::from_object( $asset_data );
+		}
+
+		return $assets;
 	}
 }

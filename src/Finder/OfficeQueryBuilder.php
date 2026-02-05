@@ -49,7 +49,11 @@ class OfficeQueryBuilder extends FinderQueryBuilder {
 		$offices = [];
 
 		foreach ( $items as $item ) {
-			$office = new Office( $item[0], $item[1] ?? null );
+			$office = new Office( $item[0] );
+
+			if ( isset( $item[1] ) ) {
+				$office->set_name( $item[1] );
+			}
 
 			if ( isset( $item[2] ) ) {
 				$office->id = $item[2];

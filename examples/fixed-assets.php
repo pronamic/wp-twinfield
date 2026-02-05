@@ -54,6 +54,10 @@ if ( isset( $authentication ) ) {
 	);
 }
 
+$fixed_assets_service = new FixedAssets\FixedAssetsService( $client );
+
+$organisation = $client->get_organisation();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -83,26 +87,71 @@ if ( isset( $authentication ) ) {
 			->limit( 10 )
 			->getOffices();
 
-		echo '<h3>Offices (New API)</h3>';
-		echo '<pre>';
-		var_dump( $offices );
-		echo '</pre>';
+		?>
+		<h3>Offices</h3>
 
-		$fixed_assets_service = new FixedAssets\FixedAssetsService( $client );
+		<table>
+			<thead>
+				<tr>
+					<th>Code</th>
+					<th>Name</th>
+					<th>ID</th>
+				</tr>
+			</thead>
 
-		$organisation = $client->get_organisation();
+			<tbody>
 
-		foreach ( $offices as $office ) {
-			echo '<h2>Fixed Assets for Office: ' . \htmlspecialchars( $office->get_name() ) . '</h2>';
+				<?php foreach ( $offices as $office ) : ?>
+
+					<tr>
+						<td><?php echo \htmlspecialchars( $office->get_code() ); ?></td>
+						<td><?php echo \htmlspecialchars( $office->get_name() ); ?></td>
+						<td><?php echo \htmlspecialchars( $office->id ); ?></td>
+					</tr>
+
+				<?php endforeach; ?>
+
+			</tbody>
+		</table>
+
+		<?php foreach ( $offices as $office ) : ?>
+
+			<h3>Fixed Assets for Office: <?php echo \htmlspecialchars( $office->get_name() ); ?></h3>
+
+			<?php
 
 			$assets = $fixed_assets_service->get_assets( $organisation->get_uuid(), $office->id );
 
-			echo '<pre>';
-			var_dump( $assets );
-			echo '</pre>';
-		}
+			?>
 
-		?>
+			<table>
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Description</th>
+						<th>Version</th>
+						<th>ID</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<?php foreach ( $assets as $asset ) : ?>
+
+						<tr>
+							<td><?php echo \htmlspecialchars( $asset->code ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->description ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->version ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->id ); ?></td>
+						</tr>
+
+					<?php endforeach; ?>
+
+				</tbody>
+			</table>
+
+		<?php endforeach; ?>
+
 	</body>
 </html>
 
