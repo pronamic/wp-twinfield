@@ -120,7 +120,9 @@ $organisation = $client->get_organisation();
 
 			<?php
 
-			$assets = $fixed_assets_service->get_assets( $organisation->get_uuid(), $office->id );
+			$assets = $fixed_assets_service->assets( $organisation->get_uuid(), $office->id )
+				->limit( 100 )
+				->get();
 
 			?>
 

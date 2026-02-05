@@ -30,14 +30,25 @@ final class FixedAssetsService {
 	}
 
 	/**
-	 * Get assets.
+	 * Create request client for assets.
 	 *
-	 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#/
 	 * @param string $organisation_id Organisation ID.
 	 * @param string $company_id      Company ID.
-	 * @return FixedAsset[]
+	 * @return GetFixedAssetsRequestClient
 	 */
-	public function get_assets( $organisation_id, $company_id ) {
+	public function assets( string $organisation_id, string $company_id ): GetFixedAssetsRequestClient {
+		return new GetFixedAssetsRequestClient( $this, $organisation_id, $company_id );
+	}
+
+	/**
+	 * Get assets.
+	 *
+	 * @internal Used by GetFixedAssetsRequestClient.
+	 * @link https://api.accounting.twinfield.com/Api/swagger/ui/index#/
+	 * @param GetFixedAssetsRequest $request Request.
+	 * @return GetFixedAssetsResponse
+	 */
+	public function get_assets( GetFixedAssetsRequest $request ): GetFixedAssetsResponse {
 		$base_url = '/Api';
 
 		$path = '/organisations/{organisationId}/companies/{companyId}/fixedassets/assets';
@@ -45,10 +56,12 @@ final class FixedAssetsService {
 		$path = \strtr(
 			$path,
 			[
-				'{organisationId}' => $organisation_id,
-				'{companyId}'      => $company_id,
+				'{organisationId}' => $request->organisation_id,
+				'{companyId}'      => $request->company_id,
 			]
 		);
+
+		$path .= $request->build();
 
 		$authentication = $this->client->authenticate();
 
@@ -70,20 +83,25 @@ final class FixedAssetsService {
 			throw new \Exception( $response->get_error_message() );
 		}
 
+		$status_code = \wp_remote_retrieve_response_code( $response );
+
+		if ( 200 !== $status_code ) {
+			$body = \wp_remote_retrieve_body( $response );
+			$data = \json_decode( $body );
+
+			$message = 'Twinfield API request failed';
+
+			if ( \is_object( $data ) && isset( $data->message ) ) {
+				$message .= ': ' . $data->message;
+			}
+
+			$message .= ' (HTTP ' . $status_code . ')';
+
+			throw new \Exception( $message );
+		}
+
 		$body = \wp_remote_retrieve_body( $response );
-		$data = \json_decode( $body );
 
-		if ( ! \is_object( $data ) || ! isset( $data->items ) ) {
-			var_dump( $data );
-			throw new \Exception( 'Invalid response from Twinfield API.' );
-		}
-
-		$assets = [];
-
-		foreach ( $data->items as $asset_data ) {
-			$assets[] = FixedAsset::from_object( $asset_data );
-		}
-
-		return $assets;
+		return GetFixedAssetsResponse::from_json( $body );
 	}
 }
