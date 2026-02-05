@@ -176,6 +176,20 @@ class SaveFixedAssetController {
 		foreach ( $fixed_assets as $fixed_asset ) {
 			$this->log( \wp_json_encode( $fixed_asset ) );
 
+			$values = [
+				'status'      => $fixed_asset->status,
+				'description' => $fixed_asset->description,
+				'json'        => \wp_json_encode( $fixed_asset ),
+			];
+
+			if ( null !== $fixed_asset->youngest_balances?->net_book_value ) {
+				$values['net_book_value'] = $fixed_asset->youngest_balances?->net_book_value;
+			}
+
+			if ( null !== $fixed_asset->youngest_balances?->purchase_value ) {
+				$values['purchase_value'] = $fixed_asset->youngest_balances?->purchase_value;
+			}
+
 			$fixed_asset_id = $orm->update_or_create(
 				$fixed_asset,
 				[
@@ -183,11 +197,7 @@ class SaveFixedAssetController {
 					'twinfield_id' => $fixed_asset->id,
 					'code'         => $fixed_asset->code,
 				],
-				[
-					'status'      => $fixed_asset->status,
-					'description' => $fixed_asset->description,
-					'json' 	      => \wp_json_encode( $fixed_asset ),
-				]
+				$values
 			);
 		}
 	}
