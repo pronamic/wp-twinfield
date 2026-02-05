@@ -160,7 +160,7 @@ class Plugin {
 	private function install_tables() {
 		global $wpdb;
 
-		$version = '1.0.6';
+		$version = '1.0.7';
 
 		$db_version = \get_option( 'pronamic_twinfield_db_version' );
 
@@ -263,6 +263,9 @@ class Plugin {
 				status VARCHAR(80) NOT NULL,
 				code VARCHAR(80) NOT NULL,
 				description TEXT NOT NULL,
+				investment_date DATE DEFAULT NULL,
+				first_use_date DATE DEFAULT NULL,
+				dispose_date DATE DEFAULT NULL,
 				net_book_value DECIMAL(15,2) DEFAULT NULL,
 				purchase_value DECIMAL(15,2) DEFAULT NULL,
 				json LONGTEXT NOT NULL,
