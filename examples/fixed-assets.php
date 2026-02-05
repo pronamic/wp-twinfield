@@ -78,7 +78,6 @@ if ( isset( $authentication ) ) {
 
 		$finder = $client->get_finder();
 
-		// New fluent API - super easy! 🚀
 		$offices = $finder->offices()
 			->includeId()
 			->limit( 10 )
@@ -87,89 +86,6 @@ if ( isset( $authentication ) ) {
 		echo '<h3>Offices (New API)</h3>';
 		echo '<pre>';
 		var_dump( $offices );
-		echo '</pre>';
-
-		?>
-
-		<h2>🎯 New Fluent API - Fixed Assets Dimensions</h2>
-
-		<?php
-
-		// Query fixed assets with the new fluent API
-		$fixed_assets_data = $finder->dimensions()
-			->fixedAssets()
-			->pattern( '*' )
-			->limit( 20 )
-			->get();
-
-		echo '<h3>Fixed Assets</h3>';
-		echo '<pre>';
-		var_dump( $fixed_assets_data );
-		echo '</pre>';
-
-		?>
-
-		<h2>🎯 New Fluent API - Customers Modified Recently</h2>
-
-		<?php
-
-		// Get customers modified in the last year
-		$recent_customers = $finder->dimensions()
-			->customers()
-			->modifiedSince( '-1 year' )
-			->limit( 15 )
-			->items();
-
-		echo '<h3>Recent Customers</h3>';
-		echo '<pre>';
-		var_dump( $recent_customers );
-		echo '</pre>';
-
-		?>
-
-		<h2>🎯 New Fluent API - Articles Search</h2>
-
-		<?php
-
-		// Search articles
-		$articles = $finder->articles()
-			->pattern( '*' )
-			->limit( 10 )
-			->items();
-
-		echo '<h3>Articles</h3>';
-		echo '<pre>';
-		var_dump( $articles );
-		echo '</pre>';
-
-		?>
-
-		<h2>📚 Old API (Still Works) - Offices</h2>
-
-		<?php
-
-		// Old API still works for backward compatibility
-		$first_row = 1;
-		$max_rows  = 5;
-
-		$options = [
-			'includeid' => '1',
-		];
-
-		$search = new \Pronamic\WordPress\Twinfield\Finder\Search(
-			\Pronamic\WordPress\Twinfield\Finder\FinderTypes::OFF,
-			'*',
-			0,
-			$first_row,
-			$max_rows,
-			$options
-		);
-
-		$response = $finder->search( $search );
-
-		echo '<h3>Old API Response</h3>';
-		echo '<pre>';
-		var_dump( $response );
 		echo '</pre>';
 
 		?>
