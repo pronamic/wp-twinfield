@@ -752,12 +752,13 @@ class Plugin {
 				$wpdb->prefix . 'twinfield_fixed_assets',
 				'id',
 				[
-					'office_id'   => '%d',
-					'id'          => '%s',
-					'status'      => '%s',
-					'code'        => '%s',
-					'description' => '%s',
-					'json'        => '%s',
+					'id'           => '%d',
+					'office_id'    => '%d',
+					'twinfield_id' => '%s',
+					'status'       => '%s',
+					'code'         => '%s',
+					'description'  => '%s',
+					'json'         => '%s',
 				]
 			)
 		);

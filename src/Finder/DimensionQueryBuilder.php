@@ -62,7 +62,7 @@ class DimensionQueryBuilder extends FinderQueryBuilder {
 	 *
 	 * @return static
 	 */
-	public function costCenters() {
+	public function cost_centers() {
 		return $this->type( 'KPL' );
 	}
 
@@ -71,7 +71,7 @@ class DimensionQueryBuilder extends FinderQueryBuilder {
 	 *
 	 * @return static
 	 */
-	public function fixedAssets() {
+	public function fixed_assets() {
 		return $this->type( 'AST' );
 	}
 
@@ -89,7 +89,7 @@ class DimensionQueryBuilder extends FinderQueryBuilder {
 	 *
 	 * @return static
 	 */
-	public function includeHidden() {
+	public function include_hidden() {
 		$this->options['includehidden'] = '1';
 
 		return $this;
@@ -101,7 +101,7 @@ class DimensionQueryBuilder extends FinderQueryBuilder {
 	 * @param DateTimeInterface|string $date DateTime object or relative date string (e.g., '-1 year').
 	 * @return static
 	 */
-	public function modifiedSince( $date ) {
+	public function modified_since( $date ) {
 		if ( is_string( $date ) ) {
 			$date = new \DateTimeImmutable( $date, new \DateTimeZone( 'UTC' ) );
 		}

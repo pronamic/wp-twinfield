@@ -30,7 +30,7 @@ class GeneralLedgerQueryBuilder extends FinderQueryBuilder {
 	 *
 	 * @return static
 	 */
-	public function includeAllTypes() {
+	public function include_all_types() {
 		$this->options['includealltype'] = '1';
 
 		return $this;

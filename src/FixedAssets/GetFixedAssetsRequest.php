@@ -232,7 +232,7 @@ class GetFixedAssetsRequest {
 	 * @param string $order_by Order by.
 	 * @return static
 	 */
-	public function orderBy( string $order_by ): static {
+	public function order_by( string $order_by ): static {
 		$this->order_by = $order_by;
 		return $this;
 	}
@@ -297,7 +297,7 @@ class GetFixedAssetsRequest {
 	 * @param string $tax_reason Tax reason.
 	 * @return static
 	 */
-	public function taxReason( string $tax_reason ): static {
+	public function tax_reason( string $tax_reason ): static {
 		$this->tax_reason = $tax_reason;
 		return $this;
 	}
@@ -308,7 +308,7 @@ class GetFixedAssetsRequest {
 	 * @param string $location_id Location ID.
 	 * @return static
 	 */
-	public function locationId( string $location_id ): static {
+	public function location_id( string $location_id ): static {
 		$this->location_id = $location_id;
 		return $this;
 	}
@@ -319,7 +319,7 @@ class GetFixedAssetsRequest {
 	 * @param string $group_id Group ID.
 	 * @return static
 	 */
-	public function groupId( string $group_id ): static {
+	public function group_id( string $group_id ): static {
 		$this->group_id = $group_id;
 		return $this;
 	}
@@ -330,7 +330,7 @@ class GetFixedAssetsRequest {
 	 * @param string $class_id Class ID.
 	 * @return static
 	 */
-	public function classId( string $class_id ): static {
+	public function class_id( string $class_id ): static {
 		$this->class_id = $class_id;
 		return $this;
 	}
@@ -341,7 +341,7 @@ class GetFixedAssetsRequest {
 	 * @param string $type_id Type ID.
 	 * @return static
 	 */
-	public function typeId( string $type_id ): static {
+	public function type_id( string $type_id ): static {
 		$this->type_id = $type_id;
 		return $this;
 	}
@@ -374,7 +374,7 @@ class GetFixedAssetsRequest {
 	 * @param \DateTimeInterface $first_use_from First use from.
 	 * @return static
 	 */
-	public function firstUseFrom( \DateTimeInterface $first_use_from ): static {
+	public function first_use_from( \DateTimeInterface $first_use_from ): static {
 		$this->first_use_from = $first_use_from;
 		return $this;
 	}
@@ -385,7 +385,7 @@ class GetFixedAssetsRequest {
 	 * @param \DateTimeInterface $first_use_to First use to.
 	 * @return static
 	 */
-	public function firstUseTo( \DateTimeInterface $first_use_to ): static {
+	public function first_use_to( \DateTimeInterface $first_use_to ): static {
 		$this->first_use_to = $first_use_to;
 		return $this;
 	}
@@ -396,7 +396,7 @@ class GetFixedAssetsRequest {
 	 * @param \DateTimeInterface $investment_from Investment from.
 	 * @return static
 	 */
-	public function investmentFrom( \DateTimeInterface $investment_from ): static {
+	public function investment_from( \DateTimeInterface $investment_from ): static {
 		$this->investment_from = $investment_from;
 		return $this;
 	}
@@ -407,7 +407,7 @@ class GetFixedAssetsRequest {
 	 * @param \DateTimeInterface $investment_to Investment to.
 	 * @return static
 	 */
-	public function investmentTo( \DateTimeInterface $investment_to ): static {
+	public function investment_to( \DateTimeInterface $investment_to ): static {
 		$this->investment_to = $investment_to;
 		return $this;
 	}
@@ -418,7 +418,7 @@ class GetFixedAssetsRequest {
 	 * @param float $amount_from Amount from.
 	 * @return static
 	 */
-	public function amountFrom( float $amount_from ): static {
+	public function amount_from( float $amount_from ): static {
 		$this->amount_from = $amount_from;
 		return $this;
 	}
@@ -429,7 +429,7 @@ class GetFixedAssetsRequest {
 	 * @param float $amount_to Amount to.
 	 * @return static
 	 */
-	public function amountTo( float $amount_to ): static {
+	public function amount_to( float $amount_to ): static {
 		$this->amount_to = $amount_to;
 		return $this;
 	}

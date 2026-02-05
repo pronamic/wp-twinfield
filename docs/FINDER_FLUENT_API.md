@@ -18,14 +18,14 @@ A modern, intuitive API for working with the Twinfield Finder. Inspired by Larav
 $finder = $client->get_finder();
 
 // Simple: all offices
-$offices = $finder->offices()->getOffices();
+$offices = $finder->offices()->get_offices();
 
 // With options
 $offices = $finder->offices()
-    ->includeId()
+    ->include_id()
     ->pattern('Amsterdam*')
     ->limit(50)
-    ->getOffices();
+    ->get_offices();
 ```
 
 ### Retrieving Dimensions
@@ -45,12 +45,12 @@ $suppliers = $finder->dimensions()
 
 // Cost centers
 $cost_centers = $finder->dimensions()
-    ->costCenters()
+    ->cost_centers()
     ->items();
 
 // Fixed assets
 $fixed_assets = $finder->dimensions()
-    ->fixedAssets()
+    ->fixed_assets()
     ->items();
 
 // Projects
@@ -65,20 +65,20 @@ $projects = $finder->dimensions()
 // Dimensions modified since 1 year ago
 $recent = $finder->dimensions()
     ->customers()
-    ->modifiedSince('-1 year')
+    ->modified_since('-1 year')
     ->items();
 
 // With DateTime object
 $date = new DateTimeImmutable('2025-01-01');
 $recent = $finder->dimensions()
     ->customers()
-    ->modifiedSince($date)
+    ->modified_since($date)
     ->items();
 
 // Including hidden dimensions
 $all = $finder->dimensions()
     ->customers()
-    ->includeHidden()
+    ->include_hidden()
     ->items();
 
 // For specific office
@@ -107,7 +107,7 @@ $articles = $finder->articles()
 
 ```php
 $gl_accounts = $finder->generalLedger()
-    ->includeAllTypes()
+    ->include_all_types()
     ->items();
 ```
 
@@ -135,8 +135,8 @@ $gl_accounts = $finder->generalLedger()
 ### Office-specific Methods
 
 **`OfficeQueryBuilder`**
-- `includeId()` - Add office ID to results
-- `getOffices()` - Retrieve array of `Office` objects
+- `include_id()` - Add office ID to results
+- `get_offices()` - Retrieve array of `Office` objects
 
 ### Dimension-specific Methods
 
@@ -144,17 +144,17 @@ $gl_accounts = $finder->generalLedger()
 - `type(string $type)` - Set dimension type ('DEB', 'CRD', etc.)
 - `customers()` - Shortcut for type('DEB')
 - `suppliers()` - Shortcut for type('CRD')
-- `costCenters()` - Shortcut for type('KPL')
-- `fixedAssets()` - Shortcut for type('AST')
+- `cost_centers()` - Shortcut for type('KPL')
+- `fixed_assets()` - Shortcut for type('AST')
 - `projects()` - Shortcut for type('PRJ')
-- `includeHidden()` - Include hidden dimensions
-- `modifiedSince(DateTimeInterface|string $date)` - Filter by modification date
+- `include_hidden()` - Include hidden dimensions
+- `modified_since(DateTimeInterface|string $date)` - Filter by modification date
 - `company(string $company)` - Filter by company
 
 ### General Ledger-specific Methods
 
 **`GeneralLedgerQueryBuilder`**
-- `includeAllTypes()` - Include all general ledger account types
+- `include_all_types()` - Include all general ledger account types
 
 ## 🔧 Advanced Usage
 
@@ -228,10 +228,10 @@ $results = $finder->query(FinderTypes::BNK) // Banks
 
 Yes! Each entity has its own builder class with **only the options that are relevant**:
 
-- **`OfficeQueryBuilder`** - For offices (with `includeId()`)
-- **`DimensionQueryBuilder`** - For dimensions (with `customers()`, `modifiedSince()`, etc.)
+- **`OfficeQueryBuilder`** - For offices (with `include_id()`)
+- **`DimensionQueryBuilder`** - For dimensions (with `customers()`, `modified_since()`, etc.)
 - **`ArticleQueryBuilder`** - For articles/items
-- **`GeneralLedgerQueryBuilder`** - For general ledger accounts (with `includeAllTypes()`)
+- **`GeneralLedgerQueryBuilder`** - For general ledger accounts (with `include_all_types()`)
 
 For other finder types without a specific builder, you can use the generic `query()` method.
 
@@ -253,9 +253,9 @@ $response = $finder->search($search);
 
 // New API (equivalent)
 $offices = $finder->offices()
-    ->includeId()
+    ->include_id()
     ->limit(100)
-    ->getOffices();
+    ->get_offices();
 ```
 
 ## 📚 More Information

@@ -32,7 +32,7 @@ class OfficeQueryBuilder extends FinderQueryBuilder {
 	 *
 	 * @return static
 	 */
-	public function includeId() {
+	public function include_id() {
 		$this->options['includeid'] = '1';
 
 		return $this;
@@ -43,7 +43,7 @@ class OfficeQueryBuilder extends FinderQueryBuilder {
 	 *
 	 * @return Office[]
 	 */
-	public function getOffices(): array {
+	public function get_offices(): array {
 		$items = $this->items();
 
 		$offices = [];

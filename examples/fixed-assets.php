@@ -83,9 +83,9 @@ $organisation = $client->get_organisation();
 		$finder = $client->get_finder();
 
 		$offices = $finder->offices()
-			->includeId()
+			->include_id()
 			->limit( 10 )
-			->getOffices();
+			->get_offices();
 
 		?>
 		<h3>Offices</h3>
