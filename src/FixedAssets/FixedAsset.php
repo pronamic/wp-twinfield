@@ -25,14 +25,14 @@ final class FixedAsset {
 	 *
 	 * @var string|null
 	 */
-	public ?string $status;
+	public ?string $status = null;
 
 	/**
 	 * Posting error message.
 	 *
 	 * @var string|null
 	 */
-	public ?string $posting_error_message;
+	public ?string $posting_error_message = null;
 
 	/**
 	 * Code.
@@ -53,56 +53,56 @@ final class FixedAsset {
 	 *
 	 * @var TimePeriod|null
 	 */
-	public ?TimePeriod $last_depreciated_period;
+	public ?TimePeriod $last_depreciated_period = null;
 
 	/**
 	 * Investment date.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	public ?\DateTimeInterface $investment_date;
+	public ?\DateTimeInterface $investment_date = null;
 
 	/**
 	 * First use date.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	public ?\DateTimeInterface $first_use_date;
+	public ?\DateTimeInterface $first_use_date = null;
 
 	/**
 	 * Dispose date.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	public ?\DateTimeInterface $dispose_date;
+	public ?\DateTimeInterface $dispose_date = null;
 
 	/**
 	 * Youngest balances.
 	 *
 	 * @var YoungestBalances|null
 	 */
-	public ?YoungestBalances $youngest_balances;
+	public ?YoungestBalances $youngest_balances = null;
 
 	/**
 	 * Dispose price.
 	 *
 	 * @var float|null
 	 */
-	public ?float $dispose_price;
+	public ?float $dispose_price = null;
 
 	/**
 	 * Version.
 	 *
 	 * @var int|null
 	 */
-	public ?int $version;
+	public ?int $version = null;
 
 	/**
 	 * Group ID.
 	 *
 	 * @var string|null
 	 */
-	public ?string $group_id;
+	public ?string $group_id = null;
 
 	/**
 	 * Convert from Twinfield object.
