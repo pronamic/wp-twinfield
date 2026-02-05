@@ -290,6 +290,11 @@ class AuthorizationPostType {
 				'label'    => \__( 'Unposted bank statements', 'pronamic-twinfield' ),
 				'hook'     => 'pronamic_twinfield_save_unposted_bank_statements',
 			],
+			[
+				'meta_key' => '_pronamic_twinfield_save_fixed_assets_schedule',
+				'label'    => \__( 'Fixed assets', 'pronamic-twinfield' ),
+				'hook'     => 'pronamic_twinfield_save_fixed_assets',
+			],
 		];
 	}
 
