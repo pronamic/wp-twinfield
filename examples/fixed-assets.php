@@ -130,11 +130,16 @@ $organisation = $client->get_organisation();
 			<table>
 				<thead>
 					<tr>
-						<th>Code</th>
-						<th>Description</th>
-						<th>Version</th>
-						<th>Status</th>
-						<th>ID</th>
+						<th scope="col" rowspan="2">Code</th>
+						<th scope="col" rowspan="2">Description</th>
+						<th scope="col" rowspan="2">Version</th>
+						<th scope="col" rowspan="2">Status</th>
+						<th scope="col" rowspan="2">ID</th>
+						<th scope="col">Youngest Balances</th>
+					</tr>
+					<tr>
+						<th scope="col">Net Book Value</th>
+						<th scope="col">Purchase Value</th>
 					</tr>
 				</thead>
 
@@ -148,6 +153,8 @@ $organisation = $client->get_organisation();
 							<td><?php echo \htmlspecialchars( $asset->version ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->status ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->id ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->youngest_balances?->net_book_value ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->youngest_balances?->purchase_value ); ?></td>
 						</tr>
 
 					<?php endforeach; ?>
