@@ -60,10 +60,12 @@ final class GetFixedAssetsResponse implements \IteratorAggregate, \Countable {
 
 		$items_data = $data->get_optional( 'items' );
 
-		if ( null !== $items_data && \is_array( $items_data ) ) {
-			foreach ( $items_data as $item_data ) {
-				$items[] = FixedAsset::from_object( $item_data );
+		if ( null !== $items_data ) {
+			if ( ! \is_array( $items_data ) ) {
+				throw new \InvalidArgumentException( 'Items data must be an array.' );
 			}
+
+			$items = \array_map( FixedAsset::from_object( ... ), $items_data );
 		}
 
 		return new self(
