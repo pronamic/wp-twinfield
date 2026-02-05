@@ -88,6 +88,20 @@ if ( isset( $authentication ) ) {
 		var_dump( $offices );
 		echo '</pre>';
 
+		$fixed_assets_service = new FixedAssets\FixedAssetsService( $client );
+
+		$organisation = $client->get_organisation();
+
+		foreach ( $offices as $office ) {
+			echo '<h2>Fixed Assets for Office: ' . \htmlspecialchars( $office->get_name() ) . '</h2>';
+
+			$assets = $fixed_assets_service->get_assets( $organisation->get_uuid(), $office->id );
+
+			echo '<pre>';
+			var_dump( $assets );
+			echo '</pre>';
+		}
+
 		?>
 	</body>
 </html>
