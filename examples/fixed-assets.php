@@ -133,6 +133,7 @@ $organisation = $client->get_organisation();
 						<th>Code</th>
 						<th>Description</th>
 						<th>Version</th>
+						<th>Status</th>
 						<th>ID</th>
 					</tr>
 				</thead>
@@ -145,6 +146,7 @@ $organisation = $client->get_organisation();
 							<td><?php echo \htmlspecialchars( $asset->code ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->description ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->version ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->status ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->id ); ?></td>
 						</tr>
 
