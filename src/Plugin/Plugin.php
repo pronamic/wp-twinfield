@@ -758,15 +758,18 @@ class Plugin {
 				$wpdb->prefix . 'twinfield_fixed_assets',
 				'id',
 				[
-					'id'             => '%d',
-					'office_id'      => '%d',
-					'twinfield_id'   => '%s',
-					'status'         => '%s',
-					'code'           => '%s',
-					'description'    => '%s',
-					'net_book_value' => '%s',
-					'purchase_value' => '%s',
-					'json'           => '%s',
+					'id'              => '%d',
+					'office_id'       => '%d',
+					'twinfield_id'    => '%s',
+					'status'          => '%s',
+					'code'            => '%s',
+					'description'     => '%s',
+					'investment_date' => '%s',
+					'first_use_date'  => '%s',
+					'dispose_date'    => '%s',
+					'net_book_value'  => '%s',
+					'purchase_value'  => '%s',
+					'json'            => '%s',
 				]
 			)
 		);
