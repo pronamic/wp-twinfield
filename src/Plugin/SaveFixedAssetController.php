@@ -137,6 +137,7 @@ class SaveFixedAssetController {
 	 *
 	 * @param string|int $authorization Authorization.
 	 * @param string     $office_code   Office code.
+	 * @param string     $company_id    Company ID.
 	 * @return void
 	 */
 	private function save_office_fixed_assets( $authorization, $office_code, $company_id ) {
@@ -167,7 +168,7 @@ class SaveFixedAssetController {
 
 		$fixed_assets_service = new FixedAssetsService( $client );
 
-		$fixed_assets = $fixed_assets_service->assets( $organisation->get_uuid(), $office->id )
+		$fixed_assets = $fixed_assets_service->assets( $organisation->get_uuid(), $company_id )
 			->limit( 100 )
 			->fields( '*' )
 			->get();
