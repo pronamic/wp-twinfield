@@ -122,6 +122,7 @@ $organisation = $client->get_organisation();
 
 			$assets = $fixed_assets_service->assets( $organisation->get_uuid(), $office->id )
 				->limit( 100 )
+				->fields( '*' )
 				->get();
 
 			?>
