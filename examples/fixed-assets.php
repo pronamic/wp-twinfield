@@ -135,9 +135,13 @@ $organisation = $client->get_organisation();
 						<th scope="col" rowspan="2">Version</th>
 						<th scope="col" rowspan="2">Status</th>
 						<th scope="col" rowspan="2">ID</th>
+						<th scope="col">Dates</th>
 						<th scope="col">Youngest Balances</th>
 					</tr>
 					<tr>
+						<th scope="col">Investment Date</th>
+						<th scope="col">First Use Date</th>
+						<th scope="col">Dispose Date</th>
 						<th scope="col">Net Book Value</th>
 						<th scope="col">Purchase Value</th>
 					</tr>
@@ -153,6 +157,9 @@ $organisation = $client->get_organisation();
 							<td><?php echo \htmlspecialchars( $asset->version ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->status ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->id ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->investment_date?->format( 'Y-m-d' ) ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->first_use_date?->format( 'Y-m-d' ) ); ?></td>
+							<td><?php echo \htmlspecialchars( $asset->dispose_date?->format( 'Y-m-d' ) ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->youngest_balances?->net_book_value ); ?></td>
 							<td><?php echo \htmlspecialchars( $asset->youngest_balances?->purchase_value ); ?></td>
 						</tr>
