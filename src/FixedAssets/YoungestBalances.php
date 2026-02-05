@@ -16,24 +16,24 @@ final class YoungestBalances {
 	/**
 	 * Net book value.
 	 *
-	 * @var float|null
+	 * @var string|null
 	 */
-	public ?float $net_book_value;
+	public readonly ?string $net_book_value;
 
 	/**
 	 * Purchase value.
 	 *
-	 * @var float|null
+	 * @var string|null
 	 */
-	public ?float $purchase_value;
+	public readonly ?string $purchase_value;
 
 	/**
 	 * Construct youngest balances.
 	 *
-	 * @param float|null $net_book_value Net book value.
-	 * @param float|null $purchase_value Purchase value.
+	 * @param string|null $net_book_value Net book value.
+	 * @param string|null $purchase_value Purchase value.
 	 */
-	public function __construct( ?float $net_book_value = null, ?float $purchase_value = null ) {
+	private function __construct( ?string $net_book_value = null, ?string $purchase_value = null ) {
 		$this->net_book_value = $net_book_value;
 		$this->purchase_value = $purchase_value;
 	}
@@ -51,9 +51,12 @@ final class YoungestBalances {
 
 		$data = ObjectAccess::from_object( $value );
 
+		$net_book_value = $data->get_optional( 'netBookValue' );
+		$purchase_value = $data->get_optional( 'purchaseValue' );
+
 		return new self(
-			$data->get_optional( 'netBookValue' ),
-			$data->get_optional( 'purchaseValue' )
+			null !== $net_book_value ? (string) $net_book_value : null,
+			null !== $purchase_value ? (string) $purchase_value : null
 		);
 	}
 }
