@@ -30,147 +30,168 @@ class GetFixedAssetsRequest {
 	 *
 	 * @var int|null
 	 */
-	private ?int $offset = null;
+	#[RemoteParameterName( 'offset' )]
+	public ?int $offset = null;
 
 	/**
 	 * Limit.
 	 *
 	 * @var int|null
 	 */
-	private ?int $limit = null;
+	#[RemoteParameterName( 'limit' )]
+	public ?int $limit = null;
 
 	/**
 	 * Order by.
 	 *
 	 * @var string|null
 	 */
-	private ?string $order_by = null;
+	#[RemoteParameterName( 'orderBy' )]
+	public ?string $order_by = null;
 
 	/**
 	 * Ascending.
 	 *
 	 * @var bool|null
 	 */
-	private ?bool $asc = null;
+	#[RemoteParameterName( 'asc' )]
+	public ?bool $asc = null;
 
 	/**
 	 * Search pattern.
 	 *
 	 * @var string|null
 	 */
-	private ?string $search_pattern = null;
+	#[RemoteParameterName( 'searchPattern' )]
+	public ?string $search_pattern = null;
 
 	/**
 	 * Status.
 	 *
 	 * @var string|null
 	 */
-	private ?string $status = null;
+	#[RemoteParameterName( 'status' )]
+	public ?string $status = null;
 
 	/**
 	 * Regime.
 	 *
 	 * @var string|null
 	 */
-	private ?string $regime = null;
+	#[RemoteParameterName( 'regime' )]
+	public ?string $regime = null;
 
 	/**
 	 * Tax reason.
 	 *
 	 * @var string|null
 	 */
-	private ?string $tax_reason = null;
+	#[RemoteParameterName( 'taxReason' )]
+	public ?string $tax_reason = null;
 
 	/**
 	 * Location ID.
 	 *
 	 * @var string|null
 	 */
-	private ?string $location_id = null;
+	#[RemoteParameterName( 'locationId' )]
+	public ?string $location_id = null;
 
 	/**
 	 * Group ID.
 	 *
 	 * @var string|null
 	 */
-	private ?string $group_id = null;
+	#[RemoteParameterName( 'groupId' )]
+	public ?string $group_id = null;
 
 	/**
 	 * Class ID.
 	 *
 	 * @var string|null
 	 */
-	private ?string $class_id = null;
+	#[RemoteParameterName( 'classId' )]
+	public ?string $class_id = null;
 
 	/**
 	 * Type ID.
 	 *
 	 * @var string|null
 	 */
-	private ?string $type_id = null;
+	#[RemoteParameterName( 'typeId' )]
+	public ?string $type_id = null;
 
 	/**
 	 * Time related filters year.
 	 *
 	 * @var int|null
 	 */
-	private ?int $time_related_filters_year = null;
+	#[RemoteParameterName( 'timeRelatedFiltersYear' )]
+	public ?int $time_related_filters_year = null;
 
 	/**
 	 * Time related filters period number.
 	 *
 	 * @var int|null
 	 */
-	private ?int $time_related_filters_period_number = null;
+	#[RemoteParameterName( 'timeRelatedFiltersPeriodNumber' )]
+	public ?int $time_related_filters_period_number = null;
 
 	/**
 	 * First use from.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	private ?\DateTimeInterface $first_use_from = null;
+	#[RemoteParameterName( 'firstUseFrom' )]
+	public ?\DateTimeInterface $first_use_from = null;
 
 	/**
 	 * First use to.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	private ?\DateTimeInterface $first_use_to = null;
+	#[RemoteParameterName( 'firstUseTo' )]
+	public ?\DateTimeInterface $first_use_to = null;
 
 	/**
 	 * Investment from.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	private ?\DateTimeInterface $investment_from = null;
+	#[RemoteParameterName( 'investmentFrom' )]
+	public ?\DateTimeInterface $investment_from = null;
 
 	/**
 	 * Investment to.
 	 *
 	 * @var \DateTimeInterface|null
 	 */
-	private ?\DateTimeInterface $investment_to = null;
+	#[RemoteParameterName( 'investmentTo' )]
+	public ?\DateTimeInterface $investment_to = null;
 
 	/**
 	 * Amount from.
 	 *
 	 * @var float|null
 	 */
-	private ?float $amount_from = null;
+	#[RemoteParameterName( 'amountFrom' )]
+	public ?float $amount_from = null;
 
 	/**
 	 * Amount to.
 	 *
 	 * @var float|null
 	 */
-	private ?float $amount_to = null;
+	#[RemoteParameterName( 'amountTo' )]
+	public ?float $amount_to = null;
 
 	/**
 	 * Fields.
 	 *
 	 * @var string|null
 	 */
-	private ?string $fields = null;
+	#[RemoteParameterName( 'fields' )]
+	public ?string $fields = null;
 
 	/**
 	 * Construct get fixed assets request.
@@ -191,7 +212,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function offset( int $offset ): self {
 		$this->offset = $offset;
-
 		return $this;
 	}
 
@@ -203,7 +223,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function limit( int $limit ): self {
 		$this->limit = $limit;
-
 		return $this;
 	}
 
@@ -215,7 +234,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function orderBy( string $order_by ): self {
 		$this->order_by = $order_by;
-
 		return $this;
 	}
 
@@ -227,7 +245,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function asc( bool $asc = true ): self {
 		$this->asc = $asc;
-
 		return $this;
 	}
 
@@ -238,7 +255,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function desc(): self {
 		$this->asc = false;
-
 		return $this;
 	}
 
@@ -250,7 +266,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function pattern( string $search_pattern ): self {
 		$this->search_pattern = $search_pattern;
-
 		return $this;
 	}
 
@@ -262,7 +277,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function status( string $status ): self {
 		$this->status = $status;
-
 		return $this;
 	}
 
@@ -274,7 +288,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function regime( string $regime ): self {
 		$this->regime = $regime;
-
 		return $this;
 	}
 
@@ -286,7 +299,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function taxReason( string $tax_reason ): self {
 		$this->tax_reason = $tax_reason;
-
 		return $this;
 	}
 
@@ -298,7 +310,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function locationId( string $location_id ): self {
 		$this->location_id = $location_id;
-
 		return $this;
 	}
 
@@ -310,7 +321,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function groupId( string $group_id ): self {
 		$this->group_id = $group_id;
-
 		return $this;
 	}
 
@@ -322,7 +332,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function classId( string $class_id ): self {
 		$this->class_id = $class_id;
-
 		return $this;
 	}
 
@@ -334,7 +343,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function typeId( string $type_id ): self {
 		$this->type_id = $type_id;
-
 		return $this;
 	}
 
@@ -346,7 +354,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function year( int $year ): self {
 		$this->time_related_filters_year = $year;
-
 		return $this;
 	}
 
@@ -358,7 +365,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function period( int $period_number ): self {
 		$this->time_related_filters_period_number = $period_number;
-
 		return $this;
 	}
 
@@ -370,7 +376,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function firstUseFrom( \DateTimeInterface $first_use_from ): self {
 		$this->first_use_from = $first_use_from;
-
 		return $this;
 	}
 
@@ -382,7 +387,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function firstUseTo( \DateTimeInterface $first_use_to ): self {
 		$this->first_use_to = $first_use_to;
-
 		return $this;
 	}
 
@@ -394,7 +398,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function investmentFrom( \DateTimeInterface $investment_from ): self {
 		$this->investment_from = $investment_from;
-
 		return $this;
 	}
 
@@ -406,7 +409,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function investmentTo( \DateTimeInterface $investment_to ): self {
 		$this->investment_to = $investment_to;
-
 		return $this;
 	}
 
@@ -418,7 +420,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function amountFrom( float $amount_from ): self {
 		$this->amount_from = $amount_from;
-
 		return $this;
 	}
 
@@ -430,7 +431,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function amountTo( float $amount_to ): self {
 		$this->amount_to = $amount_to;
-
 		return $this;
 	}
 
@@ -442,7 +442,6 @@ class GetFixedAssetsRequest {
 	 */
 	public function fields( string $fields ): self {
 		$this->fields = $fields;
-
 		return $this;
 	}
 
@@ -454,88 +453,29 @@ class GetFixedAssetsRequest {
 	public function build(): string {
 		$params = [];
 
-		if ( null !== $this->offset ) {
-			$params['offset'] = $this->offset;
-		}
+		$reflection = new \ReflectionClass( $this );
 
-		if ( null !== $this->limit ) {
-			$params['limit'] = $this->limit;
-		}
+		foreach ( $reflection->getProperties() as $property ) {
+			$value = $property->getValue( $this );
 
-		if ( null !== $this->order_by ) {
-			$params['orderBy'] = $this->order_by;
-		}
+			if ( null === $value ) {
+				continue;
+			}
 
-		if ( null !== $this->asc ) {
-			$params['asc'] = $this->asc ? 'true' : 'false';
-		}
+			$attributes = $property->getAttributes( RemoteParameterName::class );
 
-		if ( null !== $this->search_pattern ) {
-			$params['searchPattern'] = $this->search_pattern;
-		}
+			foreach ( $attributes as $attribute_reflection ) {
+				$attribute = $attribute_reflection->newInstance();
+				$param_name = $attribute->name;
 
-		if ( null !== $this->status ) {
-			$params['status'] = $this->status;
-		}
-
-		if ( null !== $this->regime ) {
-			$params['regime'] = $this->regime;
-		}
-
-		if ( null !== $this->tax_reason ) {
-			$params['taxReason'] = $this->tax_reason;
-		}
-
-		if ( null !== $this->location_id ) {
-			$params['locationId'] = $this->location_id;
-		}
-
-		if ( null !== $this->group_id ) {
-			$params['groupId'] = $this->group_id;
-		}
-
-		if ( null !== $this->class_id ) {
-			$params['classId'] = $this->class_id;
-		}
-
-		if ( null !== $this->type_id ) {
-			$params['typeId'] = $this->type_id;
-		}
-
-		if ( null !== $this->time_related_filters_year ) {
-			$params['timeRelatedFiltersYear'] = $this->time_related_filters_year;
-		}
-
-		if ( null !== $this->time_related_filters_period_number ) {
-			$params['timeRelatedFiltersPeriodNumber'] = $this->time_related_filters_period_number;
-		}
-
-		if ( null !== $this->first_use_from ) {
-			$params['firstUseFrom'] = $this->first_use_from->format( 'Y-m-d\TH:i:s' );
-		}
-
-		if ( null !== $this->first_use_to ) {
-			$params['firstUseTo'] = $this->first_use_to->format( 'Y-m-d\TH:i:s' );
-		}
-
-		if ( null !== $this->investment_from ) {
-			$params['investmentFrom'] = $this->investment_from->format( 'Y-m-d\TH:i:s' );
-		}
-
-		if ( null !== $this->investment_to ) {
-			$params['investmentTo'] = $this->investment_to->format( 'Y-m-d\TH:i:s' );
-		}
-
-		if ( null !== $this->amount_from ) {
-			$params['amountFrom'] = $this->amount_from;
-		}
-
-		if ( null !== $this->amount_to ) {
-			$params['amountTo'] = $this->amount_to;
-		}
-
-		if ( null !== $this->fields ) {
-			$params['fields'] = $this->fields;
+				if ( $value instanceof \DateTimeInterface ) {
+					$params[ $param_name ] = $value->format( 'Y-m-d\TH:i:s' );
+				} elseif ( \is_bool( $value ) ) {
+					$params[ $param_name ] = $value ? 'true' : 'false';
+				} else {
+					$params[ $param_name ] = $value;
+				}
+			}
 		}
 
 		if ( empty( $params ) ) {
