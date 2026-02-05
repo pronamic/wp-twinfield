@@ -99,31 +99,14 @@ class SaveFixedAssetController {
 	 * @return void
 	 */
 	private function save_fixed_assets( $authorization ) {
-		global $wpdb;
+		$client = $this->plugin->get_client( \get_post( $authorization ) );
 
-		$request = new WP_REST_Request( 'GET', '/pronamic-twinfield/v1/authorizations/' . $authorization . '/offices' );
+		$finder = $client->get_finder();
 
-		$request->set_param( 'authorization', $authorization );
-
-		$response = \rest_do_request( $request );
-
-		$data = (object) $response->get_data();
-
-		/**
-		 * Template offices.
-		 *
-		 * Bank statements cannot be requested from template administrations.
-		 */
-		$offices_table = $wpdb->prefix . 'twinfield_offices';
-
-		$codes = $wpdb->get_col( "SELECT code FROM $offices_table WHERE is_template = TRUE;" );
-
-		$offices = $data->data;
-
-		$offices = \array_filter(
-			$offices,
-			fn( $office ) => ! \in_array( $office->get_code(), $codes, true )
-		);
+		$offices = $finder->offices()
+			->include_id()
+			->limit( 500 )
+			->get_offices();
 
 		foreach ( $offices as $office ) {
 			$office_code = $office->get_code();
@@ -133,6 +116,7 @@ class SaveFixedAssetController {
 				[
 					'authorization' => $authorization,
 					'office_code'   => $office_code,
+					'company_id'    => $office->id,
 				],
 				'pronamic-twinfield'
 			);
@@ -183,11 +167,12 @@ class SaveFixedAssetController {
 
 		$fixed_assets_service = new FixedAssetsService( $client );
 
-		$response = $fixed_assets_service->get_assets( $organisation->get_uuid(), $company_id );
+		$fixed_assets = $fixed_assets_service->assets( $organisation->get_uuid(), $office->id )
+			->limit( 100 )
+			->fields( '*' )
+			->get();
 
-		$fixed_assets = $response->to_fixed_assets();
-
-		foreach ( $$fixed_assets as $fixed_asset ) {
+		foreach ( $fixed_assets as $fixed_asset ) {
 			$this->log( \wp_json_encode( $fixed_asset ) );
 
 			$fixed_asset_id = $orm->update_or_create(
@@ -198,8 +183,9 @@ class SaveFixedAssetController {
 					'code'         => $fixed_asset->code,
 				],
 				[
-					'status'      => $fixed_asset->name,
+					'status'      => $fixed_asset->status,
 					'description' => $fixed_asset->description,
+					'json' 	      => \wp_json_encode( $fixed_asset ),
 				]
 			);
 		}
