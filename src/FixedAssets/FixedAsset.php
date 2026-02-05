@@ -16,9 +16,9 @@ final class FixedAsset {
 	/**
 	 * ID.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	public string $id;
+	public ?string $id = null;
 
 	/**
 	 * Status.
@@ -37,16 +37,16 @@ final class FixedAsset {
 	/**
 	 * Code.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	public string $code;
+	public ?string $code = null;
 
 	/**
 	 * Description.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	public string $description;
+	public ?string $description = null;
 
 	/**
 	 * Last depreciated period.
@@ -105,19 +105,6 @@ final class FixedAsset {
 	public ?string $group_id;
 
 	/**
-	 * Construct fixed asset.
-	 *
-	 * @param string $id          ID.
-	 * @param string $code        Code.
-	 * @param string $description Description.
-	 */
-	public function __construct( string $id, string $code, string $description ) {
-		$this->id          = $id;
-		$this->code        = $code;
-		$this->description = $description;
-	}
-
-	/**
 	 * Convert from Twinfield object.
 	 *
 	 * @param object $value Object.
@@ -126,12 +113,11 @@ final class FixedAsset {
 	public static function from_twinfield_object( $value ) {
 		$data = ObjectAccess::from_object( $value );
 
-		$fixed_asset = new self(
-			$data->get_property( 'id' ),
-			$data->get_property( 'code' ),
-			$data->get_property( 'description' )
-		);
+		$fixed_asset = new self();
 
+		$fixed_asset->id                      = $data->get_optional( 'id' );
+		$fixed_asset->code                    = $data->get_optional( 'code' );
+		$fixed_asset->description             = $data->get_optional( 'description' );
 		$fixed_asset->status                  = $data->get_optional( 'status' );
 		$fixed_asset->posting_error_message   = $data->get_optional( 'postingErrorMessage' );
 		$fixed_asset->last_depreciated_period = $data->get_optional( 'lastDepreciatedPeriod' );
@@ -155,12 +141,11 @@ final class FixedAsset {
 	public static function from_object( $value ) {
 		$data = ObjectAccess::from_object( $value );
 
-		$fixed_asset = new self(
-			$data->get_property( 'id' ),
-			$data->get_property( 'code' ),
-			$data->get_property( 'description' )
-		);
+		$fixed_asset = new self();
 
+		$fixed_asset->id                      = $data->get_optional( 'id' );
+		$fixed_asset->code                    = $data->get_optional( 'code' );
+		$fixed_asset->description             = $data->get_optional( 'description' );
 		$fixed_asset->status                  = $data->get_optional( 'status' );
 		$fixed_asset->posting_error_message   = $data->get_optional( 'postingErrorMessage' );
 		$fixed_asset->last_depreciated_period = TimePeriod::from_object( $data->get_optional( 'lastDepreciatedPeriod' ) );
