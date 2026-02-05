@@ -160,7 +160,7 @@ class Plugin {
 	private function install_tables() {
 		global $wpdb;
 
-		$version = '1.0.5';
+		$version = '1.0.6';
 
 		$db_version = \get_option( 'pronamic_twinfield_db_version' );
 
@@ -263,6 +263,8 @@ class Plugin {
 				status VARCHAR(80) NOT NULL,
 				code VARCHAR(80) NOT NULL,
 				description TEXT NOT NULL,
+				net_book_value DECIMAL(15,2) DEFAULT NULL,
+				purchase_value DECIMAL(15,2) DEFAULT NULL,
 				json LONGTEXT NOT NULL,
 				PRIMARY KEY  ( id ),
 				KEY office_id ( office_id ),
@@ -753,13 +755,15 @@ class Plugin {
 				$wpdb->prefix . 'twinfield_fixed_assets',
 				'id',
 				[
-					'id'           => '%d',
-					'office_id'    => '%d',
-					'twinfield_id' => '%s',
-					'status'       => '%s',
-					'code'         => '%s',
-					'description'  => '%s',
-					'json'         => '%s',
+					'id'             => '%d',
+					'office_id'      => '%d',
+					'twinfield_id'   => '%s',
+					'status'         => '%s',
+					'code'           => '%s',
+					'description'    => '%s',
+					'net_book_value' => '%s',
+					'purchase_value' => '%s',
+					'json'           => '%s',
 				]
 			)
 		);
