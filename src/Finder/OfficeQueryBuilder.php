@@ -45,11 +45,17 @@ class OfficeQueryBuilder extends FinderQueryBuilder {
 	 */
 	public function getOffices(): array {
 		$items = $this->items();
-var_dump( $items );exit;
+
 		$offices = [];
 
 		foreach ( $items as $item ) {
-			$offices[] = new Office( $item[0], $item[1] ?? null );
+			$office = new Office( $item[0], $item[1] ?? null );
+
+			if ( isset( $item[2] ) ) {
+				$office->id = $item[2];
+			}
+
+			$offices[] = $office;
 		}
 
 		return $offices;
