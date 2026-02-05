@@ -40,7 +40,7 @@ class SaveFixedAssetController {
 		\add_action( 'cli_init', $this->cli_init( ... ) );
 
 		\add_action( 'pronamic_twinfield_save_fixed_assets', $this->save_fixed_assets( ... ) );
-		\add_action( 'pronamic_twinfield_save_office_fixed_assets', $this->save_office_fixed_assets( ... ), 10, 2 );
+		\add_action( 'pronamic_twinfield_save_office_fixed_assets', $this->save_office_fixed_assets( ... ), 10, 3 );
 	}
 
 	/**
