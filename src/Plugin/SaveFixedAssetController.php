@@ -182,6 +182,18 @@ class SaveFixedAssetController {
 				'json'        => \wp_json_encode( $fixed_asset ),
 			];
 
+			if ( null !== $fixed_asset->investment_date ) {
+				$values['investment_date'] = $fixed_asset->investment_date->format( 'Y-m-d' );
+			}
+
+			if ( null !== $fixed_asset->first_use_date ) {
+				$values['first_use_date'] = $fixed_asset->first_use_date->format( 'Y-m-d' );
+			}
+
+			if ( null !== $fixed_asset->dispose_date ) {
+				$values['dispose_date'] = $fixed_asset->dispose_date->format( 'Y-m-d' );
+			}
+
 			if ( null !== $fixed_asset->youngest_balances?->net_book_value ) {
 				$values['net_book_value'] = $fixed_asset->youngest_balances?->net_book_value;
 			}
