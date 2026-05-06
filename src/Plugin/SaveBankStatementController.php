@@ -9,6 +9,7 @@ namespace Pronamic\WordPress\Twinfield\Plugin;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Pronamic\WordPress\Twinfield\BankStatements\BankStatements;
 use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsService;
 use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsByCreationDateQuery;
 use Pronamic\WordPress\Twinfield\BankStatements\BankStatementsQuery;
@@ -408,7 +409,9 @@ class SaveBankStatementController {
 
 		$bank_statements = $bank_statements_service->get_bank_statements( $office, $query );
 
-		$this->bank_statements_update_or_create( $bank_statements );
+		$result = $this->bank_statements_update_or_create( $bank_statements );
+
+		$this->mark_disappeared_bank_statements( $result['office_id'], $result['bank_statement_ids'], $date_from, $date_to );
 	}
 
 	/**
@@ -418,6 +421,7 @@ class SaveBankStatementController {
 	 * @link https://laravel.com/docs/9.x/eloquent#upserts
 	 * @link https://stackoverflow.com/questions/2634152/getting-mysql-insert-id-while-using-on-duplicate-key-update-with-php
 	 * @param BankStatements $bank_statements Bank statements.
+	 * @return array{office_id: int, bank_statement_ids: int[]}
 	 */
 	private function bank_statements_update_or_create( $bank_statements ) {
 		$orm = $this->plugin->get_orm();
@@ -442,6 +446,8 @@ class SaveBankStatementController {
 			],
 			[]
 		);
+
+		$bank_statement_ids = [];
 
 		foreach ( $bank_statements as $bank_statement ) {
 			$this->log(
@@ -471,8 +477,11 @@ class SaveBankStatementController {
 					'opening_balance'    => $data->opening_balance,
 					'closing_balance'    => $data->closing_balance,
 					'transaction_number' => $data->transaction_number,
+					'local_status'       => '',
 				]
 			);
+
+			$bank_statement_ids[] = $bank_statement_id;
 
 			foreach ( $bank_statement->get_lines() as $line ) {
 				$this->log(
@@ -505,6 +514,66 @@ class SaveBankStatementController {
 					]
 				);
 			}
+		}
+
+		return [
+			'office_id'          => $office_id,
+			'bank_statement_ids' => $bank_statement_ids,
+		];
+	}
+
+	/**
+	 * Mark bank statements as disappeared when they are no longer returned by the Twinfield API.
+	 *
+	 * @param int              $office_id          Office ID.
+	 * @param int[]            $bank_statement_ids Bank statement IDs returned by Twinfield.
+	 * @param DateTimeImmutable $date_from          Date from.
+	 * @param DateTimeImmutable $date_to            Date to.
+	 * @return void
+	 */
+	private function mark_disappeared_bank_statements( $office_id, $bank_statement_ids, DateTimeImmutable $date_from, DateTimeImmutable $date_to ) {
+		global $wpdb;
+
+		$where = $wpdb->prepare(
+			"office_id = %d AND `date` >= %s AND `date` <= %s AND ( local_status = '' OR local_status IS NULL )",
+			$office_id,
+			$date_from->format( 'Y-m-d' ),
+			$date_to->format( 'Y-m-d' )
+		);
+
+		if ( [] !== $bank_statement_ids ) {
+			$where .= $wpdb->prepare(
+				\sprintf(
+					' AND id NOT IN ( %s )',
+					\implode( ', ', \array_fill( 0, \count( $bank_statement_ids ), '%d' ) )
+				),
+				$bank_statement_ids
+			);
+		}
+
+		$query = "UPDATE {$wpdb->prefix}twinfield_bank_statements SET local_status = 'disappeared', updated_at = NOW() WHERE $where";
+
+		$result = $wpdb->query( $query );
+
+		if ( false === $result ) {
+			throw new \Exception(
+				\sprintf(
+					'Error marking bank statements as disappeared: %s.',
+					$wpdb->last_error
+				)
+			);
+		}
+
+		if ( $result > 0 ) {
+			$this->log(
+				\sprintf(
+					'Marked %d bank statement(s) as disappeared for office %d (date range %s to %s).',
+					$result,
+					$office_id,
+					$date_from->format( 'Y-m-d' ),
+					$date_to->format( 'Y-m-d' )
+				)
+			);
 		}
 	}
 
