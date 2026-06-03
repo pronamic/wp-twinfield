@@ -160,7 +160,7 @@ class Plugin {
 	private function install_tables() {
 		global $wpdb;
 
-		$version = '1.0.7';
+		$version = '1.0.8';
 
 		$db_version = \get_option( 'pronamic_twinfield_db_version' );
 
@@ -272,7 +272,7 @@ class Plugin {
 				PRIMARY KEY  ( id ),
 				KEY office_id ( office_id ),
 				UNIQUE KEY twinfield_id ( office_id, twinfield_id ),
-				UNIQUE KEY code ( office_id, code )
+				KEY code ( office_id, code )
 			);
 
 			CREATE TABLE {$wpdb->prefix}twinfield_save_state (

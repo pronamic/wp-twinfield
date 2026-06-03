@@ -177,6 +177,7 @@ class SaveFixedAssetController {
 			$this->log( \wp_json_encode( $fixed_asset ) );
 
 			$values = [
+				'code'        => $fixed_asset->code,
 				'status'      => $fixed_asset->status,
 				'description' => $fixed_asset->description,
 				'json'        => \wp_json_encode( $fixed_asset ),
@@ -207,7 +208,6 @@ class SaveFixedAssetController {
 				[
 					'office_id'    => $office_id,
 					'twinfield_id' => $fixed_asset->id,
-					'code'         => $fixed_asset->code,
 				],
 				$values
 			);
