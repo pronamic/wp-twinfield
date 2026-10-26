@@ -105,6 +105,7 @@ class AuthorizationPostType {
 				'show_in_menu' => false,
 				'supports'     => [
 					'slug',
+					'author',
 				],
 			]
 		);
