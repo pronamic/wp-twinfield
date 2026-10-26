@@ -61,6 +61,7 @@ class Plugin {
 
 		if ( is_admin() ) {
 			$this->controllers[] = new Admin( $this );
+			$this->controllers[] = new UserProfile();
 		}
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -94,7 +95,7 @@ class Plugin {
 
 		\add_filter(
 			'pronamic_twinfield_client',
-			fn() => $this->get_client( \get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) ) )
+			fn() => $this->get_client( \get_post( $this->get_default_authorization_post_id() ) )
 		);
 
 		\add_filter(
@@ -635,6 +636,29 @@ class Plugin {
 				'post_mime_type' => 'application/json',
 			]
 		);
+	}
+
+	/**
+	 * Get default authorization post ID.
+	 *
+	 * Returns the user's personal default authorization when set and published,
+	 * otherwise the global default authorization.
+	 *
+	 * @param int|null $user_id User ID, defaults to the current user.
+	 * @return int
+	 */
+	public function get_default_authorization_post_id( $user_id = null ): int {
+		$user_id ??= \get_current_user_id();
+
+		if ( $user_id > 0 ) {
+			$post_id = (int) \get_user_meta( $user_id, 'pronamic_twinfield_authorization_post_id', true );
+
+			if ( $post_id > 0 && 'pronamic_twf_auth' === \get_post_type( $post_id ) && 'publish' === \get_post_status( $post_id ) ) {
+				return $post_id;
+			}
+		}
+
+		return (int) \get_option( 'pronamic_twinfield_authorization_post_id' );
 	}
 
 	/**

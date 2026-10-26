@@ -462,8 +462,6 @@ class RestApi {
 				'description'       => 'Authorization post ID.',
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
-				'required'          => true,
-				'default'           => \get_option( 'pronamic_twinfield_authorization_post_id' ),
 			],
 			'office_code'         => [
 				'description' => 'Twinfield office code.',
@@ -936,7 +934,7 @@ class RestApi {
 	 * @return WP_REST_Response
 	 */
 	public function redirect_authorization( $route ) {
-		$post = get_post( \get_option( 'pronamic_twinfield_authorization_post_id' ) );
+		$post = get_post( $this->plugin->get_default_authorization_post_id() );
 
 		/**
 		 * 303 See Other.
@@ -1136,6 +1134,10 @@ class RestApi {
 	 */
 	public function rest_api_budget( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
+
+		if ( empty( $post_id ) ) {
+			$post_id = $this->plugin->get_default_authorization_post_id();
+		}
 
 		$post = get_post( $post_id );
 

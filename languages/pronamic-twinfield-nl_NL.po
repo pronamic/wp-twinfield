@@ -1,870 +1,1031 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pronamic Twinfield 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-"
-"twinfield\n"
-"POT-Creation-Date: 2022-06-02T12:10:17+00:00\n"
-"PO-Revision-Date: 2022-06-02 14:18+0200\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-twinfield\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-06-02T12:10:17+00:00\n"
+"PO-Revision-Date: 2022-06-02 14:18+0200\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Plugin Name of the plugin
+#: pronamic-twinfield.php
 msgid "Pronamic Twinfield"
 msgstr "Pronamic Twinfield"
 
 #. Plugin URI of the plugin
+#: pronamic-twinfield.php
 msgid "https://www.pronamic.eu/plugins/twinfield/"
 msgstr "https://www.pronamic.nl/plugins/twinfield/"
 
 #. Description of the plugin
+#: pronamic-twinfield.php
 msgid "Twinfield plugin for WordPress."
 msgstr "Twinfield plugin voor WordPress."
 
 #. Author of the plugin
+#: pronamic-twinfield.php
 msgid "Pronamic"
 msgstr "Pronamic"
 
 #. Author URI of the plugin
+#: pronamic-twinfield.php
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: admin/meta-box-authorize.php:26
+#: admin/meta-box-authorize.php:35
 msgid "Connect with Twinfield"
-msgstr ""
+msgstr "Verbinden met Twinfield"
 
-#: admin/meta-box-menu.php:14 templates/dimension.php:49
+#: admin/meta-box-authentication.php:21
+#: admin/meta-box-menu.php:14
+#: templates/dimension.php:49
 #: templates/office.php:46
 msgid "Organisation"
-msgstr ""
+msgstr "Organisatie"
 
-#: admin/meta-box-menu.php:18 src/Twinfield.php:81 templates/office.php:180
+#: admin/meta-box-menu.php:18
+#: src/Plugin/AuthorizationPostType.php:276
+#: src/Twinfield.php:79
+#: templates/office.php:180
 msgid "Offices"
-msgstr ""
+msgstr "Administraties"
 
-#: admin/meta-box-menu.php:22 templates/office.php:208
+#: admin/meta-box-menu.php:22
+#: templates/office.php:208
 msgid "Finder Types"
-msgstr ""
+msgstr "Finder-types"
 
 #: admin/meta-box-menu.php:31
 msgid "Browse Fields"
-msgstr ""
+msgstr "Browse-velden"
 
 #: admin/meta-box-menu.php:40
 msgid "Item"
 msgstr "Item"
 
-#: admin/meta-box-menu.php:41 templates/office.php:239 templates/offices.php:18
+#: admin/meta-box-menu.php:41
+#: templates/office.php:239
+#: templates/offices.php:18
 msgid "Page URL"
-msgstr ""
+msgstr "Pagina-URL"
 
-#: admin/meta-box-menu.php:42 templates/office.php:240 templates/office.php:308
+#: admin/meta-box-menu.php:42
+#: templates/office.php:240
+#: templates/office.php:308
 #: templates/office.php:359
 msgid "REST URL"
 msgstr "REST URL"
 
-#: src/Plugin/Admin.php:117 src/Plugin/Admin.php:118
+#: src/Plugin/Admin.php:124
+#: src/Plugin/Admin.php:125
+#: src/Plugin/UserProfile.php:47
 msgid "Twinfield"
-msgstr ""
+msgstr "Twinfield"
 
-#: src/Plugin/Admin.php:129 src/Plugin/AuthorizationPostType.php:58
-msgid "Twinfield Authorizations"
-msgstr ""
-
-#: src/Plugin/Admin.php:130 src/Plugin/AuthorizationPostType.php:85
-msgid "Authorizations"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:60
-msgctxt "post type general name"
-msgid "Authorizations"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:61
-msgctxt "post type singular name"
-msgid "Authorization"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:62
-msgctxt "twinfield authorizations"
-msgid "Add New"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:63
-msgid "Add New Authorization"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:64
-msgid "Edit Authorization"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:65
-msgid "New Authorization"
-msgstr ""
-
-#: src/Plugin/AuthorizationPostType.php:66
-msgid "View Authorization"
-msgstr ""
-
+#: src/Plugin/Admin.php:136
 #: src/Plugin/AuthorizationPostType.php:67
-msgid "View Authorizations"
-msgstr ""
+msgid "Twinfield Authorizations"
+msgstr "Twinfield-autorisaties"
 
-#: src/Plugin/AuthorizationPostType.php:68
-msgid "Search Authorizations"
-msgstr ""
+#: src/Plugin/Admin.php:137
+#: src/Plugin/AuthorizationPostType.php:94
+msgid "Authorizations"
+msgstr "Autorisaties"
 
 #: src/Plugin/AuthorizationPostType.php:69
-msgid "No authorizations found."
-msgstr ""
+msgctxt "post type general name"
+msgid "Authorizations"
+msgstr "Autorisaties"
 
 #: src/Plugin/AuthorizationPostType.php:70
-msgid "Not authorizations found in Trash."
-msgstr ""
+msgctxt "post type singular name"
+msgid "Authorization"
+msgstr "Autorisatie"
 
 #: src/Plugin/AuthorizationPostType.php:71
-msgid "Parent Authorization:"
-msgstr ""
+msgctxt "twinfield authorizations"
+msgid "Add New"
+msgstr "Nieuwe toevoegen"
 
 #: src/Plugin/AuthorizationPostType.php:72
-msgid "All Authorizations"
-msgstr ""
+msgid "Add New Authorization"
+msgstr "Nieuwe autorisatie toevoegen"
 
 #: src/Plugin/AuthorizationPostType.php:73
-msgid "Authorization Archives"
-msgstr ""
+msgid "Edit Authorization"
+msgstr "Autorisatie bewerken"
 
 #: src/Plugin/AuthorizationPostType.php:74
-msgid "Authorization Attributes"
-msgstr ""
+msgid "New Authorization"
+msgstr "Nieuwe autorisatie"
 
 #: src/Plugin/AuthorizationPostType.php:75
-msgid "Insert into authorization"
-msgstr ""
+msgid "View Authorization"
+msgstr "Autorisatie bekijken"
 
 #: src/Plugin/AuthorizationPostType.php:76
-msgid "Uploaded to this authorization"
-msgstr ""
+msgid "View Authorizations"
+msgstr "Autorisaties bekijken"
 
 #: src/Plugin/AuthorizationPostType.php:77
-msgid "Featured image"
-msgstr ""
+msgid "Search Authorizations"
+msgstr "Autorisaties zoeken"
 
 #: src/Plugin/AuthorizationPostType.php:78
-msgid "Set featured image"
-msgstr ""
+msgid "No authorizations found."
+msgstr "Geen autorisaties gevonden."
 
 #: src/Plugin/AuthorizationPostType.php:79
-msgid "Remove featured image"
-msgstr ""
+msgid "Not authorizations found in Trash."
+msgstr "Geen autorisaties gevonden in de prullenbak."
 
 #: src/Plugin/AuthorizationPostType.php:80
-msgid "Use as featured image"
-msgstr ""
+msgid "Parent Authorization:"
+msgstr "Hoofdautorisatie:"
 
 #: src/Plugin/AuthorizationPostType.php:81
-msgid "Filter authorizations list"
-msgstr ""
+msgid "All Authorizations"
+msgstr "Alle autorisaties"
 
 #: src/Plugin/AuthorizationPostType.php:82
-msgid "Filter by date"
-msgstr ""
+msgid "Authorization Archives"
+msgstr "Autorisatie-archieven"
 
 #: src/Plugin/AuthorizationPostType.php:83
-msgid "Authorizations list navigation"
-msgstr ""
+msgid "Authorization Attributes"
+msgstr "Autorisatie-attributen"
 
 #: src/Plugin/AuthorizationPostType.php:84
-msgid "Authorizations list"
-msgstr ""
+msgid "Insert into authorization"
+msgstr "Invoegen in autorisatie"
+
+#: src/Plugin/AuthorizationPostType.php:85
+msgid "Uploaded to this authorization"
+msgstr "Geüpload naar deze autorisatie"
 
 #: src/Plugin/AuthorizationPostType.php:86
+msgid "Featured image"
+msgstr "Uitgelichte afbeelding"
+
+#: src/Plugin/AuthorizationPostType.php:87
+msgid "Set featured image"
+msgstr "Uitgelichte afbeelding instellen"
+
+#: src/Plugin/AuthorizationPostType.php:88
+msgid "Remove featured image"
+msgstr "Uitgelichte afbeelding verwijderen"
+
+#: src/Plugin/AuthorizationPostType.php:89
+msgid "Use as featured image"
+msgstr "Gebruiken als uitgelichte afbeelding"
+
+#: src/Plugin/AuthorizationPostType.php:90
+msgid "Filter authorizations list"
+msgstr "Autorisatielijst filteren"
+
+#: src/Plugin/AuthorizationPostType.php:91
+msgid "Filter by date"
+msgstr "Filteren op datum"
+
+#: src/Plugin/AuthorizationPostType.php:92
+msgid "Authorizations list navigation"
+msgstr "Navigatie autorisatielijst"
+
+#: src/Plugin/AuthorizationPostType.php:93
+msgid "Authorizations list"
+msgstr "Autorisatielijst"
+
+#: src/Plugin/AuthorizationPostType.php:95
 msgctxt "add new from admin bar"
 msgid "Twinfield Authorization"
-msgstr ""
+msgstr "Twinfield-autorisatie"
 
-#: src/Plugin/AuthorizationPostType.php:203 templates/customer.php:113
+#: src/Plugin/AuthorizationPostType.php:222
+#: templates/customer.php:113
 msgid "Default"
-msgstr ""
+msgstr "Standaard"
 
-#: src/Plugin/RestApi.php:82
+#: src/Plugin/RestApi.php:128
 msgid "Post ID."
-msgstr ""
+msgstr "Bericht-ID."
 
-#: src/Plugin/RestApi.php:87
+#: src/Plugin/RestApi.php:133
 msgid "Code."
-msgstr ""
+msgstr "Code."
 
 #: src/Plugin/Settings.php:101
+#: src/Plugin/UserProfile.php:52
 msgid "Default Authorization"
-msgstr ""
+msgstr "Standaard autorisatie"
 
 #: src/Plugin/Settings.php:107
 msgid "— Select Authorization —"
-msgstr ""
+msgstr "— Selecteer autorisatie —"
 
 #: src/Plugin/Settings.php:133
 msgid "— Select a page —"
-msgstr ""
+msgstr "— Selecteer een pagina —"
 
 #: src/Twinfield.php:57
 msgid "Items"
-msgstr ""
+msgstr "Artikelen"
 
 #: src/Twinfield.php:58
 msgid "Asset methods"
-msgstr ""
+msgstr "Afschrijvingsmethoden"
 
 #: src/Twinfield.php:59
 msgid "Budgets\tcode"
-msgstr ""
+msgstr "Budgetten\tcode"
 
 #: src/Twinfield.php:60
 msgid "Cashbooks and banks"
-msgstr ""
+msgstr "Kas- en bankboeken"
 
 #: src/Twinfield.php:61
 msgid "Billing schedule"
-msgstr ""
+msgstr "Factureringsschema"
 
 #: src/Twinfield.php:62
 msgid "Credit management action codes"
-msgstr ""
+msgstr "Actiecodes debiteurenbeheer"
 
 #: src/Twinfield.php:63
 msgid "Certificates"
-msgstr ""
+msgstr "Certificaten"
 
 #: src/Twinfield.php:64
 msgid "List of available (not paid) cheques"
-msgstr ""
+msgstr "Lijst met beschikbare (niet betaalde) cheques"
 
 #: src/Twinfield.php:65
 msgid "Countries"
-msgstr ""
+msgstr "Landen"
 
-#: src/Twinfield.php:66 templates/office.php:192
+#: src/Twinfield.php:66
+#: templates/office.php:192
 msgid "Currencies"
-msgstr ""
-
-#: src/Twinfield.php:67
-msgid "Dimensions (financials)"
-msgstr ""
+msgstr "Valuta"
 
 #: src/Twinfield.php:68
-msgid "Dimensions (modifiedsince option)"
-msgstr ""
+msgid "Dimension types"
+msgstr "Dimensietypes"
 
 #: src/Twinfield.php:69
-msgid "Dimensions (projects)"
-msgstr ""
+msgid "Vat types"
+msgstr "Btw-soorten"
 
 #: src/Twinfield.php:70
-msgid "Dimension types"
-msgstr ""
+msgid "Filter mappings"
+msgstr "Filtertoewijzingen"
 
 #: src/Twinfield.php:71
-msgid "Vat types"
-msgstr ""
+msgid "Payment files"
+msgstr "Betaalbestanden"
 
 #: src/Twinfield.php:72
-msgid "Filter mappings"
-msgstr ""
+msgid "Dimension groups"
+msgstr "Dimensiegroepen"
 
 #: src/Twinfield.php:73
-msgid "Payment files"
-msgstr ""
+msgid "Gateways"
+msgstr "Gateways"
 
+#: src/Plugin/AuthorizationPostType.php:281
 #: src/Twinfield.php:74
-msgid "Dimension groups"
-msgstr ""
+#: templates/office.php:212
+msgid "Hierarchies"
+msgstr "Hiërarchieën"
 
 #: src/Twinfield.php:75
-msgid "Gateways"
-msgstr ""
+msgid "Hierarchy nodes"
+msgstr "Hiërarchieknooppunten"
 
-#: src/Twinfield.php:76 templates/office.php:212
-msgid "Hierarchies"
-msgstr ""
+#: src/Twinfield.php:76
+msgid "Invoice types"
+msgstr "Factuurtypes"
 
 #: src/Twinfield.php:77
-msgid "Hierarchy nodes"
-msgstr ""
+msgid "List of available (not paid) invoices"
+msgstr "Lijst met beschikbare (niet betaalde) facturen"
 
 #: src/Twinfield.php:78
-msgid "Invoice types"
-msgstr ""
-
-#: src/Twinfield.php:79
-msgid "List of available (not paid) invoices"
-msgstr ""
+msgid "Matching types"
+msgstr "Afletteringstypes"
 
 #: src/Twinfield.php:80
-msgid "Matching types"
-msgstr ""
+msgid "Office groups"
+msgstr "Administratiegroepen"
+
+#: src/Twinfield.php:81
+msgid "Available offices for InterCompany transactions"
+msgstr "Beschikbare administraties voor intercompany-transacties"
 
 #: src/Twinfield.php:82
-msgid "Office groups"
-msgstr ""
+msgid "Payment types"
+msgstr "Betaalwijzen"
 
 #: src/Twinfield.php:83
-msgid "Available offices for InterCompany transactions"
-msgstr ""
+msgid "Paying-in slips"
+msgstr "Stortingsbewijzen"
 
 #: src/Twinfield.php:84
-msgid "Payment types"
-msgstr ""
+msgid "Periods"
+msgstr "Perioden"
 
 #: src/Twinfield.php:85
-msgid "Paying-in slips"
-msgstr ""
+msgid "Reports"
+msgstr "Rapportages"
 
 #: src/Twinfield.php:86
-msgid "Periods"
-msgstr ""
+msgid "Word templates (invoices, reminder letters)"
+msgstr "Word-sjablonen (facturen, aanmaningsbrieven)"
 
 #: src/Twinfield.php:87
-msgid "Reports"
-msgstr ""
+msgid "Reminder scenarios"
+msgstr "Aanmaningsscenario's"
 
 #: src/Twinfield.php:88
-msgid "Word templates (invoices, reminder letters)"
-msgstr ""
+msgid "User roles"
+msgstr "Gebruikersrollen"
 
 #: src/Twinfield.php:89
-msgid "Reminder scenarios"
-msgstr ""
+msgid "Sub items"
+msgstr "Subartikelen"
 
 #: src/Twinfield.php:90
-msgid "User roles"
-msgstr ""
+msgid "Distribution by periods (Budgets/Extended Trial Balance allocation)"
+msgstr "Verdeling over perioden (budgetten/uitgebreide proefbalans-toewijzing)"
 
 #: src/Twinfield.php:91
-msgid "Sub items"
-msgstr ""
+msgid "Tax groups"
+msgstr "Belastinggroepen"
 
 #: src/Twinfield.php:92
-msgid "Distribution by periods (Budgets/Extended Trial Balance allocation)"
-msgstr ""
+msgid "Time & quantities transaction types"
+msgstr "Transactietypes uren & hoeveelheden"
 
 #: src/Twinfield.php:93
-msgid "Tax groups"
-msgstr ""
+msgid "Transaction types (daybooks)"
+msgstr "Transactietypes (dagboeken)"
 
 #: src/Twinfield.php:94
-msgid "Time & quantities transaction types"
-msgstr ""
+msgid "Time project rates"
+msgstr "Projecttarieven uren"
 
 #: src/Twinfield.php:95
-msgid "Transaction types (daybooks)"
-msgstr ""
+#: templates/office.php:184
+msgid "Users"
+msgstr "Gebruikers"
 
 #: src/Twinfield.php:96
-msgid "Time project rates"
-msgstr ""
+msgid "VAT codes"
+msgstr "Btw-codes"
 
-#: src/Twinfield.php:97 templates/office.php:184
-msgid "Users"
-msgstr ""
+#: src/Twinfield.php:97
+msgid "VAT numbers of relations"
+msgstr "Btw-nummers van relaties"
 
 #: src/Twinfield.php:98
-msgid "VAT codes"
-msgstr ""
+msgid "VAT Groups"
+msgstr "Btw-groepen"
 
 #: src/Twinfield.php:99
-msgid "VAT numbers of relations"
-msgstr ""
+msgid "VAT Groups countries"
+msgstr "Landen van btw-groepen"
 
 #: src/Twinfield.php:100
-msgid "VAT Groups"
-msgstr ""
-
-#: src/Twinfield.php:101
-msgid "VAT Groups countries"
-msgstr ""
-
-#: src/Twinfield.php:102
 msgid "Translations"
-msgstr ""
+msgstr "Vertalingen"
+
+#: src/Twinfield.php:111
+msgid "General ledger transactions"
+msgstr "Grootboektransacties"
+
+#: src/Twinfield.php:112
+msgid "Transactions still to be matched"
+msgstr "Nog af te letteren transacties"
 
 #: src/Twinfield.php:113
-msgid "General ledger transactions"
-msgstr ""
+msgid "Transaction list"
+msgstr "Transactielijst"
 
 #: src/Twinfield.php:114
-msgid "Transactions still to be matched"
-msgstr ""
+msgid "Customer transactions"
+msgstr "Debiteurentransacties"
 
 #: src/Twinfield.php:115
-msgid "Transaction list"
-msgstr ""
+msgid "Supplier transactions"
+msgstr "Crediteurentransacties"
 
 #: src/Twinfield.php:116
-msgid "Customer transactions"
-msgstr ""
+msgid "Project transactions"
+msgstr "Projecttransacties"
 
 #: src/Twinfield.php:117
-msgid "Supplier transactions"
-msgstr ""
+msgid "Asset transactions"
+msgstr "Activatransacties"
 
 #: src/Twinfield.php:118
-msgid "Project transactions"
-msgstr ""
+msgid "Cash transactions"
+msgstr "Kastransacties"
 
 #: src/Twinfield.php:119
-msgid "Asset transactions"
-msgstr ""
+msgid "Bank transactions"
+msgstr "Banktransacties"
 
 #: src/Twinfield.php:120
-msgid "Cash transactions"
-msgstr ""
+msgid "Cost centers"
+msgstr "Kostenplaatsen"
 
 #: src/Twinfield.php:121
-msgid "Bank transactions"
-msgstr ""
+msgid "General Ledger (details)"
+msgstr "Grootboek (details)"
 
 #: src/Twinfield.php:122
-msgid "Cost centers"
-msgstr ""
+msgid "General Ledger (details) (v2)"
+msgstr "Grootboek (details) (v2)"
 
 #: src/Twinfield.php:123
-msgid "General Ledger (details)"
-msgstr ""
+msgid "General Ledger (details) (v3)"
+msgstr "Grootboek (details) (v3)"
 
 #: src/Twinfield.php:124
-msgid "General Ledger (details) (v2)"
-msgstr ""
+msgid "General Ledger (intercompany)"
+msgstr "Grootboek (intercompany)"
 
 #: src/Twinfield.php:125
-msgid "General Ledger (details) (v3)"
-msgstr ""
+msgid "General Ledger (intercompany)(v2)"
+msgstr "Grootboek (intercompany)(v2)"
 
 #: src/Twinfield.php:126
-msgid "General Ledger (intercompany)"
-msgstr ""
+msgid "Annual Report (totals)"
+msgstr "Jaarrapportage (totalen)"
 
 #: src/Twinfield.php:127
-msgid "General Ledger (intercompany)(v2)"
-msgstr ""
+msgid "Annual Report (YTD)"
+msgstr "Jaarrapportage (YTD)"
 
 #: src/Twinfield.php:128
-msgid "Annual Report (totals)"
-msgstr ""
+msgid "Annual Report (totals multicurrency)"
+msgstr "Jaarrapportage (totalen meerdere valuta)"
 
 #: src/Twinfield.php:129
-msgid "Annual Report (YTD)"
-msgstr ""
-
-#: src/Twinfield.php:130
-msgid "Annual Report (totals multicurrency)"
-msgstr ""
-
-#: src/Twinfield.php:131 templates/office.php:148
+#: templates/office.php:148
 msgid "Customers"
-msgstr ""
+msgstr "Debiteuren"
 
-#: src/Twinfield.php:132
+#: src/Twinfield.php:131
 msgid "Customers (v2)"
-msgstr ""
+msgstr "Debiteuren (v2)"
 
 #: src/Twinfield.php:133
 msgid "Customers (v3)"
-msgstr ""
+msgstr "Debiteuren (v3)"
 
-#: src/Twinfield.php:134 templates/customer.php:65
+#: src/Twinfield.php:134
+#: templates/customer.php:65
 msgid "Credit Management"
-msgstr ""
+msgstr "Debiteurenbeheer"
 
-#: src/Twinfield.php:135 templates/office.php:144
+#: src/Twinfield.php:135
+#: templates/office.php:144
 msgid "Suppliers"
-msgstr ""
+msgstr "Crediteuren"
 
-#: src/Twinfield.php:136
+#: src/Twinfield.php:137
 msgid "Suppliers (v2)"
-msgstr ""
-
-#: src/Twinfield.php:137 templates/office.php:156
-msgid "Fixed Assets"
-msgstr ""
+msgstr "Crediteuren (v2)"
 
 #: src/Twinfield.php:138
-msgid "Time & Expenses (Totals)"
-msgstr ""
+#: templates/office.php:156
+msgid "Fixed Assets"
+msgstr "Vaste activa"
 
 #: src/Twinfield.php:139
-msgid "Time & Expenses (Multicurrency)"
-msgstr ""
+msgid "Time & Expenses (Totals)"
+msgstr "Uren & onkosten (totalen)"
 
 #: src/Twinfield.php:140
-msgid "Time & Expenses (Details)"
-msgstr ""
+msgid "Time & Expenses (Multicurrency)"
+msgstr "Uren & onkosten (meerdere valuta)"
 
 #: src/Twinfield.php:141
-msgid "Time & Expenses (Totals per week)"
-msgstr ""
+msgid "Time & Expenses (Details)"
+msgstr "Uren & onkosten (details)"
 
 #: src/Twinfield.php:142
-msgid "Time & Expenses (Totals per period)"
-msgstr ""
+msgid "Time & Expenses (Totals per week)"
+msgstr "Uren & onkosten (totalen per week)"
 
 #: src/Twinfield.php:143
-msgid "Time & Expenses (Billing details)"
-msgstr ""
+msgid "Time & Expenses (Totals per period)"
+msgstr "Uren & onkosten (totalen per periode)"
 
 #: src/Twinfield.php:144
-msgid "Time & Expenses (Billing per week)"
-msgstr ""
+msgid "Time & Expenses (Billing details)"
+msgstr "Uren & onkosten (factureringsdetails)"
 
 #: src/Twinfield.php:145
-msgid "Time & Expenses (Billing per period)"
-msgstr ""
+msgid "Time & Expenses (Billing per week)"
+msgstr "Uren & onkosten (facturering per week)"
 
 #: src/Twinfield.php:146
-msgid "Transaction summary"
-msgstr ""
+msgid "Time & Expenses (Billing per period)"
+msgstr "Uren & onkosten (facturering per periode)"
 
 #: src/Twinfield.php:147
-msgid "Bank link details"
-msgstr ""
+msgid "Transaction summary"
+msgstr "Transactieoverzicht"
 
 #: src/Twinfield.php:148
-msgid "Vat Return status"
-msgstr ""
+msgid "Bank link details"
+msgstr "Details bankkoppeling"
 
 #: src/Twinfield.php:149
+msgid "Vat Return status"
+msgstr "Status btw-aangifte"
+
+#: src/Twinfield.php:150
 msgid "Hierarchy access"
-msgstr ""
+msgstr "Hiërarchietoegang"
 
-#: templates/customer.php:30 templates/customer.php:125
+#: templates/customer.php:30
+#: templates/customer.php:125
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
-#: templates/customer.php:35 templates/customer.php:121
-#: templates/dimension.php:99 templates/office.php:71 templates/offices.php:16
+#: templates/customer.php:35
+#: templates/customer.php:121
+#: templates/dimension.php:99
+#: templates/office.php:71
+#: templates/offices.php:16
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
-#: templates/customer.php:38 templates/dimension.php:71
-#: templates/sales-invoice.php:48 templates/transaction.php:52
+#: templates/customer.php:38
+#: templates/dimension.php:71
+#: templates/sales-invoice.php:50
+#: templates/transaction.php:52
 msgid "Office"
-msgstr ""
+msgstr "Administratie"
 
 #: templates/customer.php:46
 msgid "Financials"
-msgstr ""
+msgstr "Financieel"
 
 #: templates/customer.php:51
 msgid "Due Days"
-msgstr ""
+msgstr "Betaaltermijn (dagen)"
 
 #: templates/customer.php:54
 msgid "Electronic Billing"
-msgstr ""
+msgstr "Elektronisch factureren"
 
-#: templates/customer.php:55 templates/customer.php:78
+#: templates/customer.php:55
+#: templates/customer.php:78
 #: templates/customer.php:114
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: templates/customer.php:55 templates/customer.php:84
+#: templates/customer.php:55
+#: templates/customer.php:84
 #: templates/customer.php:114
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
-#: templates/customer.php:57 templates/customer.php:145
+#: templates/customer.php:57
+#: templates/customer.php:145
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/customer.php:70
 msgid "Send Reminder"
-msgstr ""
+msgstr "Aanmaning versturen"
 
 #: templates/customer.php:81
 msgid "Yes, by e-mail"
-msgstr ""
+msgstr "Ja, per e-mail"
 
 #: templates/customer.php:94
 msgid "Reminder Email"
-msgstr ""
+msgstr "E-mail voor aanmaningen"
 
 #: templates/customer.php:102
 msgid "Addresses"
-msgstr ""
+msgstr "Adressen"
 
-#: templates/customer.php:117 templates/dimension.php:93
-#: templates/office.php:306 templates/office.php:357
-#: templates/sales-invoice.php:52
+#: templates/customer.php:117
+#: templates/dimension.php:93
+#: templates/office.php:306
+#: templates/office.php:357
+#: templates/sales-invoice.php:54
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: templates/customer.php:129
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 #: templates/customer.php:133
 msgid "Postal Code"
-msgstr ""
+msgstr "Postcode"
 
 #: templates/customer.php:137
 msgid "City"
-msgstr ""
+msgstr "Plaats"
 
 #: templates/customer.php:141
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: templates/customer.php:149
 msgid "Phone Number"
-msgstr ""
+msgstr "Telefoonnummer"
 
 #: templates/customer.php:153
 msgid "Fax Number"
-msgstr ""
+msgstr "Faxnummer"
 
 #: templates/customer.php:157
 msgid "VAT Number"
-msgstr ""
+msgstr "Btw-nummer"
 
 #: templates/customer.php:161
 msgid "COC Number"
-msgstr ""
+msgstr "KvK-nummer"
 
-#: templates/dimension.php:46 templates/office.php:43
+#: templates/dimension.php:46
+#: templates/office.php:43
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
-#: templates/dimension.php:96 templates/office.php:68 templates/offices.php:15
-#: templates/organisation.php:13 templates/transaction.php:67
+#: templates/dimension.php:96
+#: templates/office.php:68
+#: templates/offices.php:15
+#: templates/organisation.php:13
+#: templates/transaction.php:67
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
-#: templates/dimension.php:102 templates/office.php:74 templates/offices.php:17
+#: templates/dimension.php:102
+#: templates/office.php:74
+#: templates/offices.php:17
 msgid "Shortname"
-msgstr ""
+msgstr "Korte naam"
 
-#: templates/dimension.php:113 templates/office.php:466
-#: templates/sales-invoice.php:190 templates/transaction.php:189
+#: templates/dimension.php:113
+#: templates/office.php:470
+#: templates/sales-invoice.php:192
+#: templates/transaction.php:189
 #: templates/transaction.php:241
 msgid "Request XML"
-msgstr ""
+msgstr "Request-XML"
 
-#: templates/dimension.php:120 templates/office.php:473
-#: templates/sales-invoice.php:197 templates/transaction.php:196
+#: templates/dimension.php:120
+#: templates/office.php:477
+#: templates/sales-invoice.php:199
+#: templates/transaction.php:196
 #: templates/transaction.php:248
 msgid "Response XML"
-msgstr ""
+msgstr "Response-XML"
 
-#: templates/office.php:77 templates/sales-invoice.php:72
+#: templates/office.php:77
+#: templates/sales-invoice.php:74
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: templates/office.php:85
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #: templates/office.php:97
 msgid "Created At"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #: templates/office.php:100
 msgid "Modified At"
-msgstr ""
+msgstr "Gewijzigd op"
 
 #: templates/office.php:103
 msgid "Touched"
-msgstr ""
+msgstr "Aangeraakt"
 
+#: admin/meta-box-authentication.php:25
 #: templates/office.php:106
 msgid "User"
-msgstr ""
+msgstr "Gebruiker"
 
 #: templates/office.php:113
 msgid "—"
-msgstr ""
+msgstr "—"
 
 #: templates/office.php:138
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: templates/office.php:152
 msgid "Cost Centers"
-msgstr ""
+msgstr "Kostenplaatsen"
 
 #: templates/office.php:160
 msgid "Projects"
-msgstr ""
+msgstr "Projecten"
 
 #: templates/office.php:164
 msgid "Activities"
-msgstr ""
+msgstr "Activiteiten"
 
 #: templates/office.php:168
 msgid "Dimension Groups"
-msgstr ""
+msgstr "Dimensiegroepen"
 
 #: templates/office.php:172
 msgid "Dimension Types"
-msgstr ""
+msgstr "Dimensietypes"
 
 #: templates/office.php:176
 msgid "Asset Methods"
-msgstr ""
+msgstr "Afschrijvingsmethoden"
 
 #: templates/office.php:188
 msgid "Articles"
-msgstr ""
+msgstr "Artikelen"
 
 #: templates/office.php:196
 msgid "Rates"
-msgstr ""
+msgstr "Tarieven"
 
 #: templates/office.php:200
 msgid "VAT"
-msgstr ""
+msgstr "Btw"
 
 #: templates/office.php:204
 msgid "Declarations"
-msgstr ""
+msgstr "Aangiften"
 
 #: templates/office.php:216
 msgid "Deleted Transactions"
-msgstr ""
+msgstr "Verwijderde transacties"
 
 #: templates/office.php:220
 msgid "Years"
-msgstr ""
+msgstr "Jaren"
 
 #: templates/office.php:224
 msgid "Budget"
-msgstr ""
+msgstr "Budget"
 
 #: templates/office.php:228
 msgid "Bank Statements"
-msgstr ""
+msgstr "Bankafschriften"
 
-#: templates/office.php:238 templates/office.php:307 templates/office.php:358
+#: templates/office.php:238
+#: templates/office.php:307
+#: templates/office.php:358
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: templates/office.php:301
 msgid "Finder"
-msgstr ""
+msgstr "Finder"
 
 #: templates/office.php:352
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: templates/offices.php:19
 msgid "Rest URL"
-msgstr ""
+msgstr "REST-URL"
 
 #: templates/organisation.php:16
 msgid "Universally Unique Identifier"
-msgstr ""
+msgstr "Universally Unique Identifier"
 
 #: templates/organisation.php:16
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
-#: templates/sales-invoice.php:56 templates/transaction.php:35
+#: templates/sales-invoice.php:58
+#: templates/transaction.php:35
 msgid "Number"
-msgstr ""
+msgstr "Nummer"
 
-#: templates/sales-invoice.php:60
+#: templates/sales-invoice.php:62
 msgid "Invoice Date"
-msgstr ""
+msgstr "Factuurdatum"
 
-#: templates/sales-invoice.php:64
+#: templates/sales-invoice.php:66
 msgid "Due Date"
-msgstr ""
+msgstr "Vervaldatum"
 
-#: templates/sales-invoice.php:68
+#: templates/sales-invoice.php:70
 msgid "Customer"
-msgstr ""
+msgstr "Debiteur"
 
-#: templates/sales-invoice.php:80 templates/transaction.php:47
+#: templates/sales-invoice.php:82
+#: templates/transaction.php:47
 msgid "Header"
-msgstr ""
+msgstr "Kop"
 
-#: templates/sales-invoice.php:99 templates/transaction.php:95
+#: templates/sales-invoice.php:101
+#: templates/transaction.php:95
 msgid "Lines"
-msgstr ""
-
-#: templates/sales-invoice.php:105 templates/transaction.php:101
-msgid "ID"
-msgstr ""
-
-#: templates/sales-invoice.php:106
-msgid "Article"
-msgstr ""
+msgstr "Regels"
 
 #: templates/sales-invoice.php:107
-msgid "Sub Article"
-msgstr ""
+#: templates/transaction.php:101
+msgid "ID"
+msgstr "ID"
 
 #: templates/sales-invoice.php:108
-msgid "Quantity"
-msgstr ""
+msgid "Article"
+msgstr "Artikel"
 
-#: templates/sales-invoice.php:109 templates/transaction.php:105
-msgid "Description"
-msgstr ""
+#: templates/sales-invoice.php:109
+msgid "Sub Article"
+msgstr "Subartikel"
 
 #: templates/sales-invoice.php:110
-msgid "Value Excl"
-msgstr ""
+msgid "Quantity"
+msgstr "Aantal"
 
 #: templates/sales-invoice.php:111
-msgid "Vat Value"
-msgstr ""
+#: templates/transaction.php:105
+msgid "Description"
+msgstr "Omschrijving"
 
 #: templates/sales-invoice.php:112
+msgid "Value Excl"
+msgstr "Bedrag excl."
+
+#: templates/sales-invoice.php:113
+msgid "Vat Value"
+msgstr "Btw-bedrag"
+
+#: templates/sales-invoice.php:114
 msgid "Value Inc"
-msgstr ""
+msgstr "Bedrag incl."
 
-#: templates/sales-invoice.php:113 templates/transaction.php:108
+#: templates/sales-invoice.php:115
+#: templates/transaction.php:108
 msgid "Free Text 1"
-msgstr ""
+msgstr "Vrije tekst 1"
 
-#: templates/sales-invoice.php:114 templates/transaction.php:109
+#: templates/sales-invoice.php:116
+#: templates/transaction.php:109
 msgid "Free Text 2"
-msgstr ""
+msgstr "Vrije tekst 2"
 
-#: templates/sales-invoice.php:115 templates/transaction.php:110
+#: templates/sales-invoice.php:117
+#: templates/transaction.php:110
 msgid "Free Text 3"
-msgstr ""
+msgstr "Vrije tekst 3"
 
-#: templates/sales-invoice.php:167
+#: templates/sales-invoice.php:169
 msgid "Totals"
-msgstr ""
+msgstr "Totalen"
 
 #: templates/transaction.php:39
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: templates/transaction.php:102
 msgid "Dimension 1"
-msgstr ""
+msgstr "Dimensie 1"
 
 #: templates/transaction.php:103
 msgid "Dimension 2"
-msgstr ""
+msgstr "Dimensie 2"
 
 #: templates/transaction.php:104
 msgid "Dimension 3"
-msgstr ""
+msgstr "Dimensie 3"
 
 #: templates/transaction.php:106
 msgid "Value"
-msgstr ""
+msgstr "Bedrag"
 
 #: templates/transaction.php:107
 msgid "Value Open"
+msgstr "Openstaand bedrag"
+
+#: admin/meta-box-article.php:17
+msgid "Article Code"
+msgstr "Artikelcode"
+
+#: admin/meta-box-article.php:25
+msgid "Subarticle Code"
+msgstr "Subartikelcode"
+
+#: admin/meta-box-authentication.php:29
+msgid "Expiration"
+msgstr "Vervaldatum"
+
+#: admin/meta-box-customer.php:16
+msgid "Customer ID"
+msgstr "Debiteur-ID"
+
+#: admin/meta-box-save-schedule.php:18
+msgid "Entity"
+msgstr "Entiteit"
+
+#: admin/meta-box-save-schedule.php:19
+msgid "Schedule"
+msgstr "Schema"
+
+#: src/Plugin/AuthorizationPostType.php:174
+msgid "Save schedule"
+msgstr "Schema opslaan"
+
+#: src/Plugin/AuthorizationPostType.php:286
+msgid "Bank statements"
+msgstr "Bankafschriften"
+
+#: src/Plugin/AuthorizationPostType.php:291
+msgid "Unposted bank statements"
+msgstr "Niet-geboekte bankafschriften"
+
+#: src/Plugin/AuthorizationPostType.php:296
+msgid "Fixed assets"
+msgstr "Vaste activa"
+
+#: src/Plugin/RestApi.php:2016
+msgid "Customer open items"
+msgstr "Openstaande posten debiteuren"
+
+#: src/Plugin/RestBankStatementsController.php:42
+msgid "Code of the corresponding bank book. Either `account` or `iban` or `code` should be set."
 msgstr ""
+"Code van het bijbehorende bankboek. Ofwel `account`, `iban` of `code` moet "
+"ingesteld zijn."
+
+#: src/Plugin/RestBankStatementsController.php:47
+msgid "Bank statement date. Set to the current date when left empty."
+msgstr ""
+"Datum van het bankafschrift. Wordt ingesteld op de huidige datum indien leeg."
+
+#: src/Plugin/RestBankStatementsController.php:52
+msgid "Number of the bank statement. When left empty, last available bank statement number increased by one."
+msgstr ""
+"Nummer van het bankafschrift. Indien leeg, wordt het laatst beschikbare "
+"afschriftnummer met één verhoogd."
+
+#: src/Plugin/RestBankStatementsController.php:57
+msgid "Contains the bank statement transactions."
+msgstr "Bevat de transacties van het bankafschrift."
+
+#: src/Plugin/RestBankStatementsController.php:63
+#: src/Plugin/RestBankStatementsController.php:68
+msgid "Contra account number in IBAN format. Either use `contraaccount` or `contraiban` or leave empty."
+msgstr ""
+"Tegenrekeningnummer in IBAN-formaat. Gebruik ofwel `contraaccount` of "
+"`contraiban`, of laat leeg."
+
+#: src/Plugin/RestBankStatementsController.php:74
+msgid "Reference for own use."
+msgstr "Referentie voor eigen gebruik."
+
+#: src/Plugin/RestBankStatementsController.php:80
+msgid "`debit` = money is paid by bank, `credit` = money is received by bank"
+msgstr ""
+"`debit` = geld wordt betaald door de bank, `credit` = geld wordt ontvangen "
+"door de bank"
+
+#: src/Plugin/RestBankStatementsController.php:89
+msgid "Amount of the transaction."
+msgstr "Bedrag van de transactie."
+
+#: src/Plugin/RestBankStatementsController.php:94
+msgid "Description of the transaction."
+msgstr "Omschrijving van de transactie."
+
+#: src/Plugin/RestProcessXmlController.php:41
+msgid "XML."
+msgstr "XML."
+
+#: src/Plugin/UserProfile.php:63
+msgid "— Use global default —"
+msgstr "— Gebruik globale standaard —"
+
+#. translators: %s: authorization title
+#: src/Plugin/UserProfile.php:76
+#, php-format
+msgid "Global default: %s"
+msgstr "Globale standaard: %s"
+
+#: src/Plugin/UserProfile.php:80
+msgid "No global default authorization configured."
+msgstr "Geen globale standaard autorisatie ingesteld."
+
+#: src/Twinfield.php:67
+msgid "Dimensions"
+msgstr "Dimensies"

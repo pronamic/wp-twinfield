@@ -35,7 +35,6 @@ class RestPeriodsController extends RestController {
 						'description'       => 'Authorization post ID.',
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
-						'default'           => \get_option( 'pronamic_twinfield_authorization_post_id' ),
 					],
 					'office_code'    => [
 						'description' => 'Twinfield office code.',
@@ -82,6 +81,10 @@ class RestPeriodsController extends RestController {
 	 */
 	private function get_periods( WP_REST_Request $request ) {
 		$post_id = $request->get_param( 'post_id' );
+
+		if ( empty( $post_id ) ) {
+			$post_id = $this->plugin->get_default_authorization_post_id();
+		}
 
 		$post = \get_post( $post_id );
 

@@ -50,7 +50,7 @@ class RestController {
 	 * @return WP_Post
 	 */
 	protected function handle_authorization( WP_REST_Request $request ) {
-		$authorization = (string) \get_option( 'pronamic_twinfield_authorization_post_id' );
+		$authorization = (string) $this->plugin->get_default_authorization_post_id();
 
 		if ( $request->has_param( 'authorization' ) ) {
 			$authorization = $request->get_param( 'authorization' );

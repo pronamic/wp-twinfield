@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Pronamic
+# Copyright (C) 2026 Pronamic
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
@@ -9,43 +9,71 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-02T12:10:17+00:00\n"
+"POT-Creation-Date: 2026-10-26T18:41:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pronamic-twinfield\n"
 
 #. Plugin Name of the plugin
+#: pronamic-twinfield.php
 msgid "Pronamic Twinfield"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: pronamic-twinfield.php
 msgid "https://www.pronamic.eu/plugins/twinfield/"
 msgstr ""
 
 #. Description of the plugin
+#: pronamic-twinfield.php
 msgid "Twinfield plugin for WordPress."
 msgstr ""
 
 #. Author of the plugin
+#: pronamic-twinfield.php
 msgid "Pronamic"
 msgstr ""
 
 #. Author URI of the plugin
+#: pronamic-twinfield.php
 msgid "https://www.pronamic.eu/"
 msgstr ""
 
-#: admin/meta-box-authorize.php:26
-msgid "Connect with Twinfield"
+#: admin/meta-box-article.php:17
+msgid "Article Code"
 msgstr ""
 
+#: admin/meta-box-article.php:25
+msgid "Subarticle Code"
+msgstr ""
+
+#: admin/meta-box-authentication.php:21
 #: admin/meta-box-menu.php:14
 #: templates/dimension.php:49
 #: templates/office.php:46
 msgid "Organisation"
 msgstr ""
 
+#: admin/meta-box-authentication.php:25
+#: templates/office.php:106
+msgid "User"
+msgstr ""
+
+#: admin/meta-box-authentication.php:29
+msgid "Expiration"
+msgstr ""
+
+#: admin/meta-box-authorize.php:35
+msgid "Connect with Twinfield"
+msgstr ""
+
+#: admin/meta-box-customer.php:16
+msgid "Customer ID"
+msgstr ""
+
 #: admin/meta-box-menu.php:18
-#: src/Twinfield.php:81
+#: src/Plugin/AuthorizationPostType.php:276
+#: src/Twinfield.php:79
 #: templates/office.php:180
 msgid "Offices"
 msgstr ""
@@ -76,143 +104,220 @@ msgstr ""
 msgid "REST URL"
 msgstr ""
 
-#: src/Plugin/Admin.php:117
-#: src/Plugin/Admin.php:118
+#: admin/meta-box-save-schedule.php:18
+msgid "Entity"
+msgstr ""
+
+#: admin/meta-box-save-schedule.php:19
+msgid "Schedule"
+msgstr ""
+
+#: src/Plugin/Admin.php:124
+#: src/Plugin/Admin.php:125
+#: src/Plugin/UserProfile.php:47
 msgid "Twinfield"
 msgstr ""
 
-#: src/Plugin/Admin.php:129
-#: src/Plugin/AuthorizationPostType.php:58
+#: src/Plugin/Admin.php:136
+#: src/Plugin/AuthorizationPostType.php:67
 msgid "Twinfield Authorizations"
 msgstr ""
 
-#: src/Plugin/Admin.php:130
-#: src/Plugin/AuthorizationPostType.php:85
+#: src/Plugin/Admin.php:137
+#: src/Plugin/AuthorizationPostType.php:94
 msgid "Authorizations"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:60
+#: src/Plugin/AuthorizationPostType.php:69
 msgctxt "post type general name"
 msgid "Authorizations"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:61
+#: src/Plugin/AuthorizationPostType.php:70
 msgctxt "post type singular name"
 msgid "Authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:62
+#: src/Plugin/AuthorizationPostType.php:71
 msgctxt "twinfield authorizations"
 msgid "Add New"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:63
+#: src/Plugin/AuthorizationPostType.php:72
 msgid "Add New Authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:64
+#: src/Plugin/AuthorizationPostType.php:73
 msgid "Edit Authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:65
+#: src/Plugin/AuthorizationPostType.php:74
 msgid "New Authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:66
+#: src/Plugin/AuthorizationPostType.php:75
 msgid "View Authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:67
+#: src/Plugin/AuthorizationPostType.php:76
 msgid "View Authorizations"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:68
+#: src/Plugin/AuthorizationPostType.php:77
 msgid "Search Authorizations"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:69
+#: src/Plugin/AuthorizationPostType.php:78
 msgid "No authorizations found."
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:70
+#: src/Plugin/AuthorizationPostType.php:79
 msgid "Not authorizations found in Trash."
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:71
+#: src/Plugin/AuthorizationPostType.php:80
 msgid "Parent Authorization:"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:72
+#: src/Plugin/AuthorizationPostType.php:81
 msgid "All Authorizations"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:73
+#: src/Plugin/AuthorizationPostType.php:82
 msgid "Authorization Archives"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:74
+#: src/Plugin/AuthorizationPostType.php:83
 msgid "Authorization Attributes"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:75
+#: src/Plugin/AuthorizationPostType.php:84
 msgid "Insert into authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:76
+#: src/Plugin/AuthorizationPostType.php:85
 msgid "Uploaded to this authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:77
+#: src/Plugin/AuthorizationPostType.php:86
 msgid "Featured image"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:78
+#: src/Plugin/AuthorizationPostType.php:87
 msgid "Set featured image"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:79
+#: src/Plugin/AuthorizationPostType.php:88
 msgid "Remove featured image"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:80
+#: src/Plugin/AuthorizationPostType.php:89
 msgid "Use as featured image"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:81
+#: src/Plugin/AuthorizationPostType.php:90
 msgid "Filter authorizations list"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:82
+#: src/Plugin/AuthorizationPostType.php:91
 msgid "Filter by date"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:83
+#: src/Plugin/AuthorizationPostType.php:92
 msgid "Authorizations list navigation"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:84
+#: src/Plugin/AuthorizationPostType.php:93
 msgid "Authorizations list"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:86
+#: src/Plugin/AuthorizationPostType.php:95
 msgctxt "add new from admin bar"
 msgid "Twinfield Authorization"
 msgstr ""
 
-#: src/Plugin/AuthorizationPostType.php:203
+#: src/Plugin/AuthorizationPostType.php:174
+msgid "Save schedule"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:222
 #: templates/customer.php:113
 msgid "Default"
 msgstr ""
 
-#: src/Plugin/RestApi.php:82
+#: src/Plugin/AuthorizationPostType.php:281
+#: src/Twinfield.php:74
+#: templates/office.php:212
+msgid "Hierarchies"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:286
+msgid "Bank statements"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:291
+msgid "Unposted bank statements"
+msgstr ""
+
+#: src/Plugin/AuthorizationPostType.php:296
+msgid "Fixed assets"
+msgstr ""
+
+#: src/Plugin/RestApi.php:128
 msgid "Post ID."
 msgstr ""
 
-#: src/Plugin/RestApi.php:87
+#: src/Plugin/RestApi.php:133
 msgid "Code."
 msgstr ""
 
+#: src/Plugin/RestApi.php:2016
+msgid "Customer open items"
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:42
+msgid "Code of the corresponding bank book. Either `account` or `iban` or `code` should be set."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:47
+msgid "Bank statement date. Set to the current date when left empty."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:52
+msgid "Number of the bank statement. When left empty, last available bank statement number increased by one."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:57
+msgid "Contains the bank statement transactions."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:63
+#: src/Plugin/RestBankStatementsController.php:68
+msgid "Contra account number in IBAN format. Either use `contraaccount` or `contraiban` or leave empty."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:74
+msgid "Reference for own use."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:80
+msgid "`debit` = money is paid by bank, `credit` = money is received by bank"
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:89
+msgid "Amount of the transaction."
+msgstr ""
+
+#: src/Plugin/RestBankStatementsController.php:94
+msgid "Description of the transaction."
+msgstr ""
+
+#: src/Plugin/RestProcessXmlController.php:41
+msgid "XML."
+msgstr ""
+
 #: src/Plugin/Settings.php:101
+#: src/Plugin/UserProfile.php:52
 msgid "Default Authorization"
 msgstr ""
 
@@ -222,6 +327,20 @@ msgstr ""
 
 #: src/Plugin/Settings.php:133
 msgid "— Select a page —"
+msgstr ""
+
+#: src/Plugin/UserProfile.php:63
+msgid "— Use global default —"
+msgstr ""
+
+#. translators: %s: authorization title
+#: src/Plugin/UserProfile.php:76
+#, php-format
+msgid "Global default: %s"
+msgstr ""
+
+#: src/Plugin/UserProfile.php:80
+msgid "No global default authorization configured."
 msgstr ""
 
 #: src/Twinfield.php:57
@@ -266,225 +385,212 @@ msgid "Currencies"
 msgstr ""
 
 #: src/Twinfield.php:67
-msgid "Dimensions (financials)"
+msgid "Dimensions"
 msgstr ""
 
 #: src/Twinfield.php:68
-msgid "Dimensions (modifiedsince option)"
-msgstr ""
-
-#: src/Twinfield.php:69
-msgid "Dimensions (projects)"
-msgstr ""
-
-#: src/Twinfield.php:70
 msgid "Dimension types"
 msgstr ""
 
-#: src/Twinfield.php:71
+#: src/Twinfield.php:69
 msgid "Vat types"
 msgstr ""
 
-#: src/Twinfield.php:72
+#: src/Twinfield.php:70
 msgid "Filter mappings"
 msgstr ""
 
-#: src/Twinfield.php:73
+#: src/Twinfield.php:71
 msgid "Payment files"
 msgstr ""
 
-#: src/Twinfield.php:74
+#: src/Twinfield.php:72
 msgid "Dimension groups"
 msgstr ""
 
-#: src/Twinfield.php:75
+#: src/Twinfield.php:73
 msgid "Gateways"
 msgstr ""
 
-#: src/Twinfield.php:76
-#: templates/office.php:212
-msgid "Hierarchies"
-msgstr ""
-
-#: src/Twinfield.php:77
+#: src/Twinfield.php:75
 msgid "Hierarchy nodes"
 msgstr ""
 
-#: src/Twinfield.php:78
+#: src/Twinfield.php:76
 msgid "Invoice types"
 msgstr ""
 
-#: src/Twinfield.php:79
+#: src/Twinfield.php:77
 msgid "List of available (not paid) invoices"
 msgstr ""
 
-#: src/Twinfield.php:80
+#: src/Twinfield.php:78
 msgid "Matching types"
 msgstr ""
 
-#: src/Twinfield.php:82
+#: src/Twinfield.php:80
 msgid "Office groups"
 msgstr ""
 
-#: src/Twinfield.php:83
+#: src/Twinfield.php:81
 msgid "Available offices for InterCompany transactions"
 msgstr ""
 
-#: src/Twinfield.php:84
+#: src/Twinfield.php:82
 msgid "Payment types"
 msgstr ""
 
-#: src/Twinfield.php:85
+#: src/Twinfield.php:83
 msgid "Paying-in slips"
 msgstr ""
 
-#: src/Twinfield.php:86
+#: src/Twinfield.php:84
 msgid "Periods"
 msgstr ""
 
-#: src/Twinfield.php:87
+#: src/Twinfield.php:85
 msgid "Reports"
 msgstr ""
 
-#: src/Twinfield.php:88
+#: src/Twinfield.php:86
 msgid "Word templates (invoices, reminder letters)"
 msgstr ""
 
-#: src/Twinfield.php:89
+#: src/Twinfield.php:87
 msgid "Reminder scenarios"
 msgstr ""
 
-#: src/Twinfield.php:90
+#: src/Twinfield.php:88
 msgid "User roles"
 msgstr ""
 
-#: src/Twinfield.php:91
+#: src/Twinfield.php:89
 msgid "Sub items"
 msgstr ""
 
-#: src/Twinfield.php:92
+#: src/Twinfield.php:90
 msgid "Distribution by periods (Budgets/Extended Trial Balance allocation)"
 msgstr ""
 
-#: src/Twinfield.php:93
+#: src/Twinfield.php:91
 msgid "Tax groups"
 msgstr ""
 
-#: src/Twinfield.php:94
+#: src/Twinfield.php:92
 msgid "Time & quantities transaction types"
 msgstr ""
 
-#: src/Twinfield.php:95
+#: src/Twinfield.php:93
 msgid "Transaction types (daybooks)"
 msgstr ""
 
-#: src/Twinfield.php:96
+#: src/Twinfield.php:94
 msgid "Time project rates"
 msgstr ""
 
-#: src/Twinfield.php:97
+#: src/Twinfield.php:95
 #: templates/office.php:184
 msgid "Users"
 msgstr ""
 
-#: src/Twinfield.php:98
+#: src/Twinfield.php:96
 msgid "VAT codes"
 msgstr ""
 
-#: src/Twinfield.php:99
+#: src/Twinfield.php:97
 msgid "VAT numbers of relations"
 msgstr ""
 
-#: src/Twinfield.php:100
+#: src/Twinfield.php:98
 msgid "VAT Groups"
 msgstr ""
 
-#: src/Twinfield.php:101
+#: src/Twinfield.php:99
 msgid "VAT Groups countries"
 msgstr ""
 
-#: src/Twinfield.php:102
+#: src/Twinfield.php:100
 msgid "Translations"
 msgstr ""
 
-#: src/Twinfield.php:113
+#: src/Twinfield.php:111
 msgid "General ledger transactions"
 msgstr ""
 
-#: src/Twinfield.php:114
+#: src/Twinfield.php:112
 msgid "Transactions still to be matched"
 msgstr ""
 
-#: src/Twinfield.php:115
+#: src/Twinfield.php:113
 msgid "Transaction list"
 msgstr ""
 
-#: src/Twinfield.php:116
+#: src/Twinfield.php:114
 msgid "Customer transactions"
 msgstr ""
 
-#: src/Twinfield.php:117
+#: src/Twinfield.php:115
 msgid "Supplier transactions"
 msgstr ""
 
-#: src/Twinfield.php:118
+#: src/Twinfield.php:116
 msgid "Project transactions"
 msgstr ""
 
-#: src/Twinfield.php:119
+#: src/Twinfield.php:117
 msgid "Asset transactions"
 msgstr ""
 
-#: src/Twinfield.php:120
+#: src/Twinfield.php:118
 msgid "Cash transactions"
 msgstr ""
 
-#: src/Twinfield.php:121
+#: src/Twinfield.php:119
 msgid "Bank transactions"
 msgstr ""
 
-#: src/Twinfield.php:122
+#: src/Twinfield.php:120
 msgid "Cost centers"
 msgstr ""
 
-#: src/Twinfield.php:123
+#: src/Twinfield.php:121
 msgid "General Ledger (details)"
 msgstr ""
 
-#: src/Twinfield.php:124
+#: src/Twinfield.php:122
 msgid "General Ledger (details) (v2)"
 msgstr ""
 
-#: src/Twinfield.php:125
+#: src/Twinfield.php:123
 msgid "General Ledger (details) (v3)"
 msgstr ""
 
-#: src/Twinfield.php:126
+#: src/Twinfield.php:124
 msgid "General Ledger (intercompany)"
 msgstr ""
 
-#: src/Twinfield.php:127
+#: src/Twinfield.php:125
 msgid "General Ledger (intercompany)(v2)"
 msgstr ""
 
-#: src/Twinfield.php:128
+#: src/Twinfield.php:126
 msgid "Annual Report (totals)"
 msgstr ""
 
-#: src/Twinfield.php:129
+#: src/Twinfield.php:127
 msgid "Annual Report (YTD)"
 msgstr ""
 
-#: src/Twinfield.php:130
+#: src/Twinfield.php:128
 msgid "Annual Report (totals multicurrency)"
 msgstr ""
 
-#: src/Twinfield.php:131
+#: src/Twinfield.php:129
 #: templates/office.php:148
 msgid "Customers"
 msgstr ""
 
-#: src/Twinfield.php:132
+#: src/Twinfield.php:131
 msgid "Customers (v2)"
 msgstr ""
 
@@ -502,60 +608,60 @@ msgstr ""
 msgid "Suppliers"
 msgstr ""
 
-#: src/Twinfield.php:136
+#: src/Twinfield.php:137
 msgid "Suppliers (v2)"
 msgstr ""
 
-#: src/Twinfield.php:137
+#: src/Twinfield.php:138
 #: templates/office.php:156
 msgid "Fixed Assets"
 msgstr ""
 
-#: src/Twinfield.php:138
+#: src/Twinfield.php:139
 msgid "Time & Expenses (Totals)"
 msgstr ""
 
-#: src/Twinfield.php:139
+#: src/Twinfield.php:140
 msgid "Time & Expenses (Multicurrency)"
 msgstr ""
 
-#: src/Twinfield.php:140
+#: src/Twinfield.php:141
 msgid "Time & Expenses (Details)"
 msgstr ""
 
-#: src/Twinfield.php:141
+#: src/Twinfield.php:142
 msgid "Time & Expenses (Totals per week)"
 msgstr ""
 
-#: src/Twinfield.php:142
+#: src/Twinfield.php:143
 msgid "Time & Expenses (Totals per period)"
 msgstr ""
 
-#: src/Twinfield.php:143
+#: src/Twinfield.php:144
 msgid "Time & Expenses (Billing details)"
 msgstr ""
 
-#: src/Twinfield.php:144
+#: src/Twinfield.php:145
 msgid "Time & Expenses (Billing per week)"
 msgstr ""
 
-#: src/Twinfield.php:145
+#: src/Twinfield.php:146
 msgid "Time & Expenses (Billing per period)"
 msgstr ""
 
-#: src/Twinfield.php:146
+#: src/Twinfield.php:147
 msgid "Transaction summary"
 msgstr ""
 
-#: src/Twinfield.php:147
+#: src/Twinfield.php:148
 msgid "Bank link details"
 msgstr ""
 
-#: src/Twinfield.php:148
+#: src/Twinfield.php:149
 msgid "Vat Return status"
 msgstr ""
 
-#: src/Twinfield.php:149
+#: src/Twinfield.php:150
 msgid "Hierarchy access"
 msgstr ""
 
@@ -574,7 +680,7 @@ msgstr ""
 
 #: templates/customer.php:38
 #: templates/dimension.php:71
-#: templates/sales-invoice.php:48
+#: templates/sales-invoice.php:50
 #: templates/transaction.php:52
 msgid "Office"
 msgstr ""
@@ -628,7 +734,7 @@ msgstr ""
 #: templates/dimension.php:93
 #: templates/office.php:306
 #: templates/office.php:357
-#: templates/sales-invoice.php:52
+#: templates/sales-invoice.php:54
 msgid "Type"
 msgstr ""
 
@@ -684,23 +790,23 @@ msgid "Shortname"
 msgstr ""
 
 #: templates/dimension.php:113
-#: templates/office.php:466
-#: templates/sales-invoice.php:190
+#: templates/office.php:470
+#: templates/sales-invoice.php:192
 #: templates/transaction.php:189
 #: templates/transaction.php:241
 msgid "Request XML"
 msgstr ""
 
 #: templates/dimension.php:120
-#: templates/office.php:473
-#: templates/sales-invoice.php:197
+#: templates/office.php:477
+#: templates/sales-invoice.php:199
 #: templates/transaction.php:196
 #: templates/transaction.php:248
 msgid "Response XML"
 msgstr ""
 
 #: templates/office.php:77
-#: templates/sales-invoice.php:72
+#: templates/sales-invoice.php:74
 msgid "Status"
 msgstr ""
 
@@ -718,10 +824,6 @@ msgstr ""
 
 #: templates/office.php:103
 msgid "Touched"
-msgstr ""
-
-#: templates/office.php:106
-msgid "User"
 msgstr ""
 
 #: templates/office.php:113
@@ -814,83 +916,83 @@ msgstr ""
 msgid "UUID"
 msgstr ""
 
-#: templates/sales-invoice.php:56
+#: templates/sales-invoice.php:58
 #: templates/transaction.php:35
 msgid "Number"
 msgstr ""
 
-#: templates/sales-invoice.php:60
+#: templates/sales-invoice.php:62
 msgid "Invoice Date"
 msgstr ""
 
-#: templates/sales-invoice.php:64
+#: templates/sales-invoice.php:66
 msgid "Due Date"
 msgstr ""
 
-#: templates/sales-invoice.php:68
+#: templates/sales-invoice.php:70
 msgid "Customer"
 msgstr ""
 
-#: templates/sales-invoice.php:80
+#: templates/sales-invoice.php:82
 #: templates/transaction.php:47
 msgid "Header"
 msgstr ""
 
-#: templates/sales-invoice.php:99
+#: templates/sales-invoice.php:101
 #: templates/transaction.php:95
 msgid "Lines"
 msgstr ""
 
-#: templates/sales-invoice.php:105
+#: templates/sales-invoice.php:107
 #: templates/transaction.php:101
 msgid "ID"
 msgstr ""
 
-#: templates/sales-invoice.php:106
+#: templates/sales-invoice.php:108
 msgid "Article"
 msgstr ""
 
-#: templates/sales-invoice.php:107
+#: templates/sales-invoice.php:109
 msgid "Sub Article"
 msgstr ""
 
-#: templates/sales-invoice.php:108
+#: templates/sales-invoice.php:110
 msgid "Quantity"
 msgstr ""
 
-#: templates/sales-invoice.php:109
+#: templates/sales-invoice.php:111
 #: templates/transaction.php:105
 msgid "Description"
 msgstr ""
 
-#: templates/sales-invoice.php:110
+#: templates/sales-invoice.php:112
 msgid "Value Excl"
 msgstr ""
 
-#: templates/sales-invoice.php:111
+#: templates/sales-invoice.php:113
 msgid "Vat Value"
 msgstr ""
 
-#: templates/sales-invoice.php:112
+#: templates/sales-invoice.php:114
 msgid "Value Inc"
 msgstr ""
 
-#: templates/sales-invoice.php:113
+#: templates/sales-invoice.php:115
 #: templates/transaction.php:108
 msgid "Free Text 1"
 msgstr ""
 
-#: templates/sales-invoice.php:114
+#: templates/sales-invoice.php:116
 #: templates/transaction.php:109
 msgid "Free Text 2"
 msgstr ""
 
-#: templates/sales-invoice.php:115
+#: templates/sales-invoice.php:117
 #: templates/transaction.php:110
 msgid "Free Text 3"
 msgstr ""
 
-#: templates/sales-invoice.php:167
+#: templates/sales-invoice.php:169
 msgid "Totals"
 msgstr ""
 
