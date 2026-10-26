@@ -11,7 +11,8 @@
 		"https://downloads.wordpress.org/plugin/wp-rest-api-log.zip"
 	],
 	"mappings": {
-		"wp-content/plugins/pronamic-twinfield-dev": "./"
+		"wp-content/plugins/pronamic-twinfield-dev": "./",
+		"wp-content/plugins/pronamic-twinfield": "./build/pronamic-twinfield/"
 	},
 	"lifecycleScripts": {
 		"afterStart": "bash .wp-env-after-start.sh"

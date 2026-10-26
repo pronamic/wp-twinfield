@@ -1,77 +1,44 @@
-# Plugin
-/tests/
-/examples/
-/package.json
+.distignore
 
-# WP-CLI distribution archive
-# https://wordpress.stackexchange.com/questions/290025/what-tools-respect-distignore
-/.distignore
-
-# IntelliJ’s project specific settings files
-/.idea
-
-# ApiGen
-/apigen.neon
-
-# Desktop Services Store
 .DS_Store
 
-# Git
-/.git
-/.gitignore
+.editorconfig
 
-# GitHub
-/.github/
+.git/
+.github/
+.gitattributes
+.gitignore
 
-# Grunt
-/Gruntfile.js
+.phplint.yml
 
-# PHP Mess Detector (https://phpmd.org/)
+.wp-env.json
+.wp-env-after-start.sh
+
+phpcs.xml.dist
+
 phpmd.ruleset.xml
-phpmd.xml.dist
 
-# PHPUnit (https://phpunit.de/)
-phpunit.xml
 phpunit.xml.dist
 
-# Travis CI (https://travis-ci.org/)
-.travis.yml
+/apigen.neon
 
-# Build
-/build/
-
-# Deployer.org
 /deploy.php
 
-# Node.js
-/node_modules/
+/docs/
 
-# WordPress
+/examples/
+
+/export/
+
+/package.json
+/package-lock.json
+
+/rector.php
+
+/tests/
+
 /wordpress/
 
-# Composer bin plugin
-/vendor-bin/
+/build/
 
-# PHP_CodeSniffer
-/phpcs.xml
-/phpcs.xml.dist
-
-# PHP Coding Standards Fixer
-.php-cs-fixer.cache
-
-# PHPStan
-/phpstan.neon
-/phpstan.neon.dist
-
-# Psalm
-/psalm.xml
-/psalm.xml.dist
-
-# wp-env
-/wp-env.json
-
-# Yarn (https://yarnpkg.com/)
-yarn.lock
-
-# Export
-/export/
+/node_modules/

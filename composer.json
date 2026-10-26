@@ -41,13 +41,36 @@
 		"pronamic/wp-coding-standards": "^2.0",
 		"rector/rector": "^2.0",
 		"sensiolabs/security-checker": "^6.0",
+		"wp-cli/dist-archive-command": "*",
 		"wp-cli/wp-cli-bundle": "^2.11",
 		"yoast/phpunit-polyfills": "^2.0"
 	},
+	"extra": {
+		"wp-slug": "pronamic-twinfield"
+	},
 	"scripts": {
+		"build": [
+			"rm -rf ./build/stage-1",
+			"rsync --recursive --verbose --exclude-from=.distignore --exclude=/vendor/ ./ ./build/stage-1/",
+			"composer install --no-dev --no-scripts --prefer-dist --optimize-autoloader --working-dir=./build/stage-1/",
+			"rsync --recursive --delete --delete-excluded --verbose --exclude-from=.distignore ./build/stage-1/ ./build/pronamic-twinfield/",
+			"vendor/bin/wp i18n make-pot ./build/pronamic-twinfield/ --slug=pronamic-twinfield",
+			"vendor/bin/wp i18n make-mo ./build/pronamic-twinfield/languages/",
+			"vendor/bin/wp dist-archive ./build/pronamic-twinfield/ --plugin-dirname=pronamic-twinfield --force"
+		],
+		"dist-archive": "wp dist-archive . --plugin-dirname=pronamic-twinfield",
+		"make-pot": [
+			"@build",
+			"rsync --recursive --delete --verbose ./build/pronamic-twinfield/languages/ ./languages/",
+			"vendor/bin/wp i18n update-po ./languages/pronamic-twinfield.pot"
+		],
+		"deploy": [
+			"Composer\\Config::disableProcessTimeout",
+			"DEPLOYER_IMPORT=${DEPLOYER_IMPORT:-$HOME/deployer.php} vendor/bin/dep deploy"
+		],
 		"phpcs": "vendor/bin/phpcs -s -v",
+		"phpcbf": "vendor/bin/phpcbf",
 		"phplint": "vendor/bin/phplint",
-		"make-pot": "wp i18n make-pot . --slug=pronamic-twinfield --exclude=wordpress",
 		"post-install-cmd": "WorDBless\\Composer\\InstallDropin::copy",
 		"post-update-cmd": "WorDBless\\Composer\\InstallDropin::copy"
 	}
